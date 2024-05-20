@@ -1,0 +1,31 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+
+.form>* {
+    margin-bottom: 1rem;
+}
+
+.form input:valid {
+    background-color: rgb(171, 245, 171);
+}
+
+.inputWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    margin-right: 2%;
+    height: 2rem;
+}
+
+.submitWrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+}
