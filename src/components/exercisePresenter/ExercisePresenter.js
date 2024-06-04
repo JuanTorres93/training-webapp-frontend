@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import styles from './ExercisePresenter.module.css'
 
 function ExercisePresenter({ id, name, description }) {
     return (
-        <>
-            <div className="exercise-name">{name}</div>
-            <div className="exercise-description">{description}</div>
-        </>
+        <div className={styles.exercisePresenter}>
+            <div className={styles.exerciseName}>{name}</div>
+            <div className={styles.exerciseDescription}>{description}</div>
+        </div>
     );
 };
 

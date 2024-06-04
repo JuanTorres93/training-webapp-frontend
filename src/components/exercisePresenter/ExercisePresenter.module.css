@@ -1,0 +1,27 @@
+.exercisePresenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+    background-color: var(--primary-color);
+    border-radius: .8rem;
+    border: var(--font-color) solid .15rem;
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
+
+.exercisePresenter:hover {
+    border: var(--accent-color) solid .15rem;
+}
+
+.exercisePresenter:hover .exerciseName {
+    color: var(--accent-color);
+}
+
+.exerciseName {
+    font-weight: bold;
+}
+
+.exerciseDescription {
+    font-size: .8rem;
+}

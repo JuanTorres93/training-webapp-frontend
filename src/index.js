@@ -21,7 +21,11 @@ import RegisterPage from './routes/RegisterPage';
 import LoginPage from './routes/LoginPage';
 import CartPage from './routes/CartPage';
 // Link css file
+import './variables.css'
 import './index.css'
+
+// TODO DELETE IN PRODUCTION
+import ComponentDesign from './routes/ComponentDesign';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -39,6 +43,11 @@ const router = createBrowserRouter([
     errorElement: <DefaultErrorPage />,
     children: [
       { index: true, element: <p>Default element for "/"" path, since there are no nested route</p> },
+      {
+        // TODO delete all this path in PRODUCTION
+        path: "componentDesign",
+        element: <ComponentDesign />
+      },
       {
         path: "generic-child",
         element: <GenericChild />
