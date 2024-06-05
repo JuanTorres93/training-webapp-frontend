@@ -1,0 +1,39 @@
+.recentWorkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  background-color: var(--background-color);
+  border-radius: 0.5rem;
+  border: var(--font-color) solid 0.15rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s;
+  width: 90%;
+  max-width: 500px;
+  /* Space between children */
+  gap: 0.3rem;
+}
+
+.name {
+    font-weight: bold;
+    transition: all 0.1s;
+}
+
+.recentWorkout:hover {
+  border: var(--accent-color) solid 0.15rem;
+}
+
+.recentWorkout:hover .name {
+  color: var(--accent-color);
+}
+
+.fullDateInfo {
+  display: flex;
+  align-items: center;
+}
+
+.agoSentence {
+  margin-right: 0.5rem;
+}
