@@ -20,6 +20,7 @@ import SingleProductPage from './routes/SingleProductPage';
 import RegisterPage from './routes/RegisterPage';
 import LoginPage from './routes/LoginPage';
 import CartPage from './routes/CartPage';
+
 // Link css files
 import './variables.css'
 import './index.css'
