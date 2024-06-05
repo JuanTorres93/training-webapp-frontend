@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import styles from './ExercisePresenter.module.css'
 
 function ExercisePresenter({ id, name, description }) {
+    // The ExercisePresenter component renders the name and description of an exercise.
+
     return (
-        <div className={styles.exercisePresenter}>
+        <div data-testid="exercisePresenter" className={styles.exercisePresenter}>
             <div className={styles.exerciseName}>{name}</div>
             <div className={styles.exerciseDescription}>{description}</div>
         </div>

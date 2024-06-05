@@ -8,6 +8,10 @@
     border: var(--font-color) solid .15rem;
     padding: .5rem 1rem;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: all .1s;
+    width: 90%;
+    max-width: 500px;
 }
 
 .exercisePresenter:hover {
