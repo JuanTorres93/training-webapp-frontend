@@ -1,6 +1,7 @@
 import ExercisePresenter from "../components/exercisePresenter/ExercisePresenter";
 import ExerciseList from "../components/exerciseList/ExerciseList";
 import RecentWorkoutPresenter from "../components/recentWorkoutPresenter/RecentWorkoutPresenter";
+import RecentWorkoutsCarousel from "../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 
 const exercises = [
     { id: 1, name: "Pull up", description: "A compound movement that targets the back, biceps, and forearms." },
@@ -33,6 +34,15 @@ export default function ComponentDesign() {
             <br /> <br />
             RecentWorkoutPresenter <br /> <br />
             <RecentWorkoutPresenter id={1} date="2024-06-05" name="Push routine" />
+            <br /> <br />
+            RecentWorkoutCarousel <br /> <br />
+            <RecentWorkoutsCarousel recentWorkouts={[
+                {id: 1, date: "2024-06-05", name: "Push routine"},
+                {id: 2, date: "2024-06-04", name: "Pull routine"},
+                {id: 3, date: "2024-06-03", name: "Leg routine"},
+                {id: 4, date: "2024-06-02", name: "Push routine"},
+                {id: 5, date: "2024-06-01", name: "Pull routine"},
+            ]} />
         </>
     );
 };

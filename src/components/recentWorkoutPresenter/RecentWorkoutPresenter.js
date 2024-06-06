@@ -46,7 +46,7 @@ function RecentWorkoutPresenter({ id, date, name }) {
     }
 
     return (
-        <div data-testid="recentWorkout" className={styles.recentWorkout}>
+        <div data-testid="recentWorkoutPresenter" className={styles.recentWorkout}>
             <div className={styles.name}>{name}</div>
 
             <div className={styles.fullDateInfo}>
@@ -55,8 +55,8 @@ function RecentWorkoutPresenter({ id, date, name }) {
                 </div>
                 <div className={styles.date}>
                     ({new Date(date).toISOString().split('T')[0]})
+                </div>
             </div>
-    </div>
         </div>
     );
 };

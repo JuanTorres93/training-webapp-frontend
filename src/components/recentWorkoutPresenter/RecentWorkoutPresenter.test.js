@@ -16,10 +16,10 @@ describe('RecentWorkoutPresenter', () => {
         });
 
         it('renders workout date', () => {
-            const workoutDate = screen.getByText(date);
+            const workoutDate = screen.getByText(new RegExp(date));
 
             expect(workoutDate).toBeInTheDocument();
-            expect(workoutDate.innerHTML).toStrictEqual(date);
+            expect(workoutDate.innerHTML).toContain(date);
         });
 
         it('renders workout name', () => {

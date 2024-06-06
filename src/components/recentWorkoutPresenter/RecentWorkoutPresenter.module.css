@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: flex-start;
+  align-items: center;
   background-color: var(--background-color);
   border-radius: 0.5rem;
   border: var(--font-color) solid 0.15rem;
@@ -11,7 +11,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: all 0.1s;
   width: 90%;
-  max-width: 500px;
+  height: 100%;
+  max-height: 150px;
+  max-width: 200px;
   /* Space between children */
   gap: 0.3rem;
 }
