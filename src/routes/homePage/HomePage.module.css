@@ -1,0 +1,17 @@
+.homePageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.buttonsContainer {
+    display: flex;
+}
+
+.squareButton {
+    padding: 3rem 2rem;
+    margin: 1.5rem;
+    font-weight: 600;
+}

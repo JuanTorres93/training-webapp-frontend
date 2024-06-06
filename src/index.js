@@ -13,6 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { 
   Elements,   // Wrapper component to include stripe components for processing payments
  } from '@stripe/react-stripe-js';
+import HomePage from './routes/homePage/HomePage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
         // TODO delete all this path in PRODUCTION
         path: "componentDesign",
         element: <ComponentDesign />
+      },
+      {
+        path: "home",
+        element: <HomePage />
       },
       {
         path: "generic-child",

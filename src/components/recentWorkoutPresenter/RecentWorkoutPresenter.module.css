@@ -18,6 +18,11 @@
   gap: 0.3rem;
 }
 
+/* Children's text of .recentWorkout is not selectable */
+.recentWorkout * {
+  user-select: none;
+}
+
 .name {
     font-weight: bold;
     transition: all 0.1s;
