@@ -1,3 +1,4 @@
+/* These styles are shared with ExerciseSetPresenter */
 .exercisePresenter {
     display: flex;
     flex-direction: column;
@@ -22,8 +23,13 @@
     color: var(--accent-color);
 }
 
+.exercisePresenter:hover input {
+    color: var(--accent-color);
+}
+
 .exerciseName {
     font-weight: bold;
+    transition: all .1s;
 }
 
 .exerciseDescription {

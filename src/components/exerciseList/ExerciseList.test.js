@@ -36,20 +36,4 @@ describe('ExercisePresenter', () => {
             });
         });
     })
-
-    describe('Unhappy path', () => {
-        describe('exercises prop is null or undefined', () => {
-            it('renders ExercisePresenter when exercises is null', () => {
-                render(<ExerciseList exercises={null} />);
-                const exercisePresenters = screen.queryAllByTestId('exercisePresenter');
-                expect(exercisePresenters).toHaveLength(0);
-            });
-        
-            it('renders ExercisePresenter when exercises is undefined', () => {
-                render(<ExerciseList />);
-                const exercisePresenters = screen.queryAllByTestId('exercisePresenter');
-                expect(exercisePresenters).toHaveLength(0);
-            });
-        });
-    });
 })

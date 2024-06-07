@@ -2,6 +2,7 @@ import ExercisePresenter from "../components/exercisePresenter/ExercisePresenter
 import ExerciseList from "../components/exerciseList/ExerciseList";
 import RecentWorkoutPresenter from "../components/recentWorkoutPresenter/RecentWorkoutPresenter";
 import RecentWorkoutsCarousel from "../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
+import ExerciseSetPresenter from "../components/exerciseSetPresenter/ExerciseSetPresenter";
 
 const exercises = [
     { id: 1, name: "Pull up", description: "A compound movement that targets the back, biceps, and forearms." },
@@ -43,6 +44,8 @@ export default function ComponentDesign() {
                 {id: 4, date: "2024-06-02", name: "Push routine"},
                 {id: 5, date: "2024-06-01", name: "Pull routine"},
             ]} />
+            ExerciseSetPresenter <br /> <br />
+            <ExerciseSetPresenter id={1} name="Pull up" description="Upper body exercise with emphasis on the delts." />
         </>
     );
 };
