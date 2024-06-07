@@ -46,6 +46,9 @@ export default function ComponentDesign() {
             ]} />
             ExerciseSetPresenter <br /> <br />
             <ExerciseSetPresenter id={1} name="Pull up" description="Upper body exercise with emphasis on the delts." />
+            <br /> <br />
+            ExerciseList with ExerciseSetPresenter <br /> <br />
+            <ExerciseList exercises={exercises} isSetPresenter={true} />
         </>
     );
 };
