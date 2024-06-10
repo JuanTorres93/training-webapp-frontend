@@ -44,3 +44,23 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+/* Make text input fields coherent with app style */
+input[type="text"]:focus, textarea:focus {
+    /* border-color: var(--accent-color); */
+    outline: none;
+}
+
+input[type="text"], textarea {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px;
+    width: 90%;
+    transition: all .1s;
+}
+
+input[type="text"]:hover, textarea:hover {
+    border-color: var(--accent-color);
+}

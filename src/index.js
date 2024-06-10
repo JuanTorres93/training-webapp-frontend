@@ -14,6 +14,7 @@ import {
   Elements,   // Wrapper component to include stripe components for processing payments
  } from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
+import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <HomePage />
+      },
+      {
+        path: "createTemplate",
+        element: <CreateTemplatePage />
       },
       {
         path: "generic-child",
