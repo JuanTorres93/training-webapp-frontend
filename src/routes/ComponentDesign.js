@@ -1,5 +1,5 @@
 import ExercisePresenter from "../components/exercisePresenter/ExercisePresenter";
-import ExerciseList from "../components/exerciseList/ExerciseList";
+import ExerciseList from "../components/listNameDescription/ListNameDescription";
 import RecentWorkoutPresenter from "../components/recentWorkoutPresenter/RecentWorkoutPresenter";
 import RecentWorkoutsCarousel from "../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import ExerciseSetPresenter from "../components/exerciseSetPresenter/ExerciseSetPresenter";

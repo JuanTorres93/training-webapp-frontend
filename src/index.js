@@ -15,6 +15,7 @@ import {
  } from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
+import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "createTemplate",
         element: <CreateTemplatePage />
+      },
+      {
+        path: "selectTemplate",
+        element: <SelectTemplatePage />
       },
       {
         path: "generic-child",

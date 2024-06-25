@@ -64,3 +64,38 @@ input[type="text"], textarea {
 input[type="text"]:hover, textarea:hover {
     border-color: var(--accent-color);
 }
+
+/* select coherent with app style */
+select {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1em;
+    margin: 10px;
+    width: 90%;
+    transition: all .1s;
+}
+/* select hover */
+select:hover {
+    border-color: var(--accent-color);
+}
+
+
+/* TODO: fix. it doesn't seem to work option coherent with app style */
+option {
+    background-color: var(--background-color);
+    color: var(--font-color);
+    font-size: 1em;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 90%;
+    transition: all .1s;
+}
+
+/* TODO: fix. it doesn't seem to work. option hover */
+option:hover {
+    background-color: var(--accent-color);
+    color: var(--font-color);
+}

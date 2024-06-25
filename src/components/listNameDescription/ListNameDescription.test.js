@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import ExerciseList from "./ExerciseList";
+import ExerciseList from "./ListNameDescription";
 
 const exercises = [
     { id: 1, name: "Pull up", description: "Upper body compound movement." },

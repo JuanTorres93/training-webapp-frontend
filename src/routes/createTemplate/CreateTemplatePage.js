@@ -1,4 +1,4 @@
-import ExerciseList from "../../components/exerciseList/ExerciseList";
+import ExerciseList from "../../components/listNameDescription/ListNameDescription";
 import styles from "./CreateTemplatePage.module.css";
 
 export default function CreateTemplatePage() {
@@ -59,7 +59,7 @@ export default function CreateTemplatePage() {
                 </div>
             </div>
 
-            {/* Create a div that will act as a button with to possible options. 
+            {/* Create a div that will act as a button with two possible options. 
             One of them "Create template" and the other one "Create template and start workout". 
             The buttons are going to be implemented as divs with use of CSS. A vertical 
             subtle line must me render between both buttons */}

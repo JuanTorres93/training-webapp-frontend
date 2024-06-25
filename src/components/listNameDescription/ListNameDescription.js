@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import styles from './ExerciseList.module.css'
+import styles from './ListNameDescription.module.css'
 import ExercisePresenter from '../exercisePresenter/ExercisePresenter';
 import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 
