@@ -99,3 +99,20 @@ option:hover {
     background-color: var(--accent-color);
     color: var(--font-color);
 }
+
+/* Button styling */
+button {
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+/* button hover */
+button:hover {
+    background-color: var(--accent-color);
+}
