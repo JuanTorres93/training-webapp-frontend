@@ -1,4 +1,5 @@
 import List from "../../components/listNameDescription/ListNameDescription";
+import GoBackButton from "../../components/goBackButton/GoBackButton";
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import styles from "./SelectTemplatePage.module.css";
 
@@ -35,6 +36,7 @@ export default function SelectTemplatePage() {
 
     return (
         <div className={styles.createTemplatePageContainer}>
+            <GoBackButton />
             <h2>Recent workouts</h2>
             <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
         

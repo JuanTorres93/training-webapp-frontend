@@ -1,3 +1,4 @@
+import GoBackButton from "../../components/goBackButton/GoBackButton";
 import ExerciseList from "../../components/listNameDescription/ListNameDescription";
 import styles from "./CreateTemplatePage.module.css";
 
@@ -33,6 +34,7 @@ export default function CreateTemplatePage() {
 
     return (
         <div className={styles.createTemplatePageContainer}>
+            <GoBackButton />
             <h2>Create new template</h2>
         
             <div className={styles.templateInfoContainer}>

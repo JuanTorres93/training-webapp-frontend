@@ -13,9 +13,15 @@ function NavBar() {
                     </Link>
                 </div>
                 <div className={styles.navBarLinksContainer}>
-                    <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
                     <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createTemplate">Create Template </NavLink>
                     <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/selectTemplate">Select Template </NavLink>
+                    <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
+                </div>
+
+                {/* Button for login if user is not logged in. Other wise logout button and profile menu */}
+                <div className={styles.navBarLoginContainer}>
+                    <NavLink className={styles.navBarLinks} to="/login">Login</NavLink>
+                    <NavLink className={styles.navBarLinks} to="/register">Register</NavLink>
                 </div>
             </nav>
 

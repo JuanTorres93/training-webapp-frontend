@@ -1,4 +1,5 @@
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
+import { Link } from "react-router-dom";
 import styles from "./HomePage.module.css";
 
 export default function HomePage() {
@@ -17,9 +18,9 @@ export default function HomePage() {
             <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
 
             <div className={styles.buttonsContainer}>
-                <button className={`primary-button ${styles.squareButton}`} type="button">Create template</button>
-                <button className={`primary-button ${styles.squareButton}`} type="button">Select template</button>
-                <button className={`primary-button ${styles.squareButton}`} type="button">Create exercise</button>
+                <Link to="createTemplate" className={`primary-button ${styles.squareButton}`} type="button">Create template</Link>
+                <Link to="selectTemplate" className={`primary-button ${styles.squareButton}`} type="button">Select template</Link>
+                <Link to="createExercise" className={`primary-button ${styles.squareButton}`} type="button">Create exercise</Link>
             </div>
         </div>
     );
