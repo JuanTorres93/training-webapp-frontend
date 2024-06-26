@@ -1,4 +1,5 @@
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
+import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import { Link } from "react-router-dom";
 import styles from "./HomePage.module.css";
 
@@ -13,15 +14,17 @@ export default function HomePage() {
     ];
 
     return (
-        <div className={styles.homePageContainer}>
-            <h2>Recent workouts</h2>
-            <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
+        <PagePresenter showBackButton={false} children={
+            <div className={styles.homePageContainer}>
+                <h2>Recent workouts</h2>
+                <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
 
-            <div className={styles.buttonsContainer}>
-                <Link to="createTemplate" className={`primary-button ${styles.squareButton}`} type="button">Create template</Link>
-                <Link to="selectTemplate" className={`primary-button ${styles.squareButton}`} type="button">Select template</Link>
-                <Link to="createExercise" className={`primary-button ${styles.squareButton}`} type="button">Create exercise</Link>
+                <div className={styles.buttonsContainer}>
+                    <Link to="createTemplate" className={`primary-button ${styles.squareButton}`} type="button">Create template</Link>
+                    <Link to="selectTemplate" className={`primary-button ${styles.squareButton}`} type="button">Select template</Link>
+                    <Link to="createExercise" className={`primary-button ${styles.squareButton}`} type="button">Create exercise</Link>
+                </div>
             </div>
-        </div>
+        } />
     );
 };

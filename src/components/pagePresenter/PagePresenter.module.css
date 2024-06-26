@@ -1,0 +1,7 @@
+.pageContainer {
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--background-color); /* Assuming a light theme, adjust as necessary */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border-radius: 8px; /* Slightly rounded corners for a modern look */
+}
