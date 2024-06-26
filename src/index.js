@@ -14,6 +14,7 @@ import {
   Elements,   // Wrapper component to include stripe components for processing payments
  } from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
+import NavBar from './components/navbar/NavBar';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
@@ -43,10 +44,10 @@ const stripePromise = loadStripe("pk_test_51Ogm7BK8WU6l6aWStayNzNOetoI6qIZOp2Ypj
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <NavBar />,
     errorElement: <DefaultErrorPage />,
     children: [
-      { index: true, element: <p>Default element for "/"" path, since there are no nested route</p> },
+      { index: true, element: <HomePage />},
       {
         // TODO delete all this path in PRODUCTION
         path: "componentDesign",
