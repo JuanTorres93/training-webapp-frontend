@@ -4,7 +4,6 @@ import LoginForm from '../../components/loginForm/LoginForm'
 
 const LoginPage = () => {
     return (
-        // TODO make this not horrible
         <PagePresenter children={
             <LoginForm />
         }/>

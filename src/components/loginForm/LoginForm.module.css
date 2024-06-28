@@ -1,4 +1,5 @@
-.form {
+/* LoginForm.module.css */
+.formContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,11 +11,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.inputWrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1rem;
+label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
 }
 
 input {
@@ -22,7 +22,7 @@ input {
     border-radius: 5px;
     padding: 10px;
     font-size: 1em;
-    margin-top: 5px;
+    margin-bottom: 1rem;
     width: 90%;
     transition: all .1s;
 }
@@ -32,13 +32,7 @@ input:focus {
     border-color: var(--accent-color);
 }
 
-.submitWrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-button {
+.submitButton {
     background-color: var(--primary-color);
     color: var(--font-color);
     border: none;
@@ -48,6 +42,6 @@ button {
     transition: all .1s;
 }
 
-button:hover {
+.submitButton:hover {
     background-color: var(--accent-color);
 }

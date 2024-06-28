@@ -12,11 +12,11 @@ const LoginForm = () => {
     return (
         <div className={styles.formContainer}>
             <form onSubmit={handleLogin}>
-                <label>Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button type="submit">Login</button>
+                <label htmlFor='email'>Email</label>
+                <input id='email' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label htmlFor='password'>Password</label>
+                <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <button className={styles.submitButton} type="submit">Login</button>
             </form>
         </div>
     )
