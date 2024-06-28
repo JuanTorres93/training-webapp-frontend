@@ -22,8 +22,8 @@ import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
 import SingleProductPage from './routes/SingleProductPage';
-import RegisterPage from './routes/RegisterPage';
-import LoginPage from './routes/LoginPage';
+import RegisterPage from './routes/registerPage/RegisterPage';
+import LoginPage from './routes/loginPage/LoginPage';
 import CartPage from './routes/CartPage';
 // Link css files
 import './variables.css'

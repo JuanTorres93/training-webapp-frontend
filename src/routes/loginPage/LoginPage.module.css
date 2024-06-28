@@ -1,0 +1,30 @@
+.homePageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 6rem;
+    width: 80%;
+    margin-top: 2rem;
+}
+
+.squareButton {
+    padding: 3rem 2rem;
+    margin: 1.5rem;
+    font-weight: 600;
+    /* center text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonsContainer a {
+    text-decoration: none;
+    color: var(--text-color);
+}

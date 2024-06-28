@@ -3,6 +3,7 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import { Link } from "react-router-dom";
 import styles from "./HomePage.module.css";
 
+
 export default function HomePage() {
     // TODO Get recent workouts from redux and DB
     const recentWorkouts = [
