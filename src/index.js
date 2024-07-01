@@ -18,6 +18,7 @@ import NavBar from './components/navbar/NavBar';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
+import StartWorkoutPage from './routes/startWorkoutPage/StartWorkoutPage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "createExercise",
         element: <CreateExercisePage />
+      },
+      {
+        path: "startWorkout",
+        element: <StartWorkoutPage />
       },
       {
         path: "generic-child",
