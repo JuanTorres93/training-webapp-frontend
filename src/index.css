@@ -116,3 +116,8 @@ button {
 button:hover {
     background-color: var(--accent-color);
 }
+
+/* active state for button, compliant with the general app style */
+button:active {
+    background-color: #dd7208;
+}

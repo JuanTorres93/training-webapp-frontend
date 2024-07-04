@@ -12,6 +12,7 @@ import styles from './ExerciseProgressPlot.module.css';
 function ExerciseProgressPlot({ exercise_id }) {
     // Get values from css variables in variables.css file
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+    const backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
     const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
 
     const renderCustomizedLabel = (props) => {
@@ -77,7 +78,7 @@ function ExerciseProgressPlot({ exercise_id }) {
       const keys = Object.keys(item);
       // Find the highest set number in the current item
       const maxSet = keys
-        .filter(key => key.startsWith('reps_set_'))
+        .filter(key => key.includes('_set_'))
         .reduce((max, key) => {
           // Extract set number from the key and update max if this is the highest so far
           const setNumber = parseInt(key.split('_')[2], 10);
@@ -121,11 +122,16 @@ function ExerciseProgressPlot({ exercise_id }) {
               // Extract the set number from the name
               const setNumber = name.split('_')[2];
               // Customize the label
-              return [value, `Set ${setNumber} reps`];
+              return [
+                value, 
+                `Set ${setNumber} reps`,
+              ];
             }
             // For other data keys, return the value and name without changes
             return [value, name];
           }} 
+
+          contentStyle={{ backgroundColor: `${backgroundColor}E8`}} // Adding transparency to the background
         />
         {bars}
       </ComposedChart>

@@ -6,8 +6,10 @@ export default function StartWorkoutPage() {
 
     return (
         <PagePresenter children={
-            <div>
+            <div className={styles.container}>
+                <h2>Start workout</h2>
                 <ExerciseProgressPlot />
+                <button type="button" className={styles.button}>Start workout</button>
             </div>
         } />
     );
