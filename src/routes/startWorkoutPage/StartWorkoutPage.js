@@ -3,7 +3,6 @@ import ExerciseProgressPlot from "../../components/exerciseProgressPlot/Exercise
 import styles from "./StartWorkoutPage.module.css";
 
 export default function StartWorkoutPage() {
-
     return (
         <PagePresenter children={
             <div className={styles.container}>

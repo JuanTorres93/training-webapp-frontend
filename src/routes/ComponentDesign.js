@@ -3,6 +3,7 @@ import ExerciseList from "../components/listNameDescription/ListNameDescription"
 import RecentWorkoutPresenter from "../components/recentWorkoutPresenter/RecentWorkoutPresenter";
 import RecentWorkoutsCarousel from "../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import ExerciseSetPresenter from "../components/exerciseSetPresenter/ExerciseSetPresenter";
+import ExerciseCompleterRow from "../components/exerciseCompleter/exerciseCompleterRow/ExerciseCompleterRow";
 
 const exercises = [
     { id: 1, name: "Pull up", description: "A compound movement that targets the back, biceps, and forearms." },
@@ -49,6 +50,10 @@ export default function ComponentDesign() {
             <br /> <br />
             ExerciseList with ExerciseSetPresenter <br /> <br />
             <ExerciseList exercises={exercises} isSetPresenter={true} />
+
+            <br /> <br />
+            ExerciseCompleterRow <br /> <br />
+            <ExerciseCompleterRow setNumber={1} placeholderWeight={50} placeholderReps={10} />
         </>
     );
 };
