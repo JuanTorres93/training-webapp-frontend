@@ -9,6 +9,7 @@
     width: 80%; /* Adjust width as needed */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
     border: var(--font-color) solid .15rem;
+    width: 90%;
 }
 
 .exerciseTitle {

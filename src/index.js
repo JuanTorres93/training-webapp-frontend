@@ -8,7 +8,6 @@ import reportWebVitals from './reportWebVitals';
 
 // custom imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './routes/Root';
 import { loadStripe } from "@stripe/stripe-js";
 import { 
   Elements,   // Wrapper component to include stripe components for processing payments
@@ -19,6 +18,7 @@ import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
 import StartWorkoutPage from './routes/startWorkoutPage/StartWorkoutPage';
+import RunWorkoutPage from './routes/runWorkoutPage/RunWorkoutPage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import Products from './routes/ProductsPage';
@@ -73,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "startWorkout",
         element: <StartWorkoutPage />
+      },
+      {
+        path: "runWorkout",
+        element: <RunWorkoutPage />
       },
       {
         path: "generic-child",

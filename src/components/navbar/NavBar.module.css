@@ -8,6 +8,11 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: all .3s ease;
     border-bottom: 1px solid var(--font-color);
+    position: fixed; /* Make navbar fixed at the top */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Ensure it spans the full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 .navBarLogo img {
@@ -42,11 +47,14 @@
     color: var(--accent-color);
 }
 
-
 .navBarLinkActive {
     text-decoration: none;
     margin: 0 .8rem;
     font-weight: bold;
     color: var(--primary-color);
     transition: color .2s ease;
+}
+
+.navBarLoginContainer {
+    margin-right: 1.3rem;
 }
