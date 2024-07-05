@@ -4,6 +4,7 @@ import RecentWorkoutPresenter from "../components/recentWorkoutPresenter/RecentW
 import RecentWorkoutsCarousel from "../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import ExerciseSetPresenter from "../components/exerciseSetPresenter/ExerciseSetPresenter";
 import ExerciseCompleterRow from "../components/exerciseCompleter/exerciseCompleterRow/ExerciseCompleterRow";
+import ExerciseCompleter from "../components/exerciseCompleter/ExerciseCompleter";
 
 const exercises = [
     { id: 1, name: "Pull up", description: "A compound movement that targets the back, biceps, and forearms." },
@@ -12,6 +13,14 @@ const exercises = [
     { id: 4, name: "Deadlift", description: "A compound movement that targets the hamstrings, glutes, and lower back." },
     { id: 5, name: "Bench press", description: "An upper body movement that primarily targets the chest, shoulders, and triceps." },
     { id: 6, name: "Overhead press", description: "An upper body movement that targets the shoulders, triceps, and upper chest." },
+];
+
+const setsForExercisePresenter = [
+    { setNumber: 1, weight: 50, reps: 10 },
+    { setNumber: 2, weight: 50, reps: 10 },
+    { setNumber: 3, weight: 50, reps: 10 },
+    { setNumber: 4, weight: 50, reps: 10 },
+    { setNumber: 5, weight: 50, reps: 10 },
 ];
 
 export default function ComponentDesign() {
@@ -54,6 +63,8 @@ export default function ComponentDesign() {
             <br /> <br />
             ExerciseCompleterRow <br /> <br />
             <ExerciseCompleterRow setNumber={1} placeholderWeight={50} placeholderReps={10} />
+            ExerciseCompleter <br /> <br />
+            <ExerciseCompleter exerciseName={'Pull up'} sets={setsForExercisePresenter} />
         </>
     );
 };

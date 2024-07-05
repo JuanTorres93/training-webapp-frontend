@@ -1,46 +1,30 @@
+import ExerciseCompleterRow from './exerciseCompleterRow/ExerciseCompleterRow';
 import styles from './ExerciseCompleter.module.css'
 
-function ExerciseCompleter({ id }) {
-    // TODO Fetch from DB
-    const lastWorktout = {
-        "id": 0,
-        "alias": "string",
-        "description": "string",
-        "exercises": [
-          {
-            "id": 0,
-            "alias": "string",
-            "set": 0,
-            "reps": 0,
-            "weight": 0,
-            "time_in_seconds": 0
-          }
-        ]
-    };
+function ExerciseCompleter({ exerciseName, sets = [] }) {
+    // sets is a list containing objects with setNumber, weight and reps properties
 
-    const exercises = lastWorktout.exercises.reduce((acc, exercise) => {
-        if (!acc[exercise.id]) {
-            acc[exercise.id] = [];
-        }
-        acc[exercise.id].push(exercise);
-        return acc;
-    }, {});
+    // order the sets by setNumber in ascending order
+    sets.sort((a, b) => a.setNumber - b.setNumber);
 
-    // The ExercisePresenter component renders the name and description of an exercise.
     return (
-        <div>
-            {/* Rectangular component with one row for the exercise name. After that dynamically generated rows with fields for set number, weight used and reps carried out */}
+        <div className={styles.container}>
+            <span className={`${styles.exerciseTitle} ${styles.marginLeft}`}>
+                {exerciseName.trim()}
+            </span>
 
-            <div className={styles.container}>
-                <h2>{name}</h2>
-                {exercises.map((exercise, index) => (
-                    <div key={index} className={styles.row}>
-                        <p>{index + 1}</p>
-                        <p>{exercise.weight}</p>
-                        <p>{exercise.reps}</p>
-                    </div>
-                ))}
+            {/* For each set in sets, render an ExerciseCompleterRow component */}
+
+            {sets.map((set) => (
+                <div className={styles.marginLeft}>
+                    <ExerciseCompleterRow
+                        key={`${exerciseName}-${set.setNumber}`}
+                        setNumber={set.setNumber}
+                        placeholderWeight={set.weight}
+                        placeholderReps={set.reps}
+                    />
                 </div>
+            ))}
 
         </div>
     );
