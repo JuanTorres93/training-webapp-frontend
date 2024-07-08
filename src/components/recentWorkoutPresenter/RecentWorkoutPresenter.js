@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './RecentWorkoutPresenter.module.css'
 
-function RecentWorkoutPresenter({ id, date, name }) {
+function RecentWorkoutPresenter({ id: templateId, date, name }) {
     /**
      * This function calculates how much time has passed since a given date.
      * It first calculates the number of minutes, hours, days, weeks, months, and years since the given date.
@@ -17,6 +18,12 @@ function RecentWorkoutPresenter({ id, date, name }) {
      * @param {string} date - The date to calculate the elapsed time from, in the format 'YYYY-MM-DD'.
      * @returns {string} A string describing how much time has passed since the given date.
      */
+    const navigate = useNavigate(); 
+
+    const handleRecentWorkoutClick = () => {
+      navigate(`/startWorkout/template/${templateId}`); // Redirect to /startWorkout/id
+    };
+
     const calculateTimeSince = (date) => {
         const workoutDate = new Date(date);
         const now = new Date();
@@ -27,7 +34,7 @@ function RecentWorkoutPresenter({ id, date, name }) {
         const hoursSince = Math.floor((now - workoutDate) / millisecondsPerHour);
         const daysSince = Math.floor((now - workoutDate) / millisecondsPerDay);
         const weeksSince = Math.floor(daysSince / 7);
-        const monthsSince = Math.floor(daysSince / 30);
+        const monthsSince = Math.floor(daysSince / 31);
         const yearsSince = Math.floor(daysSince / 365);
 
         if (minutesSince < 60) {
@@ -46,7 +53,10 @@ function RecentWorkoutPresenter({ id, date, name }) {
     }
 
     return (
-        <div data-testid="recentWorkoutPresenter" className={styles.recentWorkout}>
+        <div data-testid="recentWorkoutPresenter" 
+             className={styles.recentWorkout}
+             onClick={handleRecentWorkoutClick}>
+
             <div className={styles.name}>{name}</div>
 
             <div className={styles.fullDateInfo}>

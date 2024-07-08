@@ -25,6 +25,8 @@ input {
     margin-top: 5px;
     width: 90%;
     transition: all .1s;
+    min-width: 20rem;
+    text-align: left;
 }
 
 input:focus {

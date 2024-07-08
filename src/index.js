@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         element: <CreateExercisePage />
       },
       {
-        path: "startWorkout",
+        path: "startWorkout/template/:templateId",
         element: <StartWorkoutPage />
       },
       {
