@@ -1,8 +1,22 @@
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { selectUser } from '../../features/user/userSlice';
+
 import ExerciseList from "../../components/listNameDescription/ListNameDescription";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./CreateTemplatePage.module.css";
 
 export default function CreateTemplatePage() {
+    const navigate = useNavigate();
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
+
     // TODO Get recent workouts from redux and DB with id, name and description
     const availableExercises = [
         {

@@ -1,7 +1,20 @@
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./CreateExercisePage.module.css";
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { selectUser } from '../../features/user/userSlice';
 
 export default function CreateExercisePage() {
+    const navigate = useNavigate();
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
+
     return (
         <PagePresenter children={
             <div className={styles.createTemplatePageContainer}>

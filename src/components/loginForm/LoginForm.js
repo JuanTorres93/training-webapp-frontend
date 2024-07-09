@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { loginUser, selectUser } from '../../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
