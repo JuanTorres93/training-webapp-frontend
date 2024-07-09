@@ -1,8 +1,20 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser } from '../../features/user/userSlice';
+// TODO Import logout when ready
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from 'react-router-dom';
 import styles from './NavBar.module.css'
 
 function NavBar() {
+    const user = useSelector(selectUser);
+
+    const handleLogout = async () => {
+        // TODO implement
+
+        // await logout();
+        // dispatch(setUser(null));
+    }
+
     return (
         <>
             <nav className={styles.navBar}>
@@ -20,8 +32,16 @@ function NavBar() {
 
                 {/* Button for login if user is not logged in. Other wise logout button and profile menu */}
                 <div className={styles.navBarLoginContainer}>
-                    <NavLink className={styles.navBarLinks} to="/login">Login</NavLink>
-                    <NavLink className={styles.navBarLinks} to="/register">Register</NavLink>
+                    {!user ? (
+                        <>
+                            <NavLink className={styles.navBarLinks} to="/login">Login</NavLink>
+                            <NavLink className={styles.navBarLinks} to="/register">Register</NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink className={styles.navBarLinks} to="/">Logout</NavLink>
+                        </>
+                    )}
                 </div>
             </nav>
 

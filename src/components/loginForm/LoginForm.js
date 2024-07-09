@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../features/user/userSlice';
 import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
 
     const handleLogin = (e) => {
         e.preventDefault();
+
+        dispatch(loginUser({ username: username, password })); // Dispatch loginUser action
     }
 
     return (
-        <div className={styles.formContainer}>
-            <form onSubmit={handleLogin}>
-                <label htmlFor='email'>Email</label>
-                <input id='email' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <form className={styles.formContainer} onSubmit={handleLogin}>
+            <div className={styles.labelAndInput}>
+                <label htmlFor='username'>Username</label>
+                <input id='username' type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </div>
+
+            <div className={styles.labelAndInput}>
                 <label htmlFor='password'>Password</label>
                 <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <button className={styles.submitButton} type="submit">Login</button>
-            </form>
-        </div>
+            </div>
+
+            <button className={styles.submitButton} type="submit">Login</button>
+        </form>
     )
 }
 

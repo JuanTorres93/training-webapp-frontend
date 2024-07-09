@@ -2,10 +2,10 @@ import { serverBaseURL } from "./serverAPIConfig";
 
 const loginEndPoint = serverBaseURL + '/login';
 
-export async function login(email, password) {
+export async function login(username, password) {
     const body = {
-        username: email,
-        password: password,
+        username,
+        password,
     };
 
     const response = await fetch(loginEndPoint, {
@@ -16,7 +16,9 @@ export async function login(email, password) {
         body: JSON.stringify(body),
     });
 
-    return response;
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
 };
 
 export async function loginGoogle() {

@@ -1,6 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { login } from "../../serverAPI/login";
 
 export const sliceName = 'user';
+
+export const loginUser = createAsyncThunk(
+    `${sliceName}/loginUser`,
+    async (arg, thunkAPI) => {
+        // Error is handled from redux state when promise is rejected
+        const response = await login(arg.username, arg.password);
+
+        return response;
+    }
+);
 
 const userSlice = createSlice({
     name: sliceName,
@@ -9,11 +20,23 @@ const userSlice = createSlice({
         isLoading: false,
         hasError: false,
     },
-    reducers: {
-        setUser: (state, action) => {
-            // action.payload = { first_name, last_name, second_last_name, email }
-            state[sliceName] = action.payload;
-        }
+    reducers: {},
+    extraReducers: builder => {
+        // login user state management
+        builder.addCase(loginUser.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            const user = action.payload.user;
+            state[sliceName] = user;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(loginUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
     },
 });
 
