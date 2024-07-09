@@ -1,18 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser } from '../../features/user/userSlice';
-// TODO Import logout when ready
+import { selectUser, logoutUser } from '../../features/user/userSlice';
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from 'react-router-dom';
 import styles from './NavBar.module.css'
 
 function NavBar() {
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
 
-    const handleLogout = async () => {
-        // TODO implement
-
-        // await logout();
-        // dispatch(setUser(null));
+    const handleLogout = () => {
+        dispatch(logoutUser());
     }
 
     return (
@@ -39,7 +36,7 @@ function NavBar() {
                         </>
                     ) : (
                         <>
-                            <NavLink className={styles.navBarLinks} to="/">Logout</NavLink>
+                            <NavLink className={styles.navBarLinks} to="/" onClick={handleLogout}>Logout</NavLink>
                         </>
                     )}
                 </div>
