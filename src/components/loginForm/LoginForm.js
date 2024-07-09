@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginUser, selectUser } from '../../features/user/userSlice';
 import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
@@ -8,11 +9,19 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector(selectUser);
+
+    // If user exists, then redirect to /
+    if (user) {
+        navigate('/');
+    }
 
     const handleLogin = (e) => {
         e.preventDefault();
 
-        dispatch(loginUser({ username: username, password })); // Dispatch loginUser action
+        dispatch(loginUser({ username: username, password }));
     }
 
     return (

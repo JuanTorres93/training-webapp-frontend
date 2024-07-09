@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 import styles from './RegisterForm.module.css';
 
 import { register } from '../../serverAPI/users';
@@ -8,6 +11,9 @@ const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
@@ -15,10 +21,14 @@ const RegisterForm = () => {
 
             if (response.id) {
                 console.log('Registration successful', response);
+                dispatch(loginUser({ username, password }));
+
                 // clear form
                 setUsername('');
                 setEmail('');
                 setPassword('');
+
+                navigate('/');
             }
         } catch (error) {
             // TODO notify user about errors and how to fix them
