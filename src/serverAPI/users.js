@@ -15,6 +15,7 @@ export async function register(alias, email, password) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+        credentials: 'include',
     });
 
     try {
