@@ -6,6 +6,7 @@ import { selectUser } from '../../features/user/userSlice';
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./CreateExercisePage.module.css";
 import { createExercise } from "../../serverAPI/exercises";
+import LoginForm from "../../components/loginForm/LoginForm";
 
 export default function CreateExercisePage() {
     const navigate = useNavigate();
@@ -43,19 +44,26 @@ export default function CreateExercisePage() {
 
     return (
         <PagePresenter children={
-            <form onSubmit={handleSubmit}>
-                <h2>Create new exercise</h2>
+            <>
+                {user ? (
+                    <form onSubmit={handleSubmit}>
+                        <h2>Create new exercise</h2>
 
-                <label htmlFor="input-exercise-name">Exercise name</label>
-                <input id="input-exercise-name" type="text" placeholder="Exercise name"
-                       onChange={(e) => setAlias(e.target.value)} required />
+                        <label htmlFor="input-exercise-name">Exercise name</label>
+                        <input id="input-exercise-name" type="text" placeholder="Exercise name"
+                               onChange={(e) => setAlias(e.target.value)} required />
 
-                <label className={styles.topMargin} htmlFor="input-exercise-description">Exercise description</label>
-                <textarea id="input-exercise-description" placeholder="Exercise description"
-                          onChange={(e) => setDescription(e.target.value)} ></textarea>
+                        <label className={styles.topMargin} htmlFor="input-exercise-description">Exercise description</label>
+                        <textarea id="input-exercise-description" placeholder="Exercise description"
+                                  onChange={(e) => setDescription(e.target.value)} ></textarea>
 
-                <button type="submit" className={styles.createExerciseButton}>Create exercise</button>
-            </form>
+                        <button type="submit" className={styles.createExerciseButton}>Create exercise</button>
+                    </form>
+                ) : (
+                    // Login form included here for smooth transition to login route
+                    <LoginForm />
+                )}
+            </>
         } />
     );
 };

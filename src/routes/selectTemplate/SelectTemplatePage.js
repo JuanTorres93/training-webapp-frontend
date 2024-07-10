@@ -6,6 +6,7 @@ import { selectUser } from '../../features/user/userSlice';
 import List from "../../components/listNameDescription/ListNameDescription";
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
+import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
 export default function SelectTemplatePage() {
@@ -50,32 +51,36 @@ export default function SelectTemplatePage() {
 
     return (
         <PagePresenter children={
-
-            <div className={styles.createTemplatePageContainer}>
-                <h2>Recent workouts</h2>
-                <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
+            <>
+                {user ? (
+                    <div className={styles.createTemplatePageContainer}>
+                        <h2>Recent workouts</h2>
+                        <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
         
-                {/* Search and sort by components */}
-                {/* TODO Style and create functionallity */}
-                <div className={styles.searchAndSortContainer}>
-                    <div className={`${styles.searchContainer} ${styles.columnAlignedLeft}`}>
-                        <span>Search</span>
-                        <input type="text" placeholder="Search templates" />
-                    </div>
-                    <div className={`${styles.sortContainer} ${styles.columnAlignedLeft}`}>
-                        <span>Sort by</span>
-                        <select>
-                            <option value="newest">Newest</option>
-                            <option value="oldest">Oldest</option>
-                            <option value="name">Name</option>
-                        </select>
-                    </div>
-                </div>
+                        {/* Search and sort by components */}
+                        {/* TODO Style and create functionallity */}
+                        <div className={styles.searchAndSortContainer}>
+                            <div className={`${styles.searchContainer} ${styles.columnAlignedLeft}`}>
+                                <span>Search</span>
+                                <input type="text" placeholder="Search templates" />
+                            </div>
+                            <div className={`${styles.sortContainer} ${styles.columnAlignedLeft}`}>
+                                <span>Sort by</span>
+                                <select>
+                                    <option value="newest">Newest</option>
+                                    <option value="oldest">Oldest</option>
+                                    <option value="name">Name</option>
+                                </select>
+                            </div>
+                        </div>
 
-                {/* Render list of templates */}
-                <List exercises={templates} />
-            </div>
-
+                        {/* Render list of templates */}
+                        <List exercises={templates} />
+                    </div>
+                ) : (
+                    <LoginForm />
+                )}
+            </>
         } />
     );
 };
