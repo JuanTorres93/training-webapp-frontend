@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import { login } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
+import { getExercisesFromUser } from "../exercises/exercisesSlice";
 
 export const sliceName = 'user';
 
@@ -9,6 +11,11 @@ export const loginUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
         const response = await login(arg.username, arg.password);
+
+        // Get exercises from user
+        thunkAPI.dispatch(getExercisesFromUser({ 
+            userId: response.user._id 
+        }));
 
         return response;
     }

@@ -22,3 +22,24 @@ export async function createExercise(alias, description) {
 
     return jsonResponse;
 };
+
+export async function getAllExercises() {
+    const response = await fetch(endpoint, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
+
+export async function getAllExercisesFromUser(userId) {
+    const allExercises = await getAllExercises();
+
+    // TODO Filter by user id
+
+    return allExercises;
+};
+

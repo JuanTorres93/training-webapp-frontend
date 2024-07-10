@@ -8,6 +8,8 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./CreateTemplatePage.module.css";
 
+import { selectUserExercises } from "../../features/exercises/exercisesSlice";
+
 export default function CreateTemplatePage() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
@@ -19,23 +21,7 @@ export default function CreateTemplatePage() {
     }, [user, navigate]);
 
     // TODO Get recent workouts from redux and DB with id, name and description
-    const availableExercises = [
-        {
-            id: 1,
-            name: "Push-ups",
-            description: "A body weight exercise that works the chest, shoulders, and triceps.",
-        },
-        {
-            id: 2,
-            name: "Pull-ups",
-            description: "An upper-body strength exercise that works the back, shoulders, and arms.",
-        },
-        {
-            id: 3,
-            name: "Squats",
-            description: "A lower-body strength exercise that works the thighs, hamstrings, and glutes.",
-        },
-    ];
+    const availableExercises = useSelector(selectUserExercises);
 
     // TODO Update through redux state
     const selectedExercises = [
