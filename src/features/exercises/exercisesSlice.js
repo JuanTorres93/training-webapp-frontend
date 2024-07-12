@@ -9,10 +9,6 @@ export const getExercisesFromUser = createAsyncThunk(
         // Error is handled from redux state when promise is rejected
         const response = await getAllExercisesFromUser(arg.userId);
 
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('response');
-        console.log(response);
-
         return response;
     }
 );

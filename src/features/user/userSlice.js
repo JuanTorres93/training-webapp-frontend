@@ -14,7 +14,7 @@ export const loginUser = createAsyncThunk(
 
         // Get exercises from user
         thunkAPI.dispatch(getExercisesFromUser({ 
-            userId: response.user._id 
+            userId: response.user.id 
         }));
 
         return response;

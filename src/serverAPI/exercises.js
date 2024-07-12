@@ -36,10 +36,13 @@ export async function getAllExercises() {
 
 
 export async function getAllExercisesFromUser(userId) {
-    const allExercises = await getAllExercises();
+    const response = await fetch(endpoint + `/all/${userId}`, {
+        method: 'GET',
+        credentials: 'include',
+    });
 
-    // TODO Filter by user id
+    const jsonResponse = await response.json();
 
-    return allExercises;
+    return jsonResponse;
 };
 
