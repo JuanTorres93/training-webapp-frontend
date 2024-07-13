@@ -20,6 +20,7 @@ export default function CreateTemplatePage() {
         }
     }, [user, navigate]);
 
+
     // TODO Get recent workouts from redux and DB with id, name and description
     const availableExercises = useSelector(selectUserExercises);
 
@@ -39,7 +40,7 @@ export default function CreateTemplatePage() {
                 {user ? (
                     <div className={styles.createTemplatePageContainer}>
                         <h2>Create new template</h2>
-        
+
                         <div className={styles.templateInfoContainer}>
                             <div className={styles.inputContainer}>
                                 <label htmlFor="template-name">Template name</label>
@@ -76,7 +77,7 @@ export default function CreateTemplatePage() {
                                 <p>Create template and start workout</p>
                             </div>
                         </div>
-                        
+
                     </div>
                 ) : (
                     <LoginForm />

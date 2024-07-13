@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, selectUser } from '../../features/user/userSlice';
+import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
 
@@ -12,6 +12,7 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
 
     // If user exists, then redirect to /
     if (user) {
@@ -36,7 +37,11 @@ const LoginForm = () => {
                 <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
-            <button className={styles.submitButton} type="submit">Login</button>
+            <button className={styles.submitButton} type="submit">
+                {
+                    userIsLoading ? 'Logging in...' : 'Login'
+                }
+            </button>
         </form>
     )
 }

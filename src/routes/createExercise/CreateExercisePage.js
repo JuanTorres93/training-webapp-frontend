@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser } from '../../features/user/userSlice';
 
@@ -8,9 +8,15 @@ import styles from "./CreateExercisePage.module.css";
 import { createExercise } from "../../serverAPI/exercises";
 import LoginForm from "../../components/loginForm/LoginForm";
 
+import { getExercisesFromUser } from "../../features/exercises/exercisesSlice";
+
 export default function CreateExercisePage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
+
+    const [alias, setAlias] = useState('');
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         if (!user) {
@@ -18,8 +24,11 @@ export default function CreateExercisePage() {
         }
     }, [user, navigate]);
 
-    const [alias, setAlias] = useState('');
-    const [description, setDescription] = useState('');
+    if (!user) {
+        return <PagePresenter children={
+            <LoginForm />
+        } />;
+    }
 
 
     const handleSubmit = async (e) => {
@@ -29,6 +38,10 @@ export default function CreateExercisePage() {
 
             if (response.id) {
                 console.log('Exercise creation successful', response);
+                // Update user's exercises list
+                dispatch(getExercisesFromUser({
+                    userId: user.id,
+                }));
 
                 // clear form
                 setAlias('');
@@ -44,26 +57,19 @@ export default function CreateExercisePage() {
 
     return (
         <PagePresenter children={
-            <>
-                {user ? (
-                    <form onSubmit={handleSubmit}>
-                        <h2>Create new exercise</h2>
+            <form onSubmit={handleSubmit}>
+                <h2>Create new exercise</h2>
 
-                        <label htmlFor="input-exercise-name">Exercise name</label>
-                        <input id="input-exercise-name" type="text" placeholder="Exercise name"
-                               onChange={(e) => setAlias(e.target.value)} required />
+                <label htmlFor="input-exercise-name">Exercise name</label>
+                <input id="input-exercise-name" type="text" placeholder="Exercise name"
+                    onChange={(e) => setAlias(e.target.value)} required />
 
-                        <label className={styles.topMargin} htmlFor="input-exercise-description">Exercise description</label>
-                        <textarea id="input-exercise-description" placeholder="Exercise description"
-                                  onChange={(e) => setDescription(e.target.value)} ></textarea>
+                <label className={styles.topMargin} htmlFor="input-exercise-description">Exercise description</label>
+                <textarea id="input-exercise-description" placeholder="Exercise description"
+                    onChange={(e) => setDescription(e.target.value)} ></textarea>
 
-                        <button type="submit" className={styles.createExerciseButton}>Create exercise</button>
-                    </form>
-                ) : (
-                    // Login form included here for smooth transition to login route
-                    <LoginForm />
-                )}
-            </>
+                <button type="submit" className={styles.createExerciseButton}>Create exercise</button>
+            </form>
         } />
     );
 };

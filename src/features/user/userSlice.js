@@ -13,8 +13,8 @@ export const loginUser = createAsyncThunk(
         const response = await login(arg.username, arg.password);
 
         // Get exercises from user
-        thunkAPI.dispatch(getExercisesFromUser({ 
-            userId: response.user.id 
+        thunkAPI.dispatch(getExercisesFromUser({
+            userId: response.user.id
         }));
 
         return response;
@@ -74,6 +74,8 @@ const userSlice = createSlice({
 
 // Export selectors
 export const selectUser = state => state[sliceName][sliceName];
+export const selectUserIsLoading = state => state[sliceName].isLoading;
+export const selectUserHasError = state => state[sliceName].hasError;
 
 // Export actions
 export const { setUser } = userSlice.actions;

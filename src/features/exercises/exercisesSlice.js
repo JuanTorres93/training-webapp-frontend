@@ -31,13 +31,7 @@ const exercisesSlice = createSlice({
         })
         builder.addCase(getExercisesFromUser.fulfilled, (state, action) => {
             let userExercises = action.payload;
-            userExercises = userExercises.map(exercise => {
-                return {
-                    id: exercise._id,
-                    name: exercise.alias,
-                    description: exercise.description,
-                }
-            });
+            // TODO modify to state[sliceName].userCreatedExercises
             state[sliceName] = userExercises;
             state.isLoading = false;
             state.hasError = false;
@@ -50,7 +44,10 @@ const exercisesSlice = createSlice({
 });
 
 // Export selectors
+// TODO modify to state[sliceName].userCreatedExercises when state is modified above
 export const selectUserExercises = state => state[sliceName][sliceName];
+export const selectExercisesLoading = state => state[sliceName].isLoading;
+export const selectExercisesError = state => state[sliceName].hasError;
 
 // Export reducer
 export default exercisesSlice.reducer;
