@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -14,10 +14,12 @@ const LoginForm = () => {
     const user = useSelector(selectUser);
     const userIsLoading = useSelector(selectUserIsLoading);
 
-    // If user exists, then redirect to /
-    if (user) {
-        navigate('/');
-    }
+    useEffect(() => {
+        // If user exists, then redirect to /
+        if (user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     const handleLogin = (e) => {
         e.preventDefault();
