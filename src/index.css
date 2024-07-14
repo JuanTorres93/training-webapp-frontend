@@ -16,20 +16,23 @@ body {
     width: 10px;
     transition: all .1s;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--primary-color);
     border-radius: 10px;
 }
+
 ::-webkit-scrollbar-track {
     background-color: var(--secondary-color);
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--accent-color);
 }
 
 .primary-button {
     background-color: var(--primary-color);
-    color: var(--font-color);
+    color: var(--font-color-contrast);
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -50,12 +53,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* Make text input fields coherent with app style */
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus,
+textarea:focus {
     /* border-color: var(--accent-color); */
     outline: none;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 10px;
@@ -65,7 +70,8 @@ input[type="text"], textarea {
     transition: all .1s;
 }
 
-input[type="text"]:hover, textarea:hover {
+input[type="text"]:hover,
+textarea:hover {
     border-color: var(--accent-color);
 }
 
@@ -79,6 +85,7 @@ select {
     width: 90%;
     transition: all .1s;
 }
+
 /* select hover */
 select:hover {
     border-color: var(--accent-color);
@@ -107,7 +114,7 @@ option:hover {
 /* Button styling */
 button {
     background-color: var(--primary-color);
-    color: var(--font-color);
+    color: var(--font-color-contrast);
     border: none;
     border-radius: 5px;
     padding: 10px 20px;

@@ -2,7 +2,17 @@
     --font-color: #050316;
     --background-color: #fbfbfe;
     --html-color: #f1f1f1;
-    --primary-color: #2fca82;
-    --secondary-color: #a7ffd6;
-    --accent-color: #ff8000;
+    /* --primary-color: #2fca82; */
+    /* --secondary-color: #a7ffd6; */
+    /* --accent-color: #ff8000; */
+    --brand-icon-dark: #982525;
+    --brand-icon-medium: #C12F2F;
+    --brand-icon-light: #D44f4f;
+    --brand-letters-dark: #016565;
+    --brand-letters-medium: #029797;
+
+    --primary-color: var(--brand-letters-dark);
+    --secondary-color: var(--brand-letters-medium);
+    --accent-color: var(--brand-icon-light);
+    --font-color-contrast: #e6e6e6;
 }
