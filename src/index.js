@@ -3,6 +3,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { setupStore } from './app/store';
 import reportWebVitals from './reportWebVitals';
 
@@ -35,6 +36,9 @@ import ComponentDesign from './routes/ComponentDesign';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
+// Redux store configuration
+const { store, persistor } = setupStore({});
 
 // Stripe config
 // TODO use an environment variable in real projects
@@ -107,14 +111,15 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     {/* Wrapper for redux's store configuration */}
-    <Provider store={setupStore({})}>
-      {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
-
-      {/* TODO Uncomment for stripe integration */}
-      {/* <Elements stripe={stripePromise}> */}
-      <RouterProvider router={router} />
-      {/* TODO Uncomment for stripe integration */}
-      {/* </Elements> */}
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
+        {/* TODO Uncomment for stripe integration */}
+        {/* <Elements stripe={stripePromise}> */}
+        <RouterProvider router={router} />
+        {/* TODO Uncomment for stripe integration */}
+        {/* </Elements> */}
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
