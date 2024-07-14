@@ -8,10 +8,11 @@ import reportWebVitals from './reportWebVitals';
 
 // custom imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { loadStripe } from "@stripe/stripe-js";
-import { 
-  Elements,   // Wrapper component to include stripe components for processing payments
- } from '@stripe/react-stripe-js';
+// TODO Uncomment for stripe integration
+// import { loadStripe } from "@stripe/stripe-js";
+//import {
+//  Elements,   // Wrapper component to include stripe components for processing payments
+//} from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
 import NavBar from './components/navbar/NavBar';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
@@ -25,7 +26,6 @@ import Products from './routes/ProductsPage';
 import SingleProductPage from './routes/SingleProductPage';
 import RegisterPage from './routes/registerPage/RegisterPage';
 import LoginPage from './routes/loginPage/LoginPage';
-import CartPage from './routes/CartPage';
 // Link css files
 import './variables.css'
 import './index.css'
@@ -39,7 +39,9 @@ const root = createRoot(container);
 // Stripe config
 // TODO use an environment variable in real projects
 // DOCS Stripe tutorial: https://www.youtube.com/watch?v=0Kd0LeAMGf4&ab_channel=FaztCode
-const stripePromise = loadStripe("pk_test_51Ogm7BK8WU6l6aWStayNzNOetoI6qIZOp2YpjjwSBbwejqTwHMQ6wuVoldlnhEpeoj2McQvrEpU1yCi0G3HfHduf007gdbuqWa");
+
+// TODO Uncomment for stripe integration
+// const stripePromise = loadStripe("pk_test_51Ogm7BK8WU6l6aWStayNzNOetoI6qIZOp2YpjjwSBbwejqTwHMQ6wuVoldlnhEpeoj2McQvrEpU1yCi0G3HfHduf007gdbuqWa");
 
 // Router config
 const router = createBrowserRouter([
@@ -48,7 +50,7 @@ const router = createBrowserRouter([
     element: <NavBar />,
     errorElement: <DefaultErrorPage />,
     children: [
-      { index: true, element: <HomePage />},
+      { index: true, element: <HomePage /> },
       {
         // TODO delete all this path in PRODUCTION
         path: "componentDesign",
@@ -97,9 +99,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />
-      },{
-        path: "cart",
-        element: <CartPage />
       },
     ],
   },
@@ -110,9 +109,12 @@ root.render(
     {/* Wrapper for redux's store configuration */}
     <Provider store={setupStore({})}>
       {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
-      <Elements stripe={stripePromise}>
-        <RouterProvider router={router} />
-      </Elements>
+
+      {/* TODO Uncomment for stripe integration */}
+      {/* <Elements stripe={stripePromise}> */}
+      <RouterProvider router={router} />
+      {/* TODO Uncomment for stripe integration */}
+      {/* </Elements> */}
     </Provider>
   </React.StrictMode>
 );
