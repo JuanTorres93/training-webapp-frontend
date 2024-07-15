@@ -15,7 +15,7 @@ function ExercisePresenter({ id, name, description }) {
 ExercisePresenter.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
 };
 
 export default ExercisePresenter;

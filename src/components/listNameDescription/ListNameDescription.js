@@ -4,7 +4,7 @@ import styles from './ListNameDescription.module.css'
 import ExercisePresenter from '../exercisePresenter/ExercisePresenter';
 import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 
-function ExerciseList({ exercises, isSetPresenter = false }) {
+function ListNameDescription({ exercises, isSetPresenter = false }) {
     // The ExerciseList component renders a list of exercises.
     return (
         <div className={styles.exerciseList}>
@@ -29,15 +29,15 @@ function ExerciseList({ exercises, isSetPresenter = false }) {
 }
 
 // Write prop types for the ExerciseList component.
-ExerciseList.propTypes = {
+ListNameDescription.propTypes = {
     exercises: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired,
+            description: PropTypes.string,
         })
     ).isRequired,
     isSetPresenter: PropTypes.bool,
 };
 
-export default ExerciseList;
+export default ListNameDescription;
