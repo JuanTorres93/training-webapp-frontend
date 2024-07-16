@@ -5,18 +5,30 @@
     justify-content: space-between;
     padding: 1rem;
     background-color: var(--background-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all .3s ease;
     border-bottom: 1px solid var(--font-color);
-    position: fixed; /* Make navbar fixed at the top */
-    top: 0; /* Align to the top */
-    left: 0; /* Align to the left */
-    width: 100%; /* Ensure it spans the full width */
-    z-index: 1000; /* Ensure it stays on top of other content */
+    max-height: 3rem;
+    min-height: 3rem;
+    position: fixed;
+    /* Make navbar fixed at the top */
+    top: 0;
+    /* Align to the top */
+    left: 0;
+    /* Align to the left */
+    width: 100%;
+    /* Ensure it spans the full width */
+    z-index: 1000;
+    /* Ensure it stays on top of other content */
+}
+
+.navBar>* {
+    font-size: var(--subheading-font-size);
 }
 
 .navBarLogo img {
-    height: 40px; /* Adjust based on your logo's aspect ratio */
+    height: 40px;
+    /* Adjust based on your logo's aspect ratio */
     cursor: pointer;
     transition: transform .2s ease;
 }
@@ -56,5 +68,7 @@
 }
 
 .navBarLoginContainer {
+    display: flex;
+    align-items: center;
     margin-right: 1.3rem;
 }

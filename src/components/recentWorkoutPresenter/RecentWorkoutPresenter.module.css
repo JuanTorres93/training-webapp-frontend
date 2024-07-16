@@ -24,8 +24,9 @@
 }
 
 .name {
-    font-weight: bold;
-    transition: all 0.1s;
+  font-weight: bold;
+  transition: all 0.1s;
+  font-size: var(--body-font-size);
 }
 
 .recentWorkout:hover {
@@ -39,6 +40,7 @@
 .fullDateInfo {
   display: flex;
   align-items: center;
+  font-size: var(--body-font-size);
 }
 
 .agoSentence {

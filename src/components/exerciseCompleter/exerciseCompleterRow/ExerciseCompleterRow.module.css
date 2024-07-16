@@ -4,9 +4,15 @@
     align-items: center;
 }
 
+/* select every row child */
+.row>* {
+    font-size: var(--body-font-size);
+}
+
+
 .label {
     margin: 0;
-    color: var(--font-color);
+    color: var(--font-color-contrast);
     font-weight: normal;
 }
 

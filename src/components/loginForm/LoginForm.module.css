@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: start;
+    font-size: var(--body-font-size);
 }
 
 label {
@@ -41,7 +42,8 @@ input:focus {
 
 .submitButton {
     background-color: var(--primary-color);
-    color: var(--font-color);
+    color: var(--font-color-contrast);
+    font-size: var(--body-font-size);
     border: none;
     border-radius: 5px;
     padding: 10px 20px;

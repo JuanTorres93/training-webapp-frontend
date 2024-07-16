@@ -6,7 +6,7 @@
 }
 
 .chartTitle {
-  font-size: 24px;
+  font-size: var(--heading-font-size);
   color: var(--font-color);
   margin-bottom: 10px;
 }

@@ -34,8 +34,9 @@
 .exerciseName {
     font-weight: bold;
     transition: all .1s;
+    font-size: var(--subheading-font-size);
 }
 
 .exerciseDescription {
-    font-size: .8rem;
+    font-size: var(--body-font-size);
 }

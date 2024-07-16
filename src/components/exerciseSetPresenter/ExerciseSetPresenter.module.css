@@ -2,21 +2,23 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: .8rem;
     border: 2px solid var(--text-color);
     transition: all .1s;
 }
 
+.setsContainer>* {
+    font-size: var(--input-field-font-size);
+    font-weight: 500;
+}
+
 .setsInput {
-    width: 2rem;
+    max-width: 3rem;
     margin-left: .5rem;
     text-align: center;
-    /* Make it coherent with the rest of the app */
     border: none;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 2px solid var(--font-color-contrast);
+    color: var(--font-color-contrast);
     background-color: var(--primary-color);
-    color: var(--text-color);
-    font-weight: bold;
 }
 
 /* .setsInput is a class for a number input. Remove border when selected */

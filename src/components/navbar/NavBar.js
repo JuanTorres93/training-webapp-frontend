@@ -17,14 +17,13 @@ function NavBar() {
             <nav className={styles.navBar}>
                 <div className={styles.navBarLogo}>
                     <Link to="/">
-                        {/* TODO change icon */}
                         <img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="logo" />
                     </Link>
                 </div>
                 <div className={styles.navBarLinksContainer}>
-                    <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createTemplate">Create Template </NavLink>
-                    <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/selectTemplate">Select Template </NavLink>
-                    <NavLink className={({isActive}) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
+                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createTemplate">Create Template </NavLink>
+                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/selectTemplate">Select Template </NavLink>
+                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
                 </div>
 
                 {/* Button for login if user is not logged in. Other wise logout button and profile menu */}
@@ -36,7 +35,7 @@ function NavBar() {
                         </>
                     ) : (
                         <>
-                        {/* TODO modify and style as needed */}
+                            {/* TODO modify and style as needed */}
                             <p>{user.alias}</p>
                             <NavLink className={styles.navBarLinks} to="/" onClick={handleLogout}>Logout</NavLink>
                         </>
