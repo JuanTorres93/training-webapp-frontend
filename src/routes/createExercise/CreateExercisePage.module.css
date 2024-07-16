@@ -7,6 +7,10 @@
   width: 90%;
 }
 
+h2 {
+  font-size: var(--heading-font-size);
+}
+
 .topMargin {
   margin-top: 1rem;
 }
@@ -15,14 +19,22 @@ label {
   margin-left: 0.7rem;
 }
 
-.createExerciseButton {
-    /* beatiful styling */
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1em;
-    margin: 10px;
-    width: 90%;
-    min-height: 4rem;
-    transition: all .1s;
+.fontSize {
+  font-size: var(--body-font-size);
+}
 
+.createExerciseButton {
+  /* beatiful styling */
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 3rem;
+  width: 90%;
+  min-height: 4rem;
+  transition: all .1s;
+}
+
+/* Select first .inputWrapper */
+.inputWrapper:first-of-type {
+  margin-bottom: 1rem;
 }

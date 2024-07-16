@@ -60,15 +60,46 @@ export default function CreateExercisePage() {
             <form onSubmit={handleSubmit}>
                 <h2>Create new exercise</h2>
 
-                <label htmlFor="input-exercise-name">Exercise name</label>
-                <input id="input-exercise-name" type="text" placeholder="Exercise name"
-                    onChange={(e) => setAlias(e.target.value)} required />
+                <div className={styles.inputWrapper}>
+                    <label
+                        htmlFor="input-exercise-name"
+                        className={styles.fontSize}
+                    >
+                        Exercise name
+                    </label>
+                    <input
+                        className={styles.fontSize}
+                        id="input-exercise-name"
+                        type="text"
+                        placeholder="Exercise name"
+                        onChange={(e) => setAlias(e.target.value)}
+                        required
+                    />
+                </div>
 
-                <label className={styles.topMargin} htmlFor="input-exercise-description">Exercise description</label>
-                <textarea id="input-exercise-description" placeholder="Exercise description"
-                    onChange={(e) => setDescription(e.target.value)} ></textarea>
+                <div className={styles.inputWrapper}>
+                    <label
+                        className={`${styles.topMargin} ${styles.fontSize}`}
+                        htmlFor="input-exercise-description"
+                    >
+                        Exercise description
+                    </label>
+                    <textarea
+                        id="input-exercise-description"
+                        className={styles.fontSize}
+                        placeholder="Exercise description"
+                        onChange={(e) => setDescription(e.target.value)}
+                    >
+                    </textarea>
+                </div>
 
-                <button type="submit" className={styles.createExerciseButton}>Create exercise</button>
+
+                <button
+                    type="submit"
+                    className={`${styles.createExerciseButton} ${styles.fontSize}`}
+                >
+                    Create exercise
+                </button>
             </form>
         } />
     );
