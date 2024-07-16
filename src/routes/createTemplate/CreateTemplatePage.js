@@ -1,16 +1,22 @@
 import { useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser } from '../../features/user/userSlice';
 
-import ExerciseList from "../../components/listNameDescription/ListNameDescription";
+import ListNameDescription from "../../components/listNameDescription/ListNameDescription";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./CreateTemplatePage.module.css";
 
-import { selectUserExercises } from "../../features/exercises/exercisesSlice";
+import { 
+    selectUserExercises, 
+    selectExercisesInNewTemplate, 
+    addExerciseToTemplate,
+    removeExerciseFromTemplate,
+} from "../../features/exercises/exercisesSlice";
 
 export default function CreateTemplatePage() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(selectUser);
 
@@ -20,18 +26,16 @@ export default function CreateTemplatePage() {
         }
     }, [user, navigate]);
 
+    const handleSelectExercise = (exerciseInfo) => {
+        dispatch(addExerciseToTemplate(exerciseInfo));
+    };
 
-    // TODO Get recent workouts from redux and DB with id, name and description
+    const handleRemoveExercise = (exerciseId) => {
+        dispatch(removeExerciseFromTemplate(exerciseId));
+    };
+
     const availableExercises = useSelector(selectUserExercises);
-
-    // TODO Update through redux state
-    const selectedExercises = [
-        {
-            id: 4,
-            name: "Lunges",
-            description: "A lower-body strength exercise that works the thighs, hamstrings, and glutes.",
-        },
-    ];
+    const selectedExercises = useSelector(selectExercisesInNewTemplate);
 
 
     return (
@@ -56,12 +60,19 @@ export default function CreateTemplatePage() {
                         <div className={styles.exerciseListsContainer}>
                             <div className={styles.exerciseList}>
                                 <h3>Exercises</h3>
-                                <ExerciseList exercises={availableExercises} />
+                                <ListNameDescription 
+                                    exercises={availableExercises} 
+                                    handleExerciseClick={handleSelectExercise}
+                                />
                             </div>
                             <div className={styles.exerciseList}>
                                 {/* TODO Change this to user template's name input */}
                                 <h3>Template's exercises</h3>
-                                <ExerciseList exercises={selectedExercises} isSetPresenter={true} />
+                                <ListNameDescription 
+                                    exercises={selectedExercises} 
+                                    isSetPresenter={true} 
+                                    handleSetExerciseClick={handleRemoveExercise}
+                                />
                             </div>
                         </div>
 

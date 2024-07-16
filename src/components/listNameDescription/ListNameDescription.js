@@ -4,7 +4,9 @@ import styles from './ListNameDescription.module.css'
 import ExercisePresenter from '../exercisePresenter/ExercisePresenter';
 import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 
-function ListNameDescription({ exercises, isSetPresenter = false }) {
+function ListNameDescription({ exercises, isSetPresenter = false, 
+    handleExerciseClick = () => {},
+    handleSetExerciseClick = () => {} }) {
     // The ExerciseList component renders a list of exercises.
     return (
         <div className={styles.exerciseList}>
@@ -15,6 +17,7 @@ function ListNameDescription({ exercises, isSetPresenter = false }) {
                         id={exercise.id} 
                         name={exercise.name} 
                         description={exercise.description} 
+                        handleClick={handleExerciseClick}
                     /> 
                     :
                     <ExerciseSetPresenter 
@@ -22,6 +25,7 @@ function ListNameDescription({ exercises, isSetPresenter = false }) {
                         id={exercise.id} 
                         name={exercise.name} 
                         description={exercise.description} 
+                        handleClick={handleSetExerciseClick}
                     />
             )) : null}
         </div>
@@ -35,8 +39,9 @@ ListNameDescription.propTypes = {
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
             description: PropTypes.string,
+            handleExerciseClick: PropTypes.func, 
         })
-    ).isRequired,
+    ),
     isSetPresenter: PropTypes.bool,
 };
 

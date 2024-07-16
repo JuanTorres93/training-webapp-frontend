@@ -36,6 +36,8 @@ function NavBar() {
                         </>
                     ) : (
                         <>
+                        {/* TODO modify and style as needed */}
+                            <p>{user.alias}</p>
                             <NavLink className={styles.navBarLinks} to="/" onClick={handleLogout}>Logout</NavLink>
                         </>
                     )}
