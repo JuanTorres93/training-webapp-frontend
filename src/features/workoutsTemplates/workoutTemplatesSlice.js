@@ -18,7 +18,8 @@ const slice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
-            userCreatedTemplates: null,
+            userCreatedTemplates: [],
+            activeTemplate: null,
         },
         isLoading: false,
         hasError: false,
@@ -31,8 +32,8 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(createWorkoutTemplate.fulfilled, (state, action) => {
-            let templates = action.payload;
-            state[sliceName].userCreatedTemplates = templates;
+            let template = action.payload;
+            state[sliceName].userCreatedTemplates.push(template);
             state.isLoading = false;
             state.hasError = false;
         })

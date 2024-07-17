@@ -24,7 +24,6 @@ export async function createTemplate({ userId, alias, description }) {
     return jsonResponse;
 };
 
-
 export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOrder, exerciseSets }) {
     const body = {
         exerciseId,
@@ -38,6 +37,17 @@ export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOr
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
+export async function getTemplateInfo({ templateId }) {
+    const response = await fetch(endpoint + `/${templateId}`, {
+        method: 'GET',
         credentials: 'include',
     });
 

@@ -5,15 +5,16 @@ import { selectUser } from '../../features/user/userSlice';
 
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./CreateExercisePage.module.css";
-import { createExercise } from "../../serverAPI/exercises";
 import LoginForm from "../../components/loginForm/LoginForm";
 
-import { getExercisesFromUser } from "../../features/exercises/exercisesSlice";
+import { getExercisesFromUser, selectExercisesLoading } from "../../features/exercises/exercisesSlice";
+import { createExercise } from "../../features/exercises/exercisesSlice";
 
 export default function CreateExercisePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    const exercisesLoading = useSelector(selectExercisesLoading);
 
     const [alias, setAlias] = useState('');
     const [description, setDescription] = useState('');
@@ -34,10 +35,7 @@ export default function CreateExercisePage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await createExercise(alias, description);
-
-            if (response.id) {
-                console.log('Exercise creation successful', response);
+            dispatch(createExercise({ alias, description })).then((response) => {
                 // Update user's exercises list
                 dispatch(getExercisesFromUser({
                     userId: user.id,
@@ -46,7 +44,8 @@ export default function CreateExercisePage() {
                 // clear form
                 setAlias('');
                 setDescription('');
-            }
+            });
+
         } catch (error) {
             // TODO notify user about errors and how to fix them
             console.error('Exercise creation failed', error);
@@ -72,6 +71,7 @@ export default function CreateExercisePage() {
                         id="input-exercise-name"
                         type="text"
                         placeholder="Exercise name"
+                        value={alias}
                         onChange={(e) => setAlias(e.target.value)}
                         required
                     />
@@ -88,6 +88,7 @@ export default function CreateExercisePage() {
                         id="input-exercise-description"
                         className={styles.fontSize}
                         placeholder="Exercise description"
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     >
                     </textarea>
@@ -97,8 +98,13 @@ export default function CreateExercisePage() {
                 <button
                     type="submit"
                     className={`${styles.createExerciseButton} ${styles.fontSize}`}
+                    disabled={exercisesLoading}
                 >
-                    Create exercise
+                    {
+                        exercisesLoading
+                            ? 'Creating exercise...'
+                            : 'Create exercise'
+                    }
                 </button>
             </form>
         } />

@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllExercisesFromUser } from "../../serverAPI/exercises";
 
+import { createExercise as createExerciseInDb } from "../../serverAPI/exercises";
+
 export const sliceName = 'exercises';
 
 export const getExercisesFromUser = createAsyncThunk(
@@ -8,6 +10,17 @@ export const getExercisesFromUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
         const response = await getAllExercisesFromUser(arg.userId);
+
+        return response;
+    }
+);
+
+export const createExercise = createAsyncThunk(
+    `${sliceName}/createExercise`,
+    async (arg, thunkAPI) => {
+        const { alias, description } = arg;
+        // Error is handled from redux state when promise is rejected
+        const response = await createExerciseInDb(alias, description);
 
         return response;
     }
@@ -63,6 +76,7 @@ const exercisesSlice = createSlice({
         },
     },
     extraReducers: builder => {
+        // Get exercises
         builder.addCase(getExercisesFromUser.pending, (state, action) => {
             state.isLoading = true;
             state.hasError = false;
@@ -74,6 +88,22 @@ const exercisesSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getExercisesFromUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Create exercise
+        builder.addCase(createExercise.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(createExercise.fulfilled, (state, action) => {
+            let newExercise = action.payload;
+            state[sliceName].userCreatedExercises.push(newExercise);
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(createExercise.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

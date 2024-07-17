@@ -34,6 +34,11 @@ label {
   transition: all .1s;
 }
 
+.createExerciseButton:disabled {
+    background-color: #555555;
+    cursor: not-allowed;
+}
+
 /* Select first .inputWrapper */
 .inputWrapper:first-of-type {
   margin-bottom: 1rem;
