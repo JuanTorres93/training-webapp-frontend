@@ -29,7 +29,11 @@ const exercisesSlice = createSlice({
             // action must be an exercise object
             // with the properties id, name and description
             const exerciseId = action.payload.id;
-            state[sliceName].exercisesInNewTemplate.push(action.payload);
+            const exerciseInfo = {
+                ...action.payload,
+                sets: 1,
+            };
+            state[sliceName].exercisesInNewTemplate.push(exerciseInfo);
             // Remove Id from userCreatedExercises
             state[sliceName].userCreatedExercises = state[sliceName].userCreatedExercises.filter(exercise => exercise.id !== exerciseId);
         },
@@ -43,7 +47,20 @@ const exercisesSlice = createSlice({
             // Order by id
             state[sliceName].userCreatedExercises.sort((a, b) => a.id - b.id);
             state[sliceName].exercisesInNewTemplate.sort((a, b) => a.id - b.id);
-        }
+        },
+        updateExerciseSets: (state, action) => {
+            // action.payload is an object with the properties id and sets
+            const { id, sets } = action.payload;
+            state[sliceName].exercisesInNewTemplate = state[sliceName].exercisesInNewTemplate.map(exercise => {
+                if (exercise.id === id) {
+                    return {
+                        ...exercise,
+                        sets: sets,
+                    };
+                }
+                return exercise;
+            });
+        },
     },
     extraReducers: builder => {
         builder.addCase(getExercisesFromUser.pending, (state, action) => {
@@ -71,7 +88,10 @@ export const selectExercisesError = state => state[sliceName].hasError;
 export const selectExercisesInNewTemplate = state => state[sliceName][sliceName].exercisesInNewTemplate;
 
 // Export actions
-export const { addExerciseToTemplate, removeExerciseFromTemplate } = exercisesSlice.actions;
+export const { 
+    addExerciseToTemplate, 
+    removeExerciseFromTemplate,
+    updateExerciseSets } = exercisesSlice.actions;
 
 // Export reducer
 export default exercisesSlice.reducer;

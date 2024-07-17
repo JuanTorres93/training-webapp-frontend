@@ -69,37 +69,32 @@ export default function CreateTemplatePage() {
                 const newTemplate = action.payload;
                 const promises = [];
                 
-                // TODO DELETE THESE DEBUG LOGS
-                console.log('newTemplate');
-                console.log(newTemplate);
-                
-                const exerciseOrder = 1;
+                let exerciseOrder = 1;
                 
                 selectedExercises.forEach(exercise => {
-                    // TODO DELETE THESE DEBUG LOGS
-                    console.log('exercise');
-                    console.log(exercise);
-
                     const addExercisesToTemplateInfo = {
                         templateId: newTemplate.id,
                         exerciseId: exercise.id,
                         exerciseOrder: exerciseOrder,
-                        // TODO Coger sets
-                        exerciseSets: 'sets',
+                        exerciseSets: exercise.sets,
                     };
 
                     exerciseOrder++;
                     
-                    // promises.push(
-                        // addExerciseToTemplate({
-                            // templateId: newTemplate.id,
-                            // exerciseId: exercise.id,
-                            // exerciseOrder: 0,
-                            // exerciseSets: 0,
-                        // })
-                    // );
+                    promises.push(
+                        addExerciseToTemplateInDb(addExercisesToTemplateInfo)
+                    );
                 });
                  
+                // Wait for promises to resolve and handle them
+                Promise.all(promises)
+                    .then(() => {
+                        // TODO only if the second button is clicked
+                        navigate(`/startWorkout/template/${newTemplate.id}`);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
 
             })
             .catch((error) => {
