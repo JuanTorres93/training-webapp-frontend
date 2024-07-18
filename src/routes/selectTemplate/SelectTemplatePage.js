@@ -14,13 +14,30 @@ import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTem
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
-    const templates = useSelector(selectUserTemplates).map(template => ({ id: template.id, name: template.alias, description: template.description }));
+    const templates = useSelector(selectUserTemplates).map(template => ({ 
+        ...template, 
+        name: template.alias 
+    }));
+    let previewedTemplate = null;
         
     useEffect(() => {
         if (!user) {
             navigate('/login');
         }
     }, [user, navigate]);
+
+    const handleSelectTemplate = ({ id }) => {
+        previewedTemplate = templates.find(template => template.id === id);
+        
+        // TODO DELETE THESE DEBUG LOGS
+        console.log('previewedTemplate');
+        console.log(previewedTemplate);
+    };
+
+    const handleGoToWorkout = (templateId) => {
+        // TODO include as onDoubleClick
+        navigate(`/startWorkout/${templateId}`);
+    }
 
 
     // TODO Get recent workouts from redux and DB
@@ -58,7 +75,10 @@ export default function SelectTemplatePage() {
                         </div>
 
                         {/* Render list of templates */}
-                        <List exercises={templates} />
+                        <List 
+                            exercises={templates} 
+                            handleExerciseClick={handleSelectTemplate}
+                        />
                     </div>
                 ) : (
                     <LoginForm />
