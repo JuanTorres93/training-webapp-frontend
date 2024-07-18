@@ -18,6 +18,7 @@ import {
 import { 
     createWorkoutTemplate,
     selectTemplatesLoading,
+    getAllUserCreatedTemplates,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 import { addExerciseToTemplate as addExerciseToTemplateInDb } from "../../serverAPI/workoutsTemplates";
@@ -89,8 +90,11 @@ export default function CreateTemplatePage() {
                 // Wait for promises to resolve and handle them
                 Promise.all(promises)
                     .then(() => {
-                        // TODO only if the second button is clicked
-                        navigate(`/startWorkout/template/${newTemplate.id}`);
+                        // Update workout list
+                        dispatch(getAllUserCreatedTemplates({ userId: user.id })).then(() => {
+                            // TODO only if the second button is clicked
+                            navigate(`/startWorkout/template/${newTemplate.id}`);
+                        });
                     })
                     .catch((error) => {
                         console.error(error);

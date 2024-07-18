@@ -45,6 +45,17 @@ export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOr
     return jsonResponse;
 };
 
+export async function getAllUserTemplates({ userId }) {
+    const response = await fetch(endpoint + `/all/${userId}`, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
 export async function getTemplateInfo({ templateId }) {
     const response = await fetch(endpoint + `/${templateId}`, {
         method: 'GET',
