@@ -36,7 +36,16 @@ const slice = createSlice({
         isLoading: false,
         hasError: false,
     },
-    reducers: {},
+    reducers: {
+        setActiveTemplate: (state, action) => {
+            // Action payload is the template id, it should be 
+            // contained in the userCreatedTemplates array
+            const template = state[sliceName].userCreatedTemplates.find(
+                template => template.id === action.payload
+            );
+            state[sliceName].activeTemplate = template;
+        }
+    },
     extraReducers: builder => {
         // Create workout template
         builder.addCase(createWorkoutTemplate.pending, (state, action) => {
@@ -72,11 +81,12 @@ const slice = createSlice({
 
 // Export selectors
 export const selectUserTemplates = state => state[sliceName][sliceName].userCreatedTemplates;
+export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
 export const selectTemplatesLoading = state => state[sliceName].isLoading;
 export const selectTemplatesError = state => state[sliceName].hasError;
 
 // Export actions
-
+export const { setActiveTemplate } = slice.actions;
 
 // Export reducer
 export default slice.reducer;
