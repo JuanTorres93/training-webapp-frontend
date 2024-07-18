@@ -9,17 +9,19 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
+import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
-
+    const templates = useSelector(selectUserTemplates).map(template => ({ id: template.id, name: template.alias, description: template.description }));
+        
     useEffect(() => {
         if (!user) {
             navigate('/login');
         }
     }, [user, navigate]);
 
-    // TODO Get recent workouts from redux and DB with id, name and description
 
     // TODO Get recent workouts from redux and DB
     const recentWorkouts = [
@@ -28,25 +30,6 @@ export default function SelectTemplatePage() {
         { id: 3, date: "2024-06-03", name: "Leg" },
         { id: 4, date: "2024-06-02", name: "Push" },
         { id: 5, date: "2024-06-01", name: "Pull" },
-    ];
-
-    // TODO Get workouts templates from redux and DB
-    const templates = [
-        {
-            id: 1,
-            name: "Push",
-            description: "Routine for push exercises. It includes push-ups, bench press, and shoulder press."
-        },
-        {
-            id: 2,
-            name: "Pull",
-            description: "Pull routine. It includes pull-ups, deadlifts, and rows.",
-        },
-        {
-            id: 3,
-            name: "Leg",
-            description: "Leg workout that includes squats, lunges, and calf raises.",
-        },
     ];
 
     return (
