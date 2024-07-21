@@ -77,30 +77,36 @@ export default function SelectTemplatePage() {
                             </div>
                         </div>
 
-                        {/* Render list of templates */}
-                        <List
-                            exercises={templates}
-                            handleExerciseClick={handleSelectTemplate}
-                            handleExerciseDoubleClick={handleGoToWorkout}
-                        />
-
-                        {/* Render preview of selected template */}
-                        {selectedTemplate && (
-                            <div className={styles.previewContainer}>
-                                <GenericList
-                                    children={
-                                        selectedTemplate.exercises.map((exercise) => (
-                                            <ExerciseTemplatePresenter
-                                                key={exercise.id}
-                                                order={exercise.order}
-                                                name={exercise.alias}
-                                                sets={exercise.sets}
-                                            />
-                                        ))
-                                    }
+                        <div className={styles.listContainer}>
+                            <div className={styles.individualListContainer}>
+                                {/* Render list of templates */}
+                                <List
+                                    exercises={templates}
+                                    handleExerciseClick={handleSelectTemplate}
+                                    handleExerciseDoubleClick={handleGoToWorkout}
                                 />
                             </div>
-                        )}
+
+                            <div className={styles.individualListContainer}>
+                                {/* Render preview of selected template */}
+                                {selectedTemplate && (
+                                    <div className={styles.previewContainer}>
+                                        <GenericList
+                                            children={
+                                                selectedTemplate.exercises.map((exercise) => (
+                                                    <ExerciseTemplatePresenter
+                                                        key={exercise.id}
+                                                        order={exercise.order}
+                                                        name={exercise.alias}
+                                                        sets={exercise.sets}
+                                                    />
+                                                ))
+                                            }
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <LoginForm />
