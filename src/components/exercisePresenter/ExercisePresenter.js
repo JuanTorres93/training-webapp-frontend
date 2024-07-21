@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import styles from './ExercisePresenter.module.css'
 
-function ExercisePresenter({ id, name, description, handleClick = () => {} }) {
+function ExercisePresenter({ id, name, description, handleClick = () => { }, handleDoubleClick = () => { } }) {
     // The ExercisePresenter component renders the name and description of an exercise.
     const exerciseInfo = { id, name, description };
 
     return (
         <div data-testid="exercisePresenter" className={styles.exercisePresenter}
-             onClick={() => {handleClick(exerciseInfo)}}
-             >
+            onClick={() => { handleClick(exerciseInfo) }}
+            onDoubleClick={() => { handleDoubleClick(exerciseInfo) }}
+        >
             <div className={styles.exerciseName}>{name}</div>
             <div className={styles.exerciseDescription}>{description}</div>
         </div>

@@ -36,9 +36,10 @@ export default function SelectTemplatePage() {
         console.log(selectedTemplate);
     };
 
-    const handleGoToWorkout = (templateId) => {
+    const handleGoToWorkout = ({ id }) => {
+        // TODO NEXT DEBUG WHY IS NOT WORKING
         // TODO include as onDoubleClick
-        navigate(`/startWorkout/${templateId}`);
+        navigate(`/startWorkout/${id}`);
     }
 
 
@@ -80,6 +81,7 @@ export default function SelectTemplatePage() {
                         <List
                             exercises={templates}
                             handleExerciseClick={handleSelectTemplate}
+                            handleExerciseDoubleClick={handleGoToWorkout}
                         />
 
                         {/* Render preview of selected template */}
