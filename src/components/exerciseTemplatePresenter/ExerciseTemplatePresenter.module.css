@@ -1,0 +1,47 @@
+/* These styles are shared with ExerciseSetPresenter */
+.exerciseTemplatePresenter {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: .8rem;
+    border: var(--font-color-contrast) solid .15rem;
+    padding: .5rem 1rem;
+    /* cursor: pointer; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: all .1s;
+    width: 90%;
+    max-width: 500px;
+}
+
+.exerciseTemplatePresenter * {
+    color: var(--font-color-contrast);
+}
+
+/* .exerciseTemplatePresenter:hover { */
+/* border: var(--accent-color) solid .15rem; */
+/* } */
+/*  */
+/* .exerciseTemplatePresenter:hover .exerciseName { */
+/* color: var(--accent-color); */
+/* } */
+/*  */
+/* .exerciseTemplatePresenter:hover input { */
+/* color: var(--accent-color); */
+/* } */
+
+.name {
+    font-weight: bold;
+    transition: all .1s;
+    font-size: var(--subheading-font-size);
+    margin-right: 1.5rem;
+}
+
+.order {
+    font-weight: bold;
+    margin-right: 3rem;
+    font-size: var(--subheading-font-size);
+}
+
+.sets {
+    font-size: var(--subheading-font-size);
+}

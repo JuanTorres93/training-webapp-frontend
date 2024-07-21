@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser } from '../../features/user/userSlice';
 
 import List from "../../components/listNameDescription/ListNameDescription";
+import GenericList from "../../components/genericList/GenericList";
+import ExerciseTemplatePresenter from "../../components/exerciseTemplatePresenter/ExerciseTemplatePresenter";
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
@@ -14,12 +16,12 @@ import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTem
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
-    const templates = useSelector(selectUserTemplates).map(template => ({ 
-        ...template, 
-        name: template.alias 
+    const templates = useSelector(selectUserTemplates).map(template => ({
+        ...template,
+        name: template.alias
     }));
-    let previewedTemplate = null;
-        
+    const [selectedTemplate, setSelectedTemplate] = useState(null);
+
     useEffect(() => {
         if (!user) {
             navigate('/login');
@@ -27,11 +29,11 @@ export default function SelectTemplatePage() {
     }, [user, navigate]);
 
     const handleSelectTemplate = ({ id }) => {
-        previewedTemplate = templates.find(template => template.id === id);
-        
+        setSelectedTemplate(templates.find(template => template.id === id));
+
         // TODO DELETE THESE DEBUG LOGS
         console.log('previewedTemplate');
-        console.log(previewedTemplate);
+        console.log(selectedTemplate);
     };
 
     const handleGoToWorkout = (templateId) => {
@@ -56,7 +58,7 @@ export default function SelectTemplatePage() {
                     <div className={styles.createTemplatePageContainer}>
                         <h2>Recent workouts</h2>
                         <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
-        
+
                         {/* Search and sort by components */}
                         {/* TODO Style and create functionallity */}
                         <div className={styles.searchAndSortContainer}>
@@ -75,10 +77,28 @@ export default function SelectTemplatePage() {
                         </div>
 
                         {/* Render list of templates */}
-                        <List 
-                            exercises={templates} 
+                        <List
+                            exercises={templates}
                             handleExerciseClick={handleSelectTemplate}
                         />
+
+                        {/* Render preview of selected template */}
+                        {selectedTemplate && (
+                            <div className={styles.previewContainer}>
+                                <GenericList
+                                    children={
+                                        selectedTemplate.exercises.map((exercise) => (
+                                            <ExerciseTemplatePresenter
+                                                key={exercise.id}
+                                                order={exercise.order}
+                                                name={exercise.alias}
+                                                sets={exercise.sets}
+                                            />
+                                        ))
+                                    }
+                                />
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <LoginForm />
