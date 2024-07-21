@@ -12,7 +12,7 @@
 }
 
 .setsInput {
-    max-width: 3rem;
+    /* max-width: 3rem; */
     margin-left: .5rem;
     text-align: center;
     border: none;

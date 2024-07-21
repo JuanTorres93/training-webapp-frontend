@@ -8,25 +8,25 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 1rem;
     width: 90%;
-    max-width: 500px;
+    max-width: 40rem;
 
     /* Scroll bar */
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 35rem;
 
     /* More spacing in first and last children */
-    > *:first-child {
+    >*:first-child {
         margin-top: 1rem;
     }
 
-    > *:last-child {
+    >*:last-child {
         margin-bottom: 1rem;
     }
 }
 
 
 
-.exerciseList > * {
+.exerciseList>* {
     width: 90%;
     margin: .5rem 0;
 }
