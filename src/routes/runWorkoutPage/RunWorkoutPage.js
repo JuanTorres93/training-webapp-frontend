@@ -43,8 +43,12 @@ export default function RunWorkoutPage() {
         <PagePresenter children={
             <div className={styles.container}>
                 <h2>Run workout</h2>
-                <GenericList children={exerciseCompleters} />
-                <button type="button" className={styles.button}>Finish workout</button>
+
+                <div className={styles.listContainer}>
+                    <GenericList children={exerciseCompleters} />
+                </div>
+
+                <button type="button">Finish workout</button>
             </div>
         } />
     );

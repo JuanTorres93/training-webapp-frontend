@@ -30,18 +30,11 @@ export default function SelectTemplatePage() {
 
     const handleSelectTemplate = ({ id }) => {
         setSelectedTemplate(templates.find(template => template.id === id));
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('previewedTemplate');
-        console.log(selectedTemplate);
     };
 
     const handleGoToWorkout = ({ id }) => {
-        // TODO NEXT DEBUG WHY IS NOT WORKING
-        // TODO include as onDoubleClick
-        navigate(`/startWorkout/${id}`);
+        navigate(`/startWorkout/template/${id}`);
     }
-
 
     // TODO Get recent workouts from redux and DB
     const recentWorkouts = [
