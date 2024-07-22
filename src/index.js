@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         element: <StartWorkoutPage />
       },
       {
-        path: "runWorkout",
+        path: "runWorkout/:workoutId",
         element: <RunWorkoutPage />
       },
       {

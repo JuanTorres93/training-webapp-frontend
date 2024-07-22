@@ -15,10 +15,10 @@ function ExerciseCompleter({ exerciseName, sets = [] }) {
 
             {/* For each set in sets, render an ExerciseCompleterRow component */}
 
-            {sets.map((set) => (
-                <div className={styles.marginLeft}>
+            {sets.map((set, index) => (
+                <div key={`div-${exerciseName}-${set.setNumber}-${index}`} 
+                     className={styles.marginLeft}>
                     <ExerciseCompleterRow
-                        key={`${exerciseName}-${set.setNumber}`}
                         setNumber={set.setNumber}
                         placeholderWeight={set.weight}
                         placeholderReps={set.reps}

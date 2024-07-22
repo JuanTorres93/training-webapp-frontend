@@ -14,7 +14,7 @@ function ExerciseTemplatePresenter({ order, name, sets }) {
 ExerciseTemplatePresenter.propTypes = {
     order: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    sets: PropTypes.string.isRequired,
+    sets: PropTypes.number.isRequired,
 };
 
 export default ExerciseTemplatePresenter;

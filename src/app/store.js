@@ -16,11 +16,13 @@ import {
 import userReducer, { sliceName as userName } from '../features/user/userSlice';
 import exerciseReducer, { sliceName as exerciseName } from '../features/exercises/exercisesSlice';
 import templateReducer, { sliceName as templateName } from '../features/workoutsTemplates/workoutTemplatesSlice';
+import workoutReducer, { sliceName as workoutName } from '../features/workouts/workoutSlice';
 
 const rootReducer = combineReducers({
   [userName]: userReducer,
   [exerciseName]: exerciseReducer,
   [templateName]: templateReducer,
+  [workoutName]: workoutReducer,
 });
 
 const persistConfig = {

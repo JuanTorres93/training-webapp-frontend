@@ -1,6 +1,11 @@
 import styles from './ExerciseCompleterRow.module.css';
 
 function ExerciseCompleterRow({ setNumber, placeholderWeight, placeholderReps }) {
+    const generateRandomNumber = () => Math.floor(Math.random() * 100);
+
+    const weightRandom = generateRandomNumber();
+    const repsRandom = generateRandomNumber();
+
     return (
         <div className={styles.row}>
             <div className={styles.fieldContainer}>
@@ -8,13 +13,13 @@ function ExerciseCompleterRow({ setNumber, placeholderWeight, placeholderReps })
             </div>
 
             <div className={styles.fieldContainer}>
-                <label htmlFor={`weight-${setNumber}`} className={styles.label}>Weight</label>
-                <input id={`weight-${setNumber}`} type="number" placeholder={placeholderWeight} />
+                <label htmlFor={`weight-${setNumber}-${weightRandom}`} className={styles.label}>Weight</label>
+                <input id={`weight-${setNumber}-${weightRandom}`} type="number" placeholder={placeholderWeight} />
             </div>
 
             <div className={styles.fieldContainer}>
-                <label htmlFor={`reps-${setNumber}`} className={styles.label}>Reps</label>
-                <input id={`reps-${setNumber}`} type="number" placeholder={placeholderReps} />
+                <label htmlFor={`reps-${setNumber}-${repsRandom}`} className={styles.label}>Reps</label>
+                <input id={`reps-${setNumber}-${repsRandom}`} type="number" placeholder={placeholderReps} />
             </div>
         </div>
     );
