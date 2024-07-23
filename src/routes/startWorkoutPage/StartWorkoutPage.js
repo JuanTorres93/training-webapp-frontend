@@ -5,8 +5,9 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import ExerciseProgressPlot from "../../components/exerciseProgressPlot/ExerciseProgressPlot";
 import styles from "./StartWorkoutPage.module.css";
 
+import { selectUser } from "../../features/user/userSlice";
 import { setActiveTemplate, selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
-import { createWorkout } from "../../features/workouts/workoutSlice";
+import { createWorkout, setLastWorkout } from "../../features/workouts/workoutSlice";
 
 export default function StartWorkoutPage() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function StartWorkoutPage() {
 
     dispatch(setActiveTemplate(parseInt(templateId)));
     const template = useSelector(selectActiveTemplate);
+    const user = useSelector(selectUser);
 
     const handleStartWorkout = () => {
         dispatch(createWorkout({
@@ -22,6 +24,10 @@ export default function StartWorkoutPage() {
             description: template.description,
         })).then((response) => {
             const workout = response.payload;
+            dispatch(setLastWorkout({
+                templateId: template.id,
+                userId: user.id,
+            }));
             navigate(`/runWorkout/${workout.id}`);
         });
     };

@@ -22,3 +22,20 @@ export async function createWorkout({ alias, description }) {
 
     return jsonResponse;
 };
+
+export async function getLastWorkoutFromTemplate({ templateId, userId }) {
+    const ep = `${endpoint}/last/${templateId}/user/${userId}`;
+    const response = await fetch(ep, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    const lastWorkout = {
+        ...jsonResponse,
+        exercises: jsonResponse.exercises.filter((exercise) => exercise.id !== null),
+    };
+
+    return lastWorkout;
+};
