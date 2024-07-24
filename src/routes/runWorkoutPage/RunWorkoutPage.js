@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import { selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
-import { selectLastWorkout } from "../../features/workouts/workoutSlice";
+import { selectLastWorkout, selectActiveWorkout } from "../../features/workouts/workoutSlice";
 
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./RunWorkoutPage.module.css";
@@ -9,35 +9,16 @@ import GenericList from "../../components/genericList/GenericList";
 import ExerciseCompleter from "../../components/exerciseCompleter/ExerciseCompleter";
 
 export default function RunWorkoutPage() {
-    // TODO retrieve info from DB
-    // const lastWorkout = {
-    //     id: 1,
-    //     name: "Legs day",
-    //     date: "2021-09-01",
-    //     exercises: [
-    //         {
-    //             id: 1,
-    //             name: "Squats",
-    //             sets: [
-    //                 { setNumber: 1, weight: 100, reps: 10 },
-    //                 { setNumber: 2, weight: 100, reps: 10 },
-    //                 { setNumber: 3, weight: 100, reps: 9 },
-    //             ],
-    //         },
-    //         {
-    //             id: 2,
-    //             name: "Deadlift",
-    //             sets: [
-    //                 { setNumber: 1, weight: 120, reps: 10 },
-    //                 { setNumber: 2, weight: 120, reps: 9 },
-    //                 { setNumber: 3, weight: 120, reps: 9 },
-    //             ],
-    //         },
-    //     ],
-    // };
-
     const lastWorkout = useSelector(selectLastWorkout);
     const activeTemplate = useSelector(selectActiveTemplate);
+    const activeWorkout = useSelector(selectActiveWorkout);
+
+    const handleFinishWorkout = () => {
+        const workoutId = activeWorkout.id;
+        const exercises = activeWorkout.exercises;
+    
+        // TODO dispatch async action to add exercises to workout
+    };
 
     let exerciseCompleters;
 
@@ -56,14 +37,17 @@ export default function RunWorkoutPage() {
                     key={exercise.id}
                     exerciseName={exercise.alias}
                     sets={sets}
+                    exerciseId={exercise.id}
+                    exerciseOrder={exercise.order}
                 />
             )
         });
     } else {
+        // TODO probably I'll have to process this
         exerciseCompleters = lastWorkout.exercises.map((exercise) => (
             <ExerciseCompleter
                 key={exercise.id}
-                exerciseName={exercise.name}
+                exerciseName={exercise.alias}
                 sets={exercise.sets}
             />
         ));
@@ -78,7 +62,7 @@ export default function RunWorkoutPage() {
                     <GenericList children={exerciseCompleters} />
                 </div>
 
-                <button type="button">Finish workout</button>
+                <button type="button" onClick={handleFinishWorkout}>Finish workout</button>
             </div>
         } />
     );

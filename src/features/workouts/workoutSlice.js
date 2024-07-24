@@ -32,13 +32,56 @@ const slice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
-            activeWorkout: null,
+            activeWorkout: null, // Its exercises property contain the values for each set.
             lastWorkout: null,
         },
         isLoading: false,
         hasError: false,
     },
-    reducers: {},
+    reducers: {
+        updateActiveWorkoutExercise: (state, action) => {
+            // action.payload is an object with the properties exerciseId, exerciseOrder, setNumber, weight and reps
+            // Check if exercise exists in activeWorkout. If it does, update it. If it doesn't, add it.
+            // An exercise is defined by its id and order
+            const { exerciseId, exerciseOrder, setNumber, weight, reps } = action.payload;
+            const { activeWorkout } = state[sliceName];
+
+            if (activeWorkout.exercises.length === 0) {
+                // If there are no exercises, create the first one
+                activeWorkout.exercises = [{
+                    id: exerciseId,
+                    order: exerciseOrder,
+                    sets: [{ setNumber, weight, reps }],
+                }];
+            } else {
+                // If there are exercises, check if the exercise exists
+                const exerciseIndex = activeWorkout.exercises.findIndex((exercise) => (
+                    exercise.id === exerciseId && exercise.order === exerciseOrder
+                ));
+
+                if (exerciseIndex === -1) {
+                    // If the exercise does not exist, create it
+                    activeWorkout.exercises.push({
+                        id: exerciseId,
+                        order: exerciseOrder,
+                        sets: [{ setNumber, weight, reps }],
+                    });
+                } else {
+                    // If the exercise exists, update it
+                    const exercise = activeWorkout.exercises[exerciseIndex];
+                    const setIndex = exercise.sets.findIndex((set) => set.setNumber === setNumber);
+
+                    if (setIndex === -1) {
+                        // If the set does not exist, create it
+                        exercise.sets.push({ setNumber, weight, reps });
+                    } else {
+                        // If the set exists, update it
+                        exercise.sets[setIndex] = { setNumber, weight, reps };
+                    }
+                }
+            }
+        }
+    },
     extraReducers: builder => {
         // Create workout template
         builder.addCase(createWorkout.pending, (state, action) => {
@@ -80,6 +123,7 @@ export const selectWorkoutsError = state => state[sliceName].hasError;
 export const selectLastWorkout = state => state[sliceName][sliceName].lastWorkout;
 
 // Export actions
+export const { updateActiveWorkoutExercise } = slice.actions;
 
 // Export reducer
 export default slice.reducer;

@@ -1,7 +1,7 @@
 import ExerciseCompleterRow from './exerciseCompleterRow/ExerciseCompleterRow';
 import styles from './ExerciseCompleter.module.css'
 
-function ExerciseCompleter({ exerciseName, sets = [] }) {
+function ExerciseCompleter({ exerciseName, exerciseId, exerciseOrder, sets = [] }) {
     // sets is a list containing objects with setNumber, weight and reps properties
 
     // order the sets by setNumber in ascending order
@@ -22,6 +22,8 @@ function ExerciseCompleter({ exerciseName, sets = [] }) {
                         setNumber={set.setNumber}
                         placeholderWeight={set.weight}
                         placeholderReps={set.reps}
+                        exerciseId={exerciseId}
+                        exerciseOrder={exerciseOrder}
                     />
                 </div>
             ))}
