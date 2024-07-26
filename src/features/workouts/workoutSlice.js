@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { 
     createWorkout as createWorkoutInDb,
     getLastWorkoutFromTemplate,
+    addExerciseToWorkout as addExerciseToWorkoutInDb,
 } from "../../serverAPI/workouts";
 
 export const sliceName = 'workout';
@@ -25,6 +26,42 @@ export const setLastWorkout = createAsyncThunk(
         const response = await getLastWorkoutFromTemplate(arg);
 
         return response;
+    }
+);
+
+export const finishWorkout = createAsyncThunk(
+    `${sliceName}/finishWorkout`,
+    async (arg, thunkAPI) => {
+        // Error is handled from redux state when promise is rejected
+
+        // select the active workout from the state
+        const activeWorkout = thunkAPI.getState()[sliceName][sliceName].activeWorkout;
+
+        // For each exercise in activeWorkout, add it to the workout
+        const promises = []
+        activeWorkout.exercises.forEach((exercise) => {
+            const { id: exerciseId, order: exerciseOrder, sets } = exercise;
+
+            sets.forEach(async (set) => {
+                const { setNumber, weight, reps } = set;
+
+                promises.push(addExerciseToWorkoutInDb({
+                    workoutId: activeWorkout.id,
+                    exerciseId,
+                    exerciseSet: setNumber,
+                    reps,
+                    weight,
+                }));
+            });
+        });
+
+        try {
+            await Promise.all(promises);
+            return true;
+        } catch (error) {
+            return false;
+        }
+
     }
 );
 
@@ -80,6 +117,10 @@ const slice = createSlice({
                     }
                 }
             }
+        },
+
+        clearLastWorkout: (state) => {
+            state[sliceName].lastWorkout = null;
         }
     },
     extraReducers: builder => {
@@ -112,6 +153,21 @@ const slice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         })
+
+        // Finish workout
+        builder.addCase(finishWorkout.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(finishWorkout.fulfilled, (state, action) => {
+            state[sliceName].activeWorkout = null;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(finishWorkout.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
     },
 });
 
@@ -123,7 +179,10 @@ export const selectWorkoutsError = state => state[sliceName].hasError;
 export const selectLastWorkout = state => state[sliceName][sliceName].lastWorkout;
 
 // Export actions
-export const { updateActiveWorkoutExercise } = slice.actions;
+export const { 
+    updateActiveWorkoutExercise,
+    clearLastWorkout,
+} = slice.actions;
 
 // Export reducer
 export default slice.reducer;

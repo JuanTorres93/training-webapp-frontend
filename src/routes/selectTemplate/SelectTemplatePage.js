@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser } from '../../features/user/userSlice';
 
@@ -12,15 +12,24 @@ import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
 import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import { clearLastWorkout } from "../../features/workouts/workoutSlice";
 
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
     const user = useSelector(selectUser);
     const templates = useSelector(selectUserTemplates).map(template => ({
         ...template,
         name: template.alias
     }));
     const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+
+    useEffect(() => {
+        dispatch(clearLastWorkout());
+    }, [dispatch]); // Empty dependency array removed, added dispatch to ensure linting rules and best practices are followed
 
     useEffect(() => {
         if (!user) {

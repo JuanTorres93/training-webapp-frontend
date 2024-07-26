@@ -19,6 +19,9 @@ export default function StartWorkoutPage() {
     const user = useSelector(selectUser);
 
     const handleStartWorkout = () => {
+        // TODO Create workout in database only after user confirms the finish?
+        // TODO this would involve modifyying the logic in the RunWorkoutPage component
+        // TODO for adding exercises to the workout
         dispatch(createWorkout({
             alias: template.alias,
             description: template.description,

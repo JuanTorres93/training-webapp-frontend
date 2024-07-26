@@ -39,3 +39,25 @@ export async function getLastWorkoutFromTemplate({ templateId, userId }) {
 
     return lastWorkout;
 };
+
+export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet, reps, weight }) {
+    const body = {
+        exerciseId,
+        exerciseSet,
+        reps,
+        weight,
+    };
+
+    const response = await fetch(endpoint + `/${workoutId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
