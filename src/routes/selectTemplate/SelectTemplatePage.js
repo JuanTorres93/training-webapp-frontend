@@ -12,7 +12,7 @@ import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
 import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTemplatesSlice";
-import { clearLastWorkout } from "../../features/workouts/workoutSlice";
+import { clearLastWorkout, setLastNWorkouts } from "../../features/workouts/workoutSlice";
 
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
@@ -26,7 +26,6 @@ export default function SelectTemplatePage() {
     }));
     const [selectedTemplate, setSelectedTemplate] = useState(null);
 
-
     useEffect(() => {
         dispatch(clearLastWorkout());
     }, [dispatch]); // Empty dependency array removed, added dispatch to ensure linting rules and best practices are followed
@@ -39,6 +38,13 @@ export default function SelectTemplatePage() {
 
     const handleSelectTemplate = ({ id }) => {
         setSelectedTemplate(templates.find(template => template.id === id));
+
+        dispatch(setLastNWorkouts({
+            templateId: id,
+            userId: user.id,
+            // TODO change to number that can be selected by user
+            numberOfWorkouts: 2,
+        }));
     };
 
     const handleGoToWorkout = ({ id }) => {
@@ -62,21 +68,10 @@ export default function SelectTemplatePage() {
                         <h2>Recent workouts</h2>
                         <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
 
-                        {/* Search and sort by components */}
-                        {/* TODO Style and create functionallity */}
                         <div className={styles.searchAndSortContainer}>
-                            <div className={`${styles.searchContainer} ${styles.columnAlignedLeft}`}>
-                                <span>Search</span>
-                                <input type="text" placeholder="Search templates" />
-                            </div>
-                            <div className={`${styles.sortContainer} ${styles.columnAlignedLeft}`}>
-                                <span>Sort by</span>
-                                <select>
-                                    <option value="newest">Newest</option>
-                                    <option value="oldest">Oldest</option>
-                                    <option value="name">Name</option>
-                                </select>
-                            </div>
+                            <h3>
+                                Template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
+                            </h3>
                         </div>
 
                         <div className={styles.listContainer}>

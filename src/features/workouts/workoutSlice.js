@@ -3,6 +3,7 @@ import {
     createWorkout as createWorkoutInDb,
     getLastWorkoutFromTemplate,
     addExerciseToWorkout as addExerciseToWorkoutInDb,
+    getLastNWorkoutsFromTemplate,
 } from "../../serverAPI/workouts";
 
 export const sliceName = 'workout';
@@ -24,6 +25,26 @@ export const setLastWorkout = createAsyncThunk(
         // arg is an object with the properties templateId and userId
         // Error is handled from redux state when promise is rejected
         const response = await getLastWorkoutFromTemplate(arg);
+
+        return response;
+    }
+);
+
+
+export const setLastNWorkouts = createAsyncThunk(
+    `${sliceName}/setLastNWorkouts`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties templateId, userId and numberOfWorkouts
+        // Error is handled from redux state when promise is rejected
+
+        // TODO DELETE THESE DEBUG LOGS
+        console.log('ENTERS THUNK');
+
+        const response = await getLastNWorkoutsFromTemplate(arg);
+
+        // TODO DELETE THESE DEBUG LOGS
+        console.log('response');
+        console.log(response);
 
         return response;
     }
@@ -70,7 +91,8 @@ const slice = createSlice({
     initialState: {
         [sliceName]: {
             activeWorkout: null, // Its exercises property contain the values for each set.
-            lastWorkout: null,
+            lastWorkout: null,   // For showing last values
+            lastNWorkouts: null, // For showing progress
         },
         isLoading: false,
         hasError: false,
@@ -150,6 +172,21 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(setLastWorkout.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Set last N workouts from template
+        builder.addCase(setLastNWorkouts.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(setLastNWorkouts.fulfilled, (state, action) => {
+            state[sliceName].lastNWorkouts = action.payload;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(setLastNWorkouts.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

@@ -40,6 +40,26 @@ export async function getLastWorkoutFromTemplate({ templateId, userId }) {
     return lastWorkout;
 };
 
+export async function getLastNWorkoutsFromTemplate({ templateId, userId, numberOfWorkouts }) {
+    const ep = `${endpoint}/last/${templateId}/user/${userId}/${numberOfWorkouts}`;
+    const response = await fetch(ep, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    // TODO DELETE THESE DEBUG LOGS
+    console.log('response');
+    console.log(response);
+
+    const jsonResponse = await response.json();
+
+    // TODO DELETE THESE DEBUG LOGS
+    console.log('jsonResponse');
+    console.log(jsonResponse);
+
+    return jsonResponse;
+};
+
 export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet, reps, weight }) {
     const body = {
         exerciseId,
