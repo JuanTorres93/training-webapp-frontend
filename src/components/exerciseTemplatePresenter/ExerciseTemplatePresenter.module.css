@@ -8,13 +8,12 @@
     padding: .5rem 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: all .1s;
-    width: 90%;
+    width: clamp(17rem, 17rem, 17rem);
 }
 
 .exerciseTemplatePresenter * {
     color: var(--font-color-contrast);
 }
-
 
 .name {
     font-weight: bold;
