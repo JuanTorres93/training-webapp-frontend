@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { 
+import {
     createWorkout as createWorkoutInDb,
     getLastWorkoutFromTemplate,
     addExerciseToWorkout as addExerciseToWorkoutInDb,
@@ -36,15 +36,7 @@ export const setLastNWorkouts = createAsyncThunk(
     async (arg, thunkAPI) => {
         // arg is an object with the properties templateId, userId and numberOfWorkouts
         // Error is handled from redux state when promise is rejected
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('ENTERS THUNK');
-
         const response = await getLastNWorkoutsFromTemplate(arg);
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('response');
-        console.log(response);
 
         return response;
     }
@@ -214,9 +206,10 @@ export const selectWorkoutsLoading = state => state[sliceName].isLoading;
 export const selectWorkoutsError = state => state[sliceName].hasError;
 
 export const selectLastWorkout = state => state[sliceName][sliceName].lastWorkout;
+export const selectLastNWorkouts = state => state[sliceName][sliceName].lastNWorkouts;
 
 // Export actions
-export const { 
+export const {
     updateActiveWorkoutExercise,
     clearLastWorkout,
 } = slice.actions;

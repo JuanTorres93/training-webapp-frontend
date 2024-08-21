@@ -47,15 +47,7 @@ export async function getLastNWorkoutsFromTemplate({ templateId, userId, numberO
         credentials: 'include',
     });
 
-    // TODO DELETE THESE DEBUG LOGS
-    console.log('response');
-    console.log(response);
-
     const jsonResponse = await response.json();
-
-    // TODO DELETE THESE DEBUG LOGS
-    console.log('jsonResponse');
-    console.log(jsonResponse);
 
     return jsonResponse;
 };

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -7,9 +8,15 @@ import styles from "./StartWorkoutPage.module.css";
 
 import { selectUser } from "../../features/user/userSlice";
 import { setActiveTemplate, selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
-import { createWorkout, setLastWorkout } from "../../features/workouts/workoutSlice";
+import {
+    createWorkout,
+    setLastWorkout,
+    setLastNWorkouts,
+    selectLastNWorkouts,
+} from "../../features/workouts/workoutSlice";
 
 export default function StartWorkoutPage() {
+    const [data, setData] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { templateId } = useParams();
@@ -17,11 +24,98 @@ export default function StartWorkoutPage() {
     dispatch(setActiveTemplate(parseInt(templateId)));
     const template = useSelector(selectActiveTemplate);
     const user = useSelector(selectUser);
+    const lastNWorkouts = useSelector(selectLastNWorkouts);
+
+    useEffect(() => {
+        dispatch(setLastNWorkouts({
+            templateId: template.id,
+            userId: user.id,
+            // TODO let user change this number in some way
+            // TODO of maybe do it in another page and here last 7-10 workouts
+            numberOfWorkouts: 2,
+        }));
+    }, [template, user]);
+
+    useEffect(() => {
+        setData([]);
+        // TODO plot also time if necessary
+        lastNWorkouts.forEach(workout => {
+            const { startDate, exercises } = workout;
+            const exercisesData = {}
+
+            exercises.map(exercise => {
+                if (!Object.keys(exercisesData).includes(String(exercise.id))) {
+                    exercisesData[exercise.id] = {
+                        exerciseName: exercise.alias,
+                        dataPack: {
+                            date: startDate,
+                        }
+                    };
+                }
+
+                exercisesData[exercise.id].dataPack = {
+                    ...exercisesData[exercise.id].dataPack,
+                    [`weight_set_${exercise.set}`]: exercise.weight,
+                    [`reps_set_${exercise.set}`]: exercise.reps,
+                };
+            });
+
+            // TODO DELETE THESE DEBUG LOGS
+            console.log('exercisesData');
+            console.log(exercisesData);
+
+            // TODO NEXT set data for each exercise and adjust component rendering as needed
+
+            setData([
+                {
+                    date: "20/05/24",
+                    weight_set_1: 65,
+                    reps_set_1: 2,
+                    weight_set_2: 55,
+                    reps_set_2: 5,
+                    weight_set_3: 55,
+                    reps_set_3: 5,
+                },
+                {
+                    date: "05/06/24",
+                    weight_set_1: 55,
+                    reps_set_1: 4,
+                    weight_set_2: 55,
+                    reps_set_2: 3,
+                    weight_set_3: 55,
+                    reps_set_3: 3,
+                },
+                {
+                    date: "12/06/24",
+                    weight_set_1: 55,
+                    reps_set_1: 4,
+                    weight_set_2: 55,
+                    reps_set_2: 4,
+                    weight_set_3: 55,
+                    reps_set_3: 3,
+                },
+                {
+                    date: "19/06/24",
+                    weight_set_1: 55,
+                    reps_set_1: 4,
+                    weight_set_2: 55,
+                    reps_set_2: 4,
+                    weight_set_3: 55,
+                    reps_set_3: 4,
+                },
+            ]);
+
+            // TODO DELETE THESE DEBUG LOGS
+            console.log('data');
+            console.log(data);
+        });
+    }, [lastNWorkouts]);
 
     const handleStartWorkout = () => {
         // TODO Create workout in database only after user confirms the finish?
         // TODO this would involve modifyying the logic in the RunWorkoutPage component
         // TODO for adding exercises to the workout
+        // TODO Another alternative is to automatize the db to delete empty workouts.
         dispatch(createWorkout({
             alias: template.alias,
             description: template.description,
@@ -40,11 +134,18 @@ export default function StartWorkoutPage() {
             <div className={styles.container}>
                 <h2>Start {template.alias}</h2>
 
-                <ExerciseProgressPlot />
+                <ExerciseProgressPlot
+                    exerciseName='Bench press'
+                    data={data} />
 
-                <button type="button" 
-                        className={styles.button}
-                        onClick={handleStartWorkout}
+                {/* BORRAR */}
+                <div>
+                    {JSON.stringify(lastNWorkouts)}
+                </div>
+
+                <button type="button"
+                    className={styles.button}
+                    onClick={handleStartWorkout}
                 >
                     Start workout
                 </button>
