@@ -21,5 +21,5 @@
     --body-font-size: 1rem;
     --heading-font-size: 1.3rem;
     --subheading-font-size: 1.15rem;
-    --input-field-font-size: var(--body-font-size--body-font-size);
+    --input-field-font-size: var(--body-font-size);
 }

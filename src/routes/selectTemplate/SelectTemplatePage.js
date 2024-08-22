@@ -65,45 +65,59 @@ export default function SelectTemplatePage() {
             <>
                 {user ? (
                     <div className={styles.createTemplatePageContainer}>
-                        <h2>Recent workouts</h2>
-                        <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
 
-                        <div className={styles.searchAndSortContainer}>
-                            <h3>
-                                Template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
-                            </h3>
-                        </div>
+                        {templates.length > 0 &&
+                            <div>
+                                <h2>Recent workouts</h2>
+                                <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
 
-                        <div className={styles.listContainer}>
-                            <div className={styles.individualListContainer}>
-                                {/* Render list of templates */}
-                                <List
-                                    exercises={templates}
-                                    handleExerciseClick={handleSelectTemplate}
-                                    handleExerciseDoubleClick={handleGoToWorkout}
-                                />
-                            </div>
+                                <div className={styles.searchAndSortContainer}>
+                                    <h3>
+                                        Template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
+                                    </h3>
+                                </div>
 
-                            <div className={styles.individualListContainer}>
-                                {/* Render preview of selected template */}
-                                {selectedTemplate && (
-                                    <div className={styles.previewContainer}>
-                                        <GenericList
-                                            children={
-                                                selectedTemplate.exercises.map((exercise) => (
-                                                    <ExerciseTemplatePresenter
-                                                        key={exercise.id}
-                                                        order={exercise.order}
-                                                        name={exercise.alias}
-                                                        sets={exercise.sets}
-                                                    />
-                                                ))
-                                            }
+                                <div className={styles.listContainer}>
+                                    <div className={styles.individualListContainer}>
+                                        {/* Render list of templates */}
+                                        <List
+                                            exercises={templates}
+                                            handleExerciseClick={handleSelectTemplate}
+                                            handleExerciseDoubleClick={handleGoToWorkout}
                                         />
+
                                     </div>
-                                )}
+
+                                    <div className={styles.individualListContainer}>
+                                        {/* Render preview of selected template */}
+                                        {selectedTemplate && (
+                                            <div className={styles.previewContainer}>
+                                                <GenericList
+                                                    children={
+                                                        selectedTemplate.exercises.map((exercise) => (
+                                                            <ExerciseTemplatePresenter
+                                                                key={exercise.id}
+                                                                order={exercise.order}
+                                                                name={exercise.alias}
+                                                                sets={exercise.sets}
+                                                            />
+                                                        ))
+                                                    }
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        }
+
+                        {templates.length === 0 && (
+                            <div>
+                                <p style={{ fontSize: 'var(--subheading-font-size)' }}>You don't have any templates yet.</p>
+                                <button onClick={() => navigate('/createTemplate')}>Create a template</button>
+                            </div>
+                        )}
+
                     </div>
                 ) : (
                     <LoginForm />

@@ -8,14 +8,14 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./CreateTemplatePage.module.css";
 
-import { 
-    selectUserExercises, 
-    selectExercisesInNewTemplate, 
+import {
+    selectUserExercises,
+    selectExercisesInNewTemplate,
     addExerciseToTemplate,
     removeExerciseFromTemplate,
 } from "../../features/exercises/exercisesSlice";
 
-import { 
+import {
     createWorkoutTemplate,
     selectTemplatesLoading,
     getAllUserCreatedTemplates,
@@ -66,12 +66,12 @@ export default function CreateTemplatePage() {
                 selectedExercises.forEach(exercise => {
                     dispatch(removeExerciseFromTemplate(exercise.id));
                 });
-                
+
                 const newTemplate = action.payload;
                 const promises = [];
-                
+
                 let exerciseOrder = 1;
-                
+
                 selectedExercises.forEach(exercise => {
                     const addExercisesToTemplateInfo = {
                         templateId: newTemplate.id,
@@ -81,12 +81,12 @@ export default function CreateTemplatePage() {
                     };
 
                     exerciseOrder++;
-                    
+
                     promises.push(
                         addExerciseToTemplateInDb(addExercisesToTemplateInfo)
                     );
                 });
-                 
+
                 // Wait for promises to resolve and handle them
                 Promise.all(promises)
                     .then(() => {
@@ -119,65 +119,72 @@ export default function CreateTemplatePage() {
                     <div className={styles.createTemplatePageContainer}>
                         <h2>Create new template</h2>
                         <form onSubmit={handleFormSubmit}>
-                            <div className={styles.templateInfoContainer}>
-                                <div className={styles.inputContainer}>
-                                    <label htmlFor="template-name">Template name</label>
-                                    <input id="template-name" 
-                                           type="text" 
-                                           placeholder="Template name" 
-                                           required
-                                    />
-                                </div>
+                            {availableExercises.length > 0 &&
+                                <div className={styles.createTemplatePageContainer}>
+                                    <div className={styles.templateInfoContainer}>
+                                        <div className={styles.inputContainer}>
+                                            <label htmlFor="template-name">Template name</label>
+                                            <input id="template-name"
+                                                type="text"
+                                                placeholder="Template name"
+                                                required
+                                            />
+                                        </div>
 
-                                <div className={styles.inputContainer}>
-                                    <label htmlFor="template-description">Template description</label>
-                                    <textarea id="template-description" placeholder="Template description"></textarea>
-                                </div>
-                            </div>
+                                        <div className={styles.inputContainer}>
+                                            <label htmlFor="template-description">Template description</label>
+                                            <textarea id="template-description" placeholder="Template description"></textarea>
+                                        </div>
+                                    </div>
 
-                            <div className={styles.exerciseListsContainer}>
-                                <div className={styles.exerciseList}>
-                                    <h3>Exercises</h3>
-                                    <ListNameDescription 
-                                        exercises={availableExercises} 
-                                        handleExerciseClick={handleSelectExercise}
-                                    />
-                                </div>
-                                <div className={styles.exerciseList}>
-                                    {/* TODO Change this to user template's name input */}
-                                    <h3>Template's exercises</h3>
-                                    <ListNameDescription 
-                                        exercises={selectedExercises} 
-                                        isSetPresenter={true} 
-                                        handleSetExerciseClick={handleRemoveExercise}
-                                    />
-                                </div>
-                            </div>
+                                    <div className={styles.exerciseListsContainer}>
+                                        <div className={styles.exerciseList}>
+                                            <h3>Exercises</h3>
+                                            <ListNameDescription
+                                                exercises={availableExercises}
+                                                handleExerciseClick={handleSelectExercise}
+                                            />
+                                        </div>
+                                        <div className={styles.exerciseList}>
+                                            {/* TODO Change this to user template's name input */}
+                                            <h3>Template's exercises</h3>
+                                            <ListNameDescription
+                                                exercises={selectedExercises}
+                                                isSetPresenter={true}
+                                                handleSetExerciseClick={handleRemoveExercise}
+                                            />
+                                        </div>
+                                    </div>
 
-                            {/* Create a div that will act as a button with two possible options. 
-                            One of them "Create template" and the other one "Create template and start workout". 
-                            The buttons are going to be implemented as divs with use of CSS. A vertical 
-                            subtle line must me render between both buttons */}
-                            <div className={styles.createTemplateOptions}>
-                                <button id="create-template" type="submit"
-                                        className={styles.createTemplateOption}
-                                        disabled={submitDisabled}
-                                >
-                                    {
-                                        templatesLoading ? 'Creating template...' : 'Create template'
-                                    }
-                                </button>
+                                    <div className={styles.createTemplateOptions}>
+                                        <button id="create-template" type="submit"
+                                            className={styles.createTemplateOption}
+                                            disabled={submitDisabled}
+                                        >
+                                            {
+                                                templatesLoading ? 'Creating template...' : 'Create template'
+                                            }
+                                        </button>
 
-                                <button id="create-template-and-start" type="submit"
-                                        className={styles.createTemplateOption} 
-                                        disabled={submitDisabled}
-                                >
-                                    {
-                                        templatesLoading ? 'Creating template...' : 'Create template and start workout'
-                                    }
-                                </button>
-                            </div>
-                                 
+                                        <button id="create-template-and-start" type="submit"
+                                            className={styles.createTemplateOption}
+                                            disabled={submitDisabled}
+                                        >
+                                            {
+                                                templatesLoading ? 'Creating template...' : 'Create template and start workout'
+                                            }
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+
+                            {/* Redirect to /createExercise if there are no availableExercises */}
+                            {availableExercises.length === 0 && (
+                                <div>
+                                    <p style={{ fontSize: 'var(--subheading-font-size)' }}>You don't have any exercises yet.</p>
+                                    <button onClick={() => navigate('/createExercise')}>Create an exercise</button>
+                                </div>
+                            )}
 
                         </form>
                     </div>
