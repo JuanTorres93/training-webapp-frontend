@@ -16,7 +16,7 @@ import {
 } from "../../features/workouts/workoutSlice";
 
 export default function StartWorkoutPage() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { templateId } = useParams();
@@ -32,12 +32,13 @@ export default function StartWorkoutPage() {
             userId: user.id,
             // TODO let user change this number in some way
             // TODO of maybe do it in another page and here last 7-10 workouts
-            numberOfWorkouts: 2,
+            numberOfWorkouts: 7,
         }));
     }, [template, user]);
 
     useEffect(() => {
-        setData([]);
+        let newData = [];
+
         // TODO plot also time if necessary
         lastNWorkouts.forEach(workout => {
             const { startDate, exercises } = workout;
@@ -60,56 +61,24 @@ export default function StartWorkoutPage() {
                 };
             });
 
-            // TODO DELETE THESE DEBUG LOGS
-            console.log('exercisesData');
-            console.log(exercisesData);
-
-            // TODO NEXT set data for each exercise and adjust component rendering as needed
-
-            setData([
-                {
-                    date: "20/05/24",
-                    weight_set_1: 65,
-                    reps_set_1: 2,
-                    weight_set_2: 55,
-                    reps_set_2: 5,
-                    weight_set_3: 55,
-                    reps_set_3: 5,
-                },
-                {
-                    date: "05/06/24",
-                    weight_set_1: 55,
-                    reps_set_1: 4,
-                    weight_set_2: 55,
-                    reps_set_2: 3,
-                    weight_set_3: 55,
-                    reps_set_3: 3,
-                },
-                {
-                    date: "12/06/24",
-                    weight_set_1: 55,
-                    reps_set_1: 4,
-                    weight_set_2: 55,
-                    reps_set_2: 4,
-                    weight_set_3: 55,
-                    reps_set_3: 3,
-                },
-                {
-                    date: "19/06/24",
-                    weight_set_1: 55,
-                    reps_set_1: 4,
-                    weight_set_2: 55,
-                    reps_set_2: 4,
-                    weight_set_3: 55,
-                    reps_set_3: 4,
-                },
-            ]);
-
-            // TODO DELETE THESE DEBUG LOGS
-            console.log('data');
-            console.log(data);
+            newData.push(exercisesData);
         });
-    }, [lastNWorkouts]);
+
+        // Group newData by exerciseName and date
+        newData = newData.reduce((acc, curr) => {
+            const keys = Object.keys(curr);
+            keys.forEach(key => {
+                if (!Object.keys(acc).includes(curr[key].exerciseName)) {
+                    acc[curr[key].exerciseName] = [];
+                }
+                acc[curr[key].exerciseName].push(curr[key]);
+            });
+
+            return acc;
+        }, {});
+
+        setData(newData);
+    }, [lastNWorkouts, template, user]);
 
     const handleStartWorkout = () => {
         // TODO Create workout in database only after user confirms the finish?
@@ -134,14 +103,21 @@ export default function StartWorkoutPage() {
             <div className={styles.container}>
                 <h2>Start {template.alias}</h2>
 
-                <ExerciseProgressPlot
-                    exerciseName='Bench press'
-                    data={data} />
+                {Object.values(data).map((exerciseInfoArray) => {
+                    const exerciseName = exerciseInfoArray[0].exerciseName;
 
-                {/* BORRAR */}
-                <div>
-                    {JSON.stringify(lastNWorkouts)}
-                </div>
+                    const values = exerciseInfoArray.map((exerciseInfo) => {
+                        return exerciseInfo.dataPack;
+                    });
+
+                    return <ExerciseProgressPlot
+                        key={exerciseName}
+                        title={exerciseName}
+                        data={values}
+                    />
+                })}
+
+
 
                 <button type="button"
                     className={styles.button}
