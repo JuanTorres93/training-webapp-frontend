@@ -54,6 +54,21 @@ function ExerciseProgressPlot({ exerciseName, data }) {
     </Bar>
   ));
 
+  // Add some top room for the highest values
+  // Calculate the maximum value across all sets
+  const maxValue = data.reduce((max, item) => {
+    const itemMax = Object.keys(item)
+      .filter(key => key.startsWith('reps_set_'))
+      .reduce((itemMax, key) => Math.max(itemMax, item[key]), 0);
+    return Math.max(max, itemMax);
+  }, 0);
+
+  // Add a buffer to the maximum value, e.g., 10% of the maxValue
+  const buffer = maxValue * 0.1;
+
+  const adjustedMax = Math.ceil(maxValue + buffer);
+
+
   return (
     // TODO Use ResponsiveContainer to make the chart responsive. In my previous attempts, the chart just disappeared.
     <div className={styles.chartContainer}>
@@ -71,7 +86,7 @@ function ExerciseProgressPlot({ exerciseName, data }) {
       >
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis dataKey="date" label={{ value: 'Day', position: 'insideBottom', offset: -20 }} tickMargin={10} />
-        <YAxis label={{ value: 'Reps', angle: -90, position: 'insideLeft', dx: -10 }} dx={-15} />
+        <YAxis label={{ value: 'Reps', angle: -90, position: 'insideLeft', dx: -10 }} dx={-15} domain={[0, adjustedMax]} />
         <Tooltip
           formatter={(value, name) => {
             // Check if the name matches the pattern for sets (e.g., "reps_set_1")

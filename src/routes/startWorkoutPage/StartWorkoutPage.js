@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import ExerciseProgressPlot from "../../components/exerciseProgressPlot/ExerciseProgressPlot";
+import GenericList from "../../components/genericList/GenericList";
 import styles from "./StartWorkoutPage.module.css";
 
 import { selectUser } from "../../features/user/userSlice";
@@ -13,6 +14,7 @@ import {
     setLastWorkout,
     setLastNWorkouts,
     selectLastNWorkouts,
+    selectWorkoutsLoading,
 } from "../../features/workouts/workoutSlice";
 
 export default function StartWorkoutPage() {
@@ -25,6 +27,7 @@ export default function StartWorkoutPage() {
     const template = useSelector(selectActiveTemplate);
     const user = useSelector(selectUser);
     const lastNWorkouts = useSelector(selectLastNWorkouts);
+    const workoutsLoading = useSelector(selectWorkoutsLoading);
 
     useEffect(() => {
         dispatch(setLastNWorkouts({
@@ -103,7 +106,8 @@ export default function StartWorkoutPage() {
             <div className={styles.container}>
                 <h2>Start {template.alias}</h2>
 
-                {Object.values(data).map((exerciseInfoArray) => {
+
+                {!workoutsLoading && Object.values(data).map((exerciseInfoArray) => {
                     const exerciseName = exerciseInfoArray[0].exerciseName;
 
                     const values = exerciseInfoArray.map((exerciseInfo) => {
@@ -112,7 +116,7 @@ export default function StartWorkoutPage() {
 
                     return <ExerciseProgressPlot
                         key={exerciseName}
-                        title={exerciseName}
+                        exerciseName={exerciseName}
                         data={values}
                     />
                 })}
