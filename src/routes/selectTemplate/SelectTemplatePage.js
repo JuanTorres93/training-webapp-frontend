@@ -11,7 +11,7 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
-import { selectUserTemplates } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import { selectUserTemplates, selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { clearLastWorkout, setLastNWorkouts } from "../../features/workouts/workoutSlice";
 
 export default function SelectTemplatePage() {
@@ -51,14 +51,7 @@ export default function SelectTemplatePage() {
         navigate(`/startWorkout/template/${id}`);
     }
 
-    // TODO Get recent workouts from redux and DB
-    const recentWorkouts = [
-        { id: 1, date: "2024-06-05", name: "Push" },
-        { id: 2, date: "2024-06-04", name: "Pull" },
-        { id: 3, date: "2024-06-03", name: "Leg" },
-        { id: 4, date: "2024-06-02", name: "Push" },
-        { id: 5, date: "2024-06-01", name: "Pull" },
-    ];
+    const recentWorkouts = useSelector(selectRecentWorkouts);
 
     return (
         <PagePresenter children={
@@ -69,7 +62,8 @@ export default function SelectTemplatePage() {
                         {templates.length > 0 &&
                             <div>
                                 <h2>Recent workouts</h2>
-                                <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />
+                                {recentWorkouts.length === 0 && <p>No recent workouts</p>}
+                                {recentWorkouts.length > 0 && <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />}
 
                                 <div className={styles.searchAndSortContainer}>
                                     <h3>

@@ -102,8 +102,15 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.fulfilled, (state, action) => {
-            let templates = action.payload;
-            state[sliceName].recentWorkouts = templates;
+            const templates = action.payload;
+            const recentWorkouts = templates.map(template => {
+                return {
+                    id: template.template_id,
+                    date: template.workout_date,
+                    name: template.workout_name,
+                }
+            });
+            state[sliceName].recentWorkouts = recentWorkouts;
             state.isLoading = false;
             state.hasError = false;
         })
