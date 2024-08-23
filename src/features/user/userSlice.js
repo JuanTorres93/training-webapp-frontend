@@ -3,7 +3,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { login } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import { getExercisesFromUser } from "../exercises/exercisesSlice";
-import { getAllUserCreatedTemplates } from "../workoutsTemplates/workoutTemplatesSlice";
+import {
+    getAllUserCreatedTemplates,
+    getUserRecentWorkouts,
+} from "../workoutsTemplates/workoutTemplatesSlice";
 
 export const sliceName = 'user';
 
@@ -20,6 +23,10 @@ export const loginUser = createAsyncThunk(
         }));
         // Get user's templates
         thunkAPI.dispatch(getAllUserCreatedTemplates({
+            userId
+        }));
+        // Get user's recent workouts
+        thunkAPI.dispatch(getUserRecentWorkouts({
             userId
         }));
 

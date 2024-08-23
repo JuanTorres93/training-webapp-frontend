@@ -6,6 +6,8 @@ import {
     getLastNWorkoutsFromTemplate,
 } from "../../serverAPI/workouts";
 
+import { getUserRecentWorkouts } from "../workoutsTemplates/workoutTemplatesSlice";
+
 export const sliceName = 'workout';
 
 export const createWorkout = createAsyncThunk(
@@ -70,6 +72,14 @@ export const finishWorkout = createAsyncThunk(
 
         try {
             await Promise.all(promises);
+            // Select current user id
+            const userId = thunkAPI.getState().user.user.id;
+
+            // Update recent workouts
+            thunkAPI.dispatch(getUserRecentWorkouts({
+                userId
+            }));
+
             return true;
         } catch (error) {
             return false;

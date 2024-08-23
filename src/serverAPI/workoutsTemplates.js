@@ -67,26 +67,13 @@ export async function getTemplateInfo({ templateId }) {
     return jsonResponse;
 };
 
-// export async function getAllExercises() {
-    // const response = await fetch(endpoint, {
-        // method: 'GET',
-        // credentials: 'include',
-    // });
-// 
-    // const jsonResponse = await response.json();
-// 
-    // return jsonResponse;
-// };
-// 
-// 
-// export async function getAllExercisesFromUser(userId) {
-    // const response = await fetch(endpoint + `/all/${userId}`, {
-        // method: 'GET',
-        // credentials: 'include',
-    // });
-// 
-    // const jsonResponse = await response.json();
-// 
-    // return jsonResponse;
-// };
+export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
+    const response = await fetch(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
+        method: 'GET',
+        credentials: 'include',
+    });
 
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};

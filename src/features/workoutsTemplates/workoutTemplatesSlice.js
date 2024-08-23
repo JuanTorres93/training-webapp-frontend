@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createTemplate, getAllUserTemplates } from "../../serverAPI/workoutsTemplates";
+import {
+    createTemplate,
+    getAllUserTemplates,
+    getRecentWorkouts,
+} from "../../serverAPI/workoutsTemplates";
 
 export const sliceName = 'workoutTemplates';
 
@@ -26,11 +30,26 @@ export const getAllUserCreatedTemplates = createAsyncThunk(
     }
 );
 
+export const getUserRecentWorkouts = createAsyncThunk(
+    `${sliceName}/getUserRecentWorkouts`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the property userId
+
+        // Error is handled from redux state when promise is rejected
+        const response = await getRecentWorkouts(arg);
+
+        return response;
+    }
+);
+
 const slice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
             userCreatedTemplates: [],
+            recentWorkouts: [], // Stored here instead of in workoutsSlice
+            // Because the id of the template is stored
+            // and it can be used to fetch the template
             activeTemplate: null,
         },
         isLoading: false,
@@ -76,6 +95,22 @@ const slice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         })
+
+        // Get user recent workouts
+        builder.addCase(getUserRecentWorkouts.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(getUserRecentWorkouts.fulfilled, (state, action) => {
+            let templates = action.payload;
+            state[sliceName].recentWorkouts = templates;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(getUserRecentWorkouts.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
     },
 });
 
@@ -84,6 +119,7 @@ export const selectUserTemplates = state => state[sliceName][sliceName].userCrea
 export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
 export const selectTemplatesLoading = state => state[sliceName].isLoading;
 export const selectTemplatesError = state => state[sliceName].hasError;
+export const selectRecentWorkouts = state => state[sliceName][sliceName].recentWorkouts;
 
 // Export actions
 export const { setActiveTemplate } = slice.actions;
