@@ -6,12 +6,19 @@ function ExercisePresenter({ id, name, description, handleClick = () => { }, han
     const exerciseInfo = { id, name, description };
 
     return (
-        <div data-testid="exercisePresenter" className={styles.exercisePresenter}
-            onClick={() => { handleClick(exerciseInfo) }}
-            onDoubleClick={() => { handleDoubleClick(exerciseInfo) }}
+        <div data-testid="exercisePresenter" className={styles.container}
         >
-            <div className={styles.exerciseName}>{name}</div>
-            <div className={styles.exerciseDescription}>{description}</div>
+            <div className={styles.exercisePresenter}
+                onClick={() => { handleClick(exerciseInfo) }}
+                onDoubleClick={() => { handleDoubleClick(exerciseInfo) }}
+            >
+                <div className={styles.exerciseName}>{name}</div>
+                <div className={styles.exerciseDescription}>{description}</div>
+            </div>
+
+            <div className={styles.deleteContainer}>
+                x
+            </div>
         </div>
     );
 };

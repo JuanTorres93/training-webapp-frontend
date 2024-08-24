@@ -1,13 +1,11 @@
 /* These styles are shared with ExerciseSetPresenter */
-.exercisePresenter {
+.container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: flex-start;
+    align-content: center;
+    justify-content: space-between;
     background-color: var(--primary-color);
     border-radius: .8rem;
     border: var(--font-color-contrast) solid .15rem;
-    padding: .5rem 1rem;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: all .1s;
@@ -15,20 +13,28 @@
     /* max-width: 500px; */
 }
 
-.exercisePresenter * {
+.container * {
     color: var(--font-color-contrast);
 }
 
-.exercisePresenter:hover {
+.container:hover {
     border: var(--accent-color) solid .15rem;
 }
 
-.exercisePresenter:hover .exerciseName {
+.container:hover .exerciseName {
     color: var(--accent-color);
 }
 
-.exercisePresenter:hover input {
+.container:hover input {
     color: var(--accent-color);
+}
+
+.exercisePresenter {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: .5rem;
+    margin-right: 0;
 }
 
 .exerciseName {
@@ -39,4 +45,29 @@
 
 .exerciseDescription {
     font-size: var(--body-font-size);
+}
+
+.deleteContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--heading-font-size);
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: all .1s;
+    padding: 0 1.4rem;
+
+    /* Adjust radius to match border */
+    border-top-right-radius: .6rem;
+    border-bottom-right-radius: .6rem;
+
+    /* Colors */
+    color: var(--font-color);
+    background-color: var(--background-color);
+}
+
+.deleteContainer:hover {
+    color: var(--font-color-contrast);
+    background-color: var(--accent-color);
 }
