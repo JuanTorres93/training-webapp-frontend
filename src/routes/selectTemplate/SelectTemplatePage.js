@@ -11,7 +11,11 @@ import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import LoginForm from "../../components/loginForm/LoginForm";
 import styles from "./SelectTemplatePage.module.css";
 
-import { selectUserTemplates, selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import {
+    selectUserTemplates,
+    selectRecentWorkouts,
+    deleteTemplateFromUser,
+} from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { clearLastWorkout, setLastNWorkouts } from "../../features/workouts/workoutSlice";
 
 export default function SelectTemplatePage() {
@@ -51,6 +55,11 @@ export default function SelectTemplatePage() {
         navigate(`/startWorkout/template/${id}`);
     }
 
+    const handleDeleteTemplate = ({ id }) => {
+        // TODO: When remove first for redux for better UX. If error when actually deleting it, then restore.
+        dispatch(deleteTemplateFromUser({ templateId: id }));
+    };
+
     const recentWorkouts = useSelector(selectRecentWorkouts);
 
     return (
@@ -78,6 +87,7 @@ export default function SelectTemplatePage() {
                                             exercises={templates}
                                             handleExerciseClick={handleSelectTemplate}
                                             handleExerciseDoubleClick={handleGoToWorkout}
+                                            handleDeleteClick={handleDeleteTemplate}
                                         />
 
                                     </div>

@@ -1,7 +1,14 @@
 import PropTypes from 'prop-types';
 import styles from './ExercisePresenter.module.css'
 
-function ExercisePresenter({ id, name, description, handleClick = () => { }, handleDoubleClick = () => { } }) {
+function ExercisePresenter({
+    id,
+    name,
+    description,
+    handleClick = () => { },
+    handleDoubleClick = () => { },
+    handleDeleteClick = () => { }
+}) {
     // The ExercisePresenter component renders the name and description of an exercise.
     const exerciseInfo = { id, name, description };
 
@@ -16,7 +23,8 @@ function ExercisePresenter({ id, name, description, handleClick = () => { }, han
                 <div className={styles.exerciseDescription}>{description}</div>
             </div>
 
-            <div className={styles.deleteContainer}>
+            <div className={styles.deleteContainer}
+                onClick={() => { handleDeleteClick(exerciseInfo) }}>
                 x
             </div>
         </div>

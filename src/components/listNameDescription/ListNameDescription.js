@@ -7,7 +7,9 @@ import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 function ListNameDescription({ exercises, isSetPresenter = false,
     handleExerciseClick = () => { },
     handleExerciseDoubleClick = () => { },
-    handleSetExerciseClick = () => { } }) {
+    handleSetExerciseClick = () => { },
+    handleDeleteClick = () => { }
+}) {
     // The ExerciseList component renders a list of exercises.
     return (
         <div className={styles.exerciseList}>
@@ -20,6 +22,7 @@ function ListNameDescription({ exercises, isSetPresenter = false,
                         description={exercise.description}
                         handleClick={handleExerciseClick}
                         handleDoubleClick={handleExerciseDoubleClick}
+                        handleDeleteClick={handleDeleteClick}
                     />
                     :
                     <ExerciseSetPresenter

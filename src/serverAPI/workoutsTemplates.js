@@ -77,3 +77,14 @@ export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
 
     return jsonResponse;
 };
+
+export async function deleteTemplate({ templateId }) {
+    const response = await fetch(endpoint + `/${templateId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};

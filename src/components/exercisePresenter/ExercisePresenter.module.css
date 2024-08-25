@@ -59,8 +59,8 @@
     padding: 0 1.4rem;
 
     /* Adjust radius to match border */
-    border-top-right-radius: .6rem;
-    border-bottom-right-radius: .6rem;
+    border-top-right-radius: .63rem;
+    border-bottom-right-radius: .63rem;
 
     /* Colors */
     color: var(--font-color);
@@ -70,4 +70,6 @@
 .deleteContainer:hover {
     color: var(--font-color-contrast);
     background-color: var(--accent-color);
+    /* Prevent text selection */
+    user-select: none;
 }

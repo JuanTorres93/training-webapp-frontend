@@ -3,6 +3,7 @@ import {
     createTemplate,
     getAllUserTemplates,
     getRecentWorkouts,
+    deleteTemplate,
 } from "../../serverAPI/workoutsTemplates";
 
 export const sliceName = 'workoutTemplates';
@@ -37,6 +38,18 @@ export const getUserRecentWorkouts = createAsyncThunk(
 
         // Error is handled from redux state when promise is rejected
         const response = await getRecentWorkouts(arg);
+
+        return response;
+    }
+);
+
+export const deleteTemplateFromUser = createAsyncThunk(
+    `${sliceName}/deleteTemplateFromUser`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the property templateId
+
+        // Error is handled from redux state when promise is rejected
+        const response = await deleteTemplate(arg);
 
         return response;
     }
@@ -115,6 +128,26 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Delete template
+        builder.addCase(deleteTemplateFromUser.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(deleteTemplateFromUser.fulfilled, (state, action) => {
+            // action payload is an object. Remove it from the userCreatedTemplates array
+            const templateId = action.payload.id;
+            state[sliceName].userCreatedTemplates = state[sliceName].userCreatedTemplates.filter(
+                template => template.id !== templateId
+            );
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(deleteTemplateFromUser.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })
