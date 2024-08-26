@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllExercisesFromUser } from "../../serverAPI/exercises";
 
-import { createExercise as createExerciseInDb } from "../../serverAPI/exercises";
+import {
+    createExercise as createExerciseInDb,
+    deleteExercise as deleteExerciseInDb,
+} from "../../serverAPI/exercises";
 
 export const sliceName = 'exercises';
 
@@ -21,6 +24,18 @@ export const createExercise = createAsyncThunk(
         const { alias, description } = arg;
         // Error is handled from redux state when promise is rejected
         const response = await createExerciseInDb(alias, description);
+
+        return response;
+    }
+);
+
+export const deleteExercise = createAsyncThunk(
+    `${sliceName}/deleteExercise`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the property exerciseId
+        const { exerciseId } = arg;
+
+        const response = await deleteExerciseInDb(exerciseId);
 
         return response;
     }
@@ -56,7 +71,7 @@ const exercisesSlice = createSlice({
             const exercise = state[sliceName].exercisesInNewTemplate.filter(exercise => exercise.id === exerciseId)[0];
             state[sliceName].exercisesInNewTemplate = state[sliceName].exercisesInNewTemplate.filter(exercise => exercise.id !== exerciseId);
             state[sliceName].userCreatedExercises.push(exercise);
-            
+
             // Order by id
             state[sliceName].userCreatedExercises.sort((a, b) => a.id - b.id);
             state[sliceName].exercisesInNewTemplate.sort((a, b) => a.id - b.id);
@@ -107,6 +122,24 @@ const exercisesSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         })
+
+        // Delete exercise
+        builder.addCase(deleteExercise.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExercise.fulfilled, (state, action) => {
+            let deletedExercise = action.payload;
+            state[sliceName].userCreatedExercises = state[sliceName].userCreatedExercises.filter(
+                exercise => exercise.id !== deletedExercise.id
+            );
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExercise.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
     },
 });
 
@@ -118,8 +151,8 @@ export const selectExercisesError = state => state[sliceName].hasError;
 export const selectExercisesInNewTemplate = state => state[sliceName][sliceName].exercisesInNewTemplate;
 
 // Export actions
-export const { 
-    addExerciseToTemplate, 
+export const {
+    addExerciseToTemplate,
     removeExerciseFromTemplate,
     updateExerciseSets } = exercisesSlice.actions;
 

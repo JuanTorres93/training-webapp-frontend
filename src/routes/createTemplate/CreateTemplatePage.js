@@ -13,6 +13,7 @@ import {
     selectExercisesInNewTemplate,
     addExerciseToTemplate,
     removeExerciseFromTemplate,
+    deleteExercise,
 } from "../../features/exercises/exercisesSlice";
 
 import {
@@ -42,6 +43,10 @@ export default function CreateTemplatePage() {
 
     const handleRemoveExercise = (exerciseId) => {
         dispatch(removeExerciseFromTemplate(exerciseId));
+    };
+
+    const handleDeleteExerciseFromDb = ({ id }) => {
+        dispatch(deleteExercise({ exerciseId: id }));
     };
 
     const handleFormSubmit = (e) => {
@@ -143,6 +148,7 @@ export default function CreateTemplatePage() {
                                             <ListNameDescription
                                                 exercises={availableExercises}
                                                 handleExerciseClick={handleSelectExercise}
+                                                handleDeleteClick={handleDeleteExerciseFromDb}
                                             />
                                         </div>
                                         <div className={styles.exerciseList}>

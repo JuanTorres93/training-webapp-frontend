@@ -46,3 +46,13 @@ export async function getAllExercisesFromUser(userId) {
     return jsonResponse;
 };
 
+export async function deleteExercise(exerciseId) {
+    const response = await fetch(endpoint + `/${exerciseId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
