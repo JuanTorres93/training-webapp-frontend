@@ -1,9 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 // For persisting state when refreshing the page
-// TODO it seems to introduce an error. Investigate and fix
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { 
-  persistReducer, 
+import {
+  persistReducer,
   persistStore,
   FLUSH,
   REHYDRATE,
@@ -12,6 +11,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+
+import { authMiddleware } from '../features/reduxmiddlewares/authentication';
 
 import userReducer, { sliceName as userName } from '../features/user/userSlice';
 import exerciseReducer, { sliceName as exerciseName } from '../features/exercises/exercisesSlice';
@@ -43,8 +44,8 @@ export const setupStore = preloadedState => {
           // https://redux-toolkit.js.org/usage/usage-guide#use-with-redux-persist
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }),
-    });
+      }).concat(authMiddleware),
+  });
   let persistor = persistStore(store);
   return { store, persistor };
 };

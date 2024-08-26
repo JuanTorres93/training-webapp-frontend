@@ -7,6 +7,7 @@ import {
     getAllUserCreatedTemplates,
     getUserRecentWorkouts,
 } from "../workoutsTemplates/workoutTemplatesSlice";
+import { persistor } from "../../index";
 
 export const sliceName = 'user';
 
@@ -39,6 +40,9 @@ export const logoutUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
         const response = await logout();
+
+        // Clean redux state
+        persistor.purge();
 
         return response;
     }

@@ -38,7 +38,7 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 // Redux store configuration
-const { store, persistor } = setupStore({});
+export const { store, persistor } = setupStore({});
 
 // Stripe config
 // TODO use an environment variable in real projects
