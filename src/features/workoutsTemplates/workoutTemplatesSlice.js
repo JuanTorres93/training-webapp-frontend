@@ -15,6 +15,8 @@ export const createWorkoutTemplate = createAsyncThunk(
         // Error is handled from redux state when promise is rejected
         const response = await createTemplate(arg);
 
+        response['description'] = response['description'] ? response['description'] : '';
+
         return response;
     }
 );
@@ -75,6 +77,7 @@ const slice = createSlice({
             const template = state[sliceName].userCreatedTemplates.find(
                 template => template.id === action.payload
             );
+
             state[sliceName].activeTemplate = template;
         }
     },

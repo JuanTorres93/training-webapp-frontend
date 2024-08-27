@@ -59,7 +59,7 @@ export default function CreateTemplatePage() {
         const createTemplateBodyRequest = {
             userId: user.id,
             alias: templateName,
-            description: templateDescription,
+            description: templateDescription ? templateDescription : '',
         };
 
         // Create the template in the backend

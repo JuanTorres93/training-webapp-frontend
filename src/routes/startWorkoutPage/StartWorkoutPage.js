@@ -81,7 +81,7 @@ export default function StartWorkoutPage() {
         }, {});
 
         setData(newData);
-    }, [lastNWorkouts, template, user]);
+    }, [template]);
 
     const handleStartWorkout = () => {
         // TODO Create workout in database only after user confirms the finish?
@@ -90,7 +90,7 @@ export default function StartWorkoutPage() {
         // TODO Another alternative is to automatize the db to delete empty workouts.
         dispatch(createWorkout({
             alias: template.alias,
-            description: template.description,
+            description: template.description ? template.description : '',
         })).then((response) => {
             const workout = response.payload;
             dispatch(setLastWorkout({
