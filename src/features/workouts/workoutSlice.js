@@ -4,6 +4,7 @@ import {
     getLastWorkoutFromTemplate,
     addExerciseToWorkout as addExerciseToWorkoutInDb,
     getLastNWorkoutsFromTemplate,
+    addFinishDateToWorkout,
 } from "../../serverAPI/workouts";
 
 import { getUserRecentWorkouts } from "../workoutsTemplates/workoutTemplatesSlice";
@@ -69,6 +70,9 @@ export const finishWorkout = createAsyncThunk(
                 }));
             });
         });
+
+        // Update finish date
+        promises.push(addFinishDateToWorkout({ workoutId: activeWorkout.id }));
 
         try {
             await Promise.all(promises);

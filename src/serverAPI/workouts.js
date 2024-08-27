@@ -73,3 +73,15 @@ export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet,
 
     return jsonResponse;
 };
+
+export async function addFinishDateToWorkout({ workoutId }) {
+    const ep = `${endpoint}/addFinishDate/${workoutId}`;
+    const response = await fetch(ep, {
+        method: 'GET',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
