@@ -44,7 +44,7 @@ export const logoutUser = createAsyncThunk(
         // Clean redux state
         persistor.purge();
 
-        return response;
+        return response.status;
     }
 );
 
@@ -72,6 +72,7 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         })
+
         // logout user
         builder.addCase(logoutUser.pending, (state, action) => {
             state.isLoading = true;

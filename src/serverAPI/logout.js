@@ -1,9 +1,9 @@
 import { serverBaseURL } from "./serverAPIConfig";
 
-const loginEndPoint = serverBaseURL + '/logout';
+const endPoint = serverBaseURL + '/logout';
 
 export async function logout() {
-    const response = await fetch(loginEndPoint);
+    const response = await fetch(endPoint);
 
     return response;
 };
