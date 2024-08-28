@@ -3,10 +3,16 @@ import styles from './ExerciseTemplatePresenter.module.css';
 
 function ExerciseTemplatePresenter({ order, name, sets }) {
     return (
-        <div className={styles.exerciseTemplatePresenter}>
-            <div className={styles.order}>{order}</div>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.set}>{`${sets} sets`}</div>
+        <div className={styles.container}>
+            <div className={styles.exerciseTemplatePresenter}>
+                <div className={styles.order}>{order}</div>
+                <div className={styles.name}>{name}</div>
+                <div className={styles.set}>{`${sets} sets`}</div>
+            </div>
+
+            <div className={styles.deleteContainer} >
+                _
+            </div>
         </div>
     );
 }

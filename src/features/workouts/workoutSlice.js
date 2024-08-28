@@ -5,6 +5,7 @@ import {
     addExerciseToWorkout as addExerciseToWorkoutInDb,
     getLastNWorkoutsFromTemplate,
     addFinishDateToWorkout,
+    deleteWorkout as deleteWorkoutInDb,
 } from "../../serverAPI/workouts";
 
 import { getUserRecentWorkouts } from "../workoutsTemplates/workoutTemplatesSlice";
@@ -22,6 +23,16 @@ export const createWorkout = createAsyncThunk(
     }
 );
 
+export const deleteWorkout = createAsyncThunk(
+    `${sliceName}/deleteWorkout`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the property workoutId
+        const response = await deleteWorkoutInDb(arg);
+
+        return response;
+    }
+);
+
 export const setLastWorkout = createAsyncThunk(
     `${sliceName}/setLastWorkout`,
     async (arg, thunkAPI) => {
@@ -32,7 +43,6 @@ export const setLastWorkout = createAsyncThunk(
         return response;
     }
 );
-
 
 export const setLastNWorkouts = createAsyncThunk(
     `${sliceName}/setLastNWorkouts`,
@@ -88,7 +98,6 @@ export const finishWorkout = createAsyncThunk(
         } catch (error) {
             return false;
         }
-
     }
 );
 
@@ -163,6 +172,34 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(createWorkout.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Delete workout
+        builder.addCase(deleteWorkout.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(deleteWorkout.fulfilled, (state, action) => {
+            // remove workout from lastNWorkouts
+            const workoutId = action.payload;
+            state[sliceName].lastNWorkouts = state[sliceName].lastNWorkouts.filter(workout => workout.id !== workoutId);
+
+            // if lastWorkout is the deleted workout, clear it
+            if (state[sliceName].lastWorkout && state[sliceName].lastWorkout.id === workoutId) {
+                state[sliceName].lastWorkout = null;
+            }
+
+            // Same for activeWorkout
+            if (state[sliceName].activeWorkout && state[sliceName].activeWorkout.id === workoutId) {
+                state[sliceName].activeWorkout = null;
+            }
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(deleteWorkout.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

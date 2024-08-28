@@ -133,3 +133,50 @@ button:hover {
 button:active {
     background-color: #dd7208;
 }
+
+/* Loading states */
+.spinner-body-size {
+    border: 4px solid var(--spinner-color);
+    width: var(--body-font-size);
+    height: var(--body-font-size);
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-heading-size {
+    border: 4px solid var(--spinner-color);
+    width: var(--heading-font-size);
+    height: var(--heading-font-size);
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-subheading-size {
+    border: 4px solid var(--spinner-color);
+    width: var(--subheading-font-size);
+    height: var(--subheading-font-size);
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-input-size {
+    border: 4px solid var(--spinner-color);
+    width: var(--input-field-font-size);
+    height: var(--input-field-font-size);
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

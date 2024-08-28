@@ -1,10 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getTemplateInfo } from "../../serverAPI/workoutsTemplates";
 import {
     createTemplate,
     getAllUserTemplates,
     getRecentWorkouts,
     deleteTemplate,
 } from "../../serverAPI/workoutsTemplates";
+import { getWorkoutsIdsAssociatedWithTemplateAndUser } from "../../serverAPI/workouts";
+import { deleteWorkout } from "../workouts/workoutSlice";
 
 export const sliceName = 'workoutTemplates';
 
@@ -50,8 +53,21 @@ export const deleteTemplateFromUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // arg is an object with the property templateId
 
-        // Error is handled from redux state when promise is rejected
+        const templateInfo = await getTemplateInfo(arg);
+
+        const templateName = templateInfo['alias'];
+        const workoutIdsresponse = await getWorkoutsIdsAssociatedWithTemplateAndUser({
+            templateName
+        });
+
+        const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
+
         const response = await deleteTemplate(arg);
+
+        // Delete all workouts associated with the template
+        workoutIds.map(workoutId => {
+            thunkAPI.dispatch(deleteWorkout({ workoutId }));
+        });
 
         return response;
     }
@@ -143,8 +159,15 @@ const slice = createSlice({
         builder.addCase(deleteTemplateFromUser.fulfilled, (state, action) => {
             // action payload is an object. Remove it from the userCreatedTemplates array
             const templateId = action.payload.id;
+
+            // Remove template from user created templates
             state[sliceName].userCreatedTemplates = state[sliceName].userCreatedTemplates.filter(
                 template => template.id !== templateId
+            );
+
+            // Remove it from recent workouts
+            state[sliceName].recentWorkouts = state[sliceName].recentWorkouts.filter(
+                workout => workout.id !== templateId
             );
 
             state.isLoading = false;

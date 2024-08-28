@@ -168,7 +168,7 @@ export default function CreateTemplatePage() {
                                             disabled={submitDisabled}
                                         >
                                             {
-                                                templatesLoading ? 'Creating template...' : 'Create template'
+                                                templatesLoading ? <div className="spinner-body-size"></div> : 'Create template'
                                             }
                                         </button>
 
@@ -177,7 +177,7 @@ export default function CreateTemplatePage() {
                                             disabled={submitDisabled}
                                         >
                                             {
-                                                templatesLoading ? 'Creating template...' : 'Create template and start workout'
+                                                templatesLoading ? <div className="spinner-body-size"></div> : 'Create template and start workout'
                                             }
                                         </button>
                                     </div>

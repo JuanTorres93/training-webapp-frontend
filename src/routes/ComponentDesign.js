@@ -26,6 +26,18 @@ const setsForExercisePresenter = [
 export default function ComponentDesign() {
     return (
         <>
+            Spinner heading font size <br /> <br />
+            <div className='spinner-heading-size'></div>
+            <br /> <br />
+            Spinner subheading font size <br /> <br />
+            <div className='spinner-subheading-size'></div>
+            <br /> <br />
+            Spinner body font size <br /> <br />
+            <div className='spinner-body-size'></div>
+            <br /> <br />
+            Spinner input field font size <br /> <br />
+            <div className='spinner-input-size'></div>
+            <br /> <br />
             ExercisePresenter <br /> <br />
             <ExercisePresenter id={1} name="Pull up" description="Upper body exercise with emphasis on the delts." />
             <br />
@@ -48,11 +60,11 @@ export default function ComponentDesign() {
             <br /> <br />
             RecentWorkoutCarousel <br /> <br />
             <RecentWorkoutsCarousel recentWorkouts={[
-                {id: 1, date: "2024-06-05", name: "Push routine"},
-                {id: 2, date: "2024-06-04", name: "Pull routine"},
-                {id: 3, date: "2024-06-03", name: "Leg routine"},
-                {id: 4, date: "2024-06-02", name: "Push routine"},
-                {id: 5, date: "2024-06-01", name: "Pull routine"},
+                { id: 1, date: "2024-06-05", name: "Push routine" },
+                { id: 2, date: "2024-06-04", name: "Pull routine" },
+                { id: 3, date: "2024-06-03", name: "Leg routine" },
+                { id: 4, date: "2024-06-02", name: "Push routine" },
+                { id: 5, date: "2024-06-01", name: "Pull routine" },
             ]} />
             ExerciseSetPresenter <br /> <br />
             <ExerciseSetPresenter id={1} name="Pull up" description="Upper body exercise with emphasis on the delts." />

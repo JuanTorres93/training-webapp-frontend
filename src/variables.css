@@ -17,6 +17,10 @@
     --accent-color: var(--brand-icon-light);
     --font-color-contrast: #e6e6e6;
 
+    /* Spinner color is --brand-icon-light with transparency */
+    --spinner-color: rgba(54, 54, 54, 0.2);
+
+
     /* Font sizes */
     --body-font-size: 1rem;
     --heading-font-size: 1.3rem;

@@ -66,8 +66,9 @@ textarea {
 }
 
 .createTemplateOption {
+    display: flex;
     flex: 1;
-    position: relative;
+    justify-content: center;
     padding: 20px;
     text-align: center;
     background-color: var(--primary-color);
@@ -98,6 +99,6 @@ textarea {
 }
 
 .createTemplateOption:disabled {
-    background-color: #555555;
+    background-color: #939393;
     cursor: not-allowed;
 }
