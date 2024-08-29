@@ -85,6 +85,17 @@ export async function deleteWorkout({ workoutId }) {
     return jsonResponse;
 };
 
+export async function deleteExerciseFromWorkout({ workoutId, exerciseId }) {
+    const response = await fetch(END_POINT + `/${workoutId}/exercises/${exerciseId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
 export async function addFinishDateToWorkout({ workoutId }) {
     const ep = `${END_POINT}/addFinishDate/${workoutId}`;
     const response = await fetch(ep, {

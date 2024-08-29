@@ -6,6 +6,7 @@ import {
     getLastNWorkoutsFromTemplate,
     addFinishDateToWorkout,
     deleteWorkout as deleteWorkoutInDb,
+    deleteExerciseFromWorkout as deleteExerciseFromWorkoutInDb,
 } from "../../serverAPI/workouts";
 
 import { getUserRecentWorkouts } from "../workoutsTemplates/workoutTemplatesSlice";
@@ -30,6 +31,21 @@ export const deleteWorkout = createAsyncThunk(
         const response = await deleteWorkoutInDb(arg);
 
         return response;
+    }
+);
+
+export const deleteExerciseFromWorkout = createAsyncThunk(
+    `${sliceName}/deleteExerciseFromWorkout`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties workoutId and exerciseId
+        const response = await deleteExerciseFromWorkoutInDb(arg);
+
+        const workoutAndExercises = {
+            workoutId: arg.workoutId,
+            exercises: response,
+        };
+
+        return workoutAndExercises;
     }
 );
 
@@ -200,6 +216,58 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(deleteWorkout.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Delete exercise from workout
+        builder.addCase(deleteExerciseFromWorkout.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExerciseFromWorkout.fulfilled, (state, action) => {
+            // exercises is a list of objects with the properties 
+            // exerciseId, exerciseSet, reps, weight and time_in_seconds
+            const { workoutId, exercises } = action.payload;
+
+            // Helper function to remove sets from exercises
+            const removeExerciseFromWorkout = (exercises, exerciseIdToRemove) => {
+                const exerciseIndex = exercises.findIndex(ex => ex.id === exerciseIdToRemove);
+                if (exerciseIndex !== -1) {
+                    const exercise = exercises[exerciseIndex];
+                    exercises = exercises.filter(ex => ex.id !== exerciseIdToRemove);
+                }
+
+                return exercises;
+            };
+
+            // Iterate over exercises
+            exercises.forEach(exercise => {
+                // If activeWorkout is the workoutId, remove the exercise
+                if (state[sliceName].activeWorkout && state[sliceName].activeWorkout.id === workoutId) {
+                    state[sliceName].activeWorkout.exercises = removeExerciseFromWorkout(state[sliceName].activeWorkout.exercises, exercise.exerciseId);
+                }
+
+                // If workout exists in lastWorkout, remove the exercise
+                if (state[sliceName].lastWorkout && state[sliceName].lastWorkout.id === workoutId) {
+                    state[sliceName].lastWorkout.exercises = removeExerciseFromWorkout(state[sliceName].lastWorkout.exercises, exercise.exerciseId);
+                }
+
+                // If workout exists in lastNWorkouts, remove the exercise
+                if (state[sliceName].lastNWorkouts) {
+                    const workout = state[sliceName].lastNWorkouts.filter(workout => workout.id === workoutId);
+
+                    if (workout.length > 0) {
+                        workout[0].exercises = removeExerciseFromWorkout(workout[0].exercises, exercise.exerciseId);
+                    }
+                }
+
+            });
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExerciseFromWorkout.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

@@ -5,9 +5,10 @@ import {
     getAllUserTemplates,
     getRecentWorkouts,
     deleteTemplate,
+    removeExerciseFromTemplate,
 } from "../../serverAPI/workoutsTemplates";
 import { getWorkoutsIdsAssociatedWithTemplateAndUser } from "../../serverAPI/workouts";
-import { deleteWorkout } from "../workouts/workoutSlice";
+import { deleteWorkout, deleteExerciseFromWorkout } from "../workouts/workoutSlice";
 
 export const sliceName = 'workoutTemplates';
 
@@ -70,6 +71,36 @@ export const deleteTemplateFromUser = createAsyncThunk(
         });
 
         return response;
+    }
+);
+
+export const deleteExerciseFromTemplate = createAsyncThunk(
+    `${sliceName}/deleteExerciseFromTemplate`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties templateId, exerciseId and exerciseOrder
+
+        // Remove exercise from template
+        const deletedExerciseInfo = await removeExerciseFromTemplate(arg);
+
+        const templateInfo = await getTemplateInfo({
+            templateId: arg.templateId,
+        });
+        const templateName = templateInfo['alias'];
+        const workoutIdsresponse = await getWorkoutsIdsAssociatedWithTemplateAndUser({
+            templateName
+        });
+
+        const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
+
+        // Delete all exercises from workouts associated with the template
+        workoutIds.map(workoutId => {
+            thunkAPI.dispatch(deleteExerciseFromWorkout({
+                workoutId,
+                exerciseId: arg.exerciseId
+            }));
+        });
+
+        return deletedExerciseInfo;
     }
 );
 
@@ -174,6 +205,39 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(deleteTemplateFromUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Delete exercise from template
+        builder.addCase(deleteExerciseFromTemplate.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExerciseFromTemplate.fulfilled, (state, action) => {
+            // action payload is an object with the properties workoutTemplateId, exerciseId, exerciseOrder, exerciseSets
+            const deletedExercise = action.payload;
+
+            // Remove exercise from corresponding template
+            state[sliceName].userCreatedTemplates.map(template => {
+                if (template.id === deletedExercise.workoutTemplateId) {
+                    template.exercises = template.exercises.filter(
+                        exercise => exercise.id !== deletedExercise.exerciseId
+                    );
+                }
+            });
+
+            // Remove exercise from active template if it is the same as the deleted one
+            if (state[sliceName].activeTemplate.id === deletedExercise.workoutTemplateId) {
+                state[sliceName].activeTemplate.exercises = state[sliceName].activeTemplate.exercises.filter(
+                    exercise => exercise.id !== deletedExercise.exerciseId
+                );
+            }
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(deleteExerciseFromTemplate.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

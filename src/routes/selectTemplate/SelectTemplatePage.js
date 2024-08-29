@@ -15,6 +15,7 @@ import {
     selectUserTemplates,
     selectRecentWorkouts,
     deleteTemplateFromUser,
+    deleteExerciseFromTemplate,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { clearLastWorkout, setLastNWorkouts } from "../../features/workouts/workoutSlice";
 
@@ -60,6 +61,22 @@ export default function SelectTemplatePage() {
         dispatch(deleteTemplateFromUser({ templateId: id }));
     };
 
+    const handleRemoveExerciseFromTemplate = ({ exerciseId, exerciseOrder }) => {
+        const templateId = selectedTemplate.id;
+
+        dispatch(deleteExerciseFromTemplate({
+            templateId,
+            exerciseId,
+            exerciseOrder,
+        })).then(() => {
+            // Update selected template
+            setSelectedTemplate({
+                ...selectedTemplate,
+                exercises: selectedTemplate.exercises.filter(exercise => exercise.id !== exerciseId)
+            });
+        });
+    };
+
     const recentWorkouts = useSelector(selectRecentWorkouts);
 
     return (
@@ -101,9 +118,11 @@ export default function SelectTemplatePage() {
                                                         selectedTemplate.exercises.map((exercise) => (
                                                             <ExerciseTemplatePresenter
                                                                 key={exercise.id}
+                                                                id={exercise.id}
                                                                 order={exercise.order}
                                                                 name={exercise.alias}
                                                                 sets={exercise.sets}
+                                                                onClickRemove={handleRemoveExerciseFromTemplate}
                                                             />
                                                         ))
                                                     }

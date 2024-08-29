@@ -88,3 +88,15 @@ export async function deleteTemplate({ templateId }) {
 
     return jsonResponse;
 };
+
+export async function removeExerciseFromTemplate({ templateId, exerciseId, exerciseOrder }) {
+    const ep = endpoint + `/${templateId}/exercises/${exerciseId}/${exerciseOrder}`;
+    const response = await fetch(ep, {
+        method: 'DELETE',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
