@@ -147,8 +147,6 @@ export const deleteExerciseFromTemplate = createAsyncThunk(
                 workoutId,
                 exerciseId: arg.exerciseId
             }));
-
-            // TODO NEXT reorder exercises in workout?
         });
 
         return deletedExerciseInfo;
