@@ -25,11 +25,16 @@ export default function SelectTemplatePage() {
 
 
     const user = useSelector(selectUser);
-    const templates = useSelector(selectUserTemplates).map(template => ({
-        ...template,
-        name: template.alias
-    }));
+    const templates = useSelector(selectUserTemplates);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+    useEffect(() => {
+        if (selectedTemplate) {
+            const updatedTemplate = templates.find(template => template.id === selectedTemplate.id);
+            setSelectedTemplate(updatedTemplate);
+        }
+    }, [templates, selectedTemplate]);
+
 
     useEffect(() => {
         dispatch(clearLastWorkout());
@@ -70,10 +75,7 @@ export default function SelectTemplatePage() {
             exerciseOrder,
         })).then(() => {
             // Update selected template
-            setSelectedTemplate({
-                ...selectedTemplate,
-                exercises: selectedTemplate.exercises.filter(exercise => exercise.id !== exerciseId)
-            });
+            setSelectedTemplate(templates.find(template => template.id === templateId));
         });
     };
 

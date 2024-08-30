@@ -1,3 +1,4 @@
+import { createSelector } from "reselect";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getTemplateInfo } from "../../serverAPI/workoutsTemplates";
 import {
@@ -6,6 +7,7 @@ import {
     getRecentWorkouts,
     deleteTemplate,
     removeExerciseFromTemplate,
+    updateExerciseFromTemplate as updateExerciseFromTemplateInDB,
 } from "../../serverAPI/workoutsTemplates";
 import { getWorkoutsIdsAssociatedWithTemplateAndUser } from "../../serverAPI/workouts";
 import { deleteWorkout, deleteExerciseFromWorkout } from "../workouts/workoutSlice";
@@ -22,6 +24,27 @@ export const createWorkoutTemplate = createAsyncThunk(
         response['description'] = response['description'] ? response['description'] : '';
 
         return response;
+    }
+);
+
+export const updateExerciseFromTemplate = createAsyncThunk(
+    `${sliceName}/updateExerciseFromTemplate`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties templateId, exerciseId,
+        // exerciseOrder, exerciseSets and newExerciseOrder
+
+        const response = await updateExerciseFromTemplateInDB(arg);
+
+        const info = {
+            body: {
+                templateId: arg.templateId,
+                exerciseId: arg.exerciseId,
+                exerciseOrder: arg.exerciseOrder,
+            },
+            response,
+        };
+
+        return info;
     }
 );
 
@@ -85,10 +108,36 @@ export const deleteExerciseFromTemplate = createAsyncThunk(
         const templateInfo = await getTemplateInfo({
             templateId: arg.templateId,
         });
+        const templateExercises = templateInfo['exercises'];
         const templateName = templateInfo['alias'];
         const workoutIdsresponse = await getWorkoutsIdsAssociatedWithTemplateAndUser({
             templateName
         });
+
+        // Reorder exercises in template
+        // order templateExercises by exerciseOrder
+        templateExercises.sort((a, b) => a.order - b.order);
+        // Reassign order to each exercise starting from 1
+        const promises = [];
+        templateExercises.map((exercise, index) => {
+            const newExerciseOrder = index + 1;
+
+            // TODO handle and/or fix error if primary key is violated
+            const infoForUpdate = {
+                templateId: arg.templateId,
+                exerciseId: exercise.id,
+                exerciseOrder: exercise.order,
+                newExerciseOrder,
+            };
+
+            promises.push(
+                thunkAPI.dispatch(updateExerciseFromTemplate(infoForUpdate))
+            );
+
+            return exercise.order = newExerciseOrder;
+        });
+
+        await Promise.all(promises);
 
         const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
 
@@ -98,6 +147,8 @@ export const deleteExerciseFromTemplate = createAsyncThunk(
                 workoutId,
                 exerciseId: arg.exerciseId
             }));
+
+            // TODO NEXT reorder exercises in workout?
         });
 
         return deletedExerciseInfo;
@@ -241,11 +292,56 @@ const slice = createSlice({
             state.isLoading = false;
             state.hasError = true;
         })
+
+        // Update exercise from template
+        builder.addCase(updateExerciseFromTemplate.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(updateExerciseFromTemplate.fulfilled, (state, action) => {
+            const { body, response } = action.payload;
+            const { templateId, exerciseId, exerciseOrder } = body;
+
+            // Update exercise in corresponding template
+            state[sliceName].userCreatedTemplates.map(template => {
+                if (template.id === templateId) {
+                    template.exercises.map(exercise => {
+                        if (exercise.id === exerciseId && exercise.order === exerciseOrder) {
+                            exercise.order = response.exerciseOrder;
+                            exercise.sets = response.exerciseSets;
+                        }
+                    });
+                }
+            });
+
+            // Update exercise in active template if it is the same as the updated one
+            if (state[sliceName].activeTemplate.id === templateId) {
+                state[sliceName].activeTemplate.exercises.map(exercise => {
+                    if (exercise.id === exerciseId && exercise.order === exerciseOrder) {
+                        exercise.order = response.exerciseOrder;
+                        exercise.sets = response.exerciseSets;
+                    }
+                });
+            }
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(updateExerciseFromTemplate.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
     },
 });
 
 // Export selectors
-export const selectUserTemplates = state => state[sliceName][sliceName].userCreatedTemplates;
+export const selectUserTemplates = createSelector(
+    (state) => state[sliceName][sliceName].userCreatedTemplates,
+    (userCreatedTemplates) => userCreatedTemplates.map(template => ({
+        ...template,
+        name: template.alias
+    }))
+);
 export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
 export const selectTemplatesLoading = state => state[sliceName].isLoading;
 export const selectTemplatesError = state => state[sliceName].hasError;

@@ -45,6 +45,34 @@ export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOr
     return jsonResponse;
 };
 
+export async function updateExerciseFromTemplate({
+    templateId,
+    exerciseId,
+    exerciseOrder,
+    exerciseSets,
+    newExerciseOrder,
+}) {
+    const ep = endpoint + `/${templateId}/exercises/${exerciseId}/${exerciseOrder}`;
+
+    const body = {
+        newExerciseOrder,
+        exerciseSets,
+    };
+
+    const response = await fetch(ep, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
 export async function getAllUserTemplates({ userId }) {
     const response = await fetch(endpoint + `/all/${userId}`, {
         method: 'GET',
