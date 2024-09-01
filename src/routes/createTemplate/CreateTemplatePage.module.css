@@ -99,6 +99,6 @@ textarea {
 }
 
 .createTemplateOption:disabled {
-    background-color: #939393;
+    background-color: var(--disabled-color);
     cursor: not-allowed;
 }

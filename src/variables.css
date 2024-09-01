@@ -17,6 +17,8 @@
     --accent-color: var(--brand-icon-light);
     --font-color-contrast: #e6e6e6;
 
+    --disabled-color: #939393;
+
     /* Spinner color is --brand-icon-light with transparency */
     --spinner-color: rgba(54, 54, 54, 0.2);
 

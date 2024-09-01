@@ -39,7 +39,11 @@ const LoginForm = () => {
                 <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
-            <button className={styles.submitButton} type="submit">
+            <button
+                className={styles.submitButton}
+                type="submit"
+                disabled={userIsLoading}
+            >
                 {
                     userIsLoading ? 'Logging in...' : 'Login'
                 }

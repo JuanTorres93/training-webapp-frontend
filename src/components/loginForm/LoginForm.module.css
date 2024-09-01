@@ -54,3 +54,8 @@ input:focus {
 .submitButton:hover {
     background-color: var(--accent-color);
 }
+
+.submitButton:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+}
