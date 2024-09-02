@@ -53,7 +53,7 @@ export default function SelectTemplatePage() {
             templateId: id,
             userId: user.id,
             // TODO change to number that can be selected by user
-            numberOfWorkouts: 2,
+            numberOfWorkouts: 7,
         }));
     };
 

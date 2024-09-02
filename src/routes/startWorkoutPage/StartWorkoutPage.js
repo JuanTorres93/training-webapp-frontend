@@ -34,7 +34,7 @@ export default function StartWorkoutPage() {
             templateId: template.id,
             userId: user.id,
             // TODO let user change this number in some way
-            // TODO of maybe do it in another page and here last 7-10 workouts
+            // TODO or maybe do it in another page and here last 7-10 workouts
             numberOfWorkouts: 7,
         }));
     }, [template, user]);
@@ -42,7 +42,7 @@ export default function StartWorkoutPage() {
     useEffect(() => {
         let newData = [];
 
-        // TODO plot also time if necessary
+        // TODO plot also time of exercise if necessary
         lastNWorkouts.forEach(workout => {
             const { startDate, exercises } = workout;
             const exercisesData = {}
@@ -81,7 +81,7 @@ export default function StartWorkoutPage() {
         }, {});
 
         setData(newData);
-    }, [template]);
+    }, [lastNWorkouts]);
 
     const handleStartWorkout = () => {
         // TODO Create workout in database only after user confirms the finish?
