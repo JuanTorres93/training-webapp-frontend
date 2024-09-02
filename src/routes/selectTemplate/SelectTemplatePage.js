@@ -27,13 +27,14 @@ export default function SelectTemplatePage() {
     const user = useSelector(selectUser);
     const templates = useSelector(selectUserTemplates);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
+    const [flagToUpdateSelectedTemplate, setFlagToUpdateSelectedTemplate] = useState(false);
 
     useEffect(() => {
         if (selectedTemplate) {
             const updatedTemplate = templates.find(template => template.id === selectedTemplate.id);
             setSelectedTemplate(updatedTemplate);
         }
-    }, [templates, selectedTemplate]);
+    }, [templates, flagToUpdateSelectedTemplate]);
 
 
     useEffect(() => {
@@ -75,7 +76,7 @@ export default function SelectTemplatePage() {
             exerciseOrder,
         })).then(() => {
             // Update selected template
-            setSelectedTemplate(templates.find(template => template.id === templateId));
+            setFlagToUpdateSelectedTemplate(!flagToUpdateSelectedTemplate);
         });
     };
 
