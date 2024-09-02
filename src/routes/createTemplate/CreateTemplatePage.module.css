@@ -11,8 +11,6 @@ form {
     align-items: center;
     justify-content: center;
     width: 95%;
-    /* TODO borrar */
-    border: 1px solid red;
 }
 
 .templateInfoContainer {

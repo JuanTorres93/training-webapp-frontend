@@ -13,20 +13,21 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  margin-bottom: 2rem;
 }
 
 .nameContainer {
   display: flex;
   flex-direction: column;
-  min-width: 20%;
-  max-width: 20%;
+  min-width: 25%;
+  max-width: 25%;
   align-items: start;
 }
 
 /* Select input children of nameContainer */
 .nameContainer input {
-  min-width: 70%;
-  max-width: 85%;
+  min-width: 60%;
+  max-width: 75%;
 }
 
 .descriptionContainer {
@@ -40,6 +41,7 @@
 .descriptionContainer textarea {
   max-width: 90%;
   min-height: 1.4rem;
+  max-height: 1.4rem;
 }
 
 h2 {
@@ -56,6 +58,7 @@ label {
   justify-content: center;
   align-items: center;
   min-height: 100%;
+  min-width: 8%;
   margin-top: .3rem;
 }
 
@@ -71,4 +74,19 @@ label {
 .createExerciseButton:disabled {
   background-color: #555555;
   cursor: not-allowed;
+}
+
+.exerciseListsContainer {
+  display: flex;
+  align-items: start;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 40%;
 }

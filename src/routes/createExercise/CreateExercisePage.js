@@ -20,8 +20,9 @@ export default function CreateExercisePage() {
 
     const availableExercises = useSelector(selectUserExercises);
 
-    const [alias, setAlias] = useState('');
-    const [description, setDescription] = useState('');
+    const [newExerciseAlias, setNewExerciseAlias] = useState('');
+    const [newExerciseDescription, setNewExerciseDescription] = useState('');
+    const [selectedExercise, setSelectedExercise] = useState({});
 
     useEffect(() => {
         if (!user) {
@@ -39,15 +40,15 @@ export default function CreateExercisePage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            dispatch(createExercise({ alias, description })).then((response) => {
+            dispatch(createExercise({ alias: newExerciseAlias, description: newExerciseDescription })).then((response) => {
                 // Update user's exercises list
                 dispatch(getExercisesFromUser({
                     userId: user.id,
                 }));
 
                 // clear form
-                setAlias('');
-                setDescription('');
+                setNewExerciseAlias('');
+                setNewExerciseDescription('');
             });
 
         } catch (error) {
@@ -58,6 +59,7 @@ export default function CreateExercisePage() {
 
     const handleSelectExercise = (exerciseInfo) => {
         console.log('handleSelectExercise', exerciseInfo);
+        setSelectedExercise(exerciseInfo);
     };
 
     const handleDeleteExerciseFromDb = ({ id }) => {
@@ -86,8 +88,8 @@ export default function CreateExercisePage() {
                                 id="input-exercise-name"
                                 type="text"
                                 placeholder="Exercise name"
-                                value={alias}
-                                onChange={(e) => setAlias(e.target.value)}
+                                value={newExerciseAlias}
+                                onChange={(e) => setNewExerciseAlias(e.target.value)}
                                 required
                             />
                         </div>
@@ -103,8 +105,8 @@ export default function CreateExercisePage() {
                                 id="input-exercise-description"
                                 className={styles.fontSize}
                                 placeholder="Exercise description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                value={newExerciseDescription}
+                                onChange={(e) => setNewExerciseDescription(e.target.value)}
                             >
                             </textarea>
                         </div>
@@ -134,18 +136,20 @@ export default function CreateExercisePage() {
                                 handleDeleteClick={handleDeleteExerciseFromDb}
                             />
                         </div>
+                        {/* TODO show currently selected exercise */}
+                        {/* TODO uncomment and finish if want to edit name and description of exercise */}
+                        {/* 
                         <div className={styles.exerciseList}>
-                            {/* TODO show currently selected exercise */}
-                            {/* 
-                            
-                            <h3>Template's exercises</h3>
-                            <ListNameDescription
-                                exercises={selectedExercises}
-                                isSetPresenter={true}
-                                handleSetExerciseClick={handleRemoveExercise}
-                            />
-                            */}
+                            {selectedExercise && (
+                                <div>
+                                    <h3>Exercise name</h3>
+                                    <p>{selectedExercise.name}</p>
+                                    <h3>Exercise description</h3>
+                                    <p>{selectedExercise.description}</p>
+                                </div>
+                            )}
                         </div>
+                        */}
                     </section>
 
                 </section>
