@@ -70,6 +70,7 @@ export default function SelectTemplatePage() {
     const handleDeleteTemplate = ({ id }) => {
         // TODO: When remove first for redux for better UX. If error when actually deleting it, then restore.
         dispatch(deleteTemplateFromUser({ templateId: id }));
+        setSelectedTemplate(null);
     };
 
     const handleRemoveExerciseFromTemplate = ({ exerciseId, exerciseOrder }) => {
