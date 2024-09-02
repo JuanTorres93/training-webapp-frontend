@@ -114,6 +114,10 @@ const exercisesSlice = createSlice({
         })
         builder.addCase(createExercise.fulfilled, (state, action) => {
             let newExercise = action.payload;
+            newExercise = {
+                ...newExercise,
+                name: newExercise.alias,
+            };
             state[sliceName].userCreatedExercises.push(newExercise);
             state.isLoading = false;
             state.hasError = false;

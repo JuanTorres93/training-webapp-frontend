@@ -2,44 +2,73 @@
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  justify-content: center;
+  justify-content: space-between;
   height: 100%;
   width: 90%;
 }
 
-h2 {
-  font-size: var(--heading-font-size);
+.newExerciseContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
-.topMargin {
-  margin-top: 1rem;
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  max-width: 20%;
+  align-items: start;
+}
+
+/* Select input children of nameContainer */
+.nameContainer input {
+  min-width: 70%;
+  max-width: 85%;
+}
+
+.descriptionContainer {
+  display: flex;
+  min-width: 70%;
+  max-width: 70%;
+  flex-direction: column;
+  align-items: start;
+}
+
+.descriptionContainer textarea {
+  max-width: 90%;
+  min-height: 1.4rem;
+}
+
+h2 {
+  font-size: var(--heading-font-size);
+  margin-bottom: 3rem;
 }
 
 label {
   margin-left: 0.7rem;
 }
 
-.fontSize {
-  font-size: var(--body-font-size);
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  margin-top: .3rem;
 }
 
 .createExerciseButton {
-  /* beatiful styling */
+  min-width: 90%;
+  max-width: 100%;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  margin-top: 3rem;
-  width: 90%;
-  min-height: 4rem;
   transition: all .1s;
+  margin: 0;
+  padding: 1rem;
 }
 
 .createExerciseButton:disabled {
-    background-color: #555555;
-    cursor: not-allowed;
-}
-
-/* Select first .inputWrapper */
-.inputWrapper:first-of-type {
-  margin-bottom: 1rem;
+  background-color: #555555;
+  cursor: not-allowed;
 }

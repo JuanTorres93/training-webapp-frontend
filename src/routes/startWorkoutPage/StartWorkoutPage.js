@@ -30,11 +30,9 @@ export default function StartWorkoutPage() {
 
     useEffect(() => {
         dispatch(setActiveTemplate(parseInt(templateId)));
-    }, [dispatch, templateId]);
 
-    useEffect(() => {
         dispatch(setLastNWorkouts({
-            templateId: template.id,
+            templateId: templateId,
             userId: user.id,
             // TODO let user change this number in some way
             // TODO or maybe do it in another page and here last 7-10 workouts

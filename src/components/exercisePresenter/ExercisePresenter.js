@@ -5,6 +5,7 @@ import styles from './ExercisePresenter.module.css'
 
 import { selectWorkoutsLoading } from '../../features/workouts/workoutSlice';
 import { selectTemplatesLoading } from '../../features/workoutsTemplates/workoutTemplatesSlice';
+import { selectExercisesLoading } from '../../features/exercises/exercisesSlice';
 
 function ExercisePresenter({
     id,
@@ -19,7 +20,9 @@ function ExercisePresenter({
 
     const workoutsLoading = useSelector(selectWorkoutsLoading);
     const templatesLoading = useSelector(selectTemplatesLoading);
-    const isLoading = workoutsLoading || templatesLoading;
+    const exercisesLoading = useSelector(selectExercisesLoading);
+    // TODO handle loading state from parent components and use it here as a prop
+    const isLoading = workoutsLoading || templatesLoading || exercisesLoading;
 
     return (
         <div data-testid="exercisePresenter" className={styles.container}
