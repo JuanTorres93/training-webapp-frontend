@@ -32,9 +32,14 @@ export default function SelectTemplatePage() {
     useEffect(() => {
         if (selectedTemplate) {
             const updatedTemplate = templates.find(template => template.id === selectedTemplate.id);
-            setSelectedTemplate(updatedTemplate);
+            if (updatedTemplate.exercises.length > 0) {
+                setSelectedTemplate(updatedTemplate);
+            } else {
+                setSelectedTemplate(null);
+                dispatch(deleteTemplateFromUser({ templateId: selectedTemplate.id }));
+            }
         }
-    }, [templates, flagToUpdateSelectedTemplate]);
+    }, [dispatch, templates, flagToUpdateSelectedTemplate]);
 
 
     useEffect(() => {
