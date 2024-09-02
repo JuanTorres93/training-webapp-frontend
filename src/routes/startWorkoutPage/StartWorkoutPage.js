@@ -23,11 +23,14 @@ export default function StartWorkoutPage() {
     const navigate = useNavigate();
     const { templateId } = useParams();
 
-    dispatch(setActiveTemplate(parseInt(templateId)));
     const template = useSelector(selectActiveTemplate);
     const user = useSelector(selectUser);
     const lastNWorkouts = useSelector(selectLastNWorkouts);
     const workoutsLoading = useSelector(selectWorkoutsLoading);
+
+    useEffect(() => {
+        dispatch(setActiveTemplate(parseInt(templateId)));
+    }, [dispatch, templateId]);
 
     useEffect(() => {
         dispatch(setLastNWorkouts({
