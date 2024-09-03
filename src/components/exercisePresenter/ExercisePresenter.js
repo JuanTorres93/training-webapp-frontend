@@ -1,28 +1,17 @@
-import { useSelector } from 'react-redux';
-
 import PropTypes from 'prop-types';
 import styles from './ExercisePresenter.module.css'
-
-import { selectWorkoutsLoading } from '../../features/workouts/workoutSlice';
-import { selectTemplatesLoading } from '../../features/workoutsTemplates/workoutTemplatesSlice';
-import { selectExercisesLoading } from '../../features/exercises/exercisesSlice';
 
 function ExercisePresenter({
     id,
     name,
     description,
+    isLoading = false,
     handleClick = () => { },
     handleDoubleClick = () => { },
     handleDeleteClick = () => { }
 }) {
     // The ExercisePresenter component renders the name and description of an exercise.
     const exerciseInfo = { id, name, description };
-
-    const workoutsLoading = useSelector(selectWorkoutsLoading);
-    const templatesLoading = useSelector(selectTemplatesLoading);
-    const exercisesLoading = useSelector(selectExercisesLoading);
-    // TODO handle loading state from parent components and use it here as a prop
-    const isLoading = workoutsLoading || templatesLoading || exercisesLoading;
 
     return (
         <div data-testid="exercisePresenter" className={styles.container}

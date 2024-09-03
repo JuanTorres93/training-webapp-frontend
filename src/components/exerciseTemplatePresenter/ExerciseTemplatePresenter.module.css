@@ -19,6 +19,14 @@
     color: var(--accent-color);
 }
 
+
+.deleteContainerEnabled {}
+
+.deleteContainerEnabled:hover {
+    color: var(--font-color-contrast);
+    background-color: var(--accent-color);
+}
+
 .deleteContainer {
     justify-content: center;
     align-items: center;
@@ -29,13 +37,18 @@
     padding: 0 1rem;
     padding-top: .2rem;
     font-weight: 600;
-}
-
-.deleteContainer:hover {
-    color: var(--font-color-contrast);
-    background-color: var(--accent-color);
     /* Prevent text selection */
     user-select: none;
+}
+
+.deleteContainerDisabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+}
+
+.deleteContainerDisabled:hover {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
 }
 
 /* These styles are shared with ExerciseSetPresenter */

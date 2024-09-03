@@ -112,6 +112,7 @@ export default function CreateExercisePage() {
                         </div>
 
                         <div className={styles.buttonContainer}>
+                            {/* TODO add spinner when loading */}
                             <button
                                 type="submit"
                                 className={`${styles.createExerciseButton}`}
@@ -134,6 +135,7 @@ export default function CreateExercisePage() {
                                 exercises={availableExercises}
                                 handleExerciseClick={handleSelectExercise}
                                 handleDeleteClick={handleDeleteExerciseFromDb}
+                                isLoading={exercisesLoading}
                             />
                         </div>
                         {/* TODO show currently selected exercise */}

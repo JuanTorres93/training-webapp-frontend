@@ -11,6 +11,7 @@ import styles from "./CreateTemplatePage.module.css";
 import {
     selectUserExercises,
     selectExercisesInNewTemplate,
+    selectExercisesLoading,
     addExerciseToTemplate,
     removeExerciseFromTemplate,
     deleteExercise,
@@ -30,6 +31,7 @@ export default function CreateTemplatePage() {
     const user = useSelector(selectUser);
 
     const templatesLoading = useSelector(selectTemplatesLoading);
+    const exercisesLoading = useSelector(selectExercisesLoading);
 
     useEffect(() => {
         if (!user) {
@@ -149,6 +151,7 @@ export default function CreateTemplatePage() {
                                                 exercises={availableExercises}
                                                 handleExerciseClick={handleSelectExercise}
                                                 handleDeleteClick={handleDeleteExerciseFromDb}
+                                                isLoading={exercisesLoading}
                                             />
                                         </div>
                                         <div className={styles.exerciseList}>

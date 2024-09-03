@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser } from '../../features/user/userSlice';
 
-import List from "../../components/listNameDescription/ListNameDescription";
+import ListNameDescription from "../../components/listNameDescription/ListNameDescription";
 import GenericList from "../../components/genericList/GenericList";
 import ExerciseTemplatePresenter from "../../components/exerciseTemplatePresenter/ExerciseTemplatePresenter";
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
@@ -14,10 +14,13 @@ import styles from "./SelectTemplatePage.module.css";
 import {
     selectUserTemplates,
     selectRecentWorkouts,
+    selectTemplatesLoading,
     deleteTemplateFromUser,
     deleteExerciseFromTemplate,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { clearLastWorkout, setLastNWorkouts } from "../../features/workouts/workoutSlice";
+
+import { selectExercisesLoading } from "../../features/exercises/exercisesSlice";
 
 export default function SelectTemplatePage() {
     const navigate = useNavigate();
@@ -26,8 +29,12 @@ export default function SelectTemplatePage() {
 
     const user = useSelector(selectUser);
     const templates = useSelector(selectUserTemplates);
+    const templatesLoading = useSelector(selectTemplatesLoading);
+    const exercisesLoading = useSelector(selectExercisesLoading);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const [flagToUpdateSelectedTemplate, setFlagToUpdateSelectedTemplate] = useState(false);
+    // TODO state with list with exercises marked for deletion. Use this to update loading states
+
 
     useEffect(() => {
         if (selectedTemplate) {
@@ -109,8 +116,9 @@ export default function SelectTemplatePage() {
                                 <div className={styles.listContainer}>
                                     <div className={styles.individualListContainer}>
                                         {/* Render list of templates */}
-                                        <List
+                                        <ListNameDescription
                                             exercises={templates}
+                                            isLoading={templatesLoading}
                                             handleExerciseClick={handleSelectTemplate}
                                             handleExerciseDoubleClick={handleGoToWorkout}
                                             handleDeleteClick={handleDeleteTemplate}
@@ -131,6 +139,7 @@ export default function SelectTemplatePage() {
                                                                 order={exercise.order}
                                                                 name={exercise.alias}
                                                                 sets={exercise.sets}
+                                                                isLoading={exercisesLoading || templatesLoading}
                                                                 onClickRemove={handleRemoveExerciseFromTemplate}
                                                             />
                                                         ))
