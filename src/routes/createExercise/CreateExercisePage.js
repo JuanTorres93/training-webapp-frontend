@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { selectUser } from '../../features/user/userSlice';
+import { selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import styles from "./CreateExercisePage.module.css";
@@ -16,8 +16,8 @@ export default function CreateExercisePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
-
     const availableExercises = useSelector(selectUserExercises);
 
     const [newExerciseAlias, setNewExerciseAlias] = useState('');
@@ -32,7 +32,10 @@ export default function CreateExercisePage() {
 
     if (!user) {
         return <PagePresenter children={
-            <LoginForm />
+            <LoginForm
+                user={user}
+                userIsLoading={userIsLoading}
+            />
         } />;
     }
 

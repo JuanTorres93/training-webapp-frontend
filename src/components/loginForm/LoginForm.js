@@ -4,15 +4,16 @@ import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
 
-const LoginForm = () => {
+const LoginForm = ({
+    user,
+    userIsLoading
+}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const user = useSelector(selectUser);
-    const userIsLoading = useSelector(selectUserIsLoading);
 
     useEffect(() => {
         // If user exists, then redirect to /

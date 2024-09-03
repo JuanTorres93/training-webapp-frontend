@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { selectUser } from '../../features/user/userSlice';
+import { selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 
 import ListNameDescription from "../../components/listNameDescription/ListNameDescription";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
@@ -29,6 +29,7 @@ export default function CreateTemplatePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
 
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
@@ -198,7 +199,10 @@ export default function CreateTemplatePage() {
                         </form>
                     </div>
                 ) : (
-                    <LoginForm />
+                    <LoginForm
+                        user={user}
+                        userIsLoading={userIsLoading}
+                    />
                 )}
             </>
         } />

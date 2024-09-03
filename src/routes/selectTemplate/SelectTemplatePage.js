@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { selectUser } from '../../features/user/userSlice';
+import { selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 
 import ListNameDescription from "../../components/listNameDescription/ListNameDescription";
 import GenericList from "../../components/genericList/GenericList";
@@ -26,8 +26,8 @@ export default function SelectTemplatePage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
     const templates = useSelector(selectUserTemplates);
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
@@ -161,7 +161,10 @@ export default function SelectTemplatePage() {
 
                     </div>
                 ) : (
-                    <LoginForm />
+                    <LoginForm
+                        user={user}
+                        userIsLoading={userIsLoading}
+                    />
                 )}
             </>
         } />
