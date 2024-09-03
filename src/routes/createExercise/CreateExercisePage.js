@@ -11,6 +11,7 @@ import ListNameDescription from "../../components/listNameDescription/ListNameDe
 import { getExercisesFromUser, selectExercisesLoading } from "../../features/exercises/exercisesSlice";
 import { createExercise, deleteExercise } from "../../features/exercises/exercisesSlice";
 import { selectUserExercises } from "../../features/exercises/exercisesSlice";
+import { getAllUserCreatedTemplates, getUserRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 export default function CreateExercisePage() {
     const navigate = useNavigate();
@@ -66,7 +67,21 @@ export default function CreateExercisePage() {
     };
 
     const handleDeleteExerciseFromDb = ({ id }) => {
-        dispatch(deleteExercise({ exerciseId: id }));
+        dispatch(deleteExercise({ exerciseId: id })).then((response) => {
+            // Update user's exercises list
+            dispatch(getExercisesFromUser({
+                userId: user.id,
+            }));
+            // Get user's templates
+            dispatch(getAllUserCreatedTemplates({
+                userId: user.id,
+            }));
+            // Get user's recent workouts
+            dispatch(getUserRecentWorkouts({
+                userId: user.id,
+            }));
+        }
+        );
     };
 
 

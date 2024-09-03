@@ -54,6 +54,9 @@ export default function CreateTemplatePage() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        // Detect button for redirecting or not
+        const submitterId = e.nativeEvent.submitter.id;
+
         // Colect the data from the form based on input ids
         const templateName = e.target["template-name"].value;
         const templateDescription = e.target["template-description"].value;
@@ -100,8 +103,9 @@ export default function CreateTemplatePage() {
                     .then(() => {
                         // Update workout list
                         dispatch(getAllUserCreatedTemplates({ userId: user.id })).then(() => {
-                            // TODO only if the second button is clicked
-                            navigate(`/startWorkout/template/${newTemplate.id}`);
+                            if (submitterId === 'create-template-and-start') {
+                                navigate(`/startWorkout/template/${newTemplate.id}`);
+                            }
                         });
                     })
                     .catch((error) => {
