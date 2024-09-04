@@ -68,6 +68,33 @@ export const getUserRecentWorkouts = createAsyncThunk(
         // Error is handled from redux state when promise is rejected
         const response = await getRecentWorkouts(arg);
 
+        // check if template has exercises, if not, remove it from the templates and workouts in db
+        const promises = [];
+        const templatesIds = response.map(template => template.template_id);
+
+        templatesIds.map(templateId => {
+            promises.push(getTemplateInfo({ templateId }));
+        })
+
+        const resolvedPromises = await Promise.all(promises);
+
+        // map values
+        const templates = resolvedPromises.map(template => { return template });
+
+        // filter templates to not repeat ids
+        const uniqueTemplates = templates.filter((template, index, self) =>
+            index === self.findIndex((t) => (
+                t.id === template.id
+            ))
+        );
+
+        uniqueTemplates.map(template => {
+            if (template.exercises.length === 0) {
+                thunkAPI.dispatch(deleteTemplateFromUser({ templateId: template.id }));
+            }
+        });
+
+
         return response;
     }
 );
