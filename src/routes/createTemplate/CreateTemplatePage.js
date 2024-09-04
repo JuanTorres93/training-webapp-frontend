@@ -149,13 +149,18 @@ export default function CreateTemplatePage() {
                                             <input id="template-name"
                                                 type="text"
                                                 placeholder="Template name"
+                                                disabled={templatesLoading}
                                                 required
                                             />
                                         </div>
 
                                         <div className={styles.inputContainer}>
                                             <label htmlFor="template-description">Template description</label>
-                                            <textarea id="template-description" placeholder="Template description"></textarea>
+                                            <textarea
+                                                id="template-description"
+                                                placeholder="Template description"
+                                                disabled={templatesLoading}
+                                            ></textarea>
                                         </div>
                                     </div>
 
