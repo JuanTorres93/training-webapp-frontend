@@ -174,7 +174,11 @@ const slice = createSlice({
                 template => template.id === action.payload
             );
 
-            state[sliceName].activeTemplate = template;
+            if (!template) {
+                state[sliceName].activeTemplate = null;
+            } else {
+                state[sliceName].activeTemplate = template;
+            }
         }
     },
     extraReducers: builder => {

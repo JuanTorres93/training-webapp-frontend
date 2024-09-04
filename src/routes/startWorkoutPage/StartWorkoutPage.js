@@ -38,7 +38,7 @@ export default function StartWorkoutPage() {
             // TODO or maybe do it in another page and here last 7-10 workouts
             numberOfWorkouts: 7,
         }));
-    }, [template, user]);
+    }, [user, dispatch, templateId]);
 
     useEffect(() => {
         let newData = [];
@@ -104,9 +104,9 @@ export default function StartWorkoutPage() {
 
     return (
         <PagePresenter children={
+            template &&
             <div className={styles.container}>
                 <h2>Start {template.alias}</h2>
-
 
                 {!workoutsLoading && Object.values(data).map((exerciseInfoArray) => {
                     const exerciseName = exerciseInfoArray[0].exerciseName;

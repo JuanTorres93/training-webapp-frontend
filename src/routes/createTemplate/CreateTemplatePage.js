@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { selectUser, selectUserIsLoading } from '../../features/user/userSlice';
@@ -33,6 +33,21 @@ export default function CreateTemplatePage() {
 
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
+
+    const availableExercises = useSelector(selectUserExercises);
+    const selectedExercises = useSelector(selectExercisesInNewTemplate);
+
+    const [userHasExercises, setUserHasExercises] = useState(false);
+
+    const submitDisabled = selectedExercises.length === 0 || templatesLoading;
+
+    useEffect(() => {
+        if (availableExercises.length === 0 && selectedExercises.length === 0) {
+            setUserHasExercises(false);
+        } else {
+            setUserHasExercises(true);
+        }
+    }, [availableExercises, selectedExercises]);
 
     useEffect(() => {
         if (!user) {
@@ -118,11 +133,6 @@ export default function CreateTemplatePage() {
             });
     };
 
-    const availableExercises = useSelector(selectUserExercises);
-    const selectedExercises = useSelector(selectExercisesInNewTemplate);
-
-    const submitDisabled = selectedExercises.length === 0 || templatesLoading;
-
 
     return (
         <PagePresenter children={
@@ -131,7 +141,7 @@ export default function CreateTemplatePage() {
                     <div className={styles.createTemplatePageContainer}>
                         <h2>Create new template</h2>
                         <form onSubmit={handleFormSubmit}>
-                            {availableExercises.length > 0 &&
+                            {userHasExercises &&
                                 <div className={styles.createTemplatePageContainer}>
                                     <div className={styles.templateInfoContainer}>
                                         <div className={styles.inputContainer}>
@@ -193,7 +203,7 @@ export default function CreateTemplatePage() {
                             }
 
                             {/* Redirect to /createExercise if there are no availableExercises */}
-                            {availableExercises.length === 0 && (
+                            {!userHasExercises && (
                                 <div>
                                     <p style={{ fontSize: 'var(--subheading-font-size)' }}>You don't have any exercises yet.</p>
                                     <button onClick={() => navigate('/createExercise')}>Create an exercise</button>
