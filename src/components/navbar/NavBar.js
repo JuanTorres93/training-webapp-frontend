@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, logoutUser } from '../../features/user/userSlice';
+import {
+    selectUser,
+    logoutUser,
+    selectUserIsLoading,
+} from '../../features/user/userSlice';
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from 'react-router-dom';
 import styles from './NavBar.module.css'
@@ -7,6 +11,7 @@ import styles from './NavBar.module.css'
 function NavBar() {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
 
     const handleLogout = () => {
         dispatch(logoutUser());
@@ -36,8 +41,13 @@ function NavBar() {
                     ) : (
                         <>
                             {/* TODO modify and style as needed */}
-                            <p>{user.alias}</p>
-                            <NavLink className={styles.navBarLinks} to="/" onClick={handleLogout}>Logout</NavLink>
+                            {userIsLoading ? null : <p>{user.alias}</p>}
+
+                            <NavLink className={styles.navBarLinks} to="/" onClick={() => {
+                                !userIsLoading && handleLogout()
+                            }}>
+                                {userIsLoading ? <div className='spinner-body-size'></div> : 'Logout'}
+                            </NavLink>
                         </>
                     )}
                 </div>
