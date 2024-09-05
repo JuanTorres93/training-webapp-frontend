@@ -19,12 +19,31 @@ import exerciseReducer, { sliceName as exerciseName } from '../features/exercise
 import templateReducer, { sliceName as templateName } from '../features/workoutsTemplates/workoutTemplatesSlice';
 import workoutReducer, { sliceName as workoutName } from '../features/workouts/workoutSlice';
 
-const rootReducer = combineReducers({
+// Action for restarting the state
+const RESET_STATE = 'RESET_STATE';
+
+export const resetState = () => ({
+  type: RESET_STATE,
+});
+
+const appReducer = combineReducers({
   [userName]: userReducer,
   [exerciseName]: exerciseReducer,
   [templateName]: templateReducer,
   [workoutName]: workoutReducer,
 });
+
+// Modify rootReducer to handle state reset
+const rootReducer = (state, action) => {
+  if (action.type === RESET_STATE) {
+    // Clear persisted storage
+    // Remove the state persisted from storage
+    storage.removeItem('persist:root');
+    // Restarts the state in memory
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 const persistConfig = {
   key: 'root',
@@ -47,5 +66,13 @@ export const setupStore = preloadedState => {
       }).concat(authMiddleware),
   });
   let persistor = persistStore(store);
-  return { store, persistor };
+
+  // Function to reset the state
+  const resetApp = () => {
+    store.dispatch(resetState());
+    // Purge the persisted storage
+    persistor.purge();
+  };
+
+  return { store, persistor, resetApp };
 };

@@ -7,7 +7,7 @@ import {
     getAllUserCreatedTemplates,
     getUserRecentWorkouts,
 } from "../workoutsTemplates/workoutTemplatesSlice";
-import { persistor } from "../../index";
+import { resetApp } from "../../index";
 
 export const sliceName = 'user';
 
@@ -42,7 +42,7 @@ export const logoutUser = createAsyncThunk(
         const response = await logout();
 
         // Clean redux state
-        persistor.purge();
+        resetApp();
 
         return response.status;
     }
