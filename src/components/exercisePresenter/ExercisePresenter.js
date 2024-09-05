@@ -24,8 +24,8 @@ function ExercisePresenter({
                 <div className={styles.exerciseDescription}>{description}</div>
             </div>
 
-            <div className={styles.deleteContainer}
-                onClick={() => { handleDeleteClick(exerciseInfo) }}>
+            <div className={`${styles.deleteContainer} ${isLoading ? styles.deleteContainerDisabled : styles.deleteContainerEnabled}`}
+                onClick={() => { !isLoading && handleDeleteClick(exerciseInfo) }}>
                 {/* spinner is defined in index.css for global usage */}
                 {isLoading ? <div className='spinner-body-size'></div> : 'x'} {/* Conditional rendering */}
             </div>

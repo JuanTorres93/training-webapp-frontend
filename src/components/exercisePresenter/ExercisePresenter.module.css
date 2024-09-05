@@ -37,6 +37,10 @@
     margin-right: 0;
 }
 
+.exercisePresenter * {
+    user-select: none;
+}
+
 .exerciseName {
     font-weight: bold;
     transition: all .1s;
@@ -53,23 +57,28 @@
     justify-content: center;
     font-size: var(--heading-font-size);
     font-weight: 500;
-
-    cursor: pointer;
     transition: all .1s;
     padding: 0 1.4rem;
+    color: var(--font-color);
 
     /* Adjust radius to match border */
     border-top-right-radius: .63rem;
     border-bottom-right-radius: .63rem;
+}
 
-    /* Colors */
-    color: var(--font-color);
+.deleteContainerEnabled {
+    cursor: pointer;
     background-color: var(--background-color);
 }
 
-.deleteContainer:hover {
+.deleteContainerEnabled:hover {
     color: var(--font-color-contrast);
     background-color: var(--accent-color);
     /* Prevent text selection */
     user-select: none;
+}
+
+.deleteContainerDisabled {
+    cursor: not-allowed;
+    background-color: var(--disabled-color);
 }
