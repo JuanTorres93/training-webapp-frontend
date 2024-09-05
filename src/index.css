@@ -76,6 +76,12 @@ textarea:hover {
     border-color: var(--accent-color);
 }
 
+input[type="text"]:disabled,
+textarea:disabled {
+    border-color: var(--disabled-color);
+    background-color: var(--disabled-color);
+}
+
 /* select coherent with app style */
 select {
     border: 1px solid var(--primary-color);
@@ -132,6 +138,11 @@ button:hover {
 /* active state for button, compliant with the general app style */
 button:active {
     background-color: #dd7208;
+}
+
+/* button hover */
+button:disabled {
+    background-color: var(--disabled-color);
 }
 
 /* Loading states */

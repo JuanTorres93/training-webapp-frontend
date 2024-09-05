@@ -107,6 +107,7 @@ export default function CreateExercisePage() {
                                 type="text"
                                 placeholder="Exercise name"
                                 value={newExerciseAlias}
+                                disabled={exercisesLoading || userIsLoading}
                                 onChange={(e) => setNewExerciseAlias(e.target.value)}
                                 required
                             />
@@ -124,6 +125,7 @@ export default function CreateExercisePage() {
                                 className={styles.fontSize}
                                 placeholder="Exercise description"
                                 value={newExerciseDescription}
+                                disabled={exercisesLoading || userIsLoading}
                                 onChange={(e) => setNewExerciseDescription(e.target.value)}
                             >
                             </textarea>
@@ -134,11 +136,11 @@ export default function CreateExercisePage() {
                             <button
                                 type="submit"
                                 className={`${styles.createExerciseButton}`}
-                                disabled={exercisesLoading}
+                                disabled={exercisesLoading || userIsLoading}
                             >
                                 {
                                     exercisesLoading
-                                        ? 'Creating exercise...'
+                                        ? <div className="spinner-heading-size"></div>
                                         : 'Create exercise'
                                 }
                             </button>
