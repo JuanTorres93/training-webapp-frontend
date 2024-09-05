@@ -1,4 +1,4 @@
-.recentWorkout {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,8 +18,19 @@
   gap: 0.3rem;
 }
 
+.recentWorkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  max-height: 150px;
+  max-width: 200px;
+}
+
 /* Children's text of .recentWorkout is not selectable */
-.recentWorkout * {
+.container * {
   user-select: none;
 }
 
@@ -29,11 +40,11 @@
   font-size: var(--body-font-size);
 }
 
-.recentWorkout:hover {
+.container:hover {
   border: var(--accent-color) solid 0.15rem;
 }
 
-.recentWorkout:hover .name {
+.container:hover .name {
   color: var(--accent-color);
 }
 

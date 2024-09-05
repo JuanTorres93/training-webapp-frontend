@@ -13,7 +13,7 @@ import styles from './RecentWorkoutsCarousel.module.css'
 // - name: string
 // The component should render a RecentWorkoutPresenter for each RecentWorkoutObject.
 // Make sure to write prop types for the RecentWorkoutsCarousel component.
-const RecentWorkoutsCarousel = ({ recentWorkouts }) => {
+const RecentWorkoutsCarousel = ({ recentWorkouts, isLoading = false }) => {
     return (
         <Carousel
             additionalTransfrom={0}
@@ -69,6 +69,7 @@ const RecentWorkoutsCarousel = ({ recentWorkouts }) => {
                     id={workout.id}
                     date={workout.date}
                     name={workout.name}
+                    isLoading={isLoading}
                 />
             ))}
 

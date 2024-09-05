@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './RecentWorkoutPresenter.module.css'
 
-function RecentWorkoutPresenter({ id: templateId, date, name }) {
+function RecentWorkoutPresenter({ id: templateId, date, name, isLoading = false }) {
     /**
      * This function calculates how much time has passed since a given date.
      * It first calculates the number of minutes, hours, days, weeks, months, and years since the given date.
@@ -18,10 +18,10 @@ function RecentWorkoutPresenter({ id: templateId, date, name }) {
      * @param {string} date - The date to calculate the elapsed time from, in the format 'YYYY-MM-DD'.
      * @returns {string} A string describing how much time has passed since the given date.
      */
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const handleRecentWorkoutClick = () => {
-      navigate(`/startWorkout/template/${templateId}`); // Redirect to /startWorkout/id
+        if (!isLoading) navigate(`/startWorkout/template/${templateId}`);
     };
 
     const calculateTimeSince = (date) => {
@@ -53,20 +53,26 @@ function RecentWorkoutPresenter({ id: templateId, date, name }) {
     }
 
     return (
-        <div data-testid="recentWorkoutPresenter" 
-             className={styles.recentWorkout}
-             onClick={handleRecentWorkoutClick}>
+        <div data-testid="recentWorkoutPresenter"
+            className={styles.container}
+            onClick={handleRecentWorkoutClick}>
 
-            <div className={styles.name}>{name}</div>
+            {isLoading && <div className='spinner-heading-size'></div>}
 
-            <div className={styles.fullDateInfo}>
-                <div className={styles.agoSentence}>
-                    {calculateTimeSince(date)}
+            {!isLoading &&
+                <div className={styles.recentWorkout}>
+                    <div className={styles.name}>{name}</div>
+
+                    <div className={styles.fullDateInfo}>
+                        <div className={styles.agoSentence}>
+                            {calculateTimeSince(date)}
+                        </div>
+                        <div className={styles.date}>
+                            ({new Date(date).toISOString().split('T')[0]})
+                        </div>
+                    </div>
                 </div>
-                <div className={styles.date}>
-                    ({new Date(date).toISOString().split('T')[0]})
-                </div>
-            </div>
+            }
         </div>
     );
 };

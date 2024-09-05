@@ -105,7 +105,10 @@ export default function SelectTemplatePage() {
                             <div>
                                 <h2>Recent workouts</h2>
                                 {recentWorkouts.length === 0 && <p>No recent workouts</p>}
-                                {recentWorkouts.length > 0 && <RecentWorkoutsCarousel recentWorkouts={recentWorkouts} />}
+                                {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
+                                    recentWorkouts={recentWorkouts}
+                                    isLoading={templatesLoading}
+                                />}
 
                                 <div className={styles.searchAndSortContainer}>
                                     <h3>
