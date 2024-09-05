@@ -19,26 +19,27 @@
     color: var(--accent-color);
 }
 
-
-.deleteContainerEnabled {}
-
-.deleteContainerEnabled:hover {
-    color: var(--font-color-contrast);
-    background-color: var(--accent-color);
-}
-
 .deleteContainer {
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--background-color);
     border-top-right-radius: .65rem;
     border-bottom-right-radius: .65rem;
     cursor: pointer;
-    padding: 0 1rem;
-    padding-top: .2rem;
+    width: 12%;
     font-weight: 600;
     /* Prevent text selection */
     user-select: none;
+}
+
+.deleteContainerEnabled {
+    padding-bottom: .84rem;
+}
+
+.deleteContainerEnabled:hover {
+    color: var(--font-color-contrast);
+    background-color: var(--accent-color);
 }
 
 .deleteContainerDisabled {
