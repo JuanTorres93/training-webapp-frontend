@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
 
@@ -32,12 +32,24 @@ const LoginForm = ({
         <form className={styles.formContainer} onSubmit={handleLogin}>
             <div className={styles.labelAndInput}>
                 <label htmlFor='username'>Username</label>
-                <input id='username' type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <input
+                    id='username'
+                    type="text"
+                    value={username}
+                    disabled={userIsLoading}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
             </div>
 
             <div className={styles.labelAndInput}>
                 <label htmlFor='password'>Password</label>
-                <input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input
+                    id='password'
+                    type="password"
+                    value={password}
+                    disabled={userIsLoading}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
             </div>
 
             <button

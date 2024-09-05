@@ -40,6 +40,16 @@ input:focus {
     border-color: var(--accent-color);
 }
 
+input:disabled {
+    background-color: var(--disabled-color);
+    border: 1px solid var(--font-color);
+}
+
+input:disabled:hover {
+    cursor: not-allowed;
+    border: 1px solid var(--font-color);
+}
+
 .submitButton {
     background-color: var(--primary-color);
     color: var(--font-color-contrast);
