@@ -25,11 +25,14 @@ function NavBar() {
                         <img src={`${process.env.PUBLIC_URL}/favicon.ico`} alt="logo" />
                     </Link>
                 </div>
-                <div className={styles.navBarLinksContainer}>
-                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createTemplate">Create Template </NavLink>
-                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/selectTemplate">Select Template </NavLink>
-                    <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
-                </div>
+
+                {user &&
+                    <div className={styles.navBarLinksContainer}>
+                        <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createTemplate">Create Template </NavLink>
+                        <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/selectTemplate">Select Template </NavLink>
+                        <NavLink className={({ isActive }) => isActive ? styles.navBarLinkActive : styles.navBarLinks} to="/createExercise">Create Exercise </NavLink>
+                    </div>
+                }
 
                 {/* Button for login if user is not logged in. Other wise logout button and profile menu */}
                 <div className={styles.navBarLoginContainer}>
