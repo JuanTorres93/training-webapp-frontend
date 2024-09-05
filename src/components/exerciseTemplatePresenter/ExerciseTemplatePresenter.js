@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import styles from './ExerciseTemplatePresenter.module.css';
 
 function ExerciseTemplatePresenter({
@@ -28,11 +27,5 @@ function ExerciseTemplatePresenter({
         </div>
     );
 }
-
-ExerciseTemplatePresenter.propTypes = {
-    order: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    sets: PropTypes.number.isRequired,
-};
 
 export default ExerciseTemplatePresenter;

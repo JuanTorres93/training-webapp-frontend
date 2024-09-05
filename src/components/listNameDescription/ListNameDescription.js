@@ -4,7 +4,11 @@ import styles from './ListNameDescription.module.css'
 import ExercisePresenter from '../exercisePresenter/ExercisePresenter';
 import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 
-function ListNameDescription({ exercises, isSetPresenter = false, isLoading = false,
+function ListNameDescription({
+    exercises,
+    exercisesMarkedForDeletion = [],
+    isSetPresenter = false,
+    isLoading = false,
     handleExerciseClick = () => { },
     handleExerciseDoubleClick = () => { },
     handleSetExerciseClick = () => { },
@@ -20,7 +24,7 @@ function ListNameDescription({ exercises, isSetPresenter = false, isLoading = fa
                         id={exercise.id}
                         name={exercise.name}
                         description={exercise.description}
-                        isLoading={isLoading}
+                        isLoading={isLoading && exercisesMarkedForDeletion.includes(exercise.id)}
                         handleClick={handleExerciseClick}
                         handleDoubleClick={handleExerciseDoubleClick}
                         handleDeleteClick={handleDeleteClick}

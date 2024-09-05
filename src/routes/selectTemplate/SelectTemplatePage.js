@@ -33,7 +33,8 @@ export default function SelectTemplatePage() {
     const exercisesLoading = useSelector(selectExercisesLoading);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const [flagToUpdateSelectedTemplate, setFlagToUpdateSelectedTemplate] = useState(false);
-    // TODO state with list with exercises marked for deletion. Use this to update loading states
+    const [templatesMarkedForDeletion, setTemplatesMarkedForDeletion] = useState([]);
+    const [exercisesMarkedForDeletion, setExercisesMarkedForDeletion] = useState([]);
 
 
     useEffect(() => {
@@ -75,19 +76,28 @@ export default function SelectTemplatePage() {
     }
 
     const handleDeleteTemplate = ({ id }) => {
-        // TODO: When remove first for redux for better UX. If error when actually deleting it, then restore.
-        dispatch(deleteTemplateFromUser({ templateId: id }));
+        // Mark template for deletion
+        setTemplatesMarkedForDeletion([...templatesMarkedForDeletion, id]);
+        dispatch(deleteTemplateFromUser({ templateId: id })).then(() => {
+            // Remove template from marked for deletion
+            setTemplatesMarkedForDeletion(templatesMarkedForDeletion.filter(templateId => templateId !== id));
+        });
         setSelectedTemplate(null);
     };
 
     const handleRemoveExerciseFromTemplate = ({ exerciseId, exerciseOrder }) => {
         const templateId = selectedTemplate.id;
 
+        // Mark exercise for deletion
+        setExercisesMarkedForDeletion([...exercisesMarkedForDeletion, exerciseId]);
+
         dispatch(deleteExerciseFromTemplate({
             templateId,
             exerciseId,
             exerciseOrder,
         })).then(() => {
+            // Remove exercise from marked for deletion
+            setExercisesMarkedForDeletion(exercisesMarkedForDeletion.filter(exerciseId => exerciseId !== exerciseId));
             // Update selected template
             setFlagToUpdateSelectedTemplate(!flagToUpdateSelectedTemplate);
         });
@@ -121,6 +131,7 @@ export default function SelectTemplatePage() {
                                         {/* Render list of templates */}
                                         <ListNameDescription
                                             exercises={templates}
+                                            exercisesMarkedForDeletion={templatesMarkedForDeletion}
                                             isLoading={templatesLoading}
                                             handleExerciseClick={handleSelectTemplate}
                                             handleExerciseDoubleClick={handleGoToWorkout}
@@ -142,7 +153,7 @@ export default function SelectTemplatePage() {
                                                                 order={exercise.order}
                                                                 name={exercise.alias}
                                                                 sets={exercise.sets}
-                                                                isLoading={exercisesLoading || templatesLoading}
+                                                                isLoading={(exercisesLoading || templatesLoading) && exercisesMarkedForDeletion.includes(exercise.id)}
                                                                 onClickRemove={handleRemoveExerciseFromTemplate}
                                                             />
                                                         ))
