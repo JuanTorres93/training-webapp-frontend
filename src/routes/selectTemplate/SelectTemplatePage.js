@@ -32,7 +32,6 @@ export default function SelectTemplatePage() {
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
-    const [flagToUpdateSelectedTemplate, setFlagToUpdateSelectedTemplate] = useState(false);
     const [templatesMarkedForDeletion, setTemplatesMarkedForDeletion] = useState([]);
     const [exercisesMarkedForDeletion, setExercisesMarkedForDeletion] = useState([]);
 
@@ -40,6 +39,7 @@ export default function SelectTemplatePage() {
     useEffect(() => {
         if (selectedTemplate) {
             const updatedTemplate = templates.find(template => template.id === selectedTemplate.id);
+
             if (updatedTemplate.exercises.length > 0) {
                 setSelectedTemplate(updatedTemplate);
             } else {
@@ -47,8 +47,7 @@ export default function SelectTemplatePage() {
                 dispatch(deleteTemplateFromUser({ templateId: selectedTemplate.id }));
             }
         }
-    }, [dispatch, templates, flagToUpdateSelectedTemplate]);
-
+    }, [dispatch, templates, exercisesMarkedForDeletion]);
 
     useEffect(() => {
         dispatch(clearLastWorkout());
@@ -98,8 +97,6 @@ export default function SelectTemplatePage() {
         })).then(() => {
             // Remove exercise from marked for deletion
             setExercisesMarkedForDeletion(exercisesMarkedForDeletion.filter(exerciseId => exerciseId !== exerciseId));
-            // Update selected template
-            setFlagToUpdateSelectedTemplate(!flagToUpdateSelectedTemplate);
         });
     };
 

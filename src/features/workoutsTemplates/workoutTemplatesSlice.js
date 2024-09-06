@@ -144,6 +144,7 @@ export const deleteExerciseFromTemplate = createAsyncThunk(
         // Reorder exercises in template
         // order templateExercises by exerciseOrder
         templateExercises.sort((a, b) => a.order - b.order);
+
         // Reassign order to each exercise starting from 1
         const promises = [];
         templateExercises.map((exercise, index) => {
@@ -308,7 +309,7 @@ const slice = createSlice({
             });
 
             // Remove exercise from active template if it is the same as the deleted one
-            if (state[sliceName].activeTemplate.id === deletedExercise.workoutTemplateId) {
+            if (state[sliceName].activeTemplate && state[sliceName].activeTemplate.id && state[sliceName].activeTemplate.id === deletedExercise.workoutTemplateId) {
                 state[sliceName].activeTemplate.exercises = state[sliceName].activeTemplate.exercises.filter(
                     exercise => exercise.id !== deletedExercise.exerciseId
                 );
@@ -344,7 +345,7 @@ const slice = createSlice({
             });
 
             // Update exercise in active template if it is the same as the updated one
-            if (state[sliceName].activeTemplate.id === templateId) {
+            if (state[sliceName].activeTemplate && state[sliceName].activeTemplate.id === templateId) {
                 state[sliceName].activeTemplate.exercises.map(exercise => {
                     if (exercise.id === exerciseId && exercise.order === exerciseOrder) {
                         exercise.order = response.exerciseOrder;
