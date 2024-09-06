@@ -19,7 +19,12 @@ export default function HomePage() {
         <PagePresenter showBackButton={false} children={
             <div className={styles.homePageContainer}>
                 <h2>Recent workouts</h2>
-                {recentWorkouts.length === 0 && <p>No recent workouts</p>}
+                {recentWorkouts.length === 0 &&
+                    <div>
+                        {templatesLoading && <div className="spinner-heading-size"></div>}
+                        {!templatesLoading && <p>No recent workouts</p>}
+                    </div>
+                }
                 {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
                     recentWorkouts={recentWorkouts}
                     isLoading={templatesLoading}

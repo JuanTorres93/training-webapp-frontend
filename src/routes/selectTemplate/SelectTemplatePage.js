@@ -134,7 +134,6 @@ export default function SelectTemplatePage() {
                                             handleExerciseDoubleClick={handleGoToWorkout}
                                             handleDeleteClick={handleDeleteTemplate}
                                         />
-
                                     </div>
 
                                     <div className={styles.individualListContainer}>
@@ -165,8 +164,17 @@ export default function SelectTemplatePage() {
 
                         {templates.length === 0 && (
                             <div>
-                                <p style={{ fontSize: 'var(--subheading-font-size)' }}>You don't have any templates yet.</p>
-                                <button onClick={() => navigate('/createTemplate')}>Create a template</button>
+                                {!templatesLoading &&
+                                    <div>
+                                        <p style={{ fontSize: 'var(--subheading-font-size)' }}>
+                                            You don't have any templates yet.
+                                        </p>
+                                        <button onClick={() => navigate('/createTemplate')}>Create a template</button>
+                                    </div>
+                                }
+                                {templatesLoading &&
+                                    <div className="spinner-heading-size"></div>
+                                }
                             </div>
                         )}
 
