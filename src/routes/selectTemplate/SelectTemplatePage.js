@@ -150,7 +150,7 @@ export default function SelectTemplatePage() {
                                                                 order={exercise.order}
                                                                 name={exercise.alias}
                                                                 sets={exercise.sets}
-                                                                isLoading={(exercisesLoading || templatesLoading) && exercisesMarkedForDeletion.includes(exercise.id)}
+                                                                isLoading={exercisesLoading || templatesLoading}
                                                                 onClickRemove={handleRemoveExerciseFromTemplate}
                                                             />
                                                         ))

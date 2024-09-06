@@ -17,7 +17,7 @@ function ExerciseTemplatePresenter({
                     ${styles.deleteContainer}
                     ${!isLoading ? styles.deleteContainerEnabled : styles.deleteContainerDisabled}
                     `}
-                onClick={() => onClickRemove({
+                onClick={() => !isLoading && onClickRemove({
                     exerciseId: id,
                     exerciseOrder: order,
                 })}
