@@ -41,47 +41,52 @@ export default function StartWorkoutPage() {
     }, [user, dispatch, templateId]);
 
     useEffect(() => {
+        // Later is converted to an object
         let newData = [];
 
-        // TODO plot also time of exercise if necessary
-        lastNWorkouts.forEach(workout => {
-            const { startDate, exercises } = workout;
-            const exercisesData = {}
+        if (lastNWorkouts) {
+            // TODO plot also time of exercise if necessary
+            lastNWorkouts.forEach(workout => {
+                const { startDate, exercises } = workout;
+                const exercisesData = {}
 
-            exercises.map(exercise => {
-                if (!Object.keys(exercisesData).includes(String(exercise.id))) {
-                    exercisesData[exercise.id] = {
-                        exerciseName: exercise.alias,
-                        dataPack: {
-                            date: startDate,
-                        }
+                exercises.map(exercise => {
+                    if (!Object.keys(exercisesData).includes(String(exercise.id))) {
+                        exercisesData[exercise.id] = {
+                            exerciseName: exercise.alias,
+                            dataPack: {
+                                date: startDate,
+                            }
+                        };
+                    }
+
+                    exercisesData[exercise.id].dataPack = {
+                        ...exercisesData[exercise.id].dataPack,
+                        [`weight_set_${exercise.set}`]: exercise.weight,
+                        [`reps_set_${exercise.set}`]: exercise.reps,
                     };
-                }
+                });
 
-                exercisesData[exercise.id].dataPack = {
-                    ...exercisesData[exercise.id].dataPack,
-                    [`weight_set_${exercise.set}`]: exercise.weight,
-                    [`reps_set_${exercise.set}`]: exercise.reps,
-                };
+                newData.push(exercisesData);
             });
 
-            newData.push(exercisesData);
-        });
+            // Group newData by exerciseName and date
+            newData = newData.reduce((acc, curr) => {
+                const keys = Object.keys(curr);
+                keys.forEach(key => {
+                    if (!Object.keys(acc).includes(curr[key].exerciseName)) {
+                        acc[curr[key].exerciseName] = [];
+                    }
+                    acc[curr[key].exerciseName].push(curr[key]);
+                });
 
-        // Group newData by exerciseName and date
-        newData = newData.reduce((acc, curr) => {
-            const keys = Object.keys(curr);
-            keys.forEach(key => {
-                if (!Object.keys(acc).includes(curr[key].exerciseName)) {
-                    acc[curr[key].exerciseName] = [];
-                }
-                acc[curr[key].exerciseName].push(curr[key]);
-            });
+                return acc;
+            }, {});
 
-            return acc;
-        }, {});
-
-        setData(newData);
+            setData(newData);
+        } else {
+            setData({});
+        }
     }, [lastNWorkouts]);
 
     const handleStartWorkout = () => {

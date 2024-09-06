@@ -2,10 +2,10 @@
 import GoBackButton from "../../components/goBackButton/GoBackButton";
 import styles from './PagePresenter.module.css'
 
-const PagePresenter = ({ children, showBackButton=true }) => {
+const PagePresenter = ({ children, showBackButton = true }) => {
     return (
         <div className={styles.pageContainer}>
-            {showBackButton ? <GoBackButton /> : null}
+            {/* {showBackButton ? <GoBackButton /> : null} */}
             {children}
         </div>
     )
