@@ -108,6 +108,8 @@ export default function StartWorkoutPage() {
             <div className={styles.container}>
                 <h2>Start {template.alias}</h2>
 
+                {workoutsLoading && <div className="spinner-heading-size"></div>}
+
                 {!workoutsLoading && Object.values(data).map((exerciseInfoArray) => {
                     const exerciseName = exerciseInfoArray[0].exerciseName;
 
@@ -122,6 +124,7 @@ export default function StartWorkoutPage() {
                     />
                 })}
 
+                {(!workoutsLoading && Object.keys(data).length === 0) && <p>No data to show. There are no previous workouts for this template yet.</p>}
 
 
                 <button type="button"
