@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docker": "docker run --rm --name tf -p 3000:3000 -v /app/node_modules -v /app/build -v \"$(pwd):/app:ro\" training-frontend"
+    "docker": "docker run --rm --name tf -p 3000:3000 -v /app/node_modules -v \"$(pwd):/app\" training-frontend"
   },
   "eslintConfig": {
     "extends": [

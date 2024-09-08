@@ -1,5 +1,5 @@
 # FROM node:18-alpine as build
-FROM node:alpine
+FROM node
 
 WORKDIR /app
 
