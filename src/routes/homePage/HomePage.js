@@ -10,33 +10,49 @@ import {
     selectTemplatesLoading
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
+import { selectWorkoutsLoading } from "../../features/workouts/workoutSlice";
+import { selectExercisesLoading } from "../../features/exercises/exercisesSlice";
+import { selectUser } from "../../features/user/userSlice";
+
+import LandingPage from "../landingPage/LandingPage";
+
 
 export default function HomePage() {
+    const user = useSelector(selectUser);
     const recentWorkouts = useSelector(selectRecentWorkouts);
     const templatesLoading = useSelector(selectTemplatesLoading);
+    const workoutsLoading = useSelector(selectWorkoutsLoading);
+    const exercisesLoading = useSelector(selectExercisesLoading);
+
+    const isLoading = templatesLoading || workoutsLoading || exercisesLoading;
 
     return (
-        <PagePresenter showBackButton={false} children={
-            <div className={styles.homePageContainer}>
-                <h2>Recent workouts</h2>
-                {recentWorkouts.length === 0 &&
-                    <div>
-                        {templatesLoading && <div className="spinner-heading-size"></div>}
-                        {!templatesLoading && <p>No recent workouts</p>}
+        <div>
+            {user &&
+                <PagePresenter showBackButton={false} children={
+                    <div className={styles.homePageContainer}>
+                        <h2>Recent workouts</h2>
+                        {recentWorkouts.length === 0 &&
+                            <div>
+                                {isLoading && <div className="spinner-heading-size"></div>}
+                                {!isLoading && <p>No recent workouts</p>}
+                            </div>
+                        }
+                        {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
+                            recentWorkouts={recentWorkouts}
+                            isLoading={templatesLoading}
+                        />}
+
+
+                        <div className={styles.buttonsContainer}>
+                            <Link to="createTemplate" className={`primary-button ${styles.squareButton}`} type="button">Create template</Link>
+                            <Link to="selectTemplate" className={`primary-button ${styles.squareButton}`} type="button">Select template</Link>
+                            <Link to="createExercise" className={`primary-button ${styles.squareButton}`} type="button">Create exercise</Link>
+                        </div>
                     </div>
-                }
-                {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
-                    recentWorkouts={recentWorkouts}
-                    isLoading={templatesLoading}
-                />}
-
-
-                <div className={styles.buttonsContainer}>
-                    <Link to="createTemplate" className={`primary-button ${styles.squareButton}`} type="button">Create template</Link>
-                    <Link to="selectTemplate" className={`primary-button ${styles.squareButton}`} type="button">Select template</Link>
-                    <Link to="createExercise" className={`primary-button ${styles.squareButton}`} type="button">Create exercise</Link>
-                </div>
-            </div>
-        } />
+                } />
+            }
+            {!user && <LandingPage />}
+        </div>
     );
 };
