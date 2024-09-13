@@ -1,86 +1,75 @@
 /* These styles are shared with ExerciseSetPresenter */
 .container {
     display: flex;
-    align-content: center;
     justify-content: space-between;
-    background-color: var(--primary-color);
+    background-color: var(--background-color);
     border-radius: .8rem;
-    border: var(--font-color-contrast) solid .15rem;
-    cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: all .1s;
-    width: 90%;
-    /* max-width: 500px; */
+    width: 100%;
+    height: 45vh;
+    overflow: hidden;
+    /* Ensure the container hides overflow */
 }
 
-.container * {
-    color: var(--font-color-contrast);
-}
-
-.container:hover {
-    border: var(--accent-color) solid .15rem;
-}
-
-.container:hover .exerciseName {
-    color: var(--accent-color);
-}
-
-.container:hover input {
-    color: var(--accent-color);
-}
-
-.exercisePresenter {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: .5rem;
-    margin-right: 0;
-}
-
-.exercisePresenter * {
-    user-select: none;
-}
-
-.exerciseName {
+.heroText {
+    font-size: 5rem;
     font-weight: bold;
-    transition: all .1s;
-    font-size: var(--subheading-font-size);
-}
-
-.exerciseDescription {
-    font-size: var(--body-font-size);
-}
-
-.deleteContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--heading-font-size);
-    font-weight: 500;
-    /* Apply transition to all properties except width and height */
-    transition: color .1s, background-color .1s, transform .1s, opacity .1s;
     color: var(--font-color);
-
-    /* Adjust radius to match border */
-    border-top-right-radius: .63rem;
-    border-bottom-right-radius: .63rem;
+    text-align: center;
+    /* Center the text */
+    margin: auto;
+    /* Center the text vertically */
+    background: var(--background-color);
+    border-radius: .5rem;
+    /* Add a subtle shadow */
+    width: 50%;
+    max-width: 50%;
 }
 
-.deleteContainerEnabled {
-    cursor: pointer;
-    background-color: var(--background-color);
-    padding: 0 1.4rem;
+.heroImg {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    /* Hide overflow */
+    position: relative;
 }
 
-.deleteContainerEnabled:hover {
-    color: var(--font-color-contrast);
-    background-color: var(--accent-color);
-    /* Prevent text selection */
-    user-select: none;
+.heroImg img {
+    width: 95%;
+    height: 95%;
+    /* image will be scaled to cover the entire container, while maintaining its aspect ratio. */
+    object-fit: cover;
+    /* Crop the image */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: .8rem;
 }
 
-.deleteContainerDisabled {
-    cursor: not-allowed;
-    background-color: var(--disabled-color);
-    padding: 0 0.97rem;
+.heroAccent {
+    color: var(--accent-color);
+    position: relative;
+    display: inline-block;
+}
+
+.heroAccent::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.25rem;
+    background: var(--accent-color);
+    /* Use an accent color */
+    border-radius: 50%;
+    bottom: -0.5rem;
+    /* Position the curve below the text */
+    left: 0;
+    transform: scaleX(1.5);
+    /* Stretch the curve horizontally */
+}
+
+span {
+    margin: 0;
 }
