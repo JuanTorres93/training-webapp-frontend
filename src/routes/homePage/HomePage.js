@@ -52,7 +52,7 @@ export default function HomePage() {
                     </div>
                 } />
             }
-            {!user && <LandingPage />}
+            {!user && !isLoading && <LandingPage />}
         </div>
     );
 };

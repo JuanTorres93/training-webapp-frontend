@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { register } from "../../serverAPI/users";
 import { login } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import { getExercisesFromUser } from "../exercises/exercisesSlice";
@@ -48,6 +49,25 @@ export const logoutUser = createAsyncThunk(
     }
 );
 
+export const registerUser = createAsyncThunk(
+    `${sliceName}/registerUser`,
+    async (arg, thunkAPI) => {
+        // arg = { username, email, password }
+        const response = await register(arg.username, arg.email, arg.password);
+
+        if (response.id) {
+            // Get exercises from user
+            thunkAPI.dispatch(loginUser({
+                username: arg.username,
+                password: arg.password,
+            }));
+
+        }
+
+        return response;
+    }
+);
+
 const userSlice = createSlice({
     name: sliceName,
     initialState: {
@@ -69,6 +89,22 @@ const userSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(loginUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // register user
+        builder.addCase(registerUser.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(registerUser.fulfilled, (state, action) => {
+            const user = action.payload;
+            state[sliceName] = user;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(registerUser.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

@@ -1,39 +1,38 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    registerUser,
+    selectUserIsLoading,
+} from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import styles from './RegisterForm.module.css';
 
-import { register } from '../../serverAPI/users';
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const userIsLoading = useSelector(selectUserIsLoading);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        try {
-            const response = await register(username, email, password);
+        dispatch(registerUser({ username, email, password }))
+            .then((response) => {
+                if (Object.keys(response.payload).includes('id')) {
+                    // clear form
+                    setUsername('');
+                    setEmail('');
+                    setPassword('');
 
-            if (response.id) {
-                console.log('Registration successful', response);
-                dispatch(loginUser({ username, password }));
-
-                // clear form
-                setUsername('');
-                setEmail('');
-                setPassword('');
-
-                navigate('/');
-            }
-        } catch (error) {
-            // TODO notify user about errors and how to fix them
-            console.error('Registration failed', error);
-        }
+                    navigate('/');
+                }
+            }).catch((error) => {
+                console.error('Registration failed', error);
+            });
     }
 
     return (
@@ -59,7 +58,9 @@ const RegisterForm = () => {
 
                 {/* Submit */}
                 <div className={styles.submitWrapper}>
-                    <button type="submit">Register</button>
+                    <button type="submit">
+                        {userIsLoading ? <div className='spinner-body-size'></div> : 'Register'}
+                    </button>
                 </div>
             </form>
         </div>
