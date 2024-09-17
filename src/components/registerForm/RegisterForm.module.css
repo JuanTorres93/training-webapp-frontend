@@ -2,35 +2,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-items: center;
     width: 70%;
     margin: auto;
     padding: 2rem;
     background-color: var(--background-color);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .inputWrapper {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    align-items: flex-start;
+    width: 38%;
     margin-bottom: 1rem;
     font-size: var(--body-font-size);
 }
 
-input {
+.inputField {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 10px;
+    margin: 0;
     font-size: 1em;
-    margin-top: 5px;
-    width: 90%;
+    width: 100%;
     transition: all .1s;
     min-width: 20rem;
     text-align: left;
 }
 
-input:focus {
+.inputField:focus {
     outline: none;
     border-color: var(--accent-color);
 }
@@ -39,24 +40,35 @@ input:focus {
     display: flex;
     justify-content: center;
     width: 100%;
+    margin-top: 2rem;
 }
 
-button {
+.submitButton {
+    display: flex;
+    align-content: center;
+    justify-content: center;
     background-color: var(--primary-color);
-    color: var(--font-color);
+    color: var(--font-color-contrast);
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 1rem 0;
+    min-width: 10rem;
     cursor: pointer;
     transition: all .1s;
     font-size: var(--body-font-size);
 }
 
-button:hover {
+.submitButton:hover {
     background-color: var(--accent-color);
 }
 
-button:disabled {
+.submitButton:disabled {
     background-color: var(--disabled-color);
     cursor: not-allowed;
+}
+
+label {
+    font-size: var(--body-font-size);
+    margin: 0;
+    margin-bottom: 0.5rem;
 }

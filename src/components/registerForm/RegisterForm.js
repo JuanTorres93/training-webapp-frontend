@@ -36,34 +36,32 @@ const RegisterForm = () => {
     }
 
     return (
-        <div className={styles.form}>
-            <form onSubmit={userIsLoading ? () => { } : handleRegister}>
-                {/* Username */}
-                <div className={styles.inputWrapper}>
-                    <label htmlFor='username'>Username</label>
-                    <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                </div>
+        <form className={styles.form} onSubmit={userIsLoading ? () => { } : handleRegister}>
+            {/* Username */}
+            <div className={styles.inputWrapper}>
+                <label htmlFor='username'>Username</label>
+                <input className={styles.inputField} id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            </div>
 
-                {/* email */}
-                <div className={styles.inputWrapper}>
-                    <label htmlFor='email'>Email</label>
-                    <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                </div>
+            {/* email */}
+            <div className={styles.inputWrapper}>
+                <label htmlFor='email'>Email</label>
+                <input className={styles.inputField} id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
 
-                {/* Password */}
-                <div className={styles.inputWrapper}>
-                    <label htmlFor='password'>Password</label>
-                    <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                </div>
+            {/* Password */}
+            <div className={styles.inputWrapper}>
+                <label htmlFor='password'>Password</label>
+                <input className={styles.inputField} id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
 
-                {/* Submit */}
-                <div className={styles.submitWrapper}>
-                    <button type="submit" disabled={userIsLoading}>
-                        {userIsLoading ? <div className='spinner-body-size'></div> : 'Register'}
-                    </button>
-                </div>
-            </form>
-        </div>
+            {/* Submit */}
+            <div className={styles.submitWrapper}>
+                <button className={styles.submitButton} type="submit" disabled={userIsLoading}>
+                    {userIsLoading ? <div className='spinner-body-size'></div> : 'Register'}
+                </button>
+            </div>
+        </form>
     );
 }
 

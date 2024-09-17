@@ -139,7 +139,7 @@ export default function CreateTemplatePage() {
             <>
                 {user ? (
                     <div className={styles.createTemplatePageContainer}>
-                        <h2>Create new template</h2>
+                        <h2 className="heading">Create new template</h2>
                         <form onSubmit={handleFormSubmit}>
                             {userHasExercises &&
                                 <div className={styles.createTemplatePageContainer}>

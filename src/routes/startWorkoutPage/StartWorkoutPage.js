@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import ExerciseProgressPlot from "../../components/exerciseProgressPlot/ExerciseProgressPlot";
-import GenericList from "../../components/genericList/GenericList";
 import styles from "./StartWorkoutPage.module.css";
 
 import { selectUser } from "../../features/user/userSlice";
@@ -107,13 +106,18 @@ export default function StartWorkoutPage() {
         });
     };
 
+    const styleNoGraph = {
+        marginTop: "1.5rem",
+        marginBottom: "3rem",
+    };
+
     return (
         <PagePresenter children={
             template &&
             <div className={styles.container}>
-                <h2>Start {template.alias}</h2>
+                <h2 className="heading">Start {template.alias}</h2>
 
-                {workoutsLoading && <div className="spinner-heading-size"></div>}
+                {workoutsLoading && <div className="spinner-heading-size" style={styleNoGraph}></div>}
 
                 {!workoutsLoading && Object.values(data).map((exerciseInfoArray) => {
                     const exerciseName = exerciseInfoArray[0].exerciseName;
@@ -129,7 +133,7 @@ export default function StartWorkoutPage() {
                     />
                 })}
 
-                {(!workoutsLoading && Object.keys(data).length === 0) && <p>No data to show. There are no previous workouts for this template yet.</p>}
+                {(!workoutsLoading && Object.keys(data).length === 0) && <p style={styleNoGraph}>No data to show. There are no previous workouts for this template yet.</p>}
 
 
                 <button type="button"

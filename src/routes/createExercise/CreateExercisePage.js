@@ -90,7 +90,7 @@ export default function CreateExercisePage() {
         <PagePresenter children={
             <form onSubmit={handleSubmit}>
                 <section className={styles.createTemplatePageContainer}>
-                    <h2>Create new exercise</h2>
+                    <h2 className="heading">Create new exercise</h2>
 
                     <section className={styles.newExerciseContainer}>
 

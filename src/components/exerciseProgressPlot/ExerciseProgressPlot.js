@@ -83,7 +83,7 @@ function ExerciseProgressPlot({ exerciseName, data }) {
 
   return (
     <div className={styles.chartContainer}>
-      <span className={styles.chartTitle}>{exerciseName}</span>
+      <span className="subheading">{exerciseName}</span>
       <ComposedChart
         width={500}
         height={400}

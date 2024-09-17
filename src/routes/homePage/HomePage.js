@@ -35,7 +35,7 @@ export default function HomePage() {
                         {recentWorkouts.length === 0 &&
                             <div>
                                 {isLoading && <div className="spinner-heading-size"></div>}
-                                {!isLoading && <p>No recent workouts</p>}
+                                {!isLoading && <p style={{ marginTop: "1.5rem" }}>No recent workouts</p>}
                             </div>
                         }
                         {recentWorkouts.length > 0 && <RecentWorkoutsCarousel

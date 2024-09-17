@@ -110,7 +110,7 @@ export default function SelectTemplatePage() {
 
                         {templates.length > 0 &&
                             <div>
-                                <h2>Recent workouts</h2>
+                                <h2 className="heading">Recent workouts</h2>
                                 {recentWorkouts.length === 0 && <p>No recent workouts</p>}
                                 {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
                                     recentWorkouts={recentWorkouts}

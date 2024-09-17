@@ -4,9 +4,3 @@
   align-items: center;
   margin-bottom: 20px;
 }
-
-.chartTitle {
-  font-size: var(--heading-font-size);
-  color: var(--font-color);
-  margin-bottom: 10px;
-}

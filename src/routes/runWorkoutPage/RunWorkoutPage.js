@@ -54,7 +54,7 @@ export default function RunWorkoutPage() {
 
             return acc;
         }, {});
-        
+
         // iterate over objects in groupedExercises
         exerciseCompleters = Object.keys(groupedExercises).map((exerciseOrder) => {
             // exercise is a list of sets
@@ -81,9 +81,9 @@ export default function RunWorkoutPage() {
     return (
         <PagePresenter children={
             <div className={styles.container}>
-                <h2>Run workout</h2>
+                <h2 className="heading">Run workout</h2>
 
-                <h3>{activeTemplate.alias}</h3>
+                <h3 className="subheading">{activeTemplate.alias}</h3>
 
                 <div className={styles.listContainer}>
                     <GenericList children={exerciseCompleters} />
