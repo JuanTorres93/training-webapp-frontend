@@ -1,11 +1,13 @@
 html {
     font-size: 16px;
-    /* Represents the size of the body text */
-    font-family: "Quicksand", sans-serif;
-    font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
     background-color: var(--html-color);
+}
+
+html * {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
 }
 
 body {
@@ -31,6 +33,7 @@ body {
     background-color: var(--accent-color);
 }
 
+/* Primary button */
 .primary-button {
     background-color: var(--primary-color);
     color: var(--font-color-contrast);
@@ -40,10 +43,18 @@ body {
     margin: 10px;
     cursor: pointer;
     transition: all .1s;
+    font-size: var(--body-font-size);
 }
 
 .primary-button:hover {
     background-color: var(--accent-color);
+}
+
+.heading {
+    font-size: var(--heading-font-size);
+    font-weight: 600;
+    color: var(--font-color);
+    margin-bottom: 2rem;
 }
 
 /* Hide numbers in input number fields */
@@ -143,6 +154,11 @@ button:active {
 /* button hover */
 button:disabled {
     background-color: var(--disabled-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--accent-color);
 }
 
 /* Loading states */

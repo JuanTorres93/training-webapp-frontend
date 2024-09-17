@@ -31,7 +31,7 @@ export default function HomePage() {
             {user &&
                 <PagePresenter showBackButton={false} children={
                     <div className={styles.homePageContainer}>
-                        <h2>Recent workouts</h2>
+                        <h2 className="heading">Recent workouts</h2>
                         {recentWorkouts.length === 0 &&
                             <div>
                                 {isLoading && <div className="spinner-heading-size"></div>}

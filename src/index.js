@@ -27,7 +27,9 @@ import Products from './routes/ProductsPage';
 import SingleProductPage from './routes/SingleProductPage';
 import RegisterPage from './routes/registerPage/RegisterPage';
 import LoginPage from './routes/loginPage/LoginPage';
+
 // Link css files
+import '@atlaskit/css-reset'
 import './variables.css'
 import './index.css'
 

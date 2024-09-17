@@ -11,7 +11,7 @@
     justify-content: space-between;
     height: 6rem;
     width: 80%;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 .squareButton {
@@ -26,4 +26,9 @@
 
 .buttonsContainer a {
     text-decoration: none;
+}
+
+.buttonsContainer a:hover {
+    text-decoration: none;
+    color: var(--font-color-contrast);
 }
