@@ -37,7 +37,7 @@ const RegisterForm = () => {
 
     return (
         <div className={styles.form}>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={userIsLoading ? () => { } : handleRegister}>
                 {/* Username */}
                 <div className={styles.inputWrapper}>
                     <label htmlFor='username'>Username</label>
@@ -58,7 +58,7 @@ const RegisterForm = () => {
 
                 {/* Submit */}
                 <div className={styles.submitWrapper}>
-                    <button type="submit">
+                    <button type="submit" disabled={userIsLoading}>
                         {userIsLoading ? <div className='spinner-body-size'></div> : 'Register'}
                     </button>
                 </div>
