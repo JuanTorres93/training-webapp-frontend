@@ -84,20 +84,24 @@ textarea:focus {
 }
 
 input[type="text"],
+input[type="password"],
 textarea {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 10px;
     font-size: var(--input-font-size);
     transition: all .1s;
+    text-align: left;
 }
 
 input[type="text"]:hover,
+input[type="password"]:hover,
 textarea:hover {
     border-color: var(--accent-color);
 }
 
 input[type="text"]:disabled,
+input[type="password"]:disabled,
 textarea:disabled {
     border-color: var(--disabled-color);
     background-color: var(--disabled-color);

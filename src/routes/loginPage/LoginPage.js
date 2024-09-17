@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import PagePresenter from '../../components/pagePresenter/PagePresenter'
 import LoginForm from '../../components/loginForm/LoginForm'
 
+import styles from './LoginPage.module.css'
+
 import { selectUser, selectUserIsLoading } from '../../features/user/userSlice'
 
 const LoginPage = () => {
@@ -13,10 +15,13 @@ const LoginPage = () => {
 
     return (
         <PagePresenter children={
-            <LoginForm
-                user={user}
-                userIsLoading={userIsLoading}
-            />
+            <div className={styles.pageContainer}>
+                <h2 className='heading'>Login</h2>
+                <LoginForm
+                    user={user}
+                    userIsLoading={userIsLoading}
+                />
+            </div>
         } />
     )
 }

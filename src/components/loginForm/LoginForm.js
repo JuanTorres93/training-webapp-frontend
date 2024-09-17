@@ -33,6 +33,7 @@ const LoginForm = ({
             <div className={styles.labelAndInput}>
                 <label htmlFor='username'>Username</label>
                 <input
+                    className={styles.inputField}
                     id='username'
                     type="text"
                     value={username}
@@ -44,6 +45,7 @@ const LoginForm = ({
             <div className={styles.labelAndInput}>
                 <label htmlFor='password'>Password</label>
                 <input
+                    className={styles.inputField}
                     id='password'
                     type="password"
                     value={password}
@@ -58,7 +60,7 @@ const LoginForm = ({
                 disabled={userIsLoading}
             >
                 {
-                    userIsLoading ? 'Logging in...' : 'Login'
+                    userIsLoading ? <div className='spinner-body-size'></div> : 'Login'
                 }
             </button>
         </form>

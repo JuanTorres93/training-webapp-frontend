@@ -8,7 +8,6 @@
     padding: 2rem;
     background-color: var(--background-color);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .labelAndInput {
@@ -25,40 +24,45 @@ label {
     margin-left: 1rem;
 }
 
-input {
+.inputField {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 10px;
     font-size: 1em;
     margin-bottom: 1rem;
-    width: 90%;
+    min-width: 20rem;
     transition: all .1s;
 }
 
-input:focus {
+.inputField:focus {
     outline: none;
     border-color: var(--accent-color);
 }
 
-input:disabled {
+.inputField:disabled {
     background-color: var(--disabled-color);
     border: 1px solid var(--font-color);
 }
 
-input:disabled:hover {
+.inputField:disabled:hover {
     cursor: not-allowed;
     border: 1px solid var(--font-color);
 }
 
 .submitButton {
+    display: flex;
+    align-content: center;
+    justify-content: center;
     background-color: var(--primary-color);
     color: var(--font-color-contrast);
-    font-size: var(--body-font-size);
+    margin-top: 2rem;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 1rem 0;
+    min-width: 10rem;
     cursor: pointer;
     transition: all .1s;
+    font-size: var(--body-font-size);
 }
 
 .submitButton:hover {
