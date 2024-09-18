@@ -1,9 +1,18 @@
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-items: center;
 }
 
 .listContainer {
     width: 90%;
     margin: auto;
+}
+
+.finishButton {
+    margin: 1rem auto;
+    margin-top: 4rem;
+    width: 50%;
+    height: 4rem;
 }

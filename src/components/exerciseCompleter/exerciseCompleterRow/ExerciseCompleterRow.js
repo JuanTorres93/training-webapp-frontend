@@ -30,12 +30,12 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
 
     return (
         <div className={styles.row}>
-            <div className={styles.fieldContainer}>
+            <div className={`${styles.fieldContainer} ${styles.setShow}`}>
                 <span className={styles.label}>Set</span>
                 <span className={styles.bold}>{setNumber}</span>
             </div>
 
-            <div className={styles.fieldContainer}>
+            <div className={`${styles.fieldContainer} ${styles.userInput}`}>
                 <label htmlFor={weightId} className={styles.label}>Weight</label>
                 <input
                     className={styles.inputField}
@@ -47,7 +47,7 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
                 />
             </div>
 
-            <div className={styles.fieldContainer}>
+            <div className={`${styles.fieldContainer} ${styles.userInput}`}>
                 <label htmlFor={repsId} className={styles.label}>Reps</label>
                 <input
                     className={styles.inputField}

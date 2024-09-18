@@ -81,16 +81,19 @@ export default function RunWorkoutPage() {
     return (
         <PagePresenter children={
             <div className={styles.container}>
-                <h2 className="heading">Run workout</h2>
-
-                <h3 className="subheading">{activeTemplate.alias}</h3>
+                <h2 className="heading">{activeTemplate.alias}</h2>
 
                 <div className={styles.listContainer}>
                     <GenericList children={exerciseCompleters} />
                 </div>
 
-                <button type="button" onClick={handleFinishWorkout}>Finish workout</button>
-            </div>
+                <button
+                    className={`${styles.finishButton} primary-button`}
+                    type="button"
+                    onClick={handleFinishWorkout}>
+                    Finish workout
+                </button>
+            </ div>
         } />
     );
 };

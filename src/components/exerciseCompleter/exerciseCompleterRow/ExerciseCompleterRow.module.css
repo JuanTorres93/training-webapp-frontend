@@ -4,10 +4,6 @@
     align-items: flex-start;
     justify-content: space-between;
     width: 100%;
-
-
-    /* TODO borrar */
-    border: red solid .15rem;
 }
 
 /* select every row child */
@@ -26,26 +22,30 @@
     font-weight: bold;
 }
 
+.userInput {
+    justify-content: center;
+    flex-grow: 2;
+}
+
+.userInput:last-of-type {
+    justify-content: flex-end;
+}
+
+.setShow {
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
 .fieldContainer {
     display: flex;
     align-items: center;
-    justify-items: flex-start;
     min-height: 4rem;
-
-    /* TODO borrar */
-    border: red solid .15rem;
 }
 
 .inputField {
     margin: 0;
     margin-left: 1rem;
-    /* min-width: 3rem; */
+    min-width: 3rem;
     /* max-width: 8rem; */
     text-align: right;
-}
-
-/* target every fieldContainer except the first one */
-
-.fieldContainer:not(:first-child) {
-    margin-left: 3rem;
 }
