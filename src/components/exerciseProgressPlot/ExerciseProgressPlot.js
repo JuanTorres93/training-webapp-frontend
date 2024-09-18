@@ -10,8 +10,17 @@ import {
 import styles from './ExerciseProgressPlot.module.css';
 
 const formatDate = (date) => {
-  const formattedDate = date.toLocaleDateString();
-  const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+
+  const formattedTime = date.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // Ensure 24-hour format
+  });
 
   return { formattedDate, formattedTime };
 };
@@ -83,7 +92,7 @@ function ExerciseProgressPlot({ exerciseName, data }) {
 
   return (
     <div className={styles.chartContainer}>
-      <span className="subheading">{exerciseName}</span>
+      <h3 className="subheading">{exerciseName}</h3>
       <ComposedChart
         width={500}
         height={400}
@@ -102,15 +111,24 @@ function ExerciseProgressPlot({ exerciseName, data }) {
           tickMargin={5} // Increase margin for better separation
           tick={<CustomTick />}
         />
-        <YAxis label={{ value: 'Reps', angle: -90, position: 'insideLeft', dx: -10 }} dx={-15} domain={[0, adjustedMax]} />
+        <YAxis
+          label={{
+            value: 'Reps',
+            angle: -90,
+            position: 'insideLeft',
+            dx: -10
+          }}
+          dx={-15}
+          domain={[0, adjustedMax]} />
         <Tooltip
+          labelFormatter={(label) => {
+            const { formattedDate, formattedTime } = formatDate(new Date(label));
+            return `${formattedDate}, ${formattedTime}`;
+          }}
           formatter={(value, name) => {
             if (name.startsWith('reps_set_')) {
               const setNumber = name.split('_')[2];
-              return [
-                value,
-                `Set ${setNumber} reps`,
-              ];
+              return [value, `Set ${setNumber} reps`];
             }
             return [value, name];
           }}

@@ -2,5 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Style for axis tick values */
+:global(.recharts-cartesian-axis-tick tspan) {
+  font-size: var(--body-font-size);
+}
+
+/* Style for axis labels */
+:global(.recharts-label) {
+  font-size: var(--body-font-size);
+  font-weight: 700;
 }
