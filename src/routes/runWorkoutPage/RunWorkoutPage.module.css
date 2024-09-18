@@ -1,7 +1,9 @@
 .container {
-    /* border: red solid .15rem; */
+    display: flex;
+    flex-direction: column;
 }
 
 .listContainer {
-    width: 75%;
+    width: 90%;
+    margin: auto;
 }

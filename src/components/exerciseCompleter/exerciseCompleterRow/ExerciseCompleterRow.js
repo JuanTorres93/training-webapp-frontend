@@ -11,7 +11,7 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
 
     const handleChange = (event) => {
         const target = event.target;
-        
+
         // split target.id by '-' and get the last three elements as exerciseId, exerciseOrder and setNumber
         const [_, id, order, set] = target.id.split('-');
 
@@ -37,22 +37,26 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
 
             <div className={styles.fieldContainer}>
                 <label htmlFor={weightId} className={styles.label}>Weight</label>
-                <input id={weightId} 
-                       type="number" 
-                       placeholder={placeholderWeight} 
-                       onChange={handleChange}
-                        inputMode='decimal'
-                       />
+                <input
+                    className={styles.inputField}
+                    id={weightId}
+                    type="number"
+                    placeholder={placeholderWeight}
+                    onChange={handleChange}
+                    inputMode='decimal'
+                />
             </div>
 
             <div className={styles.fieldContainer}>
                 <label htmlFor={repsId} className={styles.label}>Reps</label>
-                <input id={repsId} 
-                       type="number" 
-                       placeholder={placeholderReps} 
-                       onChange={handleChange}
-                       inputMode='numeric'
-                       />
+                <input
+                    className={styles.inputField}
+                    id={repsId}
+                    type="number"
+                    placeholder={placeholderReps}
+                    onChange={handleChange}
+                    inputMode='numeric'
+                />
             </div>
         </div>
     );

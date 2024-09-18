@@ -16,16 +16,14 @@ function ExerciseCompleter({ exerciseName, exerciseId, exerciseOrder, sets = [] 
             {/* For each set in sets, render an ExerciseCompleterRow component */}
 
             {sets.map((set, index) => (
-                <div key={`div-${exerciseName}-${set.setNumber}-${index}`} 
-                     className={styles.marginLeft}>
-                    <ExerciseCompleterRow
-                        setNumber={set.setNumber}
-                        placeholderWeight={set.weight}
-                        placeholderReps={set.reps}
-                        exerciseId={exerciseId}
-                        exerciseOrder={exerciseOrder}
-                    />
-                </div>
+                <ExerciseCompleterRow
+                    key={`div-${exerciseName}-${set.setNumber}-${index}`}
+                    setNumber={set.setNumber}
+                    placeholderWeight={set.weight}
+                    placeholderReps={set.reps}
+                    exerciseId={exerciseId}
+                    exerciseOrder={exerciseOrder}
+                />
             ))}
 
         </div>

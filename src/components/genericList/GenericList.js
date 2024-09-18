@@ -7,7 +7,7 @@ function GenericList({ children = [] }) {
         // <div className={styles.list}>
         <div className={styles.list}>
             {children.map((child, index) => (
-                <div key={index}>
+                <div className={styles.childContainer} key={index} >
                     {child}
                 </div>
             ))}

@@ -1,29 +1,35 @@
 .list {
-    background-color: var(--secondary-color);
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--secondary-color);
 
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 1rem;
+    /* padding: 1rem; */
     /* max-width: 700px; */
 
     /* Scroll bar */
     overflow-y: auto;
-    max-height: 500px;
+    /* max-height: 500px; */
+    max-height: 50vh;
 
     /* More spacing in first and last children */
-    > *:first-child {
+    >*:first-child {
         margin-top: 1rem;
     }
 
-    > *:last-child {
+    >*:last-child {
         margin-bottom: 1rem;
     }
 }
 
-.list > * {
+/* Vertical spacing between elements */
+.list>* {
     /* width: 90%; */
     margin: .5rem 0;
+}
+
+.childContainer {
+    width: 90%;
 }

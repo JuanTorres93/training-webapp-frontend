@@ -78,12 +78,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Make text input fields coherent with app style */
 input[type="text"]:focus,
+input[type="number"]:focus,
 textarea:focus {
     /* border-color: var(--accent-color); */
     outline: none;
 }
 
 input[type="text"],
+input[type="number"],
 input[type="password"],
 textarea {
     border: 1px solid var(--primary-color);
@@ -95,12 +97,14 @@ textarea {
 }
 
 input[type="text"]:hover,
+input[type="number"]:hover,
 input[type="password"]:hover,
 textarea:hover {
     border-color: var(--accent-color);
 }
 
 input[type="text"]:disabled,
+input[type="number"]:disabled,
 input[type="password"]:disabled,
 textarea:disabled {
     border-color: var(--disabled-color);

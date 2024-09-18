@@ -1,7 +1,13 @@
 .row {
     display: flex;
     background-color: transparent;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+
+    /* TODO borrar */
+    border: red solid .15rem;
 }
 
 /* select every row child */
@@ -23,14 +29,18 @@
 .fieldContainer {
     display: flex;
     align-items: center;
-    justify-items: start;
+    justify-items: flex-start;
     min-height: 4rem;
+
+    /* TODO borrar */
+    border: red solid .15rem;
 }
 
-input {
+.inputField {
     margin: 0;
     margin-left: 1rem;
-    max-width: 3rem;
+    /* min-width: 3rem; */
+    /* max-width: 8rem; */
     text-align: right;
 }
 

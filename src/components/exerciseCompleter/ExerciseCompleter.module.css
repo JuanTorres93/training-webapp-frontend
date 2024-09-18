@@ -2,15 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: start;
+    /* width: 100%; */
     background-color: var(--primary-color);
     border-radius: 10px;
-    /* Adjust as needed for desired roundness */
     padding: 1rem;
-    /* Adjust padding as needed */
     margin: 1rem 0;
-    /* Adjust width as needed */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    /* Optional shadow for depth */
     border: var(--font-color) solid .15rem;
 }
 
@@ -23,9 +20,4 @@
     /* Space below the title */
     display: block;
     /* Make span behave like a block element */
-}
-
-.marginLeft {
-    margin-left: 1rem;
-    /* Add left margin to the element */
 }
