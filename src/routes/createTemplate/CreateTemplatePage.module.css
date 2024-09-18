@@ -77,18 +77,18 @@ form {
 }
 
 .exerciseList:first-of-type,
-.inputContainer:first-of-type {
+.inputContainer:first-of-type .createTemplateOption:first-of-type {
     margin-right: 5rem;
 }
 
 .createTemplateOptions {
     display: flex;
-    width: 80%;
+    justify-content: space-between;
+    width: 100%;
     background-color: var(--background-color);
-    border-radius: 50px;
     overflow: hidden;
-    margin-top: 3rem;
-    justify-content: space-around;
+    margin: auto;
+    margin-top: 1rem;
     color: var(--font-color-contrast);
 
     /* TODO BORRAR RED BORDER */
@@ -97,8 +97,11 @@ form {
 
 .createTemplateOption {
     display: flex;
-    flex: 1;
+    align-items: center;
     justify-content: center;
+    width: 50%;
+    max-width: 41rem;
+    height: 4rem;
     padding: 20px;
     text-align: center;
     background-color: var(--primary-color);
@@ -109,26 +112,7 @@ form {
 }
 
 
-.createTemplateOption:hover {
-    background-color: var(--accent-color);
-    /* Change background color on hover */
-}
-
-.createTemplateOption:first-child {
-    border-right: 1px solid var(--border-color);
-}
-
-.createTemplateOption:last-child {
-    border-left: 1px solid var(--border-color);
-}
-
 .createTemplateOption:active {
     /* Change background color for one that you consider suitable. Feel free in your decision. use a HEX variation of --accent-color */
     background-color: #ff0000;
-
-}
-
-.createTemplateOption:disabled {
-    background-color: var(--disabled-color);
-    cursor: not-allowed;
 }

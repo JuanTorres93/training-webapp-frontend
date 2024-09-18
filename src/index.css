@@ -55,6 +55,11 @@ p {
     background-color: var(--accent-color);
 }
 
+.primary-button:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+}
+
 .heading {
     font-size: var(--heading-font-size);
     font-weight: 600;

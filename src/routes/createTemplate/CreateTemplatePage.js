@@ -190,7 +190,7 @@ export default function CreateTemplatePage() {
 
                                     <div className={styles.createTemplateOptions}>
                                         <button id="create-template" type="submit"
-                                            className={styles.createTemplateOption}
+                                            className={`${styles.createTemplateOption} primary-button`}
                                             disabled={submitDisabled}
                                         >
                                             {
@@ -199,7 +199,7 @@ export default function CreateTemplatePage() {
                                         </button>
 
                                         <button id="create-template-and-start" type="submit"
-                                            className={styles.createTemplateOption}
+                                            className={`${styles.createTemplateOption} primary-button`}
                                             disabled={submitDisabled}
                                         >
                                             {
