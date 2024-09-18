@@ -2,26 +2,37 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 90%;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid red;
 }
 
 form {
+    width: 95%;
+}
+
+.formContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-content: center;
     justify-content: center;
-    width: 95%;
+    width: 100%;
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid red;
 }
 
 .templateInfoContainer {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
+    justify-content: space-between;
     width: 100%;
-}
 
-/* Select first templateInfoContainer and add margin to its right */
-.inputContainer:first-of-type {
-    margin-right: 5rem;
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid black;
 }
 
 .inputContainer {
@@ -29,27 +40,45 @@ form {
     flex-direction: column;
     align-items: flex-start;
     width: 50%;
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid red;
 }
 
 .inputContainer label {
-    margin-left: .6rem;
+    font-weight: 500;
 }
 
-.inputContainer input,
-textarea {
+.userInput {
     min-height: 2rem;
+    max-height: 4rem;
     min-width: 15rem;
+    width: 90%;
+    max-width: 41rem;
+    font-size: var(--input-field-font-size);
 }
 
 .exerciseListsContainer {
     display: flex;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
+    margin: 4rem 0;
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid blue;
 }
 
 .exerciseList {
-    width: 45%;
+    width: 50%;
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid red;
+}
+
+.exerciseList:first-of-type,
+.inputContainer:first-of-type {
+    margin-right: 5rem;
 }
 
 .createTemplateOptions {
@@ -61,6 +90,9 @@ textarea {
     margin-top: 3rem;
     justify-content: space-around;
     color: var(--font-color-contrast);
+
+    /* TODO BORRAR RED BORDER */
+    border: 1px solid red;
 }
 
 .createTemplateOption {

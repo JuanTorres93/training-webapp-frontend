@@ -142,11 +142,13 @@ export default function CreateTemplatePage() {
                         <h2 className="heading">Create new template</h2>
                         <form onSubmit={handleFormSubmit}>
                             {userHasExercises &&
-                                <div className={styles.createTemplatePageContainer}>
+                                <div className={styles.formContainer}>
                                     <div className={styles.templateInfoContainer}>
                                         <div className={styles.inputContainer}>
-                                            <label htmlFor="template-name">Template name</label>
-                                            <input id="template-name"
+                                            <label className="subheading" htmlFor="template-name">Template name</label>
+                                            <input
+                                                className={styles.userInput}
+                                                id="template-name"
                                                 type="text"
                                                 placeholder="Template name"
                                                 disabled={templatesLoading}
@@ -155,8 +157,9 @@ export default function CreateTemplatePage() {
                                         </div>
 
                                         <div className={styles.inputContainer}>
-                                            <label htmlFor="template-description">Template description</label>
+                                            <label className="subheading" htmlFor="template-description">Template description</label>
                                             <textarea
+                                                className={styles.userInput}
                                                 id="template-description"
                                                 placeholder="Template description"
                                                 disabled={templatesLoading}
@@ -166,7 +169,7 @@ export default function CreateTemplatePage() {
 
                                     <div className={styles.exerciseListsContainer}>
                                         <div className={styles.exerciseList}>
-                                            <h3>Exercises</h3>
+                                            <h3 className="subheading">Exercises</h3>
                                             <ListNameDescription
                                                 exercises={availableExercises}
                                                 handleExerciseClick={handleSelectExercise}
@@ -176,7 +179,7 @@ export default function CreateTemplatePage() {
                                         </div>
                                         <div className={styles.exerciseList}>
                                             {/* TODO Change this to user template's name input */}
-                                            <h3>Template's exercises</h3>
+                                            <h3 className="subheading">Template's exercises</h3>
                                             <ListNameDescription
                                                 exercises={selectedExercises}
                                                 isSetPresenter={true}

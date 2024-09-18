@@ -91,7 +91,7 @@ textarea {
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     padding: 10px;
-    font-size: var(--input-font-size);
+    font-size: var(--input-field-font-size);
     transition: all .1s;
     text-align: left;
 }
