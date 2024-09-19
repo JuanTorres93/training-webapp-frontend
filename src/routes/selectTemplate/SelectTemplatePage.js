@@ -106,24 +106,30 @@ export default function SelectTemplatePage() {
         <PagePresenter children={
             <>
                 {user ? (
-                    <div className={styles.createTemplatePageContainer}>
+                    <div className={styles.pageContainer}>
 
                         {templates.length > 0 &&
-                            <div>
-                                <h2 className="heading">Recent workouts</h2>
-                                {recentWorkouts.length === 0 && <p>No recent workouts</p>}
-                                {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
-                                    recentWorkouts={recentWorkouts}
-                                    isLoading={templatesLoading}
-                                />}
+                            <div className={styles.conditionalRender}>
+                                {/* Recent workouts */}
+                                <div className={styles.recentWorkoutsContainer}>
+                                    <h2 className="heading">Recent workouts</h2>
+                                    {recentWorkouts.length === 0 && <p>No recent workouts</p>}
+                                    {recentWorkouts.length > 0 && <RecentWorkoutsCarousel
+                                        recentWorkouts={recentWorkouts}
+                                        isLoading={templatesLoading}
+                                    />}
+                                </div>
 
-                                <div className={styles.searchAndSortContainer}>
+                                {/* Template name */}
+                                <div className={styles.templateNameContainer}>
                                     <h3>
                                         Template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
                                     </h3>
                                 </div>
 
+                                {/* List of templates and exercises */}
                                 <div className={styles.listContainer}>
+                                    {/* List of templates */}
                                     <div className={styles.individualListContainer}>
                                         {/* Render list of templates */}
                                         <ListNameDescription
@@ -136,6 +142,7 @@ export default function SelectTemplatePage() {
                                         />
                                     </div>
 
+                                    {/* List of exercises */}
                                     <div className={styles.individualListContainer}>
                                         {/* Render preview of selected template */}
                                         {selectedTemplate && (
@@ -163,7 +170,7 @@ export default function SelectTemplatePage() {
                         }
 
                         {templates.length === 0 && (
-                            <div>
+                            <div className={styles.conditionalRender}>
                                 {!templatesLoading &&
                                     <div>
                                         <p style={{ fontSize: 'var(--subheading-font-size)' }}>
