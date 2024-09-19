@@ -189,23 +189,30 @@ export default function CreateTemplatePage() {
                                     </div>
 
                                     <div className={styles.createTemplateOptions}>
-                                        <button id="create-template" type="submit"
-                                            className={`${styles.createTemplateOption} primary-button`}
-                                            disabled={submitDisabled}
-                                        >
-                                            {
-                                                templatesLoading ? <div className="spinner-body-size"></div> : 'Create template'
-                                            }
-                                        </button>
+                                        <div className={styles.buttonContainer}>
+                                            <button id="create-template" type="submit"
+                                                className={`${styles.createTemplateOption} primary-button`}
+                                                disabled={submitDisabled}
+                                            >
+                                                {
+                                                    templatesLoading ? <div className="spinner-body-size"></div> : 'Create template'
+                                                }
+                                            </button>
 
-                                        <button id="create-template-and-start" type="submit"
-                                            className={`${styles.createTemplateOption} primary-button`}
-                                            disabled={submitDisabled}
-                                        >
-                                            {
-                                                templatesLoading ? <div className="spinner-body-size"></div> : 'Create template and start workout'
-                                            }
-                                        </button>
+                                        </div>
+
+                                        <div className={styles.buttonContainer}>
+                                            <button id="create-template-and-start" type="submit"
+                                                className={`${styles.createTemplateOption} primary-button`}
+                                                disabled={submitDisabled}
+                                            >
+                                                {
+                                                    templatesLoading ? <div className="spinner-body-size"></div> : 'Create template and start workout'
+                                                }
+                                            </button>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             }

@@ -87,6 +87,8 @@ export default function RunWorkoutPage() {
                     <GenericList children={exerciseCompleters} />
                 </div>
 
+                <div style={{ marginTop: "4rem" }}></div>
+
                 <button
                     className={`${styles.finishButton} primary-button`}
                     type="button"
