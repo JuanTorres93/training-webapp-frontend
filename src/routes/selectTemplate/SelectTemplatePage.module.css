@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 
     /* TODO BORRAR RED BORDER */
     border: 1px solid blue;
@@ -32,11 +32,8 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    margin: 2rem 0;
+    margin: 3rem 0;
     background-color: var(--background-color);
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid blue;
 }
 
 .columnAlignedLeft {
@@ -53,9 +50,6 @@ span {
     display: flex;
     align-items: start;
     width: 100%;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid red;
 }
 
 
@@ -64,9 +58,6 @@ span {
     align-items: center;
     justify-content: center;
     width: 100%;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid blue;
 }
 
 .individualListContainer:first-of-type {
@@ -75,7 +66,5 @@ span {
 
 .previewContainer {
     width: 97%;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid red;
+    max-width: 40rem;
 }
