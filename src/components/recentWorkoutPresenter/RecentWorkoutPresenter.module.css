@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
   background-color: var(--background-color);
   border-radius: 0.5rem;
@@ -11,22 +11,12 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: all 0.1s;
   width: 90%;
-  height: 100%;
-  max-height: 150px;
-  max-width: 200px;
+  height: 95%;
+  max-height: 5rem;
+  min-height: 5rem;
+  max-width: 15rem;
   /* Space between children */
   gap: 0.3rem;
-}
-
-.recentWorkout {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  height: 100%;
-  max-height: 150px;
-  max-width: 200px;
 }
 
 /* Children's text of .recentWorkout is not selectable */
@@ -34,10 +24,24 @@
   user-select: none;
 }
 
+.recentWorkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  width: 95%;
+  height: 100%;
+  max-height: 150px;
+  max-width: 15rem;
+}
+
 .name {
+  display: flex;
+  justify-content: center;
   font-weight: bold;
   transition: all 0.1s;
   font-size: var(--body-font-size);
+  width: 100%;
 }
 
 .container:hover {
@@ -50,8 +54,10 @@
 
 .fullDateInfo {
   display: flex;
-  align-items: center;
+  align-content: center;
+  justify-content: space-around;
   font-size: var(--body-font-size);
+  width: 100%;
 }
 
 .agoSentence {

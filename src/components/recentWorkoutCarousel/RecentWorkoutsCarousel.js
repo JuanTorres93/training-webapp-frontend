@@ -21,7 +21,7 @@ const RecentWorkoutsCarousel = ({ recentWorkouts, isLoading = false }) => {
             // autoPlaySpeed={3000}
             centerMode={false}
             containerClass={styles.carousel}
-            itemClass={styles.marginBottom}
+            itemClass={styles.item}
             customTransition="all 1s linear"
             dotListClass=""
             draggable
@@ -38,7 +38,7 @@ const RecentWorkoutsCarousel = ({ recentWorkouts, isLoading = false }) => {
                         min: 1024
                     },
                     items: 4,
-                    partialVisibilityGutter: 40
+                    partialVisibilityGutter: 60
                 },
                 mobile: {
                     breakpoint: {

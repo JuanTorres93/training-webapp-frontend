@@ -8,6 +8,7 @@
   height: 6rem;
 }
 
-.marginBottom {
-  margin-bottom: .9rem;
+.item {
+  margin: 0 2rem;
+  text-align: center;
 }

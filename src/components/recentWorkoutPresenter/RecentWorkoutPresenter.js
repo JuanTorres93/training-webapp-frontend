@@ -57,7 +57,10 @@ function RecentWorkoutPresenter({ id: templateId, date, name, isLoading = false 
             className={styles.container}
             onClick={handleRecentWorkoutClick}>
 
-            {isLoading && <div className='spinner-heading-size'></div>}
+            {isLoading && <div
+                className='spinner-heading-size'
+                style={{ margin: 'auto' }}
+            />}
 
             {!isLoading &&
                 <div className={styles.recentWorkout}>
@@ -68,7 +71,7 @@ function RecentWorkoutPresenter({ id: templateId, date, name, isLoading = false 
                             {calculateTimeSince(date)}
                         </div>
                         <div className={styles.date}>
-                            ({new Date(date).toISOString().split('T')[0]})
+                            ({new Date(date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })})
                         </div>
                     </div>
                 </div>

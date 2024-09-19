@@ -122,8 +122,8 @@ export default function SelectTemplatePage() {
 
                                 {/* Template name */}
                                 <div className={styles.templateNameContainer}>
-                                    <h3>
-                                        Template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
+                                    <h3 hidden={selectedTemplate ? false : true}>
+                                        Selected template{`${selectedTemplate ? `: ${selectedTemplate.name}` : ""}`}
                                     </h3>
                                 </div>
 
@@ -131,6 +131,10 @@ export default function SelectTemplatePage() {
                                 <div className={styles.listContainer}>
                                     {/* List of templates */}
                                     <div className={styles.individualListContainer}>
+                                        <div className="subheading">
+                                            Templates
+                                        </div>
+
                                         {/* Render list of templates */}
                                         <ListNameDescription
                                             exercises={templates}
@@ -144,6 +148,12 @@ export default function SelectTemplatePage() {
 
                                     {/* List of exercises */}
                                     <div className={styles.individualListContainer}>
+                                        {selectedTemplate && (
+                                            <div className="subheading">
+                                                {/* Capitalize first letter of template name */}
+                                                {selectedTemplate.name.charAt(0).toUpperCase() + selectedTemplate.name.slice(1)}'s exercises
+                                            </div>
+                                        )}
                                         {/* Render preview of selected template */}
                                         {selectedTemplate && (
                                             <div className={styles.previewContainer}>

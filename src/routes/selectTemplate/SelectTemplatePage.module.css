@@ -5,26 +5,17 @@
     align-items: center;
     margin: auto;
     width: 100%;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid red;
 }
 
 .conditionalRender {
     width: 99%;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid red;
 }
 
 .recentWorkoutsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 4rem;
-
-    /* TODO BORRAR RED BORDER */
-    border: 1px solid blue;
+    margin-bottom: 5rem;
 }
 
 .templateNameContainer {
@@ -32,7 +23,7 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    margin: 3rem 0;
+    margin: 2rem 0;
     background-color: var(--background-color);
 }
 
@@ -55,8 +46,9 @@ span {
 
 .individualListContainer {
     display: flex;
+    flex-direction: column;
+    justify-items: center;
     align-items: center;
-    justify-content: center;
     width: 100%;
 }
 
