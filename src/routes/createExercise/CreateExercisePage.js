@@ -88,79 +88,78 @@ export default function CreateExercisePage() {
 
     return (
         <PagePresenter children={
-            <form onSubmit={handleSubmit}>
-                <section className={styles.createTemplatePageContainer}>
-                    <h2 className="heading">Create new exercise</h2>
+            <form className={styles.createTemplatePageContainer} onSubmit={handleSubmit}>
+                <h2 className="heading">Create new exercise</h2>
 
-                    <section className={styles.newExerciseContainer}>
+                <section className={styles.newExerciseContainer}>
 
-                        <div className={styles.nameContainer}>
-                            <label
-                                htmlFor="input-exercise-name"
-                                className={styles.fontSize}
-                            >
-                                Exercise name
-                            </label>
-                            <input
-                                className={styles.fontSize}
-                                id="input-exercise-name"
-                                type="text"
-                                placeholder="Exercise name"
-                                value={newExerciseAlias}
-                                disabled={exercisesLoading || userIsLoading}
-                                onChange={(e) => setNewExerciseAlias(e.target.value)}
-                                required
-                            />
-                        </div>
+                    <div className={styles.nameContainer}>
+                        <label
+                            htmlFor="input-exercise-name"
+                            className={styles.label}
+                        >
+                            Exercise name
+                        </label>
+                        <input
+                            className={styles.userInput}
+                            id="input-exercise-name"
+                            type="text"
+                            placeholder="Exercise name"
+                            value={newExerciseAlias}
+                            disabled={exercisesLoading || userIsLoading}
+                            onChange={(e) => setNewExerciseAlias(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                        <div className={styles.descriptionContainer}>
-                            <label
-                                className={`${styles.topMargin}`}
-                                htmlFor="input-exercise-description"
-                            >
-                                Exercise description
-                            </label>
-                            <textarea
-                                id="input-exercise-description"
-                                className={styles.fontSize}
-                                placeholder="Exercise description"
-                                value={newExerciseDescription}
-                                disabled={exercisesLoading || userIsLoading}
-                                onChange={(e) => setNewExerciseDescription(e.target.value)}
-                            >
-                            </textarea>
-                        </div>
+                    <div className={styles.descriptionContainer}>
+                        <label
+                            className={styles.label}
+                            htmlFor="input-exercise-description"
+                        >
+                            Exercise description
+                        </label>
+                        <textarea
+                            id="input-exercise-description"
+                            className={styles.userInput}
+                            placeholder="Exercise description"
+                            value={newExerciseDescription}
+                            disabled={exercisesLoading || userIsLoading}
+                            onChange={(e) => setNewExerciseDescription(e.target.value)}
+                        >
+                        </textarea>
+                    </div>
 
-                        <div className={styles.buttonContainer}>
-                            {/* TODO add spinner when loading */}
-                            <button
-                                type="submit"
-                                className={`${styles.createExerciseButton}`}
-                                disabled={exercisesLoading || userIsLoading}
-                            >
-                                {
-                                    exercisesLoading
-                                        ? <div className="spinner-heading-size"></div>
-                                        : 'Create exercise'
-                                }
-                            </button>
-                        </div>
+                    <div className={styles.buttonContainer}>
+                        {/* TODO add spinner when loading */}
+                        <button
+                            type="submit"
+                            className={`${styles.createExerciseButton} primary-button`}
+                            disabled={exercisesLoading || userIsLoading}
+                        >
+                            {
+                                exercisesLoading
+                                    ? <div className="spinner-heading-size"></div>
+                                    : 'Create exercise'
+                            }
+                        </button>
+                    </div>
 
-                    </section>
+                </section>
 
-                    <section className={styles.exerciseListsContainer}>
-                        <div className={styles.exerciseList}>
-                            <h3>Exercises</h3>
-                            <ListNameDescription
-                                exercises={availableExercises}
-                                handleExerciseClick={handleSelectExercise}
-                                handleDeleteClick={handleDeleteExerciseFromDb}
-                                isLoading={exercisesLoading}
-                            />
-                        </div>
-                        {/* TODO show currently selected exercise */}
-                        {/* TODO uncomment and finish if want to edit name and description of exercise */}
-                        {/* 
+                <section className={styles.exerciseListsContainer}>
+                    <div className={styles.exerciseList}>
+                        <label className={styles.label}>{user.alias}'s exercises</label>
+                        <ListNameDescription
+                            exercises={availableExercises}
+                            handleExerciseClick={handleSelectExercise}
+                            handleDeleteClick={handleDeleteExerciseFromDb}
+                            isLoading={exercisesLoading}
+                        />
+                    </div>
+                    {/* TODO show currently selected exercise */}
+                    {/* TODO uncomment and finish if want to edit name and description of exercise */}
+                    {/* 
                         <div className={styles.exerciseList}>
                             {selectedExercise && (
                                 <div>
@@ -172,8 +171,6 @@ export default function CreateExercisePage() {
                             )}
                         </div>
                         */}
-                    </section>
-
                 </section>
             </form>
         } />
