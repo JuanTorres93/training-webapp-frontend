@@ -62,7 +62,6 @@ export default function CreateExercisePage() {
     }
 
     const handleSelectExercise = (exerciseInfo) => {
-        console.log('handleSelectExercise', exerciseInfo);
         setSelectedExercise(exerciseInfo);
     };
 
@@ -131,7 +130,6 @@ export default function CreateExercisePage() {
                     </div>
 
                     <div className={styles.buttonContainer}>
-                        {/* TODO add spinner when loading */}
                         <button
                             type="submit"
                             className={`${styles.createExerciseButton} primary-button`}

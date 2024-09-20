@@ -6,7 +6,6 @@ import ExerciseSetPresenter from '../exerciseSetPresenter/ExerciseSetPresenter';
 
 function ListNameDescription({
     exercises,
-    exercisesMarkedForDeletion = [],
     isSetPresenter = false,
     isLoading = false,
     handleExerciseClick = () => { },
@@ -24,7 +23,7 @@ function ListNameDescription({
                         id={exercise.id}
                         name={exercise.name}
                         description={exercise.description}
-                        isLoading={isLoading && exercisesMarkedForDeletion.includes(exercise.id)}
+                        isLoading={isLoading}
                         handleClick={handleExerciseClick}
                         handleDoubleClick={handleExerciseDoubleClick}
                         handleDeleteClick={handleDeleteClick}
