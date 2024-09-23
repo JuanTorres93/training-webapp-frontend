@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     selectUser,
@@ -12,6 +13,48 @@ function NavBar() {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const userIsLoading = useSelector(selectUserIsLoading);
+
+    const [sessionExpiresAt, setSessionExpiresAt] = useState(null);
+
+    // TODO implement auto logout
+
+    // Efecto para configurar la fecha de expiración al cargar
+    useEffect(() => {
+        const expirationDate = user ? user.expirationDate : null;
+
+        const expirationAt = expirationDate ? new Date(expirationDate).toISOString() : null;
+
+        // TODO DELETE THESE DEBUG LOGS
+        console.log('expirationAt');
+        console.log(expirationAt);
+
+        setSessionExpiresAt(expirationAt);
+    }, [user]);
+
+    // Efecto para chequear periódicamente si la sesión está por expirar
+    useEffect(() => {
+        if (!sessionExpiresAt) return;
+
+        const interval = setInterval(() => {
+            const currentTime = new Date().toISOString();
+
+            // TODO important add margin of 30 minutes for user to be able to act
+            const marginToWarnUserinMs = 5000;
+            // Expiry date minus margin
+            const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
+
+            if (expiryDateMinusMargin <= currentTime) {
+                alert('Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.');
+                clearInterval(interval);
+                // Aquí puedes agregar lógica para redirigir al usuario, por ejemplo:
+                // window.location.href = '/login';
+            }
+            // TODO IMPORTANT: CHANNGE TO 1 MINUTE
+            //}, 1000 * 60); // Revisa cada minuto
+        }, 1000 * 1); // Revisa cada minuto
+
+        return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonte
+    }, [sessionExpiresAt]);
 
     const handleLogout = () => {
         dispatch(logoutUser());
