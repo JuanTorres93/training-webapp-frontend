@@ -16,17 +16,23 @@ function NavBar() {
 
     const [sessionExpiresAt, setSessionExpiresAt] = useState(null);
 
-    // TODO implement auto logout
+    // Effect for auto logout if session is expired
+    // Used mainly for when user is already logged in and the session expires while the user is NOT on the page
+    useEffect(() => {
+        if (!sessionExpiresAt) return;
+
+        const currentTime = new Date().toISOString();
+
+        if (sessionExpiresAt <= currentTime) {
+            dispatch(logoutUser());
+        }
+    });
 
     // Efecto para configurar la fecha de expiración al cargar
     useEffect(() => {
         const expirationDate = user ? user.expirationDate : null;
 
         const expirationAt = expirationDate ? new Date(expirationDate).toISOString() : null;
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('expirationAt');
-        console.log(expirationAt);
 
         setSessionExpiresAt(expirationAt);
     }, [user]);
@@ -35,26 +41,40 @@ function NavBar() {
     useEffect(() => {
         if (!sessionExpiresAt) return;
 
-        const interval = setInterval(() => {
+        // Run intervals every minute
+        const frequencyInMs = 60 * 1000;
+
+        const sessionAboutToExpireInterval = setInterval(() => {
             const currentTime = new Date().toISOString();
 
-            // TODO important add margin of 30 minutes for user to be able to act
-            const marginToWarnUserinMs = 5000;
+            // Margin of 30 minutes for user to be able to act
+            const marginToWarnUserinMs = 30 * 60 * 1000;
             // Expiry date minus margin
             const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
 
             if (expiryDateMinusMargin <= currentTime) {
-                alert('Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.');
-                clearInterval(interval);
-                // Aquí puedes agregar lógica para redirigir al usuario, por ejemplo:
-                // window.location.href = '/login';
-            }
-            // TODO IMPORTANT: CHANNGE TO 1 MINUTE
-            //}, 1000 * 60); // Revisa cada minuto
-        }, 1000 * 1); // Revisa cada minuto
+                alert(`Your session is going to expire in ${marginToWarnUserinMs / 1000 / 60} minutes`);
+                clearInterval(sessionAboutToExpireInterval);
 
-        return () => clearInterval(interval); // Limpia el intervalo cuando el componente se desmonte
-    }, [sessionExpiresAt]);
+                // TODO add option to renew session
+            }
+        }, frequencyInMs);
+
+        const sessionExpiredInterval = setInterval(() => {
+            const currentTime = new Date().toISOString();
+
+            if (sessionExpiresAt <= currentTime) {
+                dispatch(logoutUser());
+                alert('Your session has expired');
+                clearInterval(sessionExpiredInterval);
+            }
+        }, frequencyInMs);
+
+        return () => {
+            clearInterval(sessionAboutToExpireInterval)
+            clearInterval(sessionExpiredInterval)
+        }; // Clean intervals when component unmounts
+    }, [sessionExpiresAt, dispatch]);
 
     const handleLogout = () => {
         dispatch(logoutUser());
