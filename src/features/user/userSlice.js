@@ -18,13 +18,12 @@ export const loginUser = createAsyncThunk(
         // Error is handled from redux state when promise is rejected
         const response = await login(arg.username, arg.password);
         const userId = response.user.id;
-
-        // Get exercises from user
-        thunkAPI.dispatch(getExercisesFromUser({
+        // Get user's templates
+        await thunkAPI.dispatch(getAllUserCreatedTemplates({
             userId
         }));
-        // Get user's templates
-        thunkAPI.dispatch(getAllUserCreatedTemplates({
+        // Get exercises from user
+        thunkAPI.dispatch(getExercisesFromUser({
             userId
         }));
         // Get user's recent workouts
