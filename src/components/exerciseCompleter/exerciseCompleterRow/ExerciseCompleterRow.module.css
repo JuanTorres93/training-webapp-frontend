@@ -29,11 +29,14 @@
 
 .userInput:last-of-type {
     justify-content: flex-end;
+    margin-left: 1rem;
 }
 
 .setShow {
     justify-content: flex-start;
     flex-grow: 1;
+    max-width: 4rem;
+    margin-right: 1rem;
 }
 
 .fieldContainer {
@@ -43,9 +46,16 @@
 }
 
 .inputField {
-    margin: 0;
-    margin-left: 1rem;
+    margin: 0 1rem;
     min-width: 3rem;
-    /* max-width: 8rem; */
+    max-width: 8rem;
     text-align: right;
+}
+
+.progressing {
+    color: rgb(50, 201, 50);
+}
+
+.notProgressing {
+    color: rgb(239, 66, 66);
 }
