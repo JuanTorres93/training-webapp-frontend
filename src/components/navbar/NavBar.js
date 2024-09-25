@@ -4,6 +4,7 @@ import {
     selectUser,
     logoutUser,
     selectUserIsLoading,
+    extendUserSession,
 } from '../../features/user/userSlice';
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from 'react-router-dom';
@@ -49,14 +50,16 @@ function NavBar() {
 
             // Margin of 30 minutes for user to be able to act
             const marginToWarnUserinMs = 30 * 60 * 1000;
+
             // Expiry date minus margin
             const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
 
             if (expiryDateMinusMargin <= currentTime) {
-                alert(`Your session is going to expire in ${marginToWarnUserinMs / 1000 / 60} minutes`);
+                const userConfirmed = window.confirm(`Your session is going to expire in ${marginToWarnUserinMs / 1000 / 60} minutes. Do you want to extend the session?`);
+                if (userConfirmed) {
+                    dispatch(extendUserSession());
+                }
                 clearInterval(sessionAboutToExpireInterval);
-
-                // TODO add option to renew session
             }
         }, frequencyInMs);
 

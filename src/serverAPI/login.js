@@ -22,6 +22,17 @@ export async function login(username, password) {
     return jsonResponse;
 };
 
+export async function extendSession() {
+    const response = await fetch(loginEndPoint + '/extend-session', {
+        method: 'POST',
+        credentials: 'include',
+    });
+
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+};
+
 export async function loginGoogle() {
     const endPoint = loginEndPoint + '/google';
 
@@ -29,7 +40,7 @@ export async function loginGoogle() {
     const response = await fetch(endPoint, {
         method: 'GET', //'POST',
         // headers: {
-            // 'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         // },
         // body: JSON.stringify(body),
     });

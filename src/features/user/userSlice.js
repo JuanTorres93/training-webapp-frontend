@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { register } from "../../serverAPI/users";
-import { login } from "../../serverAPI/login";
+import { login, extendSession } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import { getExercisesFromUser } from "../exercises/exercisesSlice";
 import {
@@ -31,6 +31,16 @@ export const loginUser = createAsyncThunk(
         thunkAPI.dispatch(getUserRecentWorkouts({
             userId
         }));
+
+        return response;
+    }
+);
+
+export const extendUserSession = createAsyncThunk(
+    `${sliceName}/extendUserSession`,
+    async (arg, thunkAPI) => {
+        // Error is handled from redux state when promise is rejected
+        const response = await extendSession();
 
         return response;
     }
@@ -89,6 +99,25 @@ const userSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(loginUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Extend user session
+        builder.addCase(extendUserSession.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(extendUserSession.fulfilled, (state, action) => {
+            const expirationDate = action.payload.expirationDate;
+
+            // Update expiration date in state
+            if (state[sliceName]) state[sliceName].expirationDate = expirationDate;
+
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(extendUserSession.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })
