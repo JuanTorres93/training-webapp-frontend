@@ -38,21 +38,29 @@ const RegisterForm = () => {
     return (
         <form className={styles.form} onSubmit={userIsLoading ? () => { } : handleRegister}>
             {/* Username */}
-            <div className={styles.inputWrapper}>
-                <label htmlFor='username'>Username</label>
-                <input className={styles.inputField} id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <div className={styles.inputContainer}>
+                <div className={styles.inputWrapper}>
+                    <label htmlFor='username'>Username</label>
+                    <input className={styles.inputField} id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                </div>
             </div>
 
             {/* email */}
-            <div className={styles.inputWrapper}>
-                <label htmlFor='email'>Email</label>
-                <input className={styles.inputField} id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <div className={styles.inputContainer}>
+
+                <div className={styles.inputWrapper}>
+                    <label htmlFor='email'>Email</label>
+                    <input className={styles.inputField} id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                </div>
             </div>
 
             {/* Password */}
-            <div className={styles.inputWrapper}>
-                <label htmlFor='password'>Password</label>
-                <input className={styles.inputField} id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <div className={styles.inputContainer}>
+
+                <div className={styles.inputWrapper}>
+                    <label htmlFor='password'>Password</label>
+                    <input className={styles.inputField} id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
             </div>
 
             {/* Submit */}

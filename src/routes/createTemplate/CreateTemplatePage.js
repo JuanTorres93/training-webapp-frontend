@@ -219,9 +219,9 @@ export default function CreateTemplatePage() {
 
                             {/* Redirect to /createExercise if there are no availableExercises */}
                             {!userHasExercises && (
-                                <div>
-                                    <p style={{ fontSize: 'var(--subheading-font-size)' }}>You don't have any exercises yet.</p>
-                                    <button onClick={() => navigate('/createExercise')}>Create an exercise</button>
+                                <div className={styles.createTemplatePageContainer}>
+                                    <p style={{ fontSize: 'var(--subheading-font-size)', marginBottom: '2rem' }}>You don't have any exercises yet.</p>
+                                    <button className="primary-button" onClick={() => navigate('/createExercise')}>Create an exercise</button>
                                 </div>
                             )}
 

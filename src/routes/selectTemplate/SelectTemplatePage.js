@@ -182,11 +182,12 @@ export default function SelectTemplatePage() {
                         {templates.length === 0 && (
                             <div className={styles.conditionalRender}>
                                 {!templatesLoading &&
-                                    <div>
-                                        <p style={{ fontSize: 'var(--subheading-font-size)' }}>
+                                    <div className={styles.pageContainer}>
+                                        <h2 className="heading">Select template</h2>
+                                        <p style={{ fontSize: 'var(--subheading-font-size)', marginBottom: '2rem' }}>
                                             You don't have any templates yet.
                                         </p>
-                                        <button onClick={() => navigate('/createTemplate')}>Create a template</button>
+                                        <button className="primary-button" onClick={() => navigate('/createTemplate')}>Create a template</button>
                                     </div>
                                 }
                                 {templatesLoading &&
