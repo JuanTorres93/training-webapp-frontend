@@ -16,15 +16,43 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
         const [_, id, order, set] = target.id.split('-');
 
         // find weight and reps by target.id
-        let weight = document.getElementById(`weight-${id}-${order}-${set}`).value;
-        let reps = document.getElementById(`reps-${id}-${order}-${set}`).value;
+        const weightComponent = document.getElementById(`weight-${id}-${order}-${set}`)
+        const repsComponent = document.getElementById(`reps-${id}-${order}-${set}`)
+
+        let weight = weightComponent.value;
+        let reps = repsComponent.value;
+
+        weight = weight === '' ? 0 : parseFloat(weight);
+        reps = reps === '' ? 0 : parseInt(reps);
+
+        if (weight === 0) {
+            weightComponent.style.color = '';
+        }
+        else if (weight > placeholderWeight) {
+            weightComponent.style.color = 'green';
+        } else if (weight === placeholderWeight) {
+            weightComponent.style.color = '';
+        } else {
+            weightComponent.style.color = 'red';
+        }
+
+        if (reps === 0) {
+            repsComponent.style.color = '';
+        }
+        else if (reps > placeholderReps) {
+            repsComponent.style.color = 'green';
+        } else if (reps === placeholderReps) {
+            repsComponent.style.color = '';
+        } else {
+            repsComponent.style.color = 'red';
+        }
 
         dispatch(updateActiveWorkoutExercise({
             exerciseId: id,
             exerciseOrder: order,
             setNumber: set,
-            weight: weight === '' ? 0 : weight,
-            reps: reps === '' ? 0 : reps,
+            weight,
+            reps,
         }));
     };
 
