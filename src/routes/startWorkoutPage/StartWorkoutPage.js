@@ -49,7 +49,7 @@ export default function StartWorkoutPage() {
                 const { startDate, exercises } = workout;
                 const exercisesData = {}
 
-                exercises.map(exercise => {
+                exercises.forEach(exercise => {
                     if (!Object.keys(exercisesData).includes(String(exercise.id))) {
                         exercisesData[exercise.id] = {
                             exerciseName: exercise.alias,

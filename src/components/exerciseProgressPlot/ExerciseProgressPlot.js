@@ -27,14 +27,17 @@ const formatDate = (date) => {
 
 const CustomTick = ({ x, y, payload }) => {
   const { formattedDate, formattedTime } = formatDate(new Date(payload.value));
+  const { index } = payload;
 
   return (
     <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} textAnchor="middle" fill="#666">
-        {/* Adjust dy values to control spacing between date and time */}
-        <tspan x="0" dy="1.2em">{formattedDate}</tspan>
-        <tspan x="0" dy="1.6em">{formattedTime}</tspan>
-      </text>
+      {index % 2 === 0 &&
+        <text x={0} y={0} textAnchor="middle" fill="#666">
+          {/* Adjust dy values to control spacing between date and time */}
+          <tspan x="0" dy="1.2em">{formattedDate}</tspan>
+          <tspan x="0" dy="1.6em">{formattedTime}</tspan>
+        </text>
+      }
     </g>
   );
 };
@@ -46,7 +49,7 @@ function ExerciseProgressPlot({ exerciseName, data }) {
   const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
 
   const renderCustomizedLabel = (props) => {
-    const { x, y, width, height, value } = props;
+    const { x, y, width, value } = props;
     const radius = 13;
 
     return (
@@ -107,6 +110,7 @@ function ExerciseProgressPlot({ exerciseName, data }) {
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis
           dataKey="date"
+          interval={0}
           label={{ value: 'Date', position: 'insideBottom', offset: -40 }} // Adjust offset for correct label placement
           tickMargin={5} // Increase margin for better separation
           tick={<CustomTick />}

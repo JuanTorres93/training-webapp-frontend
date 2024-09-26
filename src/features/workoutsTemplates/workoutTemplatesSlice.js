@@ -72,7 +72,7 @@ export const getUserRecentWorkouts = createAsyncThunk(
         const promises = [];
         const templatesIds = response.map(template => template.template_id);
 
-        templatesIds.map(templateId => {
+        templatesIds.forEach(templateId => {
             promises.push(getTemplateInfo({ templateId }));
         })
 
@@ -88,7 +88,7 @@ export const getUserRecentWorkouts = createAsyncThunk(
             ))
         );
 
-        uniqueTemplates.map(template => {
+        uniqueTemplates.forEach(template => {
             if (template.exercises.length === 0) {
                 thunkAPI.dispatch(deleteTemplateFromUser({ templateId: template.id }));
             }
@@ -116,7 +116,7 @@ export const deleteTemplateFromUser = createAsyncThunk(
         const response = await deleteTemplate(arg);
 
         // Delete all workouts associated with the template
-        workoutIds.map(workoutId => {
+        workoutIds.forEach(workoutId => {
             thunkAPI.dispatch(deleteWorkout({ workoutId }));
         });
 
@@ -170,7 +170,7 @@ export const deleteExerciseFromTemplate = createAsyncThunk(
         const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
 
         // Delete all exercises from workouts associated with the template
-        workoutIds.map(workoutId => {
+        workoutIds.forEach(workoutId => {
             thunkAPI.dispatch(deleteExerciseFromWorkout({
                 workoutId,
                 exerciseId: arg.exerciseId
@@ -300,7 +300,7 @@ const slice = createSlice({
             const deletedExercise = action.payload;
 
             // Remove exercise from corresponding template
-            state[sliceName].userCreatedTemplates.map(template => {
+            state[sliceName].userCreatedTemplates.forEach(template => {
                 if (template.id === deletedExercise.workoutTemplateId) {
                     template.exercises = template.exercises.filter(
                         exercise => exercise.id !== deletedExercise.exerciseId
@@ -333,9 +333,9 @@ const slice = createSlice({
             const { templateId, exerciseId, exerciseOrder } = body;
 
             // Update exercise in corresponding template
-            state[sliceName].userCreatedTemplates.map(template => {
+            state[sliceName].userCreatedTemplates.forEach(template => {
                 if (template.id === templateId) {
-                    template.exercises.map(exercise => {
+                    template.exercises.forEach(exercise => {
                         if (exercise.id === exerciseId && exercise.order === exerciseOrder) {
                             exercise.order = response.exerciseOrder;
                             exercise.sets = response.exerciseSets;
@@ -346,7 +346,7 @@ const slice = createSlice({
 
             // Update exercise in active template if it is the same as the updated one
             if (state[sliceName].activeTemplate && state[sliceName].activeTemplate.id === templateId) {
-                state[sliceName].activeTemplate.exercises.map(exercise => {
+                state[sliceName].activeTemplate.exercises.forEach(exercise => {
                     if (exercise.id === exerciseId && exercise.order === exerciseOrder) {
                         exercise.order = response.exerciseOrder;
                         exercise.sets = response.exerciseSets;

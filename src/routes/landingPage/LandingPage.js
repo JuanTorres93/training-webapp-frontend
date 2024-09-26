@@ -1,4 +1,3 @@
-import PagePresenter from "../../components/pagePresenter/PagePresenter";
 import HeroSection from "../../components/heroSection/HeroSection";
 import LastCTA from "../../components/lastCTA/LastCTA";
 import CompetitiveAdvantage from "../../components/competitiveAdvantage/CompetitiveAdvantage";

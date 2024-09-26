@@ -82,7 +82,7 @@ export const finishWorkout = createAsyncThunk(
         // For each exercise in activeWorkout, add it to the workout
         const promises = []
         activeWorkout.exercises.forEach((exercise) => {
-            const { id: exerciseId, order: exerciseOrder, sets } = exercise;
+            const { id: exerciseId, sets } = exercise;
 
             sets.forEach(async (set) => {
                 const { setNumber, weight, reps } = set;
@@ -234,7 +234,6 @@ const slice = createSlice({
             const removeExerciseFromWorkout = (exercises, exerciseIdToRemove) => {
                 const exerciseIndex = exercises.findIndex(ex => ex.id === exerciseIdToRemove);
                 if (exerciseIndex !== -1) {
-                    const exercise = exercises[exerciseIndex];
                     exercises = exercises.filter(ex => ex.id !== exerciseIdToRemove);
                 }
 
