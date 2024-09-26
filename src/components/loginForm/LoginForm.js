@@ -39,6 +39,9 @@ const LoginForm = ({
                     value={username}
                     disabled={userIsLoading}
                     onChange={(e) => setUsername(e.target.value)}
+                    // Max value defined in DB
+                    maxLength="40"
+                    required
                 />
             </div>
 
@@ -51,13 +54,14 @@ const LoginForm = ({
                     value={password}
                     disabled={userIsLoading}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </div>
 
             <button
                 className={styles.submitButton}
                 type="submit"
-                disabled={userIsLoading}
+                disabled={userIsLoading || !username || !password}
             >
                 {
                     userIsLoading ? <div className='spinner-body-size'></div> : 'Login'

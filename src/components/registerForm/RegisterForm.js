@@ -41,7 +41,15 @@ const RegisterForm = () => {
             <div className={styles.inputContainer}>
                 <div className={styles.inputWrapper}>
                     <label htmlFor='username'>Username</label>
-                    <input className={styles.inputField} id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    <input
+                        className={styles.inputField}
+                        id="username"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        // Max value defined in DB
+                        maxLength="40"
+                        required />
                 </div>
             </div>
 
@@ -50,7 +58,15 @@ const RegisterForm = () => {
 
                 <div className={styles.inputWrapper}>
                     <label htmlFor='email'>Email</label>
-                    <input className={styles.inputField} id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input
+                        className={styles.inputField}
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        // Max value defined in DB
+                        maxLength="70"
+                        required />
                 </div>
             </div>
 

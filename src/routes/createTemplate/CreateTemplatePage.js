@@ -152,6 +152,8 @@ export default function CreateTemplatePage() {
                                                 type="text"
                                                 placeholder="Template name"
                                                 disabled={templatesLoading}
+                                                // Max value defined in DB
+                                                maxLength="40"
                                                 required
                                             />
                                         </div>
@@ -163,6 +165,8 @@ export default function CreateTemplatePage() {
                                                 id="template-description"
                                                 placeholder="Template description"
                                                 disabled={templatesLoading}
+                                                // Max value defined in DB
+                                                maxLength="500"
                                             ></textarea>
                                         </div>
                                     </div>

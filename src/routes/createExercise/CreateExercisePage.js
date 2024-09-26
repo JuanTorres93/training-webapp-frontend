@@ -107,6 +107,8 @@ export default function CreateExercisePage() {
                             value={newExerciseAlias}
                             disabled={exercisesLoading || userIsLoading}
                             onChange={(e) => setNewExerciseAlias(e.target.value)}
+                            // Max value defined in DB
+                            maxLength="40"
                             required
                         />
                     </div>
@@ -125,6 +127,8 @@ export default function CreateExercisePage() {
                             value={newExerciseDescription}
                             disabled={exercisesLoading || userIsLoading}
                             onChange={(e) => setNewExerciseDescription(e.target.value)}
+                            // Max value defined in DB
+                            maxLength="500"
                         >
                         </textarea>
                     </div>
