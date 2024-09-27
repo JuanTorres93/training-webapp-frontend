@@ -8,6 +8,9 @@ import {
 } from '../../features/user/userSlice';
 import { Outlet } from 'react-router-dom';
 import { NavLink, Link } from 'react-router-dom';
+
+import Alert from '../modals/alert/Alert';
+import ConfirmDialog from '../modals/confirmDialog/ConfirmDialog';
 import styles from './NavBar.module.css'
 
 function NavBar() {
@@ -16,6 +19,8 @@ function NavBar() {
     const userIsLoading = useSelector(selectUserIsLoading);
 
     const [sessionExpiresAt, setSessionExpiresAt] = useState(null);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isAlertOpen, setIsAlertOpen] = useState(false);
 
     // Effect for auto logout if session is expired
     // Used mainly for when user is already logged in and the session expires while the user is NOT on the page
@@ -43,7 +48,9 @@ function NavBar() {
         if (!sessionExpiresAt) return;
 
         // Run intervals every minute
-        const frequencyInMs = 60 * 1000;
+        // const frequencyInMs = 60 * 1000;
+        // TODO DELETE BELOW AND UNCOMMENT ABOVE
+        const frequencyInMs = 1000;
 
         const sessionAboutToExpireInterval = setInterval(() => {
             const currentTime = new Date().toISOString();
@@ -55,10 +62,7 @@ function NavBar() {
             const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
 
             if (expiryDateMinusMargin <= currentTime) {
-                const userConfirmed = window.confirm(`Your session is going to expire in ${marginToWarnUserinMs / 1000 / 60} minutes. Do you want to extend the session?`);
-                if (userConfirmed) {
-                    dispatch(extendUserSession());
-                }
+                setIsConfirmOpen(true);
                 clearInterval(sessionAboutToExpireInterval);
             }
         }, frequencyInMs);
@@ -67,8 +71,10 @@ function NavBar() {
             const currentTime = new Date().toISOString();
 
             if (sessionExpiresAt <= currentTime) {
+                setIsAlertOpen(true);
+                // Close confirm dialog if open
+                setIsConfirmOpen(false);
                 dispatch(logoutUser());
-                alert('Your session has expired');
                 clearInterval(sessionExpiredInterval);
             }
         }, frequencyInMs);
@@ -123,6 +129,25 @@ function NavBar() {
             </nav>
 
             <Outlet />
+
+
+
+            {/* Modals */}
+            <ConfirmDialog
+                isOpen={isConfirmOpen}
+                onRequestClose={() => setIsConfirmOpen(false)}
+                onConfirm={() => {
+                    dispatch(extendUserSession());
+                    setIsConfirmOpen(false);
+                }}
+                message={`Your session is going to expire. Do you want to extend the session?`}
+            />
+
+            <Alert
+                isOpen={isAlertOpen}
+                onRequestClose={() => setIsAlertOpen(false)}
+                message='Your session has expired'
+            />
         </>
     );
 };
