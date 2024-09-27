@@ -23,8 +23,6 @@ import StartWorkoutPage from './routes/startWorkoutPage/StartWorkoutPage';
 import RunWorkoutPage from './routes/runWorkoutPage/RunWorkoutPage';
 import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
-import Products from './routes/ProductsPage';
-import SingleProductPage from './routes/SingleProductPage';
 import RegisterPage from './routes/registerPage/RegisterPage';
 import LoginPage from './routes/loginPage/LoginPage';
 
@@ -89,14 +87,6 @@ const router = createBrowserRouter([
       {
         path: "generic-child",
         element: <GenericChild />
-      },
-      {
-        path: "products",
-        element: <Products />
-      },
-      {
-        path: "products/:id",
-        element: <SingleProductPage />
       },
       {
         path: "register",
