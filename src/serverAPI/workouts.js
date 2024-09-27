@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { serverBaseURL } from "./serverAPIConfig";
 
 const END_POINT = serverBaseURL + '/workouts';
@@ -9,28 +11,23 @@ export async function createWorkout({ alias, description }) {
         description,
     };
 
-    const response = await fetch(END_POINT, {
-        method: 'POST',
+    const response = await axios.post(END_POINT, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getLastWorkoutFromTemplate({ templateId, userId }) {
     const ep = `${END_POINT}/last/${templateId}/user/${userId}`;
-    const response = await fetch(ep, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(ep, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
+    const jsonResponse = response.data;
 
     const lastWorkout = {
         ...jsonResponse,
@@ -42,14 +39,11 @@ export async function getLastWorkoutFromTemplate({ templateId, userId }) {
 
 export async function getLastNWorkoutsFromTemplate({ templateId, userId, numberOfWorkouts }) {
     const ep = `${END_POINT}/last/${templateId}/user/${userId}/${numberOfWorkouts}`;
-    const response = await fetch(ep, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(ep, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet, reps, weight }) {
@@ -60,63 +54,47 @@ export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet,
         weight,
     };
 
-    const response = await fetch(END_POINT + `/${workoutId}`, {
-        method: 'POST',
+    const response = await axios.post(`${END_POINT}/${workoutId}`, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function deleteWorkout({ workoutId }) {
-    const response = await fetch(END_POINT + `/${workoutId}`, {
-        method: 'DELETE',
-        credentials: 'include',
+    const response = await axios.delete(`${END_POINT}/${workoutId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function deleteExerciseFromWorkout({ workoutId, exerciseId }) {
-    const response = await fetch(END_POINT + `/${workoutId}/exercises/${exerciseId}`, {
-        method: 'DELETE',
-        credentials: 'include',
+    const response = await axios.delete(`${END_POINT}/${workoutId}/exercises/${exerciseId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function addFinishDateToWorkout({ workoutId }) {
     const ep = `${END_POINT}/addFinishDate/${workoutId}`;
-    const response = await fetch(ep, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(ep, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getWorkoutsIdsAssociatedWithTemplateAndUser({ templateName }) {
     // User is checked in the backend with the login
     const ep = `${END_POINT}/all/${templateName}`;
-    const response = await fetch(ep, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(ep, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };

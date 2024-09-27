@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { serverBaseURL } from "./serverAPIConfig";
 
 const endpoint = serverBaseURL + '/workouts/templates';
@@ -10,18 +12,14 @@ export async function createTemplate({ userId, alias, description }) {
         description,
     };
 
-    const response = await fetch(endpoint, {
-        method: 'POST',
+    const response = await axios.post(endpoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOrder, exerciseSets }) {
@@ -31,18 +29,14 @@ export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOr
         exerciseSets,
     };
 
-    const response = await fetch(endpoint + `/${templateId}`, {
-        method: 'POST',
+    const response = await axios.post(endpoint + `/${templateId}`, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function updateExerciseFromTemplate({
@@ -59,72 +53,53 @@ export async function updateExerciseFromTemplate({
         exerciseSets,
     };
 
-    const response = await fetch(ep, {
-        method: 'PUT',
+    const response = await axios.put(ep, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getAllUserTemplates({ userId }) {
-    const response = await fetch(endpoint + `/all/${userId}`, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(endpoint + `/all/${userId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getTemplateInfo({ templateId }) {
-    const response = await fetch(endpoint + `/${templateId}`, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(endpoint + `/${templateId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
-    const response = await fetch(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function deleteTemplate({ templateId }) {
-    const response = await fetch(endpoint + `/${templateId}`, {
-        method: 'DELETE',
-        credentials: 'include',
+    const response = await axios.delete(endpoint + `/${templateId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function removeExerciseFromTemplate({ templateId, exerciseId, exerciseOrder }) {
     const ep = endpoint + `/${templateId}/exercises/${exerciseId}/${exerciseOrder}`;
-    const response = await fetch(ep, {
-        method: 'DELETE',
-        credentials: 'include',
+    const response = await axios.delete(ep, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };

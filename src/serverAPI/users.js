@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { serverBaseURL } from "./serverAPIConfig";
 
 const registerEndPoint = serverBaseURL + '/users';
@@ -9,18 +11,14 @@ export async function register(alias, email, password) {
         password,
     };
 
-    const response = await fetch(registerEndPoint, {
-        method: 'POST',
+    const response = await axios.post(registerEndPoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
-
     try {
-        const jsonResponse = await response.json();
-        return jsonResponse;
+        return response.data;
     } catch (error) {
         return response;
     }

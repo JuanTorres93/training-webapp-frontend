@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { serverBaseURL } from "./serverAPIConfig";
 
 const endpoint = serverBaseURL + '/exercises';
@@ -9,50 +11,37 @@ export async function createExercise(alias, description) {
         description,
     };
 
-    const response = await fetch(endpoint, {
-        method: 'POST',
+    const response = await axios.post(endpoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
-        credentials: 'include',
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function getAllExercises() {
-    const response = await fetch(endpoint, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(endpoint, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 
 export async function getAllExercisesFromUser(userId) {
-    const response = await fetch(endpoint + `/all/${userId}`, {
-        method: 'GET',
-        credentials: 'include',
+    const response = await axios.get(endpoint + `/all/${userId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
 
 export async function deleteExercise(exerciseId) {
-    const response = await fetch(endpoint + `/${exerciseId}`, {
-        method: 'DELETE',
-        credentials: 'include',
+    const response = await axios.delete(endpoint + `/${exerciseId}`, {
+        withCredentials: true,
     });
 
-    const jsonResponse = await response.json();
-
-    return jsonResponse;
+    return response.data;
 };
