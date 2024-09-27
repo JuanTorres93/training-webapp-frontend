@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
@@ -10,7 +10,7 @@ export async function login(username, password) {
         password,
     };
 
-    const response = await axios.post(loginEndPoint, body, {
+    const response = await apiClient.post(loginEndPoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -21,7 +21,7 @@ export async function login(username, password) {
 };
 
 export async function extendSession() {
-    const response = await axios.post(loginEndPoint + '/extend-session', {}, {
+    const response = await apiClient.post(loginEndPoint + '/extend-session', {}, {
         withCredentials: true,
     });
 
@@ -32,7 +32,7 @@ export async function loginGoogle() {
     const endPoint = loginEndPoint + '/google';
 
     console.log("Sending login with GOOGLE request");
-    const response = await axios.get(endPoint, {
+    const response = await apiClient.get(endPoint, {
         // withCredentials: true,
     });
 

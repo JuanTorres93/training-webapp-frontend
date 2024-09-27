@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
@@ -11,7 +11,7 @@ export async function createExercise(alias, description) {
         description,
     };
 
-    const response = await axios.post(endpoint, body, {
+    const response = await apiClient.post(endpoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -22,7 +22,7 @@ export async function createExercise(alias, description) {
 };
 
 export async function getAllExercises() {
-    const response = await axios.get(endpoint, {
+    const response = await apiClient.get(endpoint, {
         withCredentials: true,
     });
 
@@ -31,7 +31,7 @@ export async function getAllExercises() {
 
 
 export async function getAllExercisesFromUser(userId) {
-    const response = await axios.get(endpoint + `/all/${userId}`, {
+    const response = await apiClient.get(endpoint + `/all/${userId}`, {
         withCredentials: true,
     });
 
@@ -39,7 +39,7 @@ export async function getAllExercisesFromUser(userId) {
 };
 
 export async function deleteExercise(exerciseId) {
-    const response = await axios.delete(endpoint + `/${exerciseId}`, {
+    const response = await apiClient.delete(endpoint + `/${exerciseId}`, {
         withCredentials: true,
     });
 

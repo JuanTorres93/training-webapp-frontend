@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
@@ -12,7 +12,7 @@ export async function createTemplate({ userId, alias, description }) {
         description,
     };
 
-    const response = await axios.post(endpoint, body, {
+    const response = await apiClient.post(endpoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -29,7 +29,7 @@ export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOr
         exerciseSets,
     };
 
-    const response = await axios.post(endpoint + `/${templateId}`, body, {
+    const response = await apiClient.post(endpoint + `/${templateId}`, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -53,7 +53,7 @@ export async function updateExerciseFromTemplate({
         exerciseSets,
     };
 
-    const response = await axios.put(ep, body, {
+    const response = await apiClient.put(ep, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -64,7 +64,7 @@ export async function updateExerciseFromTemplate({
 };
 
 export async function getAllUserTemplates({ userId }) {
-    const response = await axios.get(endpoint + `/all/${userId}`, {
+    const response = await apiClient.get(endpoint + `/all/${userId}`, {
         withCredentials: true,
     });
 
@@ -72,7 +72,7 @@ export async function getAllUserTemplates({ userId }) {
 };
 
 export async function getTemplateInfo({ templateId }) {
-    const response = await axios.get(endpoint + `/${templateId}`, {
+    const response = await apiClient.get(endpoint + `/${templateId}`, {
         withCredentials: true,
     });
 
@@ -80,7 +80,7 @@ export async function getTemplateInfo({ templateId }) {
 };
 
 export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
-    const response = await axios.get(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
+    const response = await apiClient.get(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
         withCredentials: true,
     });
 
@@ -88,7 +88,7 @@ export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
 };
 
 export async function deleteTemplate({ templateId }) {
-    const response = await axios.delete(endpoint + `/${templateId}`, {
+    const response = await apiClient.delete(endpoint + `/${templateId}`, {
         withCredentials: true,
     });
 
@@ -97,7 +97,7 @@ export async function deleteTemplate({ templateId }) {
 
 export async function removeExerciseFromTemplate({ templateId, exerciseId, exerciseOrder }) {
     const ep = endpoint + `/${templateId}/exercises/${exerciseId}/${exerciseOrder}`;
-    const response = await axios.delete(ep, {
+    const response = await apiClient.delete(ep, {
         withCredentials: true,
     });
 

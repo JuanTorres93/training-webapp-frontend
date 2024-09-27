@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
@@ -11,7 +11,7 @@ export async function createWorkout({ alias, description }) {
         description,
     };
 
-    const response = await axios.post(END_POINT, body, {
+    const response = await apiClient.post(END_POINT, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -23,7 +23,7 @@ export async function createWorkout({ alias, description }) {
 
 export async function getLastWorkoutFromTemplate({ templateId, userId }) {
     const ep = `${END_POINT}/last/${templateId}/user/${userId}`;
-    const response = await axios.get(ep, {
+    const response = await apiClient.get(ep, {
         withCredentials: true,
     });
 
@@ -39,7 +39,7 @@ export async function getLastWorkoutFromTemplate({ templateId, userId }) {
 
 export async function getLastNWorkoutsFromTemplate({ templateId, userId, numberOfWorkouts }) {
     const ep = `${END_POINT}/last/${templateId}/user/${userId}/${numberOfWorkouts}`;
-    const response = await axios.get(ep, {
+    const response = await apiClient.get(ep, {
         withCredentials: true,
     });
 
@@ -54,7 +54,7 @@ export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet,
         weight,
     };
 
-    const response = await axios.post(`${END_POINT}/${workoutId}`, body, {
+    const response = await apiClient.post(`${END_POINT}/${workoutId}`, body, {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -65,7 +65,7 @@ export async function addExerciseToWorkout({ workoutId, exerciseId, exerciseSet,
 };
 
 export async function deleteWorkout({ workoutId }) {
-    const response = await axios.delete(`${END_POINT}/${workoutId}`, {
+    const response = await apiClient.delete(`${END_POINT}/${workoutId}`, {
         withCredentials: true,
     });
 
@@ -73,7 +73,7 @@ export async function deleteWorkout({ workoutId }) {
 };
 
 export async function deleteExerciseFromWorkout({ workoutId, exerciseId }) {
-    const response = await axios.delete(`${END_POINT}/${workoutId}/exercises/${exerciseId}`, {
+    const response = await apiClient.delete(`${END_POINT}/${workoutId}/exercises/${exerciseId}`, {
         withCredentials: true,
     });
 
@@ -82,7 +82,7 @@ export async function deleteExerciseFromWorkout({ workoutId, exerciseId }) {
 
 export async function addFinishDateToWorkout({ workoutId }) {
     const ep = `${END_POINT}/addFinishDate/${workoutId}`;
-    const response = await axios.get(ep, {
+    const response = await apiClient.get(ep, {
         withCredentials: true,
     });
 
@@ -92,7 +92,7 @@ export async function addFinishDateToWorkout({ workoutId }) {
 export async function getWorkoutsIdsAssociatedWithTemplateAndUser({ templateName }) {
     // User is checked in the backend with the login
     const ep = `${END_POINT}/all/${templateName}`;
-    const response = await axios.get(ep, {
+    const response = await apiClient.get(ep, {
         withCredentials: true,
     });
 

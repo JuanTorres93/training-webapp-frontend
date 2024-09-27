@@ -1,10 +1,10 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
 const endPoint = serverBaseURL + '/logout';
 
 export async function logout() {
-    const response = await axios.get(endPoint);
+    const response = await apiClient.get(endPoint);
     return response;
 };

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
@@ -11,7 +11,7 @@ export async function register(alias, email, password) {
         password,
     };
 
-    const response = await axios.post(registerEndPoint, body, {
+    const response = await apiClient.post(registerEndPoint, body, {
         headers: {
             'Content-Type': 'application/json',
         },
