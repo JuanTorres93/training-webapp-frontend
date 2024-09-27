@@ -12,12 +12,7 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
     response => response, // Let other responses pass through
     error => {
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('INTERCEPTS?');
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('error.response');
-        console.log(error.response);
-        if (error.response.status === 429) {
+        if (error.response && error.response.status === 429) {
             // Handle 429 error globally
             alert("You have sent too many requests. Please try again later.");
         }
