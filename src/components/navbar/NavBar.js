@@ -140,7 +140,7 @@ function NavBar() {
                     dispatch(extendUserSession());
                     setIsConfirmOpen(false);
                 }}
-                message={`Your session is going to expire. Do you want to extend the session?`}
+                message={`Your session is going to expire.\nDo you want to extend it?`}
             />
 
             <Alert

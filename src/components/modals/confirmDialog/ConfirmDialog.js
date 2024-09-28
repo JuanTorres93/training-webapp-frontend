@@ -14,8 +14,10 @@ const ConfirmDialog = ({ isOpen, onRequestClose, onConfirm, message }) => {
         >
             <div className="modal-content">
                 <p>{message}</p>
-                <button onClick={onConfirm}>Yes</button>
-                <button onClick={onRequestClose}>No</button>
+                <div className="user-choice-container">
+                    <button className='dull-user-choice' onClick={onRequestClose}>No</button>
+                    <button onClick={onConfirm}>Yes</button>
+                </div>
             </div>
         </Modal>
     );

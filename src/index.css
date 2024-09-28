@@ -247,22 +247,45 @@ a:hover {
 
 .modal {
     background: var(--background-color);
-    padding: 20px;
+    padding: 2rem 0;
     border-radius: 4px;
     max-width: 500px;
-    width: 100%;
+    width: 50%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content {
     display: flex;
-    justify-items: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content .user-choice-container {
+    display: flex;
+    align-items: center;
+}
+
+.modal-content .user-choice-container .dull-user-choice {
+    background-color: var(--disabled-color);
+}
+
+.modal-content .user-choice-container .dull-user-choice:hover {
+    background-color: var(--accent-color);
+}
+
+.modal-content>*,
+.modal-content .user-choice-container>* {
+    font-size: var(--body-font-size);
 }
 
 .modal-content p {
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    text-align: center;
+    /* Make \n act as a line break */
+    white-space: pre-line;
 }
 
 .modal-content button {
-    margin: 5px;
+    width: 8rem;
+    max-width: 12rem;
 }

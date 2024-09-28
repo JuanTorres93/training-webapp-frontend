@@ -14,7 +14,7 @@ const Alert = ({ isOpen, onRequestClose, message }) => {
         >
             <div className="modal-content">
                 <p>{message}</p>
-                <button onClick={onRequestClose}>OK</button>
+                <button onClick={onRequestClose}>Ok</button>
             </div>
         </Modal>
     );
