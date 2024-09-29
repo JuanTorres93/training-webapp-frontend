@@ -10,7 +10,6 @@ export const authMiddleware = store => next => action => {
         if (payload?.msg === "Not logged in.") {
             store.dispatch((dispatch, getState) => {
                 dispatch(logoutUser());
-                // window.location.href = '/login'; // Redirigir al login
             });
         }
     }

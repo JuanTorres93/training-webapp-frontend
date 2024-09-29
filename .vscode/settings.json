@@ -1,24 +1,24 @@
 {
     "folder-customization.folders": [
         {
-            "path": "training-webapp-frontend/src/components/",
+            "path": "frontend/src/components/",
             "color": "foldercustomization.AnsiColor70",
             "badge": "🧩"
         },
         {
-            "path": "training-webapp-frontend/src/features/",
+            "path": "frontend/src/features/",
             "color": "foldercustomization.AnsiColor69",
             "badge": "🍕"
         },
         {
-            "path": "training-webapp-frontend/src/routes/",
+            "path": "frontend/src/routes/",
             "color": "foldercustomization.AnsiColor143",
             "badge": "📃"
         },
         {
-            "path": "training-webapp-frontend/src/serverAPI/",
+            "path": "frontend/src/serverAPI/",
             "color": "foldercustomization.AnsiColor211",
             "badge": "🖥️"
-        }
+        },
     ]
 }

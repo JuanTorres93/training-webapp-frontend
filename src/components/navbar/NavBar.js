@@ -48,9 +48,7 @@ function NavBar() {
         if (!sessionExpiresAt) return;
 
         // Run intervals every minute
-        // const frequencyInMs = 60 * 1000;
-        // TODO DELETE BELOW AND UNCOMMENT ABOVE
-        const frequencyInMs = 1000;
+        const frequencyInMs = 60 * 1000;
 
         const sessionAboutToExpireInterval = setInterval(() => {
             const currentTime = new Date().toISOString();
@@ -106,7 +104,7 @@ function NavBar() {
                     </div>
                 }
 
-                {/* Button for login if user is not logged in. Other wise logout button and profile menu */}
+                {/* Button for login if user is not logged in. Otherwise logout button and profile menu */}
                 <div className={styles.navBarLoginContainer}>
                     {!user ? (
                         <>
