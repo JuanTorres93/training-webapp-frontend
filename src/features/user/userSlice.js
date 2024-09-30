@@ -61,8 +61,13 @@ export const logoutUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     `${sliceName}/registerUser`,
     async (arg, thunkAPI) => {
-        // arg = { username, email, password }
-        const response = await register(arg.username, arg.email, arg.password);
+        // arg = { username, email, password, registeredViaOauth }
+        const response = await register(
+            arg.username,
+            arg.email,
+            arg.password,
+            arg.registeredViaOAuth,
+        );
 
         if (response.id) {
             // Get exercises from user

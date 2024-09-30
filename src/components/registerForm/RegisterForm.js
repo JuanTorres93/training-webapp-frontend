@@ -20,7 +20,12 @@ const RegisterForm = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        dispatch(registerUser({ username, email, password }))
+        dispatch(registerUser({
+            username,
+            email,
+            password,
+            registeredViaOAuth: false,
+        }))
             .then((response) => {
                 if (Object.keys(response.payload).includes('id')) {
                     // clear form

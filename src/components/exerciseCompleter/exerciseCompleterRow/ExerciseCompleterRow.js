@@ -64,10 +64,10 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
                     className={styles.inputField}
                     id={weightId}
                     type="number"
+                    inputMode='decimal'
                     placeholder={placeholderWeight}
                     value={weight}
                     onChange={handleWeightChange}
-                    inputMode='decimal'
                 />
                 <span className={`${styles.label} ${weightColor} ${styles.bold}`}>
                     ({placeholderWeight} prev)
@@ -80,10 +80,10 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
                     className={styles.inputField}
                     id={repsId}
                     type="number"
+                    inputMode='numeric'
                     placeholder={placeholderReps}
                     value={reps}
                     onChange={handleRepsChange}
-                    inputMode='numeric'
                 />
                 <span
                     className={`${styles.label} ${repsColor} ${styles.bold}`}>

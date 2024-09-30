@@ -4,11 +4,12 @@ import { serverBaseURL } from "./serverAPIConfig";
 
 const registerEndPoint = serverBaseURL + '/users';
 
-export async function register(alias, email, password) {
+export async function register(alias, email, password, registeredViaOAuth) {
     const body = {
         alias,
         email,
         password,
+        registeredViaOAuth,
     };
 
     const response = await apiClient.post(registerEndPoint, body, {
