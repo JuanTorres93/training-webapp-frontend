@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import RecentWorkoutsCarousel from "../../components/recentWorkoutCarousel/RecentWorkoutsCarousel";
 import PagePresenter from "../../components/pagePresenter/PagePresenter";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
 
 import {
@@ -12,19 +13,57 @@ import {
 
 import { selectWorkoutsLoading } from "../../features/workouts/workoutSlice";
 import { selectExercisesLoading } from "../../features/exercises/exercisesSlice";
-import { selectUser } from "../../features/user/userSlice";
+import { selectUser, loginUser } from "../../features/user/userSlice";
 
 import LandingPage from "../landingPage/LandingPage";
 
+import { userValidationSchema } from "../../validators/userValidator";
+
 
 export default function HomePage() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(selectUser);
     const recentWorkouts = useSelector(selectRecentWorkouts);
     const templatesLoading = useSelector(selectTemplatesLoading);
     const workoutsLoading = useSelector(selectWorkoutsLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
+    const location = useLocation();
 
     const isLoading = templatesLoading || workoutsLoading || exercisesLoading;
+
+    useEffect(() => {
+        // Crear una instancia de URLSearchParams para obtener los query params
+        const queryParams = new URLSearchParams(location.search);
+
+        if (queryParams.size > 0) {
+            const userViaOAuth = {
+                id: encodeURIComponent(queryParams.get("id")),
+                alias: queryParams.get("alias"),
+                email: queryParams.get("email"),
+                last_name: queryParams.get("last_name"),
+                second_last_name: queryParams.get("second_last_name"),
+                img: queryParams.get("img"),
+                expirationDate: queryParams.get("expirationDate"),
+            };
+            // Validar el objeto `user`
+            userValidationSchema.validate(userViaOAuth)
+                .then((validatedData) => {
+                    dispatch(loginUser({
+                        userIdOAuth: validatedData.id,
+                    })).then((response) => {
+                        navigate("/");
+                    });
+                })
+                .catch((err) => {
+                    // TODO DELETE THESE DEBUG LOGS
+                    console.log('err');
+                    console.log(err);
+                });
+        }
+
+    }, [location]);
+
 
     return (
         <div>

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { register } from "../../serverAPI/users";
+import { register, selectUserById } from "../../serverAPI/users";
 import { login, extendSession } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import { getExercisesFromUser } from "../exercises/exercisesSlice";
@@ -16,8 +16,20 @@ export const loginUser = createAsyncThunk(
     `${sliceName}/loginUser`,
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
-        const response = await login(arg.username, arg.password);
-        const userId = response.user.id;
+
+        let userId = null;
+        let user = null;
+        // LocalStrategy login
+        if (arg.username && arg.password) {
+            const response = await login(arg.username, arg.password);
+            user = response.user;
+            userId = response.user.id;
+        }
+        // OAuth login
+        else if (arg.userIdOAuth) {
+            userId = arg.userIdOAuth;
+            user = await selectUserById(userId);
+        }
         // Get user's templates
         await thunkAPI.dispatch(getAllUserCreatedTemplates({
             userId
@@ -31,7 +43,11 @@ export const loginUser = createAsyncThunk(
             userId
         }));
 
-        return response;
+        // TODO DELETE THESE DEBUG LOGS
+        console.log('user after login');
+        console.log(user);
+
+        return user;
     }
 );
 
@@ -97,7 +113,7 @@ const userSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
-            const user = action.payload.user;
+            const user = action.payload;
             state[sliceName] = user;
             state.isLoading = false;
             state.hasError = false;
