@@ -19,3 +19,28 @@
 .oauthContainer>* {
     margin: 0 0.5rem;
 }
+
+.dividerContainer {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    min-width: 22rem;
+    max-width: 30rem;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.dividerContainer::before,
+.dividerContainer::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.dividerText {
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    margin: auto;
+}

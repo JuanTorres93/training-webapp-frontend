@@ -46,11 +46,15 @@ const LoginPage = () => {
                         userIsLoading={userIsLoading}
                     />
 
+                    <div className={styles.dividerContainer}>
+                        <span className={styles.dividerText}>OR</span>
+                    </div>
+
                     <div className={styles.oauthContainer}>
                         <OAuthLogin
                             callbackUrl={`${serverBaseURL}/login/google`}
                             serviceName="Google"
-                            logoPath="/favicon.ico"
+                            logoPath="/images/oauthLogos/googleLogo.png"
                         />
                         {/* <OAuthLogin
                         callbackUrl={`${serverBaseURL}/login/facebook`}
