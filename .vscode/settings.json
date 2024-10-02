@@ -20,5 +20,9 @@
             "color": "foldercustomization.AnsiColor211",
             "badge": "🖥️"
         },
+        {
+            "path": "frontend/src/validators/",
+            "color": "foldercustomization.AnsiColor9"
+        }
     ]
 }
