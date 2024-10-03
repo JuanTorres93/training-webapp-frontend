@@ -43,10 +43,6 @@ export const loginUser = createAsyncThunk(
             userId
         }));
 
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('user after login');
-        console.log(user);
-
         return user;
     }
 );

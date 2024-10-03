@@ -31,13 +31,9 @@ export async function extendSession() {
 export async function loginGoogle() {
     const endPoint = loginEndPoint + '/google';
 
-    console.log("Sending login with GOOGLE request");
     const response = await apiClient.get(endPoint, {
         // withCredentials: true,
     });
-
-    // TODO remove this log
-    console.log(response);
 
     return response.data;
 };
