@@ -225,7 +225,13 @@ export default function CreateTemplatePage() {
                             {!userHasExercises && (
                                 <div className={styles.createTemplatePageContainer}>
                                     <p style={{ fontSize: 'var(--subheading-font-size)', marginBottom: '2rem' }}>You don't have any exercises yet.</p>
-                                    <button className="primary-button" onClick={() => navigate('/createExercise')}>Create an exercise</button>
+                                    <button
+                                        className="primary-button"
+                                        onClick={() => navigate('/createExercise')}
+                                        style={{ padding: '1.5rem' }}
+                                    >
+                                        Create an exercise
+                                    </button>
                                 </div>
                             )}
 

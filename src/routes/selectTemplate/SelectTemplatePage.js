@@ -187,7 +187,13 @@ export default function SelectTemplatePage() {
                                         <p style={{ fontSize: 'var(--subheading-font-size)', marginBottom: '2rem' }}>
                                             You don't have any templates yet.
                                         </p>
-                                        <button className="primary-button" onClick={() => navigate('/createTemplate')}>Create a template</button>
+                                        <button
+                                            className="primary-button"
+                                            onClick={() => navigate('/createTemplate')}
+                                            style={{ padding: '1.5rem' }}
+                                        >
+                                            Create a template
+                                        </button>
                                     </div>
                                 }
                                 {templatesLoading &&
