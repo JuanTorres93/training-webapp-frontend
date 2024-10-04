@@ -29,9 +29,16 @@ export async function getAllExercises() {
     return response.data;
 };
 
-
 export async function getAllExercisesFromUser(userId) {
     const response = await apiClient.get(endpoint + `/all/${userId}`, {
+        withCredentials: true,
+    });
+
+    return response.data;
+};
+
+export async function getCommonExercises() {
+    const response = await apiClient.get(endpoint + `/common`, {
         withCredentials: true,
     });
 

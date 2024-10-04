@@ -4,6 +4,7 @@ import { getAllExercisesFromUser } from "../../serverAPI/exercises";
 import {
     createExercise as createExerciseInDb,
     deleteExercise as deleteExerciseInDb,
+    getCommonExercises as getCommonExercisesFromDb,
 } from "../../serverAPI/exercises";
 
 export const sliceName = 'exercises';
@@ -13,6 +14,16 @@ export const getExercisesFromUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
         const response = await getAllExercisesFromUser(arg.userId);
+
+        return response;
+    }
+);
+
+export const getCommonExercises = createAsyncThunk(
+    `${sliceName}/getCommonExercises`,
+    async (arg, thunkAPI) => {
+        // Error is handled from redux state when promise is rejected
+        const response = await getCommonExercisesFromDb();
 
         return response;
     }
@@ -46,6 +57,7 @@ const exercisesSlice = createSlice({
     initialState: {
         [sliceName]: {
             userCreatedExercises: null,
+            commonExercises: null,
             exercisesInNewTemplate: [],
         },
         isLoading: false,
@@ -59,21 +71,33 @@ const exercisesSlice = createSlice({
             const exerciseId = action.payload.id;
             const exerciseInfo = {
                 ...action.payload,
+                // TODO change default sets to 3?
                 sets: 1,
             };
             state[sliceName].exercisesInNewTemplate.push(exerciseInfo);
-            // Remove Id from userCreatedExercises
-            state[sliceName].userCreatedExercises = state[sliceName].userCreatedExercises.filter(exercise => exercise.id !== exerciseId);
+
+            // Remove Id from userCreatedExercises of commonExercises, where necessary
+            if (exerciseInfo.isCommon) {
+                state[sliceName].commonExercises = state[sliceName].commonExercises.filter(exercise => exercise.id !== exerciseId);
+            } else {
+                state[sliceName].userCreatedExercises = state[sliceName].userCreatedExercises.filter(exercise => exercise.id !== exerciseId);
+            }
         },
         removeExerciseFromTemplate: (state, action) => {
             // action.payload is an exercise id
             const exerciseId = action.payload;
             const exercise = state[sliceName].exercisesInNewTemplate.filter(exercise => exercise.id === exerciseId)[0];
             state[sliceName].exercisesInNewTemplate = state[sliceName].exercisesInNewTemplate.filter(exercise => exercise.id !== exerciseId);
-            state[sliceName].userCreatedExercises.push(exercise);
+
+            if (exercise.isCommon) {
+                state[sliceName].commonExercises.push(exercise);
+            } else {
+                state[sliceName].userCreatedExercises.push(exercise);
+            }
 
             // Order by id
             state[sliceName].userCreatedExercises.sort((a, b) => a.id - b.id);
+            state[sliceName].commonExercises.sort((a, b) => a.id - b.id);
             state[sliceName].exercisesInNewTemplate.sort((a, b) => a.id - b.id);
         },
         updateExerciseSets: (state, action) => {
@@ -103,6 +127,27 @@ const exercisesSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getExercisesFromUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Get common exercises
+        builder.addCase(getCommonExercises.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(getCommonExercises.fulfilled, (state, action) => {
+            const commonExercises = action.payload.map(exercise => {
+                return {
+                    ...exercise,
+                    isCommon: true,
+                };
+            });
+            state[sliceName].commonExercises = commonExercises;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(getCommonExercises.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })
@@ -149,6 +194,7 @@ const exercisesSlice = createSlice({
 
 // Export selectors
 export const selectUserExercises = state => state[sliceName][sliceName].userCreatedExercises;
+export const selectCommonExercises = state => state[sliceName][sliceName].commonExercises;
 export const selectExercisesLoading = state => state[sliceName].isLoading;
 export const selectExercisesError = state => state[sliceName].hasError;
 

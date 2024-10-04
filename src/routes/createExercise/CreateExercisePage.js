@@ -10,7 +10,7 @@ import ListNameDescription from "../../components/listNameDescription/ListNameDe
 
 import { getExercisesFromUser, selectExercisesLoading } from "../../features/exercises/exercisesSlice";
 import { createExercise, deleteExercise } from "../../features/exercises/exercisesSlice";
-import { selectUserExercises } from "../../features/exercises/exercisesSlice";
+import { selectUserExercises, selectCommonExercises } from "../../features/exercises/exercisesSlice";
 import { getAllUserCreatedTemplates, getUserRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 export default function CreateExercisePage() {
@@ -19,11 +19,17 @@ export default function CreateExercisePage() {
     const user = useSelector(selectUser);
     const userIsLoading = useSelector(selectUserIsLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
-    const availableExercises = useSelector(selectUserExercises);
+    const userExercises = useSelector(selectUserExercises);
+    const commonExercises = useSelector(selectCommonExercises);
 
+    const [availableExercises, setAvailableExercises] = useState([]);
     const [newExerciseAlias, setNewExerciseAlias] = useState('');
     const [newExerciseDescription, setNewExerciseDescription] = useState('');
     const [selectedExercise, setSelectedExercise] = useState({});
+
+    useEffect(() => {
+        setAvailableExercises([...userExercises, ...commonExercises]);
+    }, [userExercises, commonExercises]);
 
     useEffect(() => {
         if (!user) {
@@ -39,7 +45,6 @@ export default function CreateExercisePage() {
             />
         } />;
     }
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();

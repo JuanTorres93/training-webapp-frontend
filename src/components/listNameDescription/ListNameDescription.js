@@ -23,6 +23,7 @@ function ListNameDescription({
                         id={exercise.id}
                         name={exercise.name}
                         description={exercise.description}
+                        isCommon={exercise.isCommon}
                         isLoading={isLoading}
                         handleClick={handleExerciseClick}
                         handleDoubleClick={handleExerciseDoubleClick}

@@ -5,13 +5,14 @@ function ExercisePresenter({
     id,
     name,
     description,
+    isCommon = false,
     isLoading = false,
     handleClick = () => { },
     handleDoubleClick = () => { },
     handleDeleteClick = () => { }
 }) {
     // The ExercisePresenter component renders the name and description of an exercise.
-    const exerciseInfo = { id, name, description };
+    const exerciseInfo = { id, name, description, isCommon };
 
     return (
         <div data-testid="exercisePresenter" className={styles.container}
@@ -24,11 +25,13 @@ function ExercisePresenter({
                 <div className={styles.exerciseDescription}>{description}</div>
             </div>
 
-            <div className={`${styles.deleteContainer} ${isLoading ? styles.deleteContainerDisabled : styles.deleteContainerEnabled}`}
-                onClick={() => { !isLoading && handleDeleteClick(exerciseInfo) }}>
-                {/* spinner is defined in index.css for global usage */}
-                {isLoading ? <div className='spinner-body-size'></div> : 'x'} {/* Conditional rendering */}
-            </div>
+            {!isCommon && (
+                <div className={`${styles.deleteContainer} ${isLoading ? styles.deleteContainerDisabled : styles.deleteContainerEnabled}`}
+                    onClick={() => { !isLoading && handleDeleteClick(exerciseInfo) }}>
+                    {/* spinner is defined in index.css for global usage */}
+                    {isLoading ? <div className='spinner-body-size'></div> : 'x'} {/* Conditional rendering */}
+                </div>
+            )}
         </div>
     );
 };

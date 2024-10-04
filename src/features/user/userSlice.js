@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { register, selectUserById } from "../../serverAPI/users";
 import { login, extendSession } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
-import { getExercisesFromUser } from "../exercises/exercisesSlice";
+import { getExercisesFromUser, getCommonExercises } from "../exercises/exercisesSlice";
 import {
     getAllUserCreatedTemplates,
     getUserRecentWorkouts,
@@ -34,6 +34,8 @@ export const loginUser = createAsyncThunk(
         await thunkAPI.dispatch(getAllUserCreatedTemplates({
             userId
         }));
+        // Get common exercises
+        thunkAPI.dispatch(getCommonExercises());
         // Get exercises from user
         thunkAPI.dispatch(getExercisesFromUser({
             userId

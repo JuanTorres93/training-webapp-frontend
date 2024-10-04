@@ -10,6 +10,7 @@ import styles from "./CreateTemplatePage.module.css";
 
 import {
     selectUserExercises,
+    selectCommonExercises,
     selectExercisesInNewTemplate,
     selectExercisesLoading,
     addExerciseToTemplate,
@@ -34,12 +35,19 @@ export default function CreateTemplatePage() {
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
 
-    const availableExercises = useSelector(selectUserExercises);
+    const userExercises = useSelector(selectUserExercises);
+    const commonExercises = useSelector(selectCommonExercises);
+
+    const [availableExercises, setAvailableExercises] = useState([]);
     const selectedExercises = useSelector(selectExercisesInNewTemplate);
 
     const [userHasExercises, setUserHasExercises] = useState(false);
 
     const submitDisabled = selectedExercises.length === 0 || templatesLoading;
+
+    useEffect(() => {
+        setAvailableExercises([...userExercises, ...commonExercises]);
+    }, [userExercises, commonExercises]);
 
     useEffect(() => {
         if (availableExercises.length === 0 && selectedExercises.length === 0) {
