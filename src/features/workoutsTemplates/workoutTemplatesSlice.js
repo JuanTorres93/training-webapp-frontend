@@ -4,6 +4,7 @@ import { getTemplateInfo } from "../../serverAPI/workoutsTemplates";
 import {
     createTemplate,
     getAllUserTemplates,
+    getCommonTemplates,
     getRecentWorkouts,
     deleteTemplate,
     removeExerciseFromTemplate,
@@ -55,6 +56,16 @@ export const getAllUserCreatedTemplates = createAsyncThunk(
 
         // Error is handled from redux state when promise is rejected
         const response = await getAllUserTemplates(arg);
+
+        return response;
+    }
+);
+
+export const getCommonTemplatesForUser = createAsyncThunk(
+    `${sliceName}/getCommonTemplatesForUser`,
+    async (arg, thunkAPI) => {
+        // Error is handled from redux state when promise is rejected
+        const response = await getCommonTemplates(arg);
 
         return response;
     }
@@ -186,6 +197,7 @@ const slice = createSlice({
     initialState: {
         [sliceName]: {
             userCreatedTemplates: [],
+            commonTemplates: [],
             recentWorkouts: [], // Stored here instead of in workoutsSlice
             // Because the id of the template is stored
             // and it can be used to fetch the template
@@ -236,6 +248,27 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getAllUserCreatedTemplates.rejected, (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        })
+
+        // Get common templates
+        builder.addCase(getCommonTemplatesForUser.pending, (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        })
+        builder.addCase(getCommonTemplatesForUser.fulfilled, (state, action) => {
+            const templates = action.payload.map(template => {
+                return {
+                    ...template,
+                    isCommon: true,
+                }
+            });
+            state[sliceName].commonTemplates = templates;
+            state.isLoading = false;
+            state.hasError = false;
+        })
+        builder.addCase(getCommonTemplatesForUser.rejected, (state, action) => {
             state.isLoading = false;
             state.hasError = true;
         })

@@ -6,6 +6,7 @@ import { logout } from "../../serverAPI/logout";
 import { getExercisesFromUser, getCommonExercises } from "../exercises/exercisesSlice";
 import {
     getAllUserCreatedTemplates,
+    getCommonTemplatesForUser,
     getUserRecentWorkouts,
 } from "../workoutsTemplates/workoutTemplatesSlice";
 import { resetApp } from "../../index";
@@ -34,6 +35,8 @@ export const loginUser = createAsyncThunk(
         await thunkAPI.dispatch(getAllUserCreatedTemplates({
             userId
         }));
+        // Get common templates
+        await thunkAPI.dispatch(getCommonTemplatesForUser());
         // Get common exercises
         thunkAPI.dispatch(getCommonExercises());
         // Get exercises from user

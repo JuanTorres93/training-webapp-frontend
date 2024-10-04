@@ -71,6 +71,14 @@ export async function getAllUserTemplates({ userId }) {
     return response.data;
 };
 
+export async function getCommonTemplates() {
+    const response = await apiClient.get(endpoint + `/common`, {
+        withCredentials: true,
+    });
+
+    return response.data;
+};
+
 export async function getTemplateInfo({ templateId }) {
     const response = await apiClient.get(endpoint + `/${templateId}`, {
         withCredentials: true,
