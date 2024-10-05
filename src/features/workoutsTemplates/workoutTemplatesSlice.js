@@ -212,6 +212,8 @@ const slice = createSlice({
             // contained in the userCreatedTemplates array
             const template = state[sliceName].userCreatedTemplates.find(
                 template => template.id === action.payload
+            ) || state[sliceName].commonTemplates.find(
+                template => template.id === action.payload
             );
 
             if (!template) {
@@ -401,6 +403,13 @@ const slice = createSlice({
 export const selectUserTemplates = createSelector(
     (state) => state[sliceName][sliceName].userCreatedTemplates,
     (userCreatedTemplates) => userCreatedTemplates.map(template => ({
+        ...template,
+        name: template.alias
+    }))
+);
+export const selectCommonTemplates = createSelector(
+    (state) => state[sliceName][sliceName].commonTemplates,
+    (commonTemplates) => commonTemplates.map(template => ({
         ...template,
         name: template.alias
     }))

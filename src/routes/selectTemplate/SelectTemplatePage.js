@@ -13,6 +13,7 @@ import styles from "./SelectTemplatePage.module.css";
 
 import {
     selectUserTemplates,
+    selectCommonTemplates,
     selectRecentWorkouts,
     selectTemplatesLoading,
     deleteTemplateFromUser,
@@ -28,13 +29,19 @@ export default function SelectTemplatePage() {
 
     const user = useSelector(selectUser);
     const userIsLoading = useSelector(selectUserIsLoading);
-    const templates = useSelector(selectUserTemplates);
+    const userTemplates = useSelector(selectUserTemplates);
+    const commonTemplates = useSelector(selectCommonTemplates);
     const templatesLoading = useSelector(selectTemplatesLoading);
     const exercisesLoading = useSelector(selectExercisesLoading);
+
+    const [templates, setTemplates] = useState([...userTemplates, ...commonTemplates]);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
     const [templatesMarkedForDeletion, setTemplatesMarkedForDeletion] = useState([]);
     const [exercisesMarkedForDeletion, setExercisesMarkedForDeletion] = useState([]);
 
+    useEffect(() => {
+        setTemplates([...userTemplates, ...commonTemplates]);
+    }, [userTemplates, commonTemplates]);
 
     useEffect(() => {
         if (selectedTemplate) {
