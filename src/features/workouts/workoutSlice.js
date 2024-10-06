@@ -12,6 +12,7 @@ import {
 import { getUserRecentWorkouts } from "../workoutsTemplates/workoutTemplatesSlice";
 
 export const sliceName = 'workout';
+const LOADING_FLAG = true;
 
 export const createWorkout = createAsyncThunk(
     `${sliceName}/createWorkout`,
@@ -125,7 +126,7 @@ const slice = createSlice({
             lastWorkout: null,   // For showing last values
             lastNWorkouts: null, // For showing progress
         },
-        isLoading: false,
+        isLoading: [],
         hasError: false,
     },
     reducers: {
@@ -179,22 +180,22 @@ const slice = createSlice({
     extraReducers: builder => {
         // Create workout template
         builder.addCase(createWorkout.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(createWorkout.fulfilled, (state, action) => {
             state[sliceName].activeWorkout = action.payload;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(createWorkout.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Delete workout
         builder.addCase(deleteWorkout.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(deleteWorkout.fulfilled, (state, action) => {
@@ -212,17 +213,17 @@ const slice = createSlice({
                 state[sliceName].activeWorkout = null;
             }
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(deleteWorkout.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Delete exercise from workout
         builder.addCase(deleteExerciseFromWorkout.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(deleteExerciseFromWorkout.fulfilled, (state, action) => {
@@ -263,56 +264,56 @@ const slice = createSlice({
 
             });
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(deleteExerciseFromWorkout.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Set last workout from template
         builder.addCase(setLastWorkout.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(setLastWorkout.fulfilled, (state, action) => {
             state[sliceName].lastWorkout = action.payload;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(setLastWorkout.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Set last N workouts from template
         builder.addCase(setLastNWorkouts.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(setLastNWorkouts.fulfilled, (state, action) => {
             state[sliceName].lastNWorkouts = action.payload;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(setLastNWorkouts.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Finish workout
         builder.addCase(finishWorkout.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(finishWorkout.fulfilled, (state, action) => {
             state[sliceName].activeWorkout = null;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(finishWorkout.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
     },
@@ -320,7 +321,7 @@ const slice = createSlice({
 
 // Export selectors
 export const selectActiveWorkout = state => state[sliceName][sliceName].activeTemplate;
-export const selectWorkoutsLoading = state => state[sliceName].isLoading;
+export const selectWorkoutsLoading = state => state[sliceName].isLoading.length > 0;
 export const selectWorkoutsError = state => state[sliceName].hasError;
 
 export const selectLastWorkout = state => state[sliceName][sliceName].lastWorkout;

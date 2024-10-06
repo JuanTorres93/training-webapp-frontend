@@ -12,6 +12,7 @@ import {
 import { resetApp } from "../../index";
 
 export const sliceName = 'user';
+const LOADING_FLAG = true;
 
 export const loginUser = createAsyncThunk(
     `${sliceName}/loginUser`,
@@ -103,30 +104,30 @@ const userSlice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: null,
-        isLoading: false,
+        isLoading: [],
         hasError: false,
     },
     reducers: {},
     extraReducers: builder => {
         // login user
         builder.addCase(loginUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             const user = action.payload;
             state[sliceName] = user;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(loginUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Extend user session
         builder.addCase(extendUserSession.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(extendUserSession.fulfilled, (state, action) => {
@@ -135,42 +136,42 @@ const userSlice = createSlice({
             // Update expiration date in state
             if (state[sliceName]) state[sliceName].expirationDate = expirationDate;
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(extendUserSession.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // register user
         builder.addCase(registerUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(registerUser.fulfilled, (state, action) => {
             const user = action.payload;
             state[sliceName] = user;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(registerUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // logout user
         builder.addCase(logoutUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(logoutUser.fulfilled, (state, action) => {
             state[sliceName] = null;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(logoutUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
     },
@@ -178,7 +179,7 @@ const userSlice = createSlice({
 
 // Export selectors
 export const selectUser = state => state[sliceName][sliceName];
-export const selectUserIsLoading = state => state[sliceName].isLoading;
+export const selectUserIsLoading = state => state[sliceName].isLoading.length > 0;
 export const selectUserHasError = state => state[sliceName].hasError;
 
 // Export actions

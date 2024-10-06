@@ -9,6 +9,8 @@ import {
 
 export const sliceName = 'exercises';
 
+const LOADING_FLAG = true;
+
 export const getExercisesFromUser = createAsyncThunk(
     `${sliceName}/getExercisesFromUser`,
     async (arg, thunkAPI) => {
@@ -60,7 +62,7 @@ const exercisesSlice = createSlice({
             commonExercises: null,
             exercisesInNewTemplate: [],
         },
-        isLoading: false,
+        isLoading: [],
         hasError: false,
     },
     reducers: {
@@ -117,23 +119,23 @@ const exercisesSlice = createSlice({
     extraReducers: builder => {
         // Get exercises
         builder.addCase(getExercisesFromUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(getExercisesFromUser.fulfilled, (state, action) => {
             let userExercises = action.payload;
             state[sliceName].userCreatedExercises = userExercises;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(getExercisesFromUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Get common exercises
         builder.addCase(getCommonExercises.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(getCommonExercises.fulfilled, (state, action) => {
@@ -144,17 +146,17 @@ const exercisesSlice = createSlice({
                 };
             });
             state[sliceName].commonExercises = commonExercises;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(getCommonExercises.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Create exercise
         builder.addCase(createExercise.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(createExercise.fulfilled, (state, action) => {
@@ -164,17 +166,17 @@ const exercisesSlice = createSlice({
                 name: newExercise.alias,
             };
             state[sliceName].userCreatedExercises.push(newExercise);
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(createExercise.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Delete exercise
         builder.addCase(deleteExercise.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(deleteExercise.fulfilled, (state, action) => {
@@ -182,11 +184,11 @@ const exercisesSlice = createSlice({
             state[sliceName].userCreatedExercises = state[sliceName].userCreatedExercises.filter(
                 exercise => exercise.id !== deletedExercise.id
             );
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(deleteExercise.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
     },
@@ -195,7 +197,7 @@ const exercisesSlice = createSlice({
 // Export selectors
 export const selectUserExercises = state => state[sliceName][sliceName].userCreatedExercises;
 export const selectCommonExercises = state => state[sliceName][sliceName].commonExercises;
-export const selectExercisesLoading = state => state[sliceName].isLoading;
+export const selectExercisesLoading = state => state[sliceName].isLoading.length > 0;
 export const selectExercisesError = state => state[sliceName].hasError;
 
 export const selectExercisesInNewTemplate = state => state[sliceName][sliceName].exercisesInNewTemplate;

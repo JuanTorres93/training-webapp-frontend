@@ -14,6 +14,7 @@ import { getWorkoutsIdsAssociatedWithTemplateAndUser } from "../../serverAPI/wor
 import { deleteWorkout, deleteExerciseFromWorkout } from "../workouts/workoutSlice";
 
 export const sliceName = 'workoutTemplates';
+const LOADING_FLAG = true;
 
 export const createWorkoutTemplate = createAsyncThunk(
     `${sliceName}/createWorkoutTemplate`,
@@ -203,7 +204,7 @@ const slice = createSlice({
             // and it can be used to fetch the template
             activeTemplate: null,
         },
-        isLoading: false,
+        isLoading: [],
         hasError: false,
     },
     reducers: {
@@ -226,37 +227,37 @@ const slice = createSlice({
     extraReducers: builder => {
         // Create workout template
         builder.addCase(createWorkoutTemplate.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(createWorkoutTemplate.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(createWorkoutTemplate.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Get all user created templates
         builder.addCase(getAllUserCreatedTemplates.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(getAllUserCreatedTemplates.fulfilled, (state, action) => {
             let templates = action.payload;
             state[sliceName].userCreatedTemplates = templates;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(getAllUserCreatedTemplates.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Get common templates
         builder.addCase(getCommonTemplatesForUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(getCommonTemplatesForUser.fulfilled, (state, action) => {
@@ -267,17 +268,17 @@ const slice = createSlice({
                 }
             });
             state[sliceName].commonTemplates = templates;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(getCommonTemplatesForUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Get user recent workouts
         builder.addCase(getUserRecentWorkouts.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.fulfilled, (state, action) => {
@@ -290,17 +291,17 @@ const slice = createSlice({
                 }
             });
             state[sliceName].recentWorkouts = recentWorkouts;
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Delete template
         builder.addCase(deleteTemplateFromUser.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(deleteTemplateFromUser.fulfilled, (state, action) => {
@@ -317,17 +318,17 @@ const slice = createSlice({
                 workout => workout.id !== templateId
             );
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(deleteTemplateFromUser.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Delete exercise from template
         builder.addCase(deleteExerciseFromTemplate.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(deleteExerciseFromTemplate.fulfilled, (state, action) => {
@@ -350,17 +351,17 @@ const slice = createSlice({
                 );
             }
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(deleteExerciseFromTemplate.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
 
         // Update exercise from template
         builder.addCase(updateExerciseFromTemplate.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading.push(LOADING_FLAG);
             state.hasError = false;
         })
         builder.addCase(updateExerciseFromTemplate.fulfilled, (state, action) => {
@@ -389,11 +390,11 @@ const slice = createSlice({
                 });
             }
 
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = false;
         })
         builder.addCase(updateExerciseFromTemplate.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading.pop();
             state.hasError = true;
         })
     },
@@ -415,7 +416,7 @@ export const selectCommonTemplates = createSelector(
     }))
 );
 export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
-export const selectTemplatesLoading = state => state[sliceName].isLoading;
+export const selectTemplatesLoading = state => state[sliceName].isLoading.length > 0;
 export const selectTemplatesError = state => state[sliceName].hasError;
 export const selectRecentWorkouts = state => state[sliceName][sliceName].recentWorkouts;
 
