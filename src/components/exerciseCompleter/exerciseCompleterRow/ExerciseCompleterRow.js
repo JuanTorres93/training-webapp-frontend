@@ -68,6 +68,22 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
                     placeholder={placeholderWeight}
                     value={weight}
                     onChange={handleWeightChange}
+                    onKeyDown={(e) => {
+                        // Allow numbers, one ".", Backspace, Tab, Arrow keys, Delete, and Enter
+                        if (
+                            !(
+                                (e.key >= '0' && e.key <= '9') ||
+                                e.key === '.' && !weight.includes('.') || // allow only one "."
+                                e.key === 'Backspace' ||
+                                e.key === 'Tab' ||
+                                e.key === 'ArrowLeft' ||
+                                e.key === 'ArrowRight' ||
+                                e.key === 'Delete'
+                            )
+                        ) {
+                            e.preventDefault(); // Prevent invalid input
+                        }
+                    }}
                 />
                 <span className={`${styles.label} ${weightColor} ${styles.bold}`}>
                     ({placeholderWeight} prev)
@@ -84,6 +100,20 @@ function ExerciseCompleterRow({ exerciseId, exerciseOrder, setNumber, placeholde
                     placeholder={placeholderReps}
                     value={reps}
                     onChange={handleRepsChange}
+                    onKeyDown={(e) => {
+                        // Allow only numeric input, backspace, arrow keys and delete 
+                        if (
+                            !(
+                                (e.key >= '0' && e.key <= '9') ||
+                                e.key === 'Backspace' ||
+                                e.key === 'Delete' ||
+                                e.key === 'ArrowLeft' ||
+                                e.key === 'ArrowRight'
+                            )
+                        ) {
+                            e.preventDefault(); // Prevent non-numeric input
+                        }
+                    }}
                 />
                 <span
                     className={`${styles.label} ${repsColor} ${styles.bold}`}>
