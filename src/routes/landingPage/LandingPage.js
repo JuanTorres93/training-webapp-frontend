@@ -31,7 +31,7 @@ export default function LandingPage() {
         // <PagePresenter showBackButton={false} children={
         <div className={styles.mainContainer}>
             <HeroSection />
-            <CTA />
+            {/* <CTA /> */}
             {competitiveAdvantages.map((ca, index) => (
                 <CompetitiveAdvantage
                     key={index}
