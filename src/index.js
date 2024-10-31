@@ -9,6 +9,9 @@ import reportWebVitals from './reportWebVitals';
 
 // custom imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// Translation import
+import './i18n';
+
 // TODO Uncomment for stripe integration
 // import { loadStripe } from "@stripe/stripe-js";
 //import {
