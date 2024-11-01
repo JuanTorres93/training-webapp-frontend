@@ -11,24 +11,28 @@ const NavHorizontal = ({
             </figure>
 
             <ul className="nav-horizontal__list">
+                {/* Your future */}
                 <li className="nav-horizontal__item">
                     <a href="#" className="nav-horizontal__link">
                         {linkText1}
                     </a>
                 </li>
 
+                {/* benefits */}
                 <li className="nav-horizontal__item">
                     <a href="#" className="nav-horizontal__link">
                         {linkText2}
                     </a>
                 </li>
 
+                {/* Features */}
                 <li className="nav-horizontal__item">
-                    <a href="#" className="nav-horizontal__link">
+                    <a href="#features" className="nav-horizontal__link">
                         {linkText3}
                     </a>
                 </li>
 
+                {/* Testimonials */}
                 <li className="nav-horizontal__item">
                     <a href="#" className="nav-horizontal__link">
                         {linkText4}

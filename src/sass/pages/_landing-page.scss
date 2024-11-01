@@ -1,5 +1,21 @@
+@use "../abstracts" as *;
+
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] min-content [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
+}
+
+.features {
+    display: grid;
+    justify-items: center;
+    padding: 7rem 0;
+
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+
+    grid-gap: 2rem;
+    grid-row-gap: 6rem;
+
+    color: $color-grey-dark-3;
+    background-color: $color-grey-light-3;
 }

@@ -13,7 +13,7 @@
     grid-row: nav-start / nav-end;
 
     color: $color-grey-dark-3;
-    background-color: rgba($color-white, .95);
+    background-color: rgba($color-white, .98);
     box-shadow: 0 1rem 2rem rgba($color-black, .1);
     border-bottom: 1px solid $color-grey-dark-3;
 
@@ -67,6 +67,8 @@
             color: $color-white;
             transform: translateY(-.2rem);
             box-shadow: 0 1rem 2rem rgba($color-black, .2);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
     }
 
