@@ -23,6 +23,10 @@
         {
             "path": "frontend/src/validators/",
             "color": "foldercustomization.AnsiColor9"
+        },
+        {
+            "path": "frontend/src/sass/",
+            "color": "foldercustomization.AnsiColor125"
         }
     ]
 }
