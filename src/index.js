@@ -12,12 +12,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Translation import
 import './i18n';
 
+
+// Link css files
+// import '@atlaskit/css-reset'
+import './variables.css'
+// import './index.css'
+import './css/style.css'
+
 // TODO Uncomment for stripe integration
 // import { loadStripe } from "@stripe/stripe-js";
 //import {
 //  Elements,   // Wrapper component to include stripe components for processing payments
 //} from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
+import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
@@ -28,11 +36,6 @@ import GenericChild from './routes/GenericChild';
 import DefaultErrorPage from './routes/DefaultErrorPage';
 import RegisterPage from './routes/registerPage/RegisterPage';
 import LoginPage from './routes/loginPage/LoginPage';
-
-// Link css files
-import '@atlaskit/css-reset'
-import './variables.css'
-import './index.css'
 
 // TODO DELETE IN PRODUCTION
 import ComponentDesign from './routes/ComponentDesign';
@@ -54,6 +57,11 @@ export const { store, persistor, resetApp } = setupStore({});
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <LandingPage />,
+    errorElement: <DefaultErrorPage />
+  },
+  {
+    path: "/app",
     element: <NavBar />,
     errorElement: <DefaultErrorPage />,
     children: [

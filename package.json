@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-client-codecademy-portfolio",
+  "name": "trackoverload-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch:sass": "npx sass -w src/sass/main.scss src/css/style.css"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@testing-library/react": "^14.1.2",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "sass": "1.80.5"
   }
 }

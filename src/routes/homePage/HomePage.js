@@ -15,8 +15,6 @@ import { selectWorkoutsLoading } from "../../features/workouts/workoutSlice";
 import { selectExercisesLoading } from "../../features/exercises/exercisesSlice";
 import { selectUser, loginUser } from "../../features/user/userSlice";
 
-import LandingPage from "../landingPage/LandingPage";
-
 import { userValidationSchema } from "../../validators/userValidator";
 
 
@@ -55,18 +53,12 @@ export default function HomePage() {
                         navigate("/");
                     });
                 })
-                .catch((err) => {
-                    // TODO DELETE THESE DEBUG LOGS
-                    console.log('err');
-                    console.log(err);
-                });
         }
-
     }, [location]);
-
 
     return (
         <div>
+            {!user && !isLoading && navigate("/")}
             {user &&
                 <PagePresenter showBackButton={false} children={
                     <div className={styles.homePageContainer}>
@@ -91,7 +83,6 @@ export default function HomePage() {
                     </div>
                 } />
             }
-            {!user && !isLoading && <LandingPage />}
         </div>
     );
 };

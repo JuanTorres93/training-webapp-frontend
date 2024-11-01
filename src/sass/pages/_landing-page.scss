@@ -1,0 +1,5 @@
+.landing {
+    display: grid;
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end];
+
+}

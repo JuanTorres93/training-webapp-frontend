@@ -1,17 +1,19 @@
+import NavHorizontal from "../../components/nav/Nav";
 import HeroSection from "../../components/heroSection/HeroSection";
 import LastCTA from "../../components/lastCTA/LastCTA";
 import CompetitiveAdvantage from "../../components/competitiveAdvantage/CompetitiveAdvantage";
-
-import styles from "./LandingPage.module.css";
 
 import { useTranslation } from "react-i18next";
 
 export default function LandingPage() {
     const { t, i18n } = useTranslation();
 
-    // TODO mover a navbar
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
+    const changeLanguage = () => {
+        if (i18n.language === "en") {
+            return i18n.changeLanguage("es");
+        } else {
+            return i18n.changeLanguage("en");
+        }
     };
 
     const competitiveAdvantages = [
@@ -35,8 +37,13 @@ export default function LandingPage() {
         },
     ];
     return (
-        // <PagePresenter showBackButton={false} children={
-        <div className={styles.mainContainer}>
+        <div className="landing">
+            <NavHorizontal
+                linkText1={t('nav-landing-1')}
+                linkText2={t('nav-landing-2')}
+                linkText3={t('nav-landing-3')}
+                linkText4={t('nav-landing-4')}
+                cbChangeLanguage={changeLanguage} />
             <HeroSection />
             {/* <CTA /> */}
             {competitiveAdvantages.map((ca, index) => (
@@ -50,6 +57,5 @@ export default function LandingPage() {
             ))}
             <LastCTA />
         </div>
-        // } />
     );
 };

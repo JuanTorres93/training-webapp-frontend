@@ -33,10 +33,6 @@
     justify-items: flex-start;
 }
 
-span {
-    margin-left: .8rem;
-}
-
 .listContainer {
     display: flex;
     align-items: start;
