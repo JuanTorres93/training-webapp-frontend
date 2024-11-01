@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const serverBaseURL = "http://localhost:54321";
+export const serverBaseURL = process.env.REACT_APP_SERVER_BASE_URL;
 
 // Create an instance of axios
 const apiClient = axios.create({
-    baseURL: serverBaseURL, // Change to your API base URL
+    baseURL: serverBaseURL,
     timeout: 10000, // Adjust timeout as needed
 });
 
