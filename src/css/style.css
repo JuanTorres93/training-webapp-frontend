@@ -267,7 +267,82 @@ body {
   height: 100%;
   padding: 10rem 0;
   transition: all 0.4s ease-in;
-  background-color: orangered;
+}
+.benefit__shape--1.benefit__front-side {
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA3.png");
+  background-size: cover;
+}
+.benefit__shape--1.benefit__back-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA3.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  /* Adjust filter settings here */
+  z-index: -1;
+  /* Place the background behind the content */
+}
+.benefit__shape--2.benefit__front-side {
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA2.png");
+  background-size: cover;
+}
+.benefit__shape--2.benefit__back-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA2.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  /* Adjust filter settings here */
+  z-index: -1;
+  /* Place the background behind the content */
+}
+.benefit__shape--3.benefit__front-side {
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA3.png");
+  background-size: cover;
+}
+.benefit__shape--3.benefit__back-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA3.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  /* Adjust filter settings here */
+  z-index: -1;
+  /* Place the background behind the content */
+}
+.benefit__shape--4.benefit__front-side {
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA1.png");
+  background-size: cover;
+}
+.benefit__shape--4.benefit__back-side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA1.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  /* Adjust filter settings here */
+  z-index: -1;
+  /* Place the background behind the content */
 }
 .benefit__shape--start {
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
@@ -294,9 +369,6 @@ body {
 }
 .benefit__front-side, .benefit__back-side {
   backface-visibility: hidden;
-}
-.benefit__front-side {
-  background-color: blue;
 }
 .benefit__back-side {
   position: absolute;
