@@ -245,15 +245,18 @@ body {
   filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
   position: relative;
   z-index: 10;
-  transition: all 0.2s ease-out;
+  transition: all 0.4s ease-in;
 }
 .benefit:hover {
   transform: translateY(-1.6rem) scale(1.1);
   filter: drop-shadow(0 1rem 2rem rgba(0, 0, 0, 0.3));
   z-index: 20;
 }
-.benefit:hover .benefit__shape {
+.benefit:hover .benefit__front-side {
   transform: rotateX(180deg);
+}
+.benefit:hover .benefit__back-side {
+  transform: rotateX(360deg);
 }
 .benefit__shape {
   display: flex;
@@ -263,7 +266,7 @@ body {
   flex-basis: 100%;
   height: 100%;
   padding: 10rem 0;
-  transition: all 0.2s ease-out;
+  transition: all 0.4s ease-in;
   background-color: orangered;
 }
 .benefit__shape--start {
@@ -289,6 +292,20 @@ body {
   font-size: 2.5rem;
   font-weight: 500;
 }
+.benefit__front-side, .benefit__back-side {
+  backface-visibility: hidden;
+}
+.benefit__front-side {
+  background-color: blue;
+}
+.benefit__back-side {
+  position: absolute;
+  transform: rotateX(180deg);
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .landing {
   display: grid;
   grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] min-content [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];

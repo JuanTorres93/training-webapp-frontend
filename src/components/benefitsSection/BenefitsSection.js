@@ -5,11 +5,13 @@ function BenefitsSection({
         <section id='benefits' className="benefits">
             {/* TODO include an h2 heading */}
             <div className="benefit">
-                <div className="benefit__shape benefit__shape--start">
+                <div className="benefit__shape benefit__shape--start benefit__front-side">
                     <div className="benefit__title">
                         Train
                     </div>
+                </div>
 
+                <div className="benefit__shape benefit__shape--start benefit__back-side">
                     <ul className="benefit__list">
                         <li className="benefit__item">
                             item
@@ -19,11 +21,13 @@ function BenefitsSection({
             </div>
 
             <div className="benefit">
-                <div className="benefit__shape benefit__shape--middle">
+                <div className="benefit__shape benefit__shape--middle benefit__front-side">
                     <div className="benefit__title">
                         Track
                     </div>
+                </div>
 
+                <div className="benefit__shape benefit__shape--middle benefit__back-side">
                     <ul className="benefit__list">
                         <li className="benefit__item">
                             item
@@ -33,24 +37,30 @@ function BenefitsSection({
             </div>
 
             <div className="benefit">
-                <div className="benefit__shape benefit__shape--middle">
-                    <div className="benefit__title benefit__front-side">
+                <div className="benefit__shape benefit__shape--middle benefit__front-side">
+                    <div className="benefit__title">
                         Improve
                     </div>
+                </div>
 
-                    <ul className="benefit__list benefit__back-side">
+                <div className="benefit__shape benefit__shape--middle benefit__back-side">
+                    <ul className="benefit__list">
                         <li className="benefit__item">
                             item
                         </li>
                     </ul>
                 </div>
             </div>
+
+
             <div className="benefit">
-                <div className="benefit__shape benefit__shape--end">
+                <div className="benefit__shape benefit__shape--end benefit__front-side">
                     <div className="benefit__title">
                         Enjoy
                     </div>
+                </div>
 
+                <div className="benefit__shape benefit__shape--end benefit__back-side">
                     <ul className="benefit__list">
                         <li className="benefit__item">
                             item
@@ -58,6 +68,8 @@ function BenefitsSection({
                     </ul>
                 </div>
             </div>
+
+
         </section>
     );
 };
