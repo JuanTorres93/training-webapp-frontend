@@ -20,7 +20,7 @@ const NavHorizontal = ({
 
                 {/* benefits */}
                 <li className="nav-horizontal__item">
-                    <a href="#" className="nav-horizontal__link">
+                    <a href="#benefits" className="nav-horizontal__link">
                         {linkText2}
                     </a>
                 </li>

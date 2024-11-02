@@ -1,5 +1,6 @@
 import NavHorizontal from "../../components/nav/Nav";
 import HeroSection from "../../components/heroSection/HeroSection";
+import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
 import FeatureSection from "../../components/featureSection/FeatureSection";
 import LastCTA from "../../components/lastCTA/LastCTA";
 import CompetitiveAdvantage from "../../components/competitiveAdvantage/CompetitiveAdvantage";
@@ -91,6 +92,9 @@ export default function LandingPage() {
                 linkText4={t('nav-landing-4')}
                 cbChangeLanguage={changeLanguage} />
             <HeroSection />
+            {/* TODO Poner aquí la sección "Tu futuro" */}
+
+            <BenefitsSection />
             {/* <CTA /> */}
             {competitiveAdvantages.map((ca, index) => (
                 <CompetitiveAdvantage

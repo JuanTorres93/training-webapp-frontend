@@ -19,3 +19,19 @@
     color: $color-grey-dark-3;
     background-color: $color-grey-light-3;
 }
+
+.benefits {
+    display: grid;
+
+    align-items: stretch;
+
+    padding: 6rem 6rem;
+
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-column-gap: 0rem;
+    grid-row-gap: 6rem;
+
+    background-color: $color-grey-light-1;
+
+    grid-row: benefits-start / benefits-end;
+}
