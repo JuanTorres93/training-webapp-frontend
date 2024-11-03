@@ -2,7 +2,7 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50%) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
 }
 
@@ -28,13 +28,21 @@
     align-content: center;
     justify-content: center;
 
+    align-items: stretch;
+
     // Grid items span outside of their cells, so
     // different paddings for right and left
-    padding: 10rem 12rem 10rem 4rem;
+    padding: 10rem 12rem 13.5rem 4rem;
 
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     grid-column-gap: 0rem;
-    grid-row-gap: 9rem;
+    grid-row-gap: 0;
+
+    /* Add row gap only if there's more than one row */
+    &:has(.benefit:nth-child(-n+3)) {
+        /* Aplica un row-gap solo si hay 3 elementos o menos */
+        grid-row-gap: 9rem;
+    }
 
     background-color: $color-grey-light-1;
 

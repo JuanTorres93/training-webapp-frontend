@@ -30,7 +30,8 @@
         width: calc(100% + $extra-grid);
         height: calc(100% + $extra-grid);
 
-        transform: translate(-$extra-grid / 2.5, -$extra-grid / 2);
+        transform: translate(0, -$extra-grid / 2);
+
 
         z-index: 20;
     }
@@ -161,16 +162,44 @@
     }
 
     &__list {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-items: center;
+
         font-size: 1.8rem;
         list-style: none;
-        align-self: center;
         position: relative;
         z-index: 2;
     }
 
     &__item {
-        font-size: 9rem;
+        color: $color-grey-dark-4;
+        display: block;
+        text-align: center;
+
+        &:not(:last-child) {
+            margin-bottom: .25rem;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            width: 87%;
+            height: 1px;
+            margin: 1rem auto;
+            background-color: $color-grey-light-3;
+        }
+
+        &:first-child::before {
+            content: "";
+            display: block;
+            width: 87%;
+            height: 1px;
+            margin: 1rem auto;
+            background-color: $color-grey-light-3;
+        }
+
     }
 
     &__title {
@@ -194,6 +223,12 @@
     }
 
     &__back-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+
         position: absolute;
         transform: rotateX(180deg);
         top: 0;
@@ -203,11 +238,23 @@
     }
 
     &__cta {
-        font-size: 1.5rem;
+        display: inline-block;
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 1rem 2rem;
+        border-radius: .3rem;
         color: $color-white;
+        background-image: linear-gradient(to right,
+                $color-secondary-dark,
+                $color-secondary-light);
+        box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
 
         &:hover {
-            color: $color-secondary;
+            box-shadow: 0 1rem 2rem rgba($color-black, 0.30);
+        }
+
+        &:active {
+            box-shadow: 0 .75rem 1rem rgba($color-black, 0.15);
         }
     }
 }

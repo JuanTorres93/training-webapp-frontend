@@ -7,6 +7,7 @@ function BenefitsSection({
 
             {
                 benefits.map((benefit, index) => {
+                    const items = benefit.items.split(';');
                     return (
                         <div className="benefit" key={index}>
                             <div className={`benefit__shape benefit__shape--${index + 1} benefit__shape--${index === 0 ? 'start' : index === benefits.length - 1 ? 'end' : 'middle'} benefit__front-side`}>
@@ -16,18 +17,20 @@ function BenefitsSection({
                             </div>
 
                             <div className={`benefit__shape benefit__shape--${index + 1} benefit__shape--${index === 0 ? 'start' : index === benefits.length - 1 ? 'end' : 'middle'} benefit__back-side`}>
+                                <figure className="benefit__icon-box">
+                                    <img src="" alt="" className="benefit__icon" />
+                                </figure>
                                 <ul className="benefit__list">
                                     {
-                                        // TODO MODIFICAR CUANDO SEPA CÓMO GESTIONAR LOS ITEMS
-                                        // SEGURAMENTE IRÁN SEPARADOS POR PUNTO Y COMA EN EL JSON DE TRADUCCIONES
-                                        <li className="benefit__item" key={index}>
-                                            {benefit.items}
-                                        </li>
+                                        items.map((item, index) => (
+                                            <li key={index} className="benefit__item">
+                                                {item}
+                                            </li>
+                                        ))
                                     }
                                 </ul>
 
-                                {/* TODO include CTA */}
-                                <button className="benefit__cta simple-btn">
+                                <button className="benefit__cta simple-btn simple-btn--no-border">
                                     {benefit.cta}
                                 </button>
                             </div>

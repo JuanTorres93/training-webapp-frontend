@@ -4,7 +4,7 @@
     border: none;
     background-color: transparent;
     font-family: inherit;
-    border-bottom: .2rem solid currentColor;
+    border-bottom: 1px solid currentColor;
     transition: all .2s;
     text-align: left;
     cursor: pointer;
@@ -23,5 +23,13 @@
 
     &:hover::after {
         margin-left: 1.5rem;
+    }
+
+    &:active {
+        transform: translateY(-.1rem);
+    }
+
+    &--no-border {
+        border-bottom: none;
     }
 }
