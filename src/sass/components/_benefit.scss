@@ -4,26 +4,33 @@
     perspective: 100rem;
     filter: drop-shadow(0 .5rem 1rem rgba($color-black, 0.15));
 
+    $extra-grid: 15%;
+
+    width: calc(100% + $extra-grid);
+    height: calc(100% + $extra-grid);
+
     position: relative;
     z-index: 10;
     $shared-transition: all .4s ease-in;
 
     transition: $shared-transition;
 
-    $middle-polygon: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-
-    // Expand component beyond grid cell
-    $scale-factor: .2;
-    transform: scale(calc(1 + $scale-factor));
-
-    // Restore original size for child elements
-    &__shape>* {
-        transform: scale(calc(1 - $scale-factor));
-    }
+    $middle-polygon: polygon(75% 0%,
+            100% 50%,
+            75% 100%,
+            0% 100%,
+            25% 50%,
+            0% 0%);
 
     &:hover {
-        transform: translateY(-1.8rem) scale(calc(1 + 2*$scale-factor));
         filter: drop-shadow(0 2rem 2rem rgba($color-black, 0.8));
+
+        $extra-grid: 30%;
+
+        width: calc(100% + $extra-grid);
+        height: calc(100% + $extra-grid);
+
+        transform: translate(-$extra-grid / 2.5, -$extra-grid / 2);
 
         z-index: 20;
     }
@@ -158,14 +165,17 @@
         font-size: 1.8rem;
         list-style: none;
         align-self: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    &__item {
+        font-size: 9rem;
     }
 
     &__title {
         display: inline-block;
         padding: 1rem 2rem;
-        //background-image: linear-gradient(to right,
-        //        $color-primary-dark,
-        //        $color-primary-light);
         background-image: linear-gradient(to right,
                 $color-secondary-light,
                 $color-secondary-dark);
@@ -190,5 +200,14 @@
         left: 0;
         width: 100%;
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    &__cta {
+        font-size: 1.5rem;
+        color: $color-white;
+
+        &:hover {
+            color: $color-secondary;
+        }
     }
 }

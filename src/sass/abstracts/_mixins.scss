@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 @mixin image-in-backside($image, $overlay) {
     content: "";
     position: absolute;
@@ -5,11 +7,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: $overlay, url($image);
+    background-image:
+        linear-gradient(to right bottom,
+            $color-primary-light,
+            $color-primary-dark);
     background-size: cover;
     background-position: center;
-    filter: blur(3px);
-    /* Adjust filter settings here */
     z-index: -1;
-    /* Place the background behind the content */
 }

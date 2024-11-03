@@ -25,9 +25,12 @@ function BenefitsSection({
                                         </li>
                                     }
                                 </ul>
-                            </div>
 
-                            {/* TODO include CTA */}
+                                {/* TODO include CTA */}
+                                <button className="benefit__cta simple-btn">
+                                    {benefit.cta}
+                                </button>
+                            </div>
                         </div>
                     );
                 })

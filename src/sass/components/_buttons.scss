@@ -1,0 +1,27 @@
+@use "../abstracts/" as *;
+
+.simple-btn {
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    border-bottom: .2rem solid currentColor;
+    transition: all .2s;
+    text-align: left;
+    cursor: pointer;
+
+    &::after {
+        content: "→";
+        color: currentColor;
+        margin-left: 1rem;
+        display: inline-block;
+        transition: all .2s;
+    }
+
+    &:hover {
+        transform: translateY(-.2rem);
+    }
+
+    &:hover::after {
+        margin-left: 1.5rem;
+    }
+}
