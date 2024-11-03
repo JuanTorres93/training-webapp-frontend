@@ -28,7 +28,9 @@
     align-content: center;
     justify-content: center;
 
-    padding: 10rem 7rem;
+    // Grid items span outside of their cells, so
+    // different paddings for right and left
+    padding: 10rem 12rem 10rem 4rem;
 
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     grid-column-gap: 0rem;
