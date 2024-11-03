@@ -12,9 +12,18 @@
 
     $middle-polygon: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
 
+    // Expand component beyond grid cell
+    $scale-factor: .2;
+    transform: scale(calc(1 + $scale-factor));
+
+    // Restore original size for child elements
+    &__shape>* {
+        transform: scale(calc(1 - $scale-factor));
+    }
+
     &:hover {
-        transform: translateY(-1.6rem) scale(1.1);
-        filter: drop-shadow(0 1rem 2rem rgba($color-black, 0.3));
+        transform: translateY(-1.8rem) scale(calc(1 + 2*$scale-factor));
+        filter: drop-shadow(0 2rem 2rem rgba($color-black, 0.8));
 
         z-index: 20;
     }
@@ -125,6 +134,10 @@
 
         &--middle {
             clip-path: $middle-polygon;
+
+            .benefit__title {
+                margin-left: 15%;
+            }
         }
 
         &--end {
@@ -141,9 +154,21 @@
     }
 
     &__title {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 500;
+        display: inline-block;
+        padding: 1rem 2rem;
+        //background-image: linear-gradient(to right,
+        //        $color-primary-dark,
+        //        $color-primary-light);
+        background-image: linear-gradient(to right,
+                $color-secondary-light,
+                $color-secondary-dark);
+        font-size: 3rem;
+        font-weight: 600;
+        color: $color-white;
+        letter-spacing: 1.10rem;
+        border-radius: .3rem;
+        text-align: center;
+        box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
     }
 
     &__front-side,

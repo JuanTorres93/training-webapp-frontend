@@ -2,7 +2,7 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] min-content [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
 }
 
@@ -25,9 +25,9 @@
 
     align-items: stretch;
 
-    padding: 6rem 6rem;
+    padding: 10rem 7rem;
 
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     grid-column-gap: 0rem;
     grid-row-gap: 6rem;
 
