@@ -261,7 +261,6 @@ body {
 }
 .benefit:hover .benefit__back-side {
   transform: rotateX(360deg);
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 .benefit:hover .benefit__shape {
   padding-right: 0;
@@ -396,6 +395,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .landing {
