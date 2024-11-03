@@ -63,26 +63,29 @@ export default function LandingPage() {
         }
     ];
 
-    const competitiveAdvantages = [
+    const benefits = [
         {
-            image: "/images/CTA1.png",
-            title: t('feature-1-title'),
-            description: "Trackoverload transforms home workouts with efficient progress tracking - helping you stay motivated and excel at your fitness journey, effortlessly and at no cost.",
-            reverse: false,
+            title: t('benefit-1-title'),
+            items: t('benefit-1-items'),
+            cta: t('benefit-1-cta'),
         },
         {
-            image: "/images/CTA2.png",
-            title: "Visualize every victory with progress-tracking graphs",
-            description: "Trackoverload turns your effort into vivid graphs, fueling your motivation by showcasing every improvement, no matter how small, with clear visuals right at home.",
-            reverse: true,
+            title: t('benefit-2-title'),
+            items: t('benefit-2-items'),
+            cta: t('benefit-2-cta'),
         },
         {
-            image: "/images/CTA3.png",
-            title: "Progressive exercise tracking",
-            description: "Unleash your fitness potential from the comfort of your home with Trackoverload's Progressive Exercise Tracking, designed to give you clear visibility of your gains over time, propelling constant self-motivation and fostering continuous personal improvement - all accessible within a seamless, user-friendly interface.",
-            reverse: false,
+            title: t('benefit-3-title'),
+            items: t('benefit-3-items'),
+            cta: t('benefit-3-cta'),
+        },
+        {
+            title: t('benefit-4-title'),
+            items: t('benefit-4-items'),
+            cta: t('benefit-4-cta'),
         },
     ];
+
     return (
         <div className="landing">
             <NavHorizontal
@@ -94,21 +97,12 @@ export default function LandingPage() {
             <HeroSection />
             {/* TODO Poner aquí la sección "Tu futuro" */}
 
-            <BenefitsSection />
-            {/* <CTA /> */}
-            {competitiveAdvantages.map((ca, index) => (
-                <CompetitiveAdvantage
-                    key={index}
-                    image={ca.image}
-                    title={ca.title}
-                    description={ca.description}
-                    reverse={ca.reverse}
-                />
-            ))}
+            <BenefitsSection benefits={benefits} />
+
             <FeatureSection
                 features={features}
             />
-            <LastCTA />
+            {/* <LastCTA /> */}
         </div>
     );
 };

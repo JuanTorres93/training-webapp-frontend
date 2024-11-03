@@ -20,5 +20,17 @@
     "feature-6-title": "Demand respect from others",
     "feature-6-description": " DESCRIPTION 6 HERE",
     "feature-7-title": "Make it your own",
-    "feature-7-description": " DESCRIPTION 7 HERE"
+    "feature-7-description": " DESCRIPTION 7 HERE",
+    "benefit-1-title": "Train",
+    "benefit-1-items": "item 1",
+    "benefit-1-cta": "cta 1",
+    "benefit-2-title": "Track",
+    "benefit-2-items": "item 2",
+    "benefit-2-cta": "cta 2",
+    "benefit-3-title": "Improve",
+    "benefit-3-items": "item 3",
+    "benefit-3-cta": "cta 3",
+    "benefit-4-title": "Enjoy!",
+    "benefit-4-items": "item 4",
+    "benefit-4-cta": "cta 4"
 }

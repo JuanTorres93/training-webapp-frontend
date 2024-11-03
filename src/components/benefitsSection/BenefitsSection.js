@@ -1,75 +1,37 @@
 function BenefitsSection({
-    benefits
+    benefits = [] // Ordered array of objects with title, items and cta properties
 }) {
     return (
         <section id='benefits' className="benefits">
             {/* TODO include an h2 heading */}
-            <div className="benefit">
-                <div className="benefit__shape benefit__shape--1 benefit__shape--start benefit__front-side">
-                    <div className="benefit__title">
-                        Train
-                    </div>
-                </div>
 
-                <div className="benefit__shape benefit__shape--1 benefit__shape--start benefit__back-side">
-                    <ul className="benefit__list">
-                        <li className="benefit__item">
-                            item
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            {
+                benefits.map((benefit, index) => {
+                    return (
+                        <div className="benefit" key={index}>
+                            <div className={`benefit__shape benefit__shape--${index + 1} benefit__shape--${index === 0 ? 'start' : index === benefits.length - 1 ? 'end' : 'middle'} benefit__front-side`}>
+                                <div className="benefit__title">
+                                    {benefit.title}
+                                </div>
+                            </div>
 
-            <div className="benefit">
-                <div className="benefit__shape benefit__shape--2 benefit__shape--middle benefit__front-side">
-                    <div className="benefit__title">
-                        Track
-                    </div>
-                </div>
+                            <div className={`benefit__shape benefit__shape--${index + 1} benefit__shape--${index === 0 ? 'start' : index === benefits.length - 1 ? 'end' : 'middle'} benefit__back-side`}>
+                                <ul className="benefit__list">
+                                    {
+                                        // TODO MODIFICAR CUANDO SEPA CÓMO GESTIONAR LOS ITEMS
+                                        // SEGURAMENTE IRÁN SEPARADOS POR PUNTO Y COMA EN EL JSON DE TRADUCCIONES
+                                        <li className="benefit__item" key={index}>
+                                            {benefit.items}
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
 
-                <div className="benefit__shape benefit__shape--2 benefit__shape--middle benefit__back-side">
-                    <ul className="benefit__list">
-                        <li className="benefit__item">
-                            item
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div className="benefit">
-                <div className="benefit__shape benefit__shape--3 benefit__shape--middle benefit__front-side">
-                    <div className="benefit__title">
-                        Improve
-                    </div>
-                </div>
-
-                <div className="benefit__shape benefit__shape--3 benefit__shape--middle benefit__back-side">
-                    <ul className="benefit__list">
-                        <li className="benefit__item">
-                            item
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
-            <div className="benefit">
-                <div className="benefit__shape benefit__shape--4 benefit__shape--end benefit__front-side">
-                    <div className="benefit__title">
-                        Enjoy
-                    </div>
-                </div>
-
-                <div className="benefit__shape benefit__shape--4 benefit__shape--end benefit__back-side">
-                    <ul className="benefit__list">
-                        <li className="benefit__item">
-                            item
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-
+                            {/* TODO include CTA */}
+                        </div>
+                    );
+                })
+            }
         </section>
     );
 };

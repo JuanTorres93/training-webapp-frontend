@@ -261,6 +261,11 @@ body {
 }
 .benefit:hover .benefit__back-side {
   transform: rotateX(360deg);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.benefit:hover .benefit__shape {
+  padding-right: 0;
+  padding-left: 0;
 }
 .benefit__shape {
   display: flex;
@@ -368,6 +373,7 @@ body {
   display: block;
   font-size: 1.8rem;
   list-style: none;
+  align-self: center;
 }
 .benefit__title {
   display: inline-block;
@@ -401,6 +407,7 @@ body {
   display: grid;
   justify-items: center;
   padding: 7rem 0;
+  grid-row: features-start/features-end;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   grid-gap: 2rem;
   grid-row-gap: 6rem;
@@ -414,7 +421,7 @@ body {
   padding: 10rem 7rem;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   grid-column-gap: 0rem;
-  grid-row-gap: 6rem;
+  grid-row-gap: 9rem;
   background-color: #c3c6c4;
   grid-row: benefits-start/benefits-end;
 }

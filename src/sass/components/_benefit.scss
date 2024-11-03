@@ -34,6 +34,12 @@
 
     &:hover &__back-side {
         transform: rotateX(360deg);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    &:hover &__shape {
+        padding-right: 0;
+        padding-left: 0;
     }
 
     &__shape {
@@ -151,6 +157,7 @@
         display: block;
         font-size: 1.8rem;
         list-style: none;
+        align-self: center;
     }
 
     &__title {

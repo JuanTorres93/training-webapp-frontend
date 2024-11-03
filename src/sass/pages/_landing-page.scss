@@ -11,6 +11,8 @@
     justify-items: center;
     padding: 7rem 0;
 
+    grid-row: features-start / features-end;
+
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
 
     grid-gap: 2rem;
@@ -29,7 +31,7 @@
 
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     grid-column-gap: 0rem;
-    grid-row-gap: 6rem;
+    grid-row-gap: 9rem;
 
     background-color: $color-grey-light-1;
 
