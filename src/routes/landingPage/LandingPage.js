@@ -24,6 +24,7 @@ export default function LandingPage() {
             description: t('feature-1-description'),
             // TODO include actual icon
             image: "/images/logos/logo_border_small.svg",
+            // image: <ion-icon name="moon-outline"></ion-icon>
         },
         {
             title: t('feature-2-title'),

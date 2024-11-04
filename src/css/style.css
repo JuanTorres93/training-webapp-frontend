@@ -217,6 +217,7 @@ body {
 .feature__text {
   font-size: 1.6rem;
   text-align: center;
+  margin-top: 2rem;
 }
 .feature__icon {
   width: 100%;
@@ -414,8 +415,8 @@ body {
   transform: rotateX(180deg);
   top: 0;
   left: 0;
-  width: 90%;
-  height: 140%;
+  width: 75%;
+  height: 120%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 .benefit__cta {
