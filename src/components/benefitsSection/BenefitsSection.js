@@ -1,5 +1,5 @@
 function BenefitsSection({
-    benefits = [] // Ordered array of objects with title, items and cta properties
+    benefits = [] // Ordered array of objects with title, items, cta and icon properties
 }) {
     return (
         <section id='benefits' className="benefits">
@@ -18,7 +18,7 @@ function BenefitsSection({
 
                             <div className={`benefit__shape benefit__shape--${index + 1} benefit__shape--${index === 0 ? 'start' : index === benefits.length - 1 ? 'end' : 'middle'} benefit__back-side`}>
                                 <figure className="benefit__icon-box">
-                                    <img src="" alt="" className="benefit__icon" />
+                                    {benefit.icon}
                                 </figure>
                                 <ul className="benefit__list">
                                     {

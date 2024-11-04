@@ -243,7 +243,7 @@ body {
 }
 
 .benefit {
-  perspective: 100rem;
+  perspective: 500rem;
   filter: drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15));
   width: 115%;
   height: 115%;
@@ -253,16 +253,13 @@ body {
 }
 .benefit:hover {
   filter: drop-shadow(0 2rem 2rem rgba(0, 0, 0, 0.8));
-  width: 130%;
-  height: 130%;
-  transform: translate(0, -15%);
   z-index: 20;
 }
 .benefit:hover .benefit__front-side {
   transform: rotateX(180deg);
 }
 .benefit:hover .benefit__back-side {
-  transform: rotateX(360deg);
+  transform: rotateX(360deg) translate(0, -15%);
 }
 .benefit:hover .benefit__shape {
   padding-right: 0;
@@ -411,13 +408,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 0;
   position: absolute;
   transform: rotateX(180deg);
   top: 0;
   left: 0;
-  width: 100%;
+  width: 90%;
+  height: 140%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 .benefit__cta {
@@ -435,6 +433,16 @@ body {
 }
 .benefit__cta:active {
   box-shadow: 0 0.75rem 1rem rgba(0, 0, 0, 0.15);
+}
+.benefit__icon-box {
+  width: 10rem;
+  height: 10rem;
+  margin-bottom: -2rem;
+}
+.benefit__icon-box > * {
+  font-size: 10rem;
+  color: #dde0de;
+  --ionicon-stroke-width: 16px;
 }
 
 .simple-btn {
@@ -468,7 +476,7 @@ body {
 
 .landing {
   display: grid;
-  grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50%) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+  grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 }
 
 .features {
@@ -487,7 +495,7 @@ body {
   display: grid;
   align-content: center;
   justify-content: center;
-  align-items: stretch;
+  align-content: stretch;
   padding: 10rem 12rem 13.5rem 4rem;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   grid-column-gap: 0rem;

@@ -1,9 +1,11 @@
 @use "../abstracts" as *;
 
 .benefit {
-    perspective: 100rem;
+    perspective: 500rem;
     filter: drop-shadow(0 .5rem 1rem rgba($color-black, 0.15));
 
+    // This is the extra space that the item will expand
+    // beyond its grid cell
     $extra-grid: 15%;
 
     width: calc(100% + $extra-grid);
@@ -25,14 +27,6 @@
     &:hover {
         filter: drop-shadow(0 2rem 2rem rgba($color-black, 0.8));
 
-        $extra-grid: 30%;
-
-        width: calc(100% + $extra-grid);
-        height: calc(100% + $extra-grid);
-
-        transform: translate(0, -$extra-grid / 2);
-
-
         z-index: 20;
     }
 
@@ -42,7 +36,7 @@
 
 
     &:hover &__back-side {
-        transform: rotateX(360deg);
+        transform: rotateX(360deg) translate(0, -$extra-grid);
     }
 
     &:hover &__shape {
@@ -226,14 +220,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-evenly;
         padding: 0;
 
         position: absolute;
         transform: rotateX(180deg);
         top: 0;
         left: 0;
-        width: 100%;
+        width: 90%;
+        height: 140%;
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 
@@ -255,6 +250,20 @@
 
         &:active {
             box-shadow: 0 .75rem 1rem rgba($color-black, 0.15);
+        }
+    }
+
+
+    &__icon-box {
+        $icon-size: 10rem;
+        width: $icon-size;
+        height: $icon-size;
+        margin-bottom: -2rem;
+
+        &>* {
+            font-size: $icon-size;
+            color: $color-grey-light-2;
+            --ionicon-stroke-width: 16px;
         }
     }
 }

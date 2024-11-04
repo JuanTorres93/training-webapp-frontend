@@ -2,7 +2,7 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50%) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
 }
 
@@ -28,7 +28,7 @@
     align-content: center;
     justify-content: center;
 
-    align-items: stretch;
+    align-content: stretch;
 
     // Grid items span outside of their cells, so
     // different paddings for right and left

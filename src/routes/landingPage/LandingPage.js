@@ -68,21 +68,25 @@ export default function LandingPage() {
             title: t('benefit-1-title'),
             items: t('benefit-1-items'),
             cta: t('benefit-1-cta'),
+            icon: <ion-icon style={{ "--ionicon-stroke-width": "32px" }} name="barbell-outline"></ion-icon>,
         },
         {
             title: t('benefit-2-title'),
             items: t('benefit-2-items'),
             cta: t('benefit-2-cta'),
+            icon: <ion-icon name="analytics-outline"></ion-icon>,
         },
         {
             title: t('benefit-3-title'),
             items: t('benefit-3-items'),
             cta: t('benefit-3-cta'),
+            icon: <ion-icon name="flame-outline"></ion-icon>,
         },
         {
             title: t('benefit-4-title'),
             items: t('benefit-4-items'),
             cta: t('benefit-4-cta'),
+            icon: <ion-icon name="leaf-outline"></ion-icon>,
         },
     ];
 
