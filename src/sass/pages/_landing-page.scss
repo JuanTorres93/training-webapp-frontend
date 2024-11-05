@@ -15,6 +15,8 @@
 
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
 
+    grid-auto-rows: minmax(min-content, 30vh);
+
     grid-gap: 2rem;
     grid-row-gap: 6rem;
 
@@ -37,6 +39,8 @@
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     grid-column-gap: 0rem;
     grid-row-gap: 0;
+
+    // TODO: probably grid-auto-rows would be benfitial, just like in features
 
     /* Add row gap only if there's more than one row */
     &:has(.benefit:nth-child(-n+3)) {

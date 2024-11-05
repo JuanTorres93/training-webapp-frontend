@@ -1,5 +1,5 @@
 function FeatureSection({
-    features // array of objects with title, description and image
+    features // array of objects with title, description and image (for now, it is an ion-icon component)
 }) {
     return (
         <section id='features' className="features">
@@ -9,8 +9,8 @@ function FeatureSection({
                     return (
                         <div key={f.title} className="feature__card">
                             <figure className="feature__icon-box">
-                                {/* TODO sprite svg */}
-                                <img src={f.image} alt="feature icon" className="feature__icon" />
+                                {/* <img src={f.image} alt="feature icon" className="feature__icon" /> */}
+                                {f.image}
                             </figure>
 
                             <div className="feature__title">

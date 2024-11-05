@@ -199,38 +199,16 @@ body {
   transform: translateY(0.1rem);
 }
 
-.feature__icon-box {
-  width: 7.6rem;
-  height: 7.6rem;
-  margin-bottom: 1.8rem;
-}
-.feature__title {
-  display: inline-block;
-  background-image: linear-gradient(to right, #4BDE94, #03B670);
-  background-clip: text;
-  color: transparent;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.feature__text {
-  font-size: 1.6rem;
-  text-align: center;
-  margin-top: 2rem;
-}
-.feature__icon {
-  width: 100%;
-}
 .feature__card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   background-color: #fff;
   width: 85%;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-  padding: 6rem 1.5rem;
+  padding: 0rem 4rem;
+  padding-bottom: 2rem;
   border-radius: 0.3rem;
   transition: all 0.5s;
 }
@@ -239,8 +217,38 @@ body {
   background-image: linear-gradient(to right, #4BDE94, #03B670);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
 }
-.feature__card:hover .feature__title, .feature__card:hover .feature__text {
+.feature__card:hover .feature__title, .feature__card:hover .feature__text, .feature__card:hover .feature__icon-box {
   color: #fff;
+}
+.feature__card:hover .feature__text {
+  font-weight: 500;
+}
+.feature__icon-box {
+  width: 8.5rem;
+  height: 8.5rem;
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  color: #2FCA82;
+}
+.feature__icon-box > * {
+  font-size: 8.5rem;
+  --ionicon-stroke-width: 16px;
+}
+.feature__title {
+  display: inline-block;
+  background-image: linear-gradient(to right, #4BDE94, #03B670);
+  background-clip: text;
+  color: transparent;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.feature__text {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .benefit {
@@ -486,6 +494,7 @@ body {
   padding: 7rem 0;
   grid-row: features-start/features-end;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-auto-rows: minmax(min-content, 30vh);
   grid-gap: 2rem;
   grid-row-gap: 6rem;
   color: #575a58;

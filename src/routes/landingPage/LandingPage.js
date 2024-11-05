@@ -22,45 +22,37 @@ export default function LandingPage() {
         {
             title: t('feature-1-title'),
             description: t('feature-1-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
-            // image: <ion-icon name="moon-outline"></ion-icon>
+            image: <ion-icon name="moon-outline"></ion-icon>
         },
         {
             title: t('feature-2-title'),
             description: t('feature-2-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="calendar-outline"></ion-icon>,
         },
         {
             title: t('feature-3-title'),
             description: t('feature-3-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="checkmark-circle-outline"></ion-icon>,
         },
         {
             title: t('feature-4-title'),
             description: t('feature-4-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="heart-outline"></ion-icon>,
         },
         {
             title: t('feature-5-title'),
             description: t('feature-5-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="rocket-outline"></ion-icon>,
         },
         {
             title: t('feature-6-title'),
             description: t('feature-6-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="bonfire-outline"></ion-icon>,
         },
         {
             title: t('feature-7-title'),
             description: t('feature-7-description'),
-            // TODO include actual icon
-            image: "/images/logos/logo_border_small.svg",
+            image: <ion-icon name="finger-print-outline"></ion-icon>,
         }
     ];
 
