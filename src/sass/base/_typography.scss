@@ -4,3 +4,13 @@ body {
     font-family: "Montserrat", sans-serif;
     font-size: 1.6rem;
 }
+
+.heading-secondary {
+    font-size: 4rem;
+    font-weight: 400;
+    background-image: linear-gradient(to right, $color-grey-dark-5, $color-grey-dark-3);
+    background-clip: text;
+    color: transparent;
+    border-bottom: 6px solid $color-primary-light;
+    padding: 2rem 2.5rem;
+}

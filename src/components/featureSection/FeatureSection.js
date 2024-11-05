@@ -1,9 +1,12 @@
 function FeatureSection({
+    sectionTitle, // string
     features // array of objects with title, description and image (for now, it is an ion-icon component)
 }) {
     return (
         <section id='features' className="features">
-            {/* TODO include an h2 heading */}
+            <h2 className="features__heading heading-secondary u-margin-bottom">
+                {sectionTitle}
+            </h2>
             {
                 features.map(f => {
                     return (

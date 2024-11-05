@@ -15,3 +15,8 @@
     background-position: center;
     z-index: -1;
 }
+
+@mixin landing-page-line-between-sections {
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    border-bottom: 1px solid $color-grey-dark-3;
+}

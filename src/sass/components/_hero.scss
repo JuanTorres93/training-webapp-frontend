@@ -16,6 +16,8 @@
     background-size: cover;
     background-position: center;
 
+    @include landing-page-line-between-sections;
+
     &__box {
         display: flex;
         flex-direction: column;

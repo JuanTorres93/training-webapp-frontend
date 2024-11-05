@@ -2,26 +2,8 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 50vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
-}
-
-.features {
-    display: grid;
-    justify-items: center;
-    padding: 7rem 0;
-
-    grid-row: features-start / features-end;
-
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-
-    grid-auto-rows: minmax(min-content, 30vh);
-
-    grid-gap: 2rem;
-    grid-row-gap: 6rem;
-
-    color: $color-grey-dark-3;
-    background-color: $color-grey-light-3;
 }
 
 .benefits {
@@ -31,24 +13,56 @@
     justify-content: center;
 
     align-content: stretch;
+    @include landing-page-line-between-sections;
 
     // Grid items span outside of their cells, so
     // different paddings for right and left
-    padding: 10rem 12rem 13.5rem 4rem;
+    padding: 8rem 12rem 13.5rem 4rem;
 
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
+
+    grid-template-rows: [heading-start] 6rem [heading-end];
     grid-column-gap: 0rem;
-    grid-row-gap: 0;
+    grid-row-gap: 9rem;
 
     // TODO: probably grid-auto-rows would be benfitial, just like in features
 
-    /* Add row gap only if there's more than one row */
-    &:has(.benefit:nth-child(-n+3)) {
-        /* Aplica un row-gap solo si hay 3 elementos o menos */
-        grid-row-gap: 9rem;
-    }
-
-    background-color: $color-grey-light-1;
+    background-color: $color-grey-light-2;
 
     grid-row: benefits-start / benefits-end;
+
+    &__heading {
+        grid-row: heading-start / heading-end;
+        grid-column: 1 / -1;
+        justify-self: center;
+        align-self: end;
+    }
+}
+
+.features {
+    // TODO add margin to left and right of content
+    display: grid;
+    justify-items: center;
+    padding: 10rem 0;
+    @include landing-page-line-between-sections;
+
+    grid-row: features-start / features-end;
+
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    grid-template-rows: [heading-start] 6rem [heading-end];
+
+    grid-auto-rows: minmax(min-content, 30vh);
+
+    grid-gap: 2rem;
+    grid-row-gap: 6rem;
+
+    color: $color-grey-dark-3;
+    background-color: $color-grey-light-3;
+
+    &__heading {
+        grid-row: heading-start / heading-end;
+        grid-column: 1 / -1;
+        justify-self: center;
+        align-self: end;
+    }
 }

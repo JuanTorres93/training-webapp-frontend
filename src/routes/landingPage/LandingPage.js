@@ -94,9 +94,12 @@ export default function LandingPage() {
             <HeroSection />
             {/* TODO Poner aquí la sección "Tu futuro" */}
 
-            <BenefitsSection benefits={benefits} />
+            <BenefitsSection
+                sectionTitle={t('benefits-section-title')}
+                benefits={benefits} />
 
             <FeatureSection
+                sectionTitle={t('features-section-title')}
                 features={features}
             />
             {/* <LastCTA /> */}

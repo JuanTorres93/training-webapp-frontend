@@ -14,8 +14,7 @@
 
     color: $color-grey-dark-3;
     background-color: rgba($color-white, .98);
-    box-shadow: 0 1rem 2rem rgba($color-black, .1);
-    border-bottom: 1px solid $color-grey-dark-3;
+    @include landing-page-line-between-sections;
 
     $margin-sides: 2rem;
 

@@ -1,9 +1,12 @@
 function BenefitsSection({
+    sectionTitle, // string
     benefits = [] // Ordered array of objects with title, items, cta and icon properties
 }) {
     return (
         <section id='benefits' className="benefits">
-            {/* TODO include an h2 heading */}
+            <h2 className="benefits__heading heading-secondary">
+                {sectionTitle}
+            </h2>
 
             {
                 benefits.map((benefit, index) => {

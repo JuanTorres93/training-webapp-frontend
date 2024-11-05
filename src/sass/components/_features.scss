@@ -31,8 +31,22 @@
         color: $color-white;
     }
 
-    &__card:hover &__text {
-        font-weight: 500;
+    &__card:hover &__title {
+        background-image: linear-gradient(to right bottom,
+                $color-secondary-light, $color-secondary-dark);
+        background-clip: unset;
+        cursor: pointer;
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+
+        &:hover {
+            transform: translateY(-.2rem);
+            box-shadow: 0 .75rem 1.25rem rgba($color-black, .20);
+        }
+
+        &:active {
+            transform: translateY(-.1rem);
+            box-shadow: 0 .6rem 1.2rem rgba($color-black, .18);
+        }
     }
 
     &__icon-box {
@@ -56,9 +70,12 @@
         background-clip: text;
         color: transparent;
         font-size: 2.1rem;
-        font-weight: 700;
-        margin-bottom: .5rem;
+        font-weight: 800;
+        padding: 1rem 2rem;
+        border-radius: .3rem;
         text-align: center;
+
+        transition: all .2s;
     }
 
     &__text {
@@ -66,5 +83,7 @@
         line-height: 1.5;
         text-align: center;
         margin-top: 2rem;
+
+        font-weight: 500;
     }
 }
