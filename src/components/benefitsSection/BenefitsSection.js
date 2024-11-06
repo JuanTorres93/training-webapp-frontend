@@ -4,7 +4,7 @@ function BenefitsSection({
 }) {
     return (
         <section id='benefits' className="benefits">
-            <h2 className="benefits__heading heading-secondary">
+            <h2 className="benefits__heading heading-secondary u-margin-bottom-large">
                 {sectionTitle}
             </h2>
 

@@ -4,7 +4,7 @@ function FeatureSection({
 }) {
     return (
         <section id='features' className="features">
-            <h2 className="features__heading heading-secondary u-margin-bottom">
+            <h2 className="features__heading heading-secondary u-margin-bottom-large">
                 {sectionTitle}
             </h2>
             {

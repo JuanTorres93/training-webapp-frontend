@@ -12,12 +12,12 @@
     align-content: center;
     justify-content: center;
 
-    align-content: stretch;
+    align-items: stretch;
     @include landing-page-line-between-sections;
 
     // Grid items span outside of their cells, so
     // different paddings for right and left
-    padding: 8rem 12rem 13.5rem 4rem;
+    padding: 16rem 20rem 18.5rem 14rem;
 
     grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
 
@@ -25,7 +25,7 @@
     grid-column-gap: 0rem;
     grid-row-gap: 9rem;
 
-    // TODO: probably grid-auto-rows would be benfitial, just like in features
+    grid-auto-rows: minmax(min-content, 35vh);
 
     background-color: $color-grey-light-2;
 
@@ -40,10 +40,9 @@
 }
 
 .features {
-    // TODO add margin to left and right of content
     display: grid;
     justify-items: center;
-    padding: 10rem 0;
+    padding: 16rem 12rem;
     @include landing-page-line-between-sections;
 
     grid-row: features-start / features-end;
