@@ -2,8 +2,31 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end future-start] min-content [future-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 
+}
+
+.niche-section {
+    @include landing-page-line-between-sections;
+    grid-row: niche-start / niche-end;
+
+    padding: 10rem 10rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+    grid-template-rows: [heading-start] 6rem [heading-end];
+    grid-auto-rows: minmax(min-content, 35vh);
+    grid-column-gap: 15rem;
+    justify-items: center;
+    align-items: stretch;
+
+
+    &__heading {
+        grid-row: heading-start / heading-end;
+        grid-column: 1 / -1;
+        justify-self: center;
+        align-self: end;
+    }
 }
 
 .benefits {
@@ -20,12 +43,11 @@
     padding: 16rem 20rem 18.5rem 14rem;
 
     grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
-
     grid-template-rows: [heading-start] 6rem [heading-end];
+    grid-auto-rows: minmax(min-content, 35vh);
+
     grid-column-gap: 0rem;
     grid-row-gap: 9rem;
-
-    grid-auto-rows: minmax(min-content, 35vh);
 
     background-color: $color-grey-light-2;
 

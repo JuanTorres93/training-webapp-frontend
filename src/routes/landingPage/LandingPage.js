@@ -1,9 +1,8 @@
 import NavHorizontal from "../../components/nav/Nav";
 import HeroSection from "../../components/heroSection/HeroSection";
+import NicheSection from "../../components/nicheSection/NicheSection";
 import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
 import FeatureSection from "../../components/featureSection/FeatureSection";
-import LastCTA from "../../components/lastCTA/LastCTA";
-import CompetitiveAdvantage from "../../components/competitiveAdvantage/CompetitiveAdvantage";
 
 import { useTranslation } from "react-i18next";
 
@@ -17,6 +16,17 @@ export default function LandingPage() {
             return i18n.changeLanguage("en");
         }
     };
+
+    const nicheMessages = [
+        {
+            title: t('niche-1-title'),
+            text: t('niche-1-text'),
+        },
+        {
+            title: t('niche-2-title'),
+            text: t('niche-2-text'),
+        },
+    ];
 
     const features = [
         {
@@ -92,7 +102,10 @@ export default function LandingPage() {
                 linkText4={t('nav-landing-4')}
                 cbChangeLanguage={changeLanguage} />
             <HeroSection />
-            {/* TODO Poner aquí la sección "Tu futuro" */}
+            <NicheSection
+                sectionTitle={t('niche-section-title')}
+                messages={nicheMessages}
+            />
 
             <BenefitsSection
                 sectionTitle={t('benefits-section-title')}
