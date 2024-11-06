@@ -1,6 +1,10 @@
 @use "../abstracts" as *;
 
 .hero {
+    // Position set for including z-index for shadows beteween sections
+    position: relative;
+    z-index: 10;
+
     display: flex;
     align-items: center;
     justify-content: center;

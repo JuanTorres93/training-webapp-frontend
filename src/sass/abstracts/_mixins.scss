@@ -17,6 +17,6 @@
 }
 
 @mixin landing-page-line-between-sections {
-    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    box-shadow: 0 2rem 4rem rgba($color-black, .15);
     border-bottom: 1px solid $color-grey-dark-3;
 }

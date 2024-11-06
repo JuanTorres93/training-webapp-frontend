@@ -14,3 +14,11 @@ body {
     border-bottom: 6px solid $color-primary-light;
     padding: 2rem 2.5rem;
 }
+
+.heading-tertiary {
+    font-size: 3rem;
+    font-weight: 600;
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    background-clip: text;
+    color: transparent;
+}

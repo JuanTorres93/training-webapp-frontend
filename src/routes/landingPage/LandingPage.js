@@ -102,20 +102,20 @@ export default function LandingPage() {
                 linkText4={t('nav-landing-4')}
                 cbChangeLanguage={changeLanguage} />
             <HeroSection />
-            <NicheSection
-                sectionTitle={t('niche-section-title')}
-                messages={nicheMessages}
-            />
 
             <BenefitsSection
                 sectionTitle={t('benefits-section-title')}
                 benefits={benefits} />
 
+            <NicheSection
+                sectionTitle={t('niche-section-title')}
+                messages={nicheMessages}
+            />
+
             <FeatureSection
                 sectionTitle={t('features-section-title')}
                 features={features}
             />
-            {/* <LastCTA /> */}
         </div>
     );
 };

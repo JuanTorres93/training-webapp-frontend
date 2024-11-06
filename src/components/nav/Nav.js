@@ -6,14 +6,14 @@ const NavHorizontal = ({
     cbChangeLanguage = () => { } }) => {
     return (
         <nav className="nav-horizontal">
-            <figure className="nav-horizontal__logo-box">
+            <a href="#" className="nav-horizontal__logo-box">
                 <img src="/images/logos/logo_border_small.svg" alt="logo" className="nav-horizontal__logo" />
-            </figure>
+            </a>
 
             <ul className="nav-horizontal__list">
                 {/* Your future */}
                 <li className="nav-horizontal__item">
-                    <a href="#" className="nav-horizontal__link">
+                    <a href="#niche-section" className="nav-horizontal__link">
                         {linkText1}
                     </a>
                 </li>

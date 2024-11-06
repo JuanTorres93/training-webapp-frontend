@@ -4,7 +4,7 @@ function NicheSection({
 }) {
     return (
         <section id='niche-section' className="niche-section">
-            {/* Video de fondo */}
+
             <h2 className="niche-section__heading heading-secondary u-margin-bottom-large">
                 {sectionTitle}
             </h2>
@@ -13,7 +13,7 @@ function NicheSection({
                 messages.map((message, index) => {
                     return (
                         <div className="niche-msg" key={index}>
-                            <h3 className="niche-msg__title">
+                            <h3 className="heading-tertiary u-center-text niche-msg__title">
                                 {message.title}
                             </h3>
 
