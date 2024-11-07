@@ -36,7 +36,7 @@
 
 
     &:hover &__back-side {
-        transform: rotateX(360deg) translate(0, -$extra-grid);
+        transform: rotateX(360deg) translate($extra-grid, -$extra-grid);
     }
 
     &:hover &__shape {

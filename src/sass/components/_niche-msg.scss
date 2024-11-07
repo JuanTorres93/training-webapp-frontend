@@ -6,24 +6,104 @@
     align-items: center;
     justify-content: start;
 
-    max-width: 95%;
-
-    background-color: rgba($color-white, .8);
+    // background-color: rgba($color-white, .8);
+    background-color: rgba($color-white, .95);
     border-radius: .3rem;
+    box-shadow: 0 1rem 2rem rgba($color-black, .15);
+    padding: 3rem 3rem;
+
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
 
     &__title {
-
-        padding: 2rem 10%;
-        padding-top: 4rem;
+        margin-bottom: 4rem;
     }
 
-    &__text {
-        font-size: 1.7rem;
+    &__list {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    &__item {
+        // Refernce for showing the explanation
+        position: relative;
+
+        width: 100%;
+    }
+
+    &__item:hover &__explanation {
+        visibility: visible;
+
+        opacity: 1;
+
+        &>* {
+            opacity: inherit;
+            visibility: inherit;
+        }
+
+    }
+
+    &__reason {
+        display: flex;
+        align-items: center;
+
+        p {
+            font-size: 1.8rem;
+            letter-spacing: .05rem;
+            color: $color-grey-dark-5;
+        }
+    }
+
+    &__icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 2rem;
+
+        &>* {
+            font-size: 3.5rem;
+            --ionicon-stroke-width: 48px;
+        }
+
+        &--green {
+            color: $color-primary;
+        }
+
+        &--red {
+            color: $color-red;
+        }
+    }
+
+    &__explanation {
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s ease-out;
+
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        right: 0;
+        width: 90%;
+        transform: translate(80%, -10%);
+
+        background-image: linear-gradient(to right bottom,
+                rgba($color-grey-light-3, .9),
+                rgba($color-white, .9));
+        border-radius: .5rem;
+        border: 2px solid $color-primary-dark;
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+
+        // TODO review style. This was from previous version
+        font-size: 1.6rem;
         line-height: 1.5;
         font-weight: 400;
         color: $color-grey-dark-5;
         text-align: center;
-        margin-bottom: 4rem;
         padding: 2rem 10%;
     }
+
 }

@@ -2,7 +2,7 @@
 
 .landing {
     display: grid;
-    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end benefits-start] min-content [benefits-end niche-start] minmax(min-content, 60vh) [niche-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+    grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 }
 
 .niche-section {
@@ -10,20 +10,23 @@
     position: relative;
     z-index: 8;
 
+
     @include landing-page-line-between-sections;
     grid-row: niche-start / niche-end;
 
     background-image: linear-gradient(to right bottom, $color-grey-light-2, $color-grey-light-3);
+    // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
     padding: 20rem 10rem;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
     grid-template-rows: [heading-start] 6rem [heading-end];
-    grid-auto-rows: minmax(min-content, 35vh);
+    grid-auto-rows: minmax(min-content, 45vh);
     grid-column-gap: 15rem;
     grid-row-gap: 8rem;
-    justify-items: center;
+    justify-items: stretch;
     align-items: stretch;
+
 
 
     &__heading {

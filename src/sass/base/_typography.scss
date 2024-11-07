@@ -13,6 +13,10 @@ body {
     color: transparent;
     border-bottom: 6px solid $color-primary-light;
     padding: 2rem 2.5rem;
+
+    &--secondary-color {
+        border-bottom-color: $color-secondary-dark;
+    }
 }
 
 .heading-tertiary {

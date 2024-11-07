@@ -57,6 +57,9 @@ body {
   border-bottom: 6px solid #4BDE94;
   padding: 2rem 2.5rem;
 }
+.heading-secondary--secondary-color {
+  border-bottom-color: #f08822;
+}
 
 .heading-tertiary {
   font-size: 3rem;
@@ -312,7 +315,7 @@ body {
   transform: rotateX(180deg);
 }
 .benefit:hover .benefit__back-side {
-  transform: rotateX(360deg) translate(0, -15%);
+  transform: rotateX(360deg) translate(15%, -15%);
 }
 .benefit:hover .benefit__shape {
   padding-right: 0;
@@ -531,21 +534,79 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  max-width: 95%;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 0.3rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  padding: 3rem 3rem;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
 }
 .niche-msg__title {
-  padding: 2rem 10%;
-  padding-top: 4rem;
+  margin-bottom: 4rem;
 }
-.niche-msg__text {
-  font-size: 1.7rem;
+.niche-msg__list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.niche-msg__item {
+  position: relative;
+  width: 100%;
+}
+.niche-msg__item:hover .niche-msg__explanation {
+  visibility: visible;
+  opacity: 1;
+}
+.niche-msg__item:hover .niche-msg__explanation > * {
+  opacity: inherit;
+  visibility: inherit;
+}
+.niche-msg__reason {
+  display: flex;
+  align-items: center;
+}
+.niche-msg__reason p {
+  font-size: 1.8rem;
+  letter-spacing: 0.05rem;
+  color: #2d302e;
+}
+.niche-msg__icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+}
+.niche-msg__icon-box > * {
+  font-size: 3.5rem;
+  --ionicon-stroke-width: 48px;
+}
+.niche-msg__icon-box--green {
+  color: #2FCA82;
+}
+.niche-msg__icon-box--red {
+  color: #ea704e;
+}
+.niche-msg__explanation {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-out;
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  width: 90%;
+  transform: translate(80%, -10%);
+  background-image: linear-gradient(to right bottom, rgba(241, 244, 242, 0.9), rgba(255, 255, 255, 0.9));
+  border-radius: 0.5rem;
+  border: 2px solid #03B670;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  font-size: 1.6rem;
   line-height: 1.5;
   font-weight: 400;
   color: #2d302e;
   text-align: center;
-  margin-bottom: 4rem;
   padding: 2rem 10%;
 }
 
@@ -567,7 +628,7 @@ body {
 
 .landing {
   display: grid;
-  grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end benefits-start] min-content [benefits-end niche-start] minmax(min-content, 60vh) [niche-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+  grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 }
 
 .niche-section {
@@ -581,10 +642,10 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
-  grid-auto-rows: minmax(min-content, 35vh);
+  grid-auto-rows: minmax(min-content, 45vh);
   grid-column-gap: 15rem;
   grid-row-gap: 8rem;
-  justify-items: center;
+  justify-items: stretch;
   align-items: stretch;
 }
 .niche-section__heading {

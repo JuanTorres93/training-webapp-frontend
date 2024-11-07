@@ -17,14 +17,64 @@ export default function LandingPage() {
         }
     };
 
-    const nicheMessages = [
+    const nicheDescription = [
         {
             title: t('niche-1-title'),
-            text: t('niche-1-text'),
+            items: [
+                {
+                    icon: <ion-icon name="checkmark-outline"></ion-icon>,
+                    isPositive: true,
+                    reason: t('niche-1-reason-1'),
+                    explanation: t('niche-1-explanation-1'),
+                },
+                {
+                    icon: <ion-icon name="checkmark-outline"></ion-icon>,
+                    isPositive: true,
+                    reason: t('niche-1-reason-2'),
+                    explanation: t('niche-1-explanation-2'),
+                },
+                {
+                    icon: <ion-icon name="checkmark-outline"></ion-icon>,
+                    isPositive: true,
+                    reason: t('niche-1-reason-3'),
+                    explanation: t('niche-1-explanation-3'),
+                },
+                {
+                    icon: <ion-icon name="checkmark-outline"></ion-icon>,
+                    isPositive: true,
+                    reason: t('niche-1-reason-4'),
+                    explanation: t('niche-1-explanation-4'),
+                },
+            ],
         },
         {
             title: t('niche-2-title'),
-            text: t('niche-2-text'),
+            items: [
+                {
+                    icon: <ion-icon name="close-outline"></ion-icon>,
+                    isPositive: false,
+                    reason: t('niche-2-reason-1'),
+                    explanation: t('niche-2-explanation-1'),
+                },
+                {
+                    icon: <ion-icon name="close-outline"></ion-icon>,
+                    isPositive: false,
+                    reason: t('niche-2-reason-2'),
+                    explanation: t('niche-2-explanation-2'),
+                },
+                {
+                    icon: <ion-icon name="close-outline"></ion-icon>,
+                    isPositive: false,
+                    reason: t('niche-2-reason-3'),
+                    explanation: t('niche-2-explanation-3'),
+                },
+                {
+                    icon: <ion-icon name="close-outline"></ion-icon>,
+                    isPositive: false,
+                    reason: t('niche-2-reason-4'),
+                    explanation: t('niche-2-explanation-4'),
+                },
+            ],
         },
     ];
 
@@ -109,7 +159,7 @@ export default function LandingPage() {
 
             <NicheSection
                 sectionTitle={t('niche-section-title')}
-                messages={nicheMessages}
+                nicheDescription={nicheDescription}
             />
 
             <FeatureSection
