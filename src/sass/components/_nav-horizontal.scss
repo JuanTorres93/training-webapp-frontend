@@ -13,7 +13,9 @@
     grid-row: nav-start / nav-end;
 
     color: $color-grey-dark-3;
-    background-color: rgba($color-white, .98);
+
+    $nav-background-color: rgba($color-white, .98);
+    background-color: $nav-background-color;
     @include landing-page-line-between-sections;
 
     $margin-sides: 2rem;
@@ -81,9 +83,24 @@
         font-size: 1.5rem;
         margin-right: $margin-sides;
 
+        span {
+            padding: 0 auto;
+        }
+
         button {
+            // To make the flag as background
+            position: relative;
             text-transform: uppercase;
-            padding-right: .5rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            text-align: center;
+            padding: 0;
+            background-color: rgba($nav-background-color, .7);
+
+            &:active {
+                background-color: rgba($nav-background-color, .7) !important;
+                transform: none;
+            }
         }
     }
 
@@ -114,5 +131,14 @@
                 text-shadow: 0 .5rem 1rem rgba($color-black, .1);
             }
         }
+    }
+
+    &__flag-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
     }
 }

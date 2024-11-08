@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Link as ScrollLinkToId } from "react-scroll";
+import { US, ES } from 'country-flag-icons/react/3x2'
 
 const scrollConfig = {
     spy: true,
@@ -55,7 +56,12 @@ const NavHorizontal = ({
 
             <div className="nav-horizontal__actions-box">
                 <button className="plain-btn nav-horizontal__action-link" onClick={cbChangeLanguage}>
-                    {currentLanguage}
+                    <span>{currentLanguage}</span>
+
+                    {currentLanguage === "es" ?
+                        <ES className="nav-horizontal__flag-icon" /> :
+                        <US className="nav-horizontal__flag-icon" />
+                    }
                 </button>
 
                 <Link to="/login" className="nav-horizontal__action-link">
