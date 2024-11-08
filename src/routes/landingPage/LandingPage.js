@@ -6,14 +6,20 @@ import FeatureSection from "../../components/featureSection/FeatureSection";
 import TestimonialsSection from "../../components/testimonialsSection/TestimonialsSection";
 
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { machineLanguage } from "../../i18n";
 
 export default function LandingPage() {
+    const [language, setLanguage] = useState(machineLanguage);
+
     const { t, i18n } = useTranslation();
 
     const changeLanguage = () => {
         if (i18n.language === "en") {
+            setLanguage("es");
             return i18n.changeLanguage("es");
         } else {
+            setLanguage("en");
             return i18n.changeLanguage("en");
         }
     };
@@ -151,6 +157,9 @@ export default function LandingPage() {
                 linkText2={t('nav-landing-2')}
                 linkText3={t('nav-landing-3')}
                 linkText4={t('nav-landing-4')}
+                currentLanguage={language}
+                loginText={t('nav-landing-login')}
+                signUpText={t('nav-landing-signup')}
                 cbChangeLanguage={changeLanguage} />
             <HeroSection />
 

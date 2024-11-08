@@ -82,22 +82,36 @@
         margin-right: $margin-sides;
 
         button {
-            font-family: inherit;
-            border: none;
-            background-color: transparent;
-            color: $color-grey-dark-3;
-            cursor: pointer;
-            font-size: inherit;
-            transition: all .2s ease-out;
-            padding: .5rem 1rem;
-            border-radius: .3rem;
+            text-transform: uppercase;
+            padding-right: .5rem;
+        }
+    }
+
+    &__action-link {
+        display: inline-block;
+        color: $color-grey-dark-4;
+        text-decoration: none;
+        font-size: 1.7rem;
+        font-weight: 500;
+
+        padding: 1rem 2rem;
+        transition: all .2s ease-out;
+
+        &:hover {
+            color: $color-primary-dark;
+        }
+
+        &:active {
+            transform: translateY(.1rem);
+        }
+
+        &--cta {
+            border: 2px solid $color-secondary;
+            border-radius: 6px;
 
             &:hover {
-                background-color: $color-grey-light-2;
-            }
-
-            &:active {
-                transform: translateY(.1rem);
+                color: $color-secondary-dark;
+                text-shadow: 0 .5rem 1rem rgba($color-black, .1);
             }
         }
     }

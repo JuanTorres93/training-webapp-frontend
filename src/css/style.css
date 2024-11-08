@@ -340,21 +340,31 @@ body {
   margin-right: 2rem;
 }
 .nav-horizontal__actions-box button {
-  font-family: inherit;
-  border: none;
-  background-color: transparent;
-  color: #575a58;
-  cursor: pointer;
-  font-size: inherit;
+  text-transform: uppercase;
+  padding-right: 0.5rem;
+}
+.nav-horizontal__action-link {
+  display: inline-block;
+  color: #3c3f3d;
+  text-decoration: none;
+  font-size: 1.7rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
   transition: all 0.2s ease-out;
-  padding: 0.5rem 1rem;
-  border-radius: 0.3rem;
 }
-.nav-horizontal__actions-box button:hover {
-  background-color: #dde0de;
+.nav-horizontal__action-link:hover {
+  color: #03B670;
 }
-.nav-horizontal__actions-box button:active {
+.nav-horizontal__action-link:active {
   transform: translateY(0.1rem);
+}
+.nav-horizontal__action-link--cta {
+  border: 2px solid #F78E2C;
+  border-radius: 6px;
+}
+.nav-horizontal__action-link--cta:hover {
+  color: #f08822;
+  text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 .feature__card {
@@ -623,6 +633,15 @@ body {
   font-size: 10rem;
   color: #dde0de;
   --ionicon-stroke-width: 16px;
+}
+
+.plain-btn {
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  transition: all 0.2s;
+  text-align: left;
+  cursor: pointer;
 }
 
 .simple-btn {

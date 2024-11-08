@@ -1,5 +1,14 @@
 @use "../abstracts/" as *;
 
+.plain-btn {
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    transition: all .2s;
+    text-align: left;
+    cursor: pointer;
+}
+
 .simple-btn {
     border: none;
     background-color: transparent;
