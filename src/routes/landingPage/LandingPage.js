@@ -3,6 +3,7 @@ import HeroSection from "../../components/heroSection/HeroSection";
 import NicheSection from "../../components/nicheSection/NicheSection";
 import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
 import FeatureSection from "../../components/featureSection/FeatureSection";
+import TestimonialsSection from "../../components/testimonialsSection/TestimonialsSection";
 
 import { useTranslation } from "react-i18next";
 
@@ -165,6 +166,10 @@ export default function LandingPage() {
             <FeatureSection
                 sectionTitle={t('features-section-title')}
                 features={features}
+            />
+
+            <TestimonialsSection
+                sectionTitle={"CAMBIAR Y TRADUCIR"}
             />
         </div>
     );

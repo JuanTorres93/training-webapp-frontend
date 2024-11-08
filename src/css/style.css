@@ -851,4 +851,27 @@ body {
   align-self: end;
 }
 
+.testimonials-section {
+  position: relative;
+  z-index: 6;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #575a58;
+  grid-row: testimonials-start/testimonials-end;
+  padding: 20rem 10rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
+  grid-template-rows: [heading-start] 6rem [heading-end];
+  grid-auto-rows: minmax(min-content, 45vh);
+  grid-column-gap: 15rem;
+  grid-row-gap: 8rem;
+  justify-items: stretch;
+  align-items: stretch;
+}
+.testimonials-section__heading {
+  grid-row: heading-start/heading-end;
+  grid-column: 1/-1;
+  justify-self: center;
+  align-self: end;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -54,7 +54,7 @@ const NavHorizontal = ({
                     Change language
                 </button>
 
-
+                ACTIONS
             </div>
         </nav>
     )
