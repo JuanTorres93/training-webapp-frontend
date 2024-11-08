@@ -1,3 +1,12 @@
+import { Link as ScrollLinkToId } from "react-scroll";
+
+const scrollConfig = {
+    spy: true,
+    smooth: true,
+    duration: 500,
+}
+
+
 const NavHorizontal = ({
     linkText1 = "",
     linkText2 = "",
@@ -6,37 +15,37 @@ const NavHorizontal = ({
     cbChangeLanguage = () => { } }) => {
     return (
         <nav className="nav-horizontal">
-            <a href="#" className="nav-horizontal__logo-box">
+            <ScrollLinkToId to="hero-section" className="nav-horizontal__logo-box" {...scrollConfig}>
                 <img src="/images/logos/logo_border_small.svg" alt="logo" className="nav-horizontal__logo" />
-            </a>
+            </ScrollLinkToId>
 
             <ul className="nav-horizontal__list">
                 {/* Your future */}
                 <li className="nav-horizontal__item">
-                    <a href="#niche-section" className="nav-horizontal__link">
+                    <ScrollLinkToId to="niche-section" className="nav-horizontal__link" {...scrollConfig}>
                         {linkText1}
-                    </a>
+                    </ScrollLinkToId>
                 </li>
 
                 {/* benefits */}
                 <li className="nav-horizontal__item">
-                    <a href="#benefits" className="nav-horizontal__link">
+                    <ScrollLinkToId to="benefits" className="nav-horizontal__link" {...scrollConfig}>
                         {linkText2}
-                    </a>
+                    </ScrollLinkToId>
                 </li>
 
                 {/* Features */}
                 <li className="nav-horizontal__item">
-                    <a href="#features" className="nav-horizontal__link">
+                    <ScrollLinkToId to="features" className="nav-horizontal__link" {...scrollConfig}>
                         {linkText3}
-                    </a>
+                    </ScrollLinkToId>
                 </li>
 
                 {/* Testimonials */}
                 <li className="nav-horizontal__item">
-                    <a href="#" className="nav-horizontal__link">
+                    <ScrollLinkToId to="testimonials-section" className="nav-horizontal__link" {...scrollConfig}>
                         {linkText4}
-                    </a>
+                    </ScrollLinkToId>
                 </li>
             </ul>
 
@@ -44,7 +53,8 @@ const NavHorizontal = ({
                 <button onClick={cbChangeLanguage}>
                     Change language
                 </button>
-                ACTIONS
+
+
             </div>
         </nav>
     )

@@ -10,7 +10,7 @@ function HeroSection() {
     };
 
     return (
-        <header className="hero">
+        <header id='hero-section' className="hero">
             <div className="hero__box">
                 <h1 className="hero__text">
                     <span className="hero__text--big">
