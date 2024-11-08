@@ -10,9 +10,9 @@ function NicheSection({
             </h2>
 
             {
-                nicheDescription.map((nd, index) => {
+                nicheDescription.map((nd, nicheBlockIndex) => {
                     return (
-                        <div className="niche-msg" key={index}>
+                        <div className="niche-msg" key={nicheBlockIndex}>
                             <h3 className="heading-tertiary u-center-text niche-msg__title">
                                 {nd.title}
                             </h3>
@@ -29,7 +29,7 @@ function NicheSection({
                                                     <p>{item.reason}</p>
                                                 </div>
 
-                                                <div className="niche-msg__explanation">
+                                                <div className={`niche-msg__explanation niche-msg__explanation--${nicheBlockIndex === 0 ? 'right' : 'left'}`}>
                                                     <p>{item.explanation}</p>
                                                 </div>
                                             </div>

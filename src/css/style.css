@@ -43,13 +43,138 @@ body {
     color: #F78E2C;
   }
 }
+@keyframes turn-text-color-to-primary-gradient {
+  0% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 0%, currentColor 0%, currentColor 100%);
+    background-clip: text;
+  }
+  10% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 10%, currentColor 10%, currentColor 100%);
+    background-clip: text;
+  }
+  20% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 20%, currentColor 20%, currentColor 100%);
+    background-clip: text;
+  }
+  30% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 30%, currentColor 30%, currentColor 100%);
+    background-clip: text;
+  }
+  40% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 40%, currentColor 40%, currentColor 100%);
+    background-clip: text;
+  }
+  50% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 50%, currentColor 50%, currentColor 100%);
+    background-clip: text;
+  }
+  60% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 60%, currentColor 60%, currentColor 100%);
+    background-clip: text;
+  }
+  70% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 70%, currentColor 70%, currentColor 100%);
+    background-clip: text;
+  }
+  80% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 80%, currentColor 80%, currentColor 100%);
+    background-clip: text;
+  }
+  90% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 90%, currentColor 90%, currentColor 100%);
+    background-clip: text;
+  }
+  100% {
+    color: transparent;
+    background-image: linear-gradient(to right, #03B670 0%, #4BDE94 100%);
+    background-clip: text;
+  }
+}
+@keyframes turn-text-color-to-secondary-gradient {
+  0% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 0%, currentColor 0%, currentColor 100%);
+    background-clip: text;
+  }
+  10% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 10%, currentColor 10%, currentColor 100%);
+    background-clip: text;
+  }
+  20% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 20%, currentColor 20%, currentColor 100%);
+    background-clip: text;
+  }
+  30% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 30%, currentColor 30%, currentColor 100%);
+    background-clip: text;
+  }
+  40% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 40%, currentColor 40%, currentColor 100%);
+    background-clip: text;
+  }
+  50% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 50%, currentColor 50%, currentColor 100%);
+    background-clip: text;
+  }
+  60% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 60%, currentColor 60%, currentColor 100%);
+    background-clip: text;
+  }
+  70% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 70%, currentColor 70%, currentColor 100%);
+    background-clip: text;
+  }
+  80% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 80%, currentColor 80%, currentColor 100%);
+    background-clip: text;
+  }
+  90% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 90%, currentColor 90%, currentColor 100%);
+    background-clip: text;
+  }
+  100% {
+    color: transparent;
+    background-image: linear-gradient(to right, #f08822 0%, #ffa45b 100%);
+    background-clip: text;
+  }
+}
+@keyframes light-up-and-down-movement {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.1rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
 }
 
 .heading-secondary {
-  font-size: 4rem;
+  font-size: 6rem;
   font-weight: 400;
   background-image: linear-gradient(to right, #2d302e, #575a58);
   background-clip: text;
@@ -62,7 +187,7 @@ body {
 }
 
 .heading-tertiary {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 600;
   background-image: linear-gradient(to right, #4BDE94, #03B670);
   background-clip: text;
@@ -537,7 +662,7 @@ body {
   background-color: rgba(255, 255, 255, 0.95);
   border-radius: 0.3rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-  padding: 3rem 3rem;
+  padding: 6rem 4rem;
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
@@ -555,22 +680,34 @@ body {
   position: relative;
   width: 100%;
 }
+.niche-msg__item:not(:hover) {
+  animation: light-up-and-down-movement 2.5s ease-in-out;
+  animation-iteration-count: infinite;
+}
 .niche-msg__item:hover .niche-msg__explanation {
   visibility: visible;
   opacity: 1;
 }
-.niche-msg__item:hover .niche-msg__explanation > * {
-  opacity: inherit;
-  visibility: inherit;
+.niche-msg__item:hover .niche-msg__reason p {
+  cursor: pointer;
+  animation: turn-text-color-to-secondary-gradient 0.3s ease-in;
+  animation-fill-mode: both;
+  transform: translateY(-1px);
+  text-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+.niche-msg__item:hover .niche-msg__reason p:active {
+  transform: translateY(0);
+  text-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 .niche-msg__reason {
   display: flex;
   align-items: center;
 }
 .niche-msg__reason p {
-  font-size: 1.8rem;
+  font-size: 2rem;
   letter-spacing: 0.05rem;
   color: #2d302e;
+  transition: all 0.2s;
 }
 .niche-msg__icon-box {
   display: flex;
@@ -591,9 +728,9 @@ body {
 .niche-msg__explanation {
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease-in-out 0.05s;
   position: absolute;
-  z-index: 20;
+  z-index: 100;
   top: 0;
   right: 0;
   width: 90%;
@@ -602,12 +739,22 @@ body {
   border-radius: 0.5rem;
   border: 2px solid #03B670;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
-  font-size: 1.6rem;
-  line-height: 1.5;
+  font-size: 1.7rem;
+  line-height: 1.6;
   font-weight: 400;
   color: #2d302e;
   text-align: center;
-  padding: 2rem 10%;
+  padding: 3rem 10%;
+}
+.niche-msg__explanation--left {
+  left: 0;
+  right: auto;
+  transform: translate(-100%, -10%);
+}
+.niche-msg__explanation--right {
+  left: auto;
+  right: 0;
+  transform: translate(80%, -10%);
 }
 
 .bg-video {
@@ -640,7 +787,7 @@ body {
   background-image: linear-gradient(to right bottom, #dde0de, #f1f4f2);
   padding: 20rem 10rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
   grid-auto-rows: minmax(min-content, 45vh);
   grid-column-gap: 15rem;
@@ -664,7 +811,7 @@ body {
   align-items: stretch;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #575a58;
-  padding: 16rem 20rem 18.5rem 14rem;
+  padding: 20rem 20rem 22.5rem 14rem;
   grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
   grid-auto-rows: minmax(min-content, 35vh);
@@ -685,7 +832,7 @@ body {
   z-index: 7;
   display: grid;
   justify-items: center;
-  padding: 16rem 12rem;
+  padding: 20rem 12rem;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #575a58;
   grid-row: features-start/features-end;

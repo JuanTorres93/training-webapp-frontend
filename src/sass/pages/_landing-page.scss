@@ -19,7 +19,7 @@
     padding: 20rem 10rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
     grid-template-rows: [heading-start] 6rem [heading-end];
     grid-auto-rows: minmax(min-content, 45vh);
     grid-column-gap: 15rem;
@@ -52,7 +52,7 @@
 
     // Grid items span outside of their cells, so
     // different paddings for right and left
-    padding: 16rem 20rem 18.5rem 14rem;
+    padding: 20rem 20rem 22.5rem 14rem;
 
     grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
     grid-template-rows: [heading-start] 6rem [heading-end];
@@ -80,7 +80,7 @@
 
     display: grid;
     justify-items: center;
-    padding: 16rem 12rem;
+    padding: 20rem 12rem;
     @include landing-page-line-between-sections;
 
     grid-row: features-start / features-end;

@@ -19,3 +19,153 @@
         color: $color-secondary;
     }
 }
+
+@keyframes turn-text-color-to-primary-gradient {
+    0% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 0%, currentColor 0%, currentColor 100%);
+        background-clip: text;
+    }
+
+    10% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 10%, currentColor 10%, currentColor 100%);
+        background-clip: text;
+    }
+
+    20% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 20%, currentColor 20%, currentColor 100%);
+        background-clip: text;
+    }
+
+    30% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 30%, currentColor 30%, currentColor 100%);
+        background-clip: text;
+    }
+
+    40% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 40%, currentColor 40%, currentColor 100%);
+        background-clip: text;
+    }
+
+    50% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 50%, currentColor 50%, currentColor 100%);
+        background-clip: text;
+    }
+
+    60% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 60%, currentColor 60%, currentColor 100%);
+        background-clip: text;
+    }
+
+    70% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 70%, currentColor 70%, currentColor 100%);
+        background-clip: text;
+    }
+
+    80% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 80%, currentColor 80%, currentColor 100%);
+        background-clip: text;
+    }
+
+    90% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 90%, currentColor 90%, currentColor 100%);
+        background-clip: text;
+    }
+
+    100% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-primary-dark 0%, $color-primary-light 100%);
+        background-clip: text;
+    }
+}
+
+@keyframes turn-text-color-to-secondary-gradient {
+    0% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 0%, currentColor 0%, currentColor 100%);
+        background-clip: text;
+    }
+
+    10% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 10%, currentColor 10%, currentColor 100%);
+        background-clip: text;
+    }
+
+    20% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 20%, currentColor 20%, currentColor 100%);
+        background-clip: text;
+    }
+
+    30% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 30%, currentColor 30%, currentColor 100%);
+        background-clip: text;
+    }
+
+    40% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 40%, currentColor 40%, currentColor 100%);
+        background-clip: text;
+    }
+
+    50% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 50%, currentColor 50%, currentColor 100%);
+        background-clip: text;
+    }
+
+    60% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 60%, currentColor 60%, currentColor 100%);
+        background-clip: text;
+    }
+
+    70% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 70%, currentColor 70%, currentColor 100%);
+        background-clip: text;
+    }
+
+    80% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 80%, currentColor 80%, currentColor 100%);
+        background-clip: text;
+    }
+
+    90% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 90%, currentColor 90%, currentColor 100%);
+        background-clip: text;
+    }
+
+    100% {
+        color: transparent;
+        background-image: linear-gradient(to right, $color-secondary-dark 0%, $color-secondary-light 100%);
+        background-clip: text;
+    }
+}
+
+@keyframes light-up-and-down-movement {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-.1rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

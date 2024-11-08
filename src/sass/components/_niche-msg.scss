@@ -10,7 +10,7 @@
     background-color: rgba($color-white, .95);
     border-radius: .3rem;
     box-shadow: 0 1rem 2rem rgba($color-black, .15);
-    padding: 3rem 3rem;
+    padding: 6rem 4rem;
 
     width: 100%;
     max-width: 80rem;
@@ -35,16 +35,29 @@
         width: 100%;
     }
 
+    &__item:not(:hover) {
+        animation: light-up-and-down-movement 2.5s ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
     &__item:hover &__explanation {
         visibility: visible;
 
         opacity: 1;
+    }
 
-        &>* {
-            opacity: inherit;
-            visibility: inherit;
+    &__item:hover &__reason p {
+        cursor: pointer;
+        animation: turn-text-color-to-secondary-gradient .3s ease-in;
+        animation-fill-mode: both;
+        transform: translateY(-1px);
+
+        text-shadow: 0 .2rem .5rem rgba($color-black, .1);
+
+        &:active {
+            transform: translateY(0);
+            text-shadow: 0 .1rem .25rem rgba($color-black, .05);
         }
-
     }
 
     &__reason {
@@ -52,9 +65,10 @@
         align-items: center;
 
         p {
-            font-size: 1.8rem;
+            font-size: 2.0rem;
             letter-spacing: .05rem;
             color: $color-grey-dark-5;
+            transition: all .2s;
         }
     }
 
@@ -81,10 +95,10 @@
     &__explanation {
         opacity: 0;
         visibility: hidden;
-        transition: all .3s ease-out;
+        transition: all .3s ease-in-out .05s;
 
         position: absolute;
-        z-index: 20;
+        z-index: 100;
         top: 0;
         right: 0;
         width: 90%;
@@ -97,13 +111,24 @@
         border: 2px solid $color-primary-dark;
         box-shadow: 0 1rem 2rem rgba($color-black, .15);
 
-        // TODO review style. This was from previous version
-        font-size: 1.6rem;
-        line-height: 1.5;
+        font-size: 1.7rem;
+        line-height: 1.6;
         font-weight: 400;
         color: $color-grey-dark-5;
         text-align: center;
-        padding: 2rem 10%;
+        padding: 3rem 10%;
+
+        &--left {
+            left: 0;
+            right: auto;
+            transform: translate(-100%, -10%);
+        }
+
+        &--right {
+            left: auto;
+            right: 0;
+            transform: translate(80%, -10%);
+        }
     }
 
 }
