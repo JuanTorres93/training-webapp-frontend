@@ -151,12 +151,18 @@ export default function LandingPage() {
     ];
 
     const testimonials = [
-        // TODO Incluir josemi y traducir
+        // TODO traducir
         {
             avatar: "/images/testimonials/testimonial-1.jpeg",
-            text: "I have been using this app for a while now and I have to say that it has helped me a lot. I have been able to keep track of my workouts and my progress. I highly recommend it.",
-            authorName: "John Doe",
-            authorTitle: "Personal Trainer"
+            text: "Durante mucho tiempo, quise ganar /masa muscular/, pero no sabía por dónde empezar. Afortunadamente, un amigo con experiencia en el tema me guió en cada paso. Me explicó los /fundamentos/ de la hipertrofia: desde cómo estructurar mis entrenamientos y ajustar las series y repeticiones, hasta cómo enfocarme en el principio de \“una repetición más\”.",
+            authorName: "Jose Miguel",
+            authorTitle: "Más de 1 año de consistencia",
+        },
+        {
+            avatar: "/images/testimonials/testimonial-2.jpeg",
+            text: "Ahora sigo una rutina completa que incluye tanto ejercicios básicos como específicos para cada grupo muscular, y que me reta constantemente. Estoy muy /agradecido/ de tener a alguien que me haya mostrado el camino de forma tan práctica y motivadora.",
+            authorName: "Juan Antonio",
+            authorTitle: "Superando metas",
         },
     ];
 

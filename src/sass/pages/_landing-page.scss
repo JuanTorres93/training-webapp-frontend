@@ -109,26 +109,22 @@
     position: relative;
     z-index: 6;
 
-
     @include landing-page-line-between-sections;
     grid-row: testimonials-start / testimonials-end;
 
     // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
     padding: 20rem 10rem;
 
-    // TODO revisar, esto es igual a niche-section
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(65rem, 1fr));
     grid-template-rows: [heading-start] 6rem [heading-end];
-    grid-auto-rows: minmax(min-content, 45vh);
-    grid-column-gap: 15rem;
+    grid-column-gap: 8rem;
     grid-row-gap: 8rem;
-    justify-items: stretch;
+    justify-items: center;
     align-items: stretch;
 
 
 
-    // TODO revisar, esto es igual a niche-section
     &__heading {
         grid-row: heading-start / heading-end;
         grid-column: 1 / -1;

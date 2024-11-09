@@ -3,64 +3,129 @@
 .testimonial {
     display: grid;
     position: relative;
+    max-width: 75rem;
 
-    grid-template-columns: [avatar-start] 20% [avatar-end] repeat(2, 1fr);
+    justify-items: center;
+    align-items: start;
 
-    justify-items: start;
-
-    $margin-vertical: 10%;
-    grid-template-rows: repeat(2, [center-start] 1fr [center-end]);
+    grid-template-columns: [avatar-start] 15% [avatar-end] repeat(2, 1fr);
+    grid-template-rows: 1fr .2fr;
+    grid-column-gap: 4rem;
 
     background-image: linear-gradient(to right bottom,
-            $color-blue,
-            $color-primary-light);
+            $color-primary-light,
+            $color-blue );
     border-radius: 16px;
     padding: 3rem 6rem;
+    box-shadow: 0 1rem 3rem rgba($color-black, .2);
+    will-change: transform;
+    transition: all 0.3s ease-in-out;
 
+    &:hover {
+        transform: translateY(-.5rem);
+        box-shadow: 0 2rem 4rem rgba($color-primary-dark, .3);
+    }
 
+    &:hover &__avatar-box {
+        border: 3px solid $color-secondary;
+    }
+
+    &:hover &__avatar {
+        transform: scale(1.05) rotateZ(-5deg);
+    }
+
+    &:hover &__icon-box {
+
+        &>* {
+            font-size: 3.2rem;
+            color: $color-secondary;
+        }
+    }
 
     &__icon-box {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 2rem;
+        right: 2rem;
 
         &>* {
-            // ion-icon
+            will-change: transform;
+            transition: all 0.3s ease-in-out;
+            transform-origin: center center;
+            font-size: 3rem;
+            --ionicon-stroke-width: 48px;
         }
     }
 
     &__avatar-box {
-        width: 6rem;
-        height: 6rem;
+        position: relative;
+        z-index: 1;
+
+        width: 8rem;
+        height: 8rem;
 
         grid-column: avatar-start / avatar-end;
         grid-row: 1 / -1;
-        align-self: center;
+        margin-top: 3rem;
         justify-self: center;
+
+        border-radius: 50%;
+        border: 3px solid $color-grey-dark-5;
+        object-fit: cover;
+        overflow: hidden;
+
+        transition: all 0.3s ease-in-out;
     }
 
     &__avatar {
+        position: relative;
+        z-index: 2;
         width: 100%;
         height: 100%;
-        border-radius: 50%;
+        transform-origin: center center;
+        transition: all 0.3s ease-in-out;
     }
 
     &__text-box {
         grid-column: avatar-end / -1;
 
-        width: 80%;
+        padding: 1.5rem;
     }
 
-    &__text {}
+    &__text {
+        font-size: 1.7rem;
+        line-height: 1.5;
+        font-style: italic;
+        font-weight: 500;
+        color: $color-grey-dark-5;
+    }
+
+    &__text-highlight {
+        color: $color-white;
+        font-weight: 600;
+    }
 
     &__author-box {
         grid-column: avatar-end / -1;
 
         justify-self: center;
-        align-self: center;
+        align-self: end;
+        text-align: right;
     }
 
-    &__author-name {}
+    &__author-name {
+        display: block;
+        font-size: 2rem;
+        font-weight: 600;
+        color: $color-grey-dark-5;
+        margin-bottom: 1rem;
 
-    &__author-title {}
+        &::before {
+            content: "—";
+            margin-right: 1rem;
+        }
+    }
+
+    &__author-title {
+        color: $color-grey-dark-4;
+    }
 }
