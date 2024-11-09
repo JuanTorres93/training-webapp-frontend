@@ -812,6 +812,43 @@ body {
   object-fit: cover;
 }
 
+.testimonial {
+  display: grid;
+  position: relative;
+  grid-template-columns: [avatar-start] 20% [avatar-end] repeat(2, 1fr);
+  justify-items: start;
+  grid-template-rows: repeat(2, [center-start] 1fr [center-end]);
+  background-image: linear-gradient(to right bottom, #05c1dc, #4BDE94);
+  border-radius: 16px;
+  padding: 3rem 6rem;
+}
+.testimonial__icon-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.testimonial__avatar-box {
+  width: 6rem;
+  height: 6rem;
+  grid-column: avatar-start/avatar-end;
+  grid-row: 1/-1;
+  align-self: center;
+  justify-self: center;
+}
+.testimonial__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.testimonial__text-box {
+  grid-column: avatar-end/-1;
+  width: 80%;
+}
+.testimonial__author-box {
+  grid-column: avatar-end/-1;
+  justify-self: center;
+  align-self: center;
+}
 .landing {
   display: grid;
   grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];

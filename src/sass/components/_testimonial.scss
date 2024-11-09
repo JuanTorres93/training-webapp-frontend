@@ -1,0 +1,66 @@
+@use "../abstracts" as *;
+
+.testimonial {
+    display: grid;
+    position: relative;
+
+    grid-template-columns: [avatar-start] 20% [avatar-end] repeat(2, 1fr);
+
+    justify-items: start;
+
+    $margin-vertical: 10%;
+    grid-template-rows: repeat(2, [center-start] 1fr [center-end]);
+
+    background-image: linear-gradient(to right bottom,
+            $color-blue,
+            $color-primary-light);
+    border-radius: 16px;
+    padding: 3rem 6rem;
+
+
+
+    &__icon-box {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        &>* {
+            // ion-icon
+        }
+    }
+
+    &__avatar-box {
+        width: 6rem;
+        height: 6rem;
+
+        grid-column: avatar-start / avatar-end;
+        grid-row: 1 / -1;
+        align-self: center;
+        justify-self: center;
+    }
+
+    &__avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    &__text-box {
+        grid-column: avatar-end / -1;
+
+        width: 80%;
+    }
+
+    &__text {}
+
+    &__author-box {
+        grid-column: avatar-end / -1;
+
+        justify-self: center;
+        align-self: center;
+    }
+
+    &__author-name {}
+
+    &__author-title {}
+}

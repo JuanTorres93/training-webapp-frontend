@@ -150,6 +150,16 @@ export default function LandingPage() {
         },
     ];
 
+    const testimonials = [
+        // TODO Incluir josemi y traducir
+        {
+            avatar: "/images/testimonials/testimonial-1.jpeg",
+            text: "I have been using this app for a while now and I have to say that it has helped me a lot. I have been able to keep track of my workouts and my progress. I highly recommend it.",
+            authorName: "John Doe",
+            authorTitle: "Personal Trainer"
+        },
+    ];
+
     return (
         <div className="landing">
             <NavHorizontal
@@ -179,6 +189,7 @@ export default function LandingPage() {
 
             <TestimonialsSection
                 sectionTitle={"CAMBIAR Y TRADUCIR"}
+                testimonials={testimonials}
             />
         </div>
     );
