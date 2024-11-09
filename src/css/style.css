@@ -894,9 +894,10 @@ body {
 }
 .testimonial__author-box {
   grid-column: avatar-end/-1;
-  justify-self: center;
+  justify-self: end;
   align-self: end;
   text-align: right;
+  margin-right: 3rem;
 }
 .testimonial__author-name {
   display: block;
@@ -921,11 +922,10 @@ body {
 .niche-section {
   position: relative;
   z-index: 8;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid #575a58;
   grid-row: niche-start/niche-end;
-  background-image: linear-gradient(to right bottom, #dde0de, #f1f4f2);
+  background-image: linear-gradient(to bottom, #dde0de 0%, #f1f4f2 80%, #dde0de 100%);
   padding: 20rem 10rem;
+  padding-bottom: 30rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
@@ -949,15 +949,15 @@ body {
   align-content: center;
   justify-content: center;
   align-items: stretch;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid #575a58;
   padding: 20rem 20rem 22.5rem 14rem;
+  padding-bottom: 30rem;
   grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
   grid-auto-rows: minmax(min-content, 35vh);
   grid-column-gap: 0rem;
   grid-row-gap: 9rem;
   background-color: #dde0de;
+  background-image: linear-gradient(to bottom, #dde0de 0%, #dde0de 80%, #f1f4f2 100%);
   grid-row: benefits-start/benefits-end;
 }
 .benefits__heading {
@@ -973,8 +973,7 @@ body {
   display: grid;
   justify-items: center;
   padding: 20rem 12rem;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid #575a58;
+  padding-bottom: 30rem;
   grid-row: features-start/features-end;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   grid-template-rows: [heading-start] 6rem [heading-end];
@@ -983,6 +982,7 @@ body {
   grid-row-gap: 6rem;
   color: #575a58;
   background-color: #f1f4f2;
+  background-image: linear-gradient(to bottom, #f1f4f2 0%, #f1f4f2 70%, #dde0de 100%);
 }
 .features__heading {
   grid-row: heading-start/heading-end;
@@ -994,8 +994,6 @@ body {
 .testimonials-section {
   position: relative;
   z-index: 6;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid #575a58;
   grid-row: testimonials-start/testimonials-end;
   padding: 20rem 10rem;
   display: grid;
@@ -1005,6 +1003,7 @@ body {
   grid-row-gap: 8rem;
   justify-items: center;
   align-items: stretch;
+  background-color: #dde0de;
 }
 .testimonials-section__heading {
   grid-row: heading-start/heading-end;

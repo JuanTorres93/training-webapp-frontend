@@ -151,18 +151,17 @@ export default function LandingPage() {
     ];
 
     const testimonials = [
-        // TODO traducir
         {
             avatar: "/images/testimonials/testimonial-1.jpeg",
-            text: "Durante mucho tiempo, quise ganar /masa muscular/, pero no sabía por dónde empezar. Afortunadamente, un amigo con experiencia en el tema me guió en cada paso. Me explicó los /fundamentos/ de la hipertrofia: desde cómo estructurar mis entrenamientos y ajustar las series y repeticiones, hasta cómo enfocarme en el principio de \“una repetición más\”.",
+            text: t('testimonial-1-text'),
             authorName: "Jose Miguel",
-            authorTitle: "Más de 1 año de consistencia",
+            authorTitle: t('testimonial-1-author-title'),
         },
         {
             avatar: "/images/testimonials/testimonial-2.jpeg",
-            text: "Ahora sigo una rutina completa que incluye tanto ejercicios básicos como específicos para cada grupo muscular, y que me reta constantemente. Estoy muy /agradecido/ de tener a alguien que me haya mostrado el camino de forma tan práctica y motivadora.",
-            authorName: "Juan Antonio",
-            authorTitle: "Superando metas",
+            text: t('testimonial-2-text'),
+            authorName: "Juan Manuel",
+            authorTitle: t('testimonial-2-author-title'),
         },
     ];
 
@@ -194,7 +193,7 @@ export default function LandingPage() {
             />
 
             <TestimonialsSection
-                sectionTitle={"CAMBIAR Y TRADUCIR"}
+                sectionTitle={t('testimonials-section-title')}
                 testimonials={testimonials}
             />
         </div>

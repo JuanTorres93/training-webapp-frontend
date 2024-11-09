@@ -1,5 +1,7 @@
 @use "../abstracts" as *;
 
+$space-to-next-section: 30rem;
+
 .landing {
     display: grid;
     grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
@@ -10,13 +12,16 @@
     position: relative;
     z-index: 8;
 
-
-    @include landing-page-line-between-sections;
     grid-row: niche-start / niche-end;
 
-    background-image: linear-gradient(to right bottom, $color-grey-light-2, $color-grey-light-3);
-    // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+    background-image: linear-gradient(to bottom,
+            $color-grey-light-2 0%,
+            $color-grey-light-3 80%,
+            $color-grey-light-2 100%,
+        );
     padding: 20rem 10rem;
+    // For spacing between sections
+    padding-bottom: $space-to-next-section;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
@@ -48,11 +53,13 @@
     justify-content: center;
 
     align-items: stretch;
-    @include landing-page-line-between-sections;
 
     // Grid items span outside of their cells, so
     // different paddings for right and left
     padding: 20rem 20rem 22.5rem 14rem;
+
+    // For spacing between sections
+    padding-bottom: $space-to-next-section;
 
     grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
     grid-template-rows: [heading-start] 6rem [heading-end];
@@ -62,6 +69,12 @@
     grid-row-gap: 9rem;
 
     background-color: $color-grey-light-2;
+
+    background-image: linear-gradient(to bottom,
+            $color-grey-light-2 0%,
+            $color-grey-light-2 80%,
+            $color-grey-light-3 100%,
+        );
 
     grid-row: benefits-start / benefits-end;
 
@@ -81,7 +94,9 @@
     display: grid;
     justify-items: center;
     padding: 20rem 12rem;
-    @include landing-page-line-between-sections;
+
+    // For spacing between sections
+    padding-bottom: $space-to-next-section;
 
     grid-row: features-start / features-end;
 
@@ -96,6 +111,12 @@
     color: $color-grey-dark-3;
     background-color: $color-grey-light-3;
 
+    background-image: linear-gradient(to bottom,
+            $color-grey-light-3 0%,
+            $color-grey-light-3 70%,
+            $color-grey-light-2 100%,
+        );
+
     &__heading {
         grid-row: heading-start / heading-end;
         grid-column: 1 / -1;
@@ -109,7 +130,6 @@
     position: relative;
     z-index: 6;
 
-    @include landing-page-line-between-sections;
     grid-row: testimonials-start / testimonials-end;
 
     // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
@@ -123,7 +143,7 @@
     justify-items: center;
     align-items: stretch;
 
-
+    background-color: $color-grey-light-2;
 
     &__heading {
         grid-row: heading-start / heading-end;

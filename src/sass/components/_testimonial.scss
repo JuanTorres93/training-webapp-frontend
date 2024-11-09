@@ -107,9 +107,11 @@
     &__author-box {
         grid-column: avatar-end / -1;
 
-        justify-self: center;
+        justify-self: end;
         align-self: end;
         text-align: right;
+
+        margin-right: 3rem;
     }
 
     &__author-name {
