@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function NicheSection({
     sectionTitle, // string
     nicheDescription // object with title and items: [{icon, isPositive, reason, explanation}] object properties
@@ -26,7 +28,10 @@ function NicheSection({
                                                     <div className={`niche-msg__icon-box niche-msg__icon-box--${item.isPositive ? 'green' : 'red'}`}>
                                                         {item.icon}
                                                     </div>
-                                                    <p>{item.reason}</p>
+
+                                                    <Link to="/register" className="niche-msg__reason-text">
+                                                        {item.reason}
+                                                    </Link>
                                                 </div>
 
                                                 <div className={`niche-msg__explanation niche-msg__explanation--${nicheBlockIndex === 0 ? 'right' : 'left'}`}>

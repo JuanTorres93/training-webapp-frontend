@@ -434,7 +434,8 @@ body {
   font-size: 8.5rem;
   --ionicon-stroke-width: 16px;
 }
-.feature__title {
+.feature__title, .feature__title:link, .feature__title:visited {
+  text-decoration: none;
   display: inline-block;
   background-image: linear-gradient(to right, #4BDE94, #03B670);
   background-clip: text;
@@ -629,7 +630,8 @@ body {
   height: 120%;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
-.benefit__cta {
+.benefit__cta, .benefit__cta:link, .benefit__cta:visited {
+  text-decoration: none;
   display: inline-block;
   font-size: 1.6rem;
   font-weight: 400;
@@ -728,14 +730,14 @@ body {
   visibility: visible;
   opacity: 1;
 }
-.niche-msg__item:hover .niche-msg__reason p {
+.niche-msg__item:hover .niche-msg__reason-text {
   cursor: pointer;
   animation: turn-text-color-to-secondary-gradient 0.3s ease-in;
   animation-fill-mode: both;
   transform: translateY(-1px);
   text-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
 }
-.niche-msg__item:hover .niche-msg__reason p:active {
+.niche-msg__item:hover .niche-msg__reason-text:active {
   transform: translateY(0);
   text-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.05);
 }
@@ -743,7 +745,8 @@ body {
   display: flex;
   align-items: center;
 }
-.niche-msg__reason p {
+.niche-msg__reason-text, .niche-msg__reason-text:link, .niche-msg__reason-text:visited {
+  text-decoration: none;
   font-size: 2rem;
   letter-spacing: 0.05rem;
   color: #2d302e;

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function FeatureSection({
     sectionTitle, // string
     features // array of objects with title, description and image (for now, it is an ion-icon component)
@@ -16,9 +18,9 @@ function FeatureSection({
                                 {f.image}
                             </figure>
 
-                            <div className="feature__title">
+                            <Link to="/register" className="feature__title">
                                 {f.title}
-                            </div>
+                            </Link>
 
                             <div className="feature__text">
                                 {f.description}

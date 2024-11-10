@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function BenefitsSection({
     sectionTitle, // string
     benefits = [] // Ordered array of objects with title, items, cta and icon properties
@@ -33,9 +35,9 @@ function BenefitsSection({
                                     }
                                 </ul>
 
-                                <button className="benefit__cta simple-btn simple-btn--no-border">
+                                <Link to="/register" className="benefit__cta simple-btn simple-btn--no-border">
                                     {benefit.cta}
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     );

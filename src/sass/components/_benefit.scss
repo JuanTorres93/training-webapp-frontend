@@ -233,16 +233,22 @@
     }
 
     &__cta {
-        display: inline-block;
-        font-size: 1.6rem;
-        font-weight: 400;
-        padding: 1rem 2rem;
-        border-radius: .3rem;
-        color: $color-white;
-        background-image: linear-gradient(to right,
-                $color-secondary-dark,
-                $color-secondary-light);
-        box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
+
+        &,
+        &:link,
+        &:visited {
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.6rem;
+            font-weight: 400;
+            padding: 1rem 2rem;
+            border-radius: .3rem;
+            color: $color-white;
+            background-image: linear-gradient(to right,
+                    $color-secondary-dark,
+                    $color-secondary-light);
+            box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
+        }
 
         &:hover {
             box-shadow: 0 1rem 2rem rgba($color-black, 0.30);

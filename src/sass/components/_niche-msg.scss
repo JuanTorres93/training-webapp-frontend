@@ -46,7 +46,7 @@
         opacity: 1;
     }
 
-    &__item:hover &__reason p {
+    &__item:hover &__reason-text {
         cursor: pointer;
         animation: turn-text-color-to-secondary-gradient .3s ease-in;
         animation-fill-mode: both;
@@ -63,8 +63,14 @@
     &__reason {
         display: flex;
         align-items: center;
+    }
 
-        p {
+    &__reason-text {
+
+        &,
+        &:link,
+        &:visited {
+            text-decoration: none;
             font-size: 2.0rem;
             letter-spacing: .05rem;
             color: $color-grey-dark-5;
