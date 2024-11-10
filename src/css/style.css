@@ -251,7 +251,7 @@ body {
   animation: fade-in 1.5s ease-out 1s, change-to-secondary-color 1s ease-out 1.5s;
   animation-fill-mode: backwards;
 }
-.hero__button {
+.hero__button, .hero__button:link, .hero__button:visited {
   padding: 2rem 6rem;
   font-family: inherit;
   font-size: 1.6rem;
@@ -264,6 +264,7 @@ body {
   cursor: pointer;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease-out;
+  text-decoration: none;
   animation: fade-in 0.5s ease-out 2s;
   animation-fill-mode: backwards;
 }
@@ -279,7 +280,7 @@ body {
 .nav-horizontal {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 2rem 0;
   position: sticky;
   top: 0;
@@ -821,7 +822,7 @@ body {
   grid-template-columns: [avatar-start] 15% [avatar-end] repeat(2, 1fr);
   grid-template-rows: 1fr 0.2fr;
   grid-column-gap: 4rem;
-  background-image: linear-gradient(to right bottom, #4BDE94, #00c3d0);
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.8), rgba(0, 195, 208, 0.8));
   border-radius: 16px;
   padding: 3rem 6rem;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
@@ -1010,6 +1011,11 @@ body {
   grid-column: 1/-1;
   justify-self: center;
   align-self: end;
+}
+
+.register-page {
+  display: grid;
+  grid-template-rows: [nav-start] 7rem [nav-end form-start] 60vh [form-end];
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -66,21 +66,27 @@
     }
 
     &__button {
-        padding: 2rem 6rem;
-        font-family: inherit;
-        font-size: 1.6rem;
-        background-color: $color-secondary;
-        color: $color-white;
-        font-weight: 600;
-        border-radius: 5rem;
-        border: none;
-        margin-top: 11rem;
-        cursor: pointer;
-        box-shadow: 0 1rem 2rem rgba($color-black, .2);
-        transition: all .2s ease-out;
 
-        animation: fade-in .5s ease-out 2s;
-        animation-fill-mode: backwards;
+        &,
+        &:link,
+        &:visited {
+            padding: 2rem 6rem;
+            font-family: inherit;
+            font-size: 1.6rem;
+            background-color: $color-secondary;
+            color: $color-white;
+            font-weight: 600;
+            border-radius: 5rem;
+            border: none;
+            margin-top: 11rem;
+            cursor: pointer;
+            box-shadow: 0 1rem 2rem rgba($color-black, .2);
+            transition: all .2s ease-out;
+            text-decoration: none;
+
+            animation: fade-in .5s ease-out 2s;
+            animation-fill-mode: backwards;
+        }
 
         &:hover {
             transform: translateY(-.4rem) scale(1.01);

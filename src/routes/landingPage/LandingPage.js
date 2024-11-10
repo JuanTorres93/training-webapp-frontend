@@ -5,15 +5,19 @@ import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
 import FeatureSection from "../../components/featureSection/FeatureSection";
 import TestimonialsSection from "../../components/testimonialsSection/TestimonialsSection";
 
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { machineLanguage } from "../../i18n";
+import { scroller } from 'react-scroll';
 
 export default function LandingPage() {
     const [language, setLanguage] = useState(machineLanguage);
+    const location = useLocation();
 
     const { t, i18n } = useTranslation();
 
+    // TODO DRY
     const changeLanguage = () => {
         if (i18n.language === "en") {
             setLanguage("es");
@@ -23,6 +27,35 @@ export default function LandingPage() {
             return i18n.changeLanguage("en");
         }
     };
+
+    useEffect(() => {
+        if (location.hash) {
+            scroller.scrollTo(location.hash.substring(1), {
+                smooth: true,
+                duration: 500,
+                offset: -70, // adjust for any fixed headers if needed
+            });
+        }
+    }, [location]);
+
+    const navItems = [
+        {
+            text: t('nav-landing-1'),
+            id: "niche-section",
+        },
+        {
+            text: t('nav-landing-2'),
+            id: "benefits",
+        },
+        {
+            text: t('nav-landing-3'),
+            id: "features",
+        },
+        {
+            text: t('nav-landing-4'),
+            id: "testimonials-section",
+        },
+    ];
 
     const nicheDescription = [
         {
@@ -168,10 +201,8 @@ export default function LandingPage() {
     return (
         <div className="landing">
             <NavHorizontal
-                linkText1={t('nav-landing-1')}
-                linkText2={t('nav-landing-2')}
-                linkText3={t('nav-landing-3')}
-                linkText4={t('nav-landing-4')}
+                items={navItems}
+                currentLocation={location.pathname}
                 currentLanguage={language}
                 loginText={t('nav-landing-login')}
                 signUpText={t('nav-landing-signup')}

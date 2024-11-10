@@ -13,8 +13,8 @@
     grid-column-gap: 4rem;
 
     background-image: linear-gradient(to right bottom,
-            $color-primary-light,
-            $color-blue );
+            rgba($color-primary-light, .8),
+            rgba($color-blue, .8));
     border-radius: 16px;
     padding: 3rem 6rem;
     box-shadow: 0 1rem 3rem rgba($color-black, .2);

@@ -60,6 +60,12 @@ const router = createBrowserRouter([
     element: <LandingPage />,
     errorElement: <DefaultErrorPage />
   },
+
+  {
+    path: "/register",
+    element: <RegisterPage />,
+    errorElement: <DefaultErrorPage />
+  },
   {
     path: "/app",
     element: <NavBar />,
@@ -98,10 +104,6 @@ const router = createBrowserRouter([
       {
         path: "generic-child",
         element: <GenericChild />
-      },
-      {
-        path: "register",
-        element: <RegisterPage />
       },
       {
         path: "login",

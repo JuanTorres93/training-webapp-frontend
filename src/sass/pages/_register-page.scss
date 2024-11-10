@@ -1,0 +1,6 @@
+@use "../abstracts" as *;
+
+.register-page {
+    display: grid;
+    grid-template-rows: [nav-start] $landing-nav-height [nav-end form-start] 60vh [form-end];
+}

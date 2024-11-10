@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function HeroSection() {
@@ -26,9 +26,9 @@ function HeroSection() {
                     </span>
                 </h1>
 
-                <button className="hero__button">
+                <Link to="/register" className="hero__button">
                     {t('hero-button-text')}
-                </button>
+                </Link>
             </div>
         </header>
     );
