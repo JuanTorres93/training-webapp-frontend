@@ -33,7 +33,7 @@ export default function LandingPage() {
             scroller.scrollTo(location.hash.substring(1), {
                 smooth: true,
                 duration: 500,
-                offset: -70, // adjust for any fixed headers if needed
+                offset: -0, // adjust for any fixed headers if needed
             });
         }
     }, [location]);

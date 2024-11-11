@@ -1,0 +1,102 @@
+@use "../abstracts" as *;
+
+.register-form {
+    display: flex;
+    padding: 4rem;
+    background-color: $color-grey-light-2;
+    border-radius: 2rem;
+
+    &__image-box {
+        flex: 1 0 50%;
+        overflow: hidden;
+        border-radius: inherit;
+    }
+
+    &__image {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    &__form-box {
+        // TODO DELETE THIS. ITS FOR DEVELOPMENT PURPOSES ONLY
+        background-color: orangered;
+
+        &>* {
+            background-color: yellowgreen;
+        }
+
+        flex: 1 0 50%;
+        padding: 6rem 12rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    &__title {
+        font-size: 4rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    &__form {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    &__input-box {
+        position: relative;
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__input {
+        border: 1px solid transparent;
+        width: 100%;
+
+        &::placeholder {
+            transition: opacity 0.1s ease-out;
+            color: currentColor;
+        }
+
+        &:focus {
+            border-color: $color-primary;
+
+            &::placeholder {
+                color: transparent;
+            }
+        }
+    }
+
+    &__input:focus+&__label-text,
+    &__input:not(:placeholder-shown)+&__label-text {
+        transform: translateY(4rem);
+
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &__label-text {
+        position: absolute;
+        top: 1.3rem;
+        left: 1.7rem;
+
+        font-size: 1.4rem;
+        font-family: inherit;
+        font-weight: 400;
+        color: $color-grey-dark-3;
+
+        visibility: hidden;
+        opacity: 0;
+
+        transition: all 0.1s ease-out;
+    }
+}

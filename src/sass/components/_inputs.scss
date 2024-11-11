@@ -1,0 +1,15 @@
+@use "../abstracts" as *;
+
+.base-input-text {
+    font-family: inherit;
+    font-size: 1.6rem;
+    outline: none;
+    padding: 1.2rem 1.7rem;
+    border-radius: 1rem;
+    border: none;
+    color: $color-grey-dark-5;
+
+    &::placeholder {
+        color: $color-grey-dark-3;
+    }
+}

@@ -1,4 +1,5 @@
 import RegisterForm from "../../components/registerForm/RegisterForm";
+import RegisterFormV2 from "../../components/registerForm/RegisterFormV2";
 import NavHorizontal from "../../components/nav/Nav";
 
 import { machineLanguage } from "../../i18n";
@@ -52,8 +53,8 @@ export default function RegisterPage() {
                 signUpText={t('nav-landing-signup')}
                 cbChangeLanguage={changeLanguage} />
 
-            <h2 className="heading">Register</h2>
-            <RegisterForm />
+            <RegisterFormV2 />
+            {/* <RegisterForm /> */}
         </section>
     );
 };
