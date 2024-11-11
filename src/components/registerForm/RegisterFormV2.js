@@ -14,7 +14,7 @@ const RegisterFormV2 = () => {
                     <h2 className="register-form__title">Create an account</h2>
                     <p className="register-form__title-subtext">
                         {/* TODO TRADUCIR y dar estilo a Link */}
-                        Already have an account? <Link to="/login">Login</Link>
+                        Already have an account? <Link className="register-form__login-link" to="/login">Login</Link>
                     </p>
                 </div>
 
@@ -23,26 +23,26 @@ const RegisterFormV2 = () => {
                     {/* TODO traducir */}
                     <div className="register-form__input-box">
                         <input type="text" id="username" placeholder='Username' className="base-input-text register-form__input" required />
-                        <label htmlFor="username" className="register-form__label-text">Username</label>
+                        <label htmlFor="username" className="register-form__label register-form__label--input-text">Username</label>
                     </div>
 
                     <div className="register-form__input-box">
                         <input type="email" placeholder='Email' id="email" className="base-input-text register-form__input" required />
-                        <label htmlFor="email" className="register-form__label-text">Email</label>
+                        <label htmlFor="email" className="register-form__label register-form__label--input-text">Email</label>
                     </div>
 
                     <div className="register-form__input-box">
                         <input type="password" id="password" placeholder='Password' className="base-input-text register-form__input" required />
-                        <label htmlFor="password" className="register-form__label-text">Password</label>
+                        <label htmlFor="password" className="register-form__label register-form__label--input-text">Password</label>
                     </div>
 
                     {/* Accept terms and conditions */}
-                    <div className="register-form__input-box">
+                    <div className="register-form__input-box register-form__input-box--terms">
                         <input type="checkbox" id="terms" className="register-form__checkbox" required />
-                        <label htmlFor="terms" className="register-form__label">I accept the terms and conditions</label>
+                        <label htmlFor="terms" className="register-form__label register-form__label--terms">I accept the terms and conditions</label>
                     </div>
 
-                    <button type="submit" className="register-form__submit-button">Register</button>
+                    <button type="submit" className="plain-btn register-form__submit-button">Create account</button>
                 </form>
 
                 {/* OAuth logins */}

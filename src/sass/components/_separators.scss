@@ -1,3 +1,25 @@
 @use "../abstracts" as *;
 
-.separator-text-between-lines {}
+.separator-text-between-lines {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $color-grey-dark-4;
+    font-size: 1.4rem;
+    margin: 3rem 0;
+
+    &::before,
+    &::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid $color-grey-dark-3;
+    }
+
+    &::before {
+        margin-right: 1rem;
+    }
+
+    &::after {
+        margin-left: 1rem;
+    }
+}

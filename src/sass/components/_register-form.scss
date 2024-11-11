@@ -5,9 +5,11 @@
     padding: 4rem;
     background-color: $color-grey-light-2;
     border-radius: 2rem;
+    font-size: 1.6rem;
+    backface-visibility: hidden;
 
     &__image-box {
-        flex: 1 0 50%;
+        flex: 0 0 40%;
         overflow: hidden;
         border-radius: inherit;
     }
@@ -20,14 +22,7 @@
     }
 
     &__form-box {
-        // TODO DELETE THIS. ITS FOR DEVELOPMENT PURPOSES ONLY
-        background-color: orangered;
-
-        &>* {
-            background-color: yellowgreen;
-        }
-
-        flex: 1 0 50%;
+        flex: 1;
         padding: 6rem 12rem;
 
         display: flex;
@@ -36,10 +31,32 @@
         align-items: stretch;
     }
 
+    &__title-box {
+        margin-bottom: 6rem;
+    }
+
     &__title {
         font-size: 4rem;
         font-weight: 400;
         margin-bottom: 1rem;
+    }
+
+    &__login-link {
+        display: inline-block;
+        transition: all 0.2s;
+
+        &,
+        &:link,
+        &:visited {
+            color: $color-secondary-dark;
+            text-decoration: none;
+        }
+
+        &:hover {
+            color: $color-secondary;
+            transform: translateY(-1px);
+            text-shadow: 0.5rem 1rem 2rem rgba($color-black, 0.2);
+        }
     }
 
     &__form {
@@ -56,6 +73,10 @@
         &:not(:last-child) {
             margin-bottom: 2rem;
         }
+
+        &--terms {
+            margin-top: 1.5rem;
+        }
     }
 
     &__input {
@@ -67,8 +88,12 @@
             color: currentColor;
         }
 
+        &:hover {
+            border-color: $color-primary-light;
+        }
+
         &:focus {
-            border-color: $color-primary;
+            border-color: $color-primary-dark;
 
             &::placeholder {
                 color: transparent;
@@ -76,27 +101,60 @@
         }
     }
 
-    &__input:focus+&__label-text,
-    &__input:not(:placeholder-shown)+&__label-text {
+    &__input:focus+&__label--input-text,
+    &__input:not(:placeholder-shown)+&__label--input-text {
         transform: translateY(4rem);
 
         visibility: visible;
         opacity: 1;
     }
 
-    &__label-text {
-        position: absolute;
-        top: 1.3rem;
-        left: 1.7rem;
-
+    &__label {
         font-size: 1.4rem;
         font-family: inherit;
         font-weight: 400;
         color: $color-grey-dark-3;
 
-        visibility: hidden;
-        opacity: 0;
+        &--input-text {
+            position: absolute;
+            top: 1.3rem;
+            left: 1.7rem;
 
-        transition: all 0.1s ease-out;
+            visibility: hidden;
+            opacity: 0;
+
+            transition: all 0.1s ease-out;
+        }
+
+        &--terms {
+            margin-left: 2rem;
+        }
+    }
+
+    &__submit-button {
+        font-size: inherit;
+        background-image: linear-gradient(to right,
+                $color-secondary,
+                $color-secondary );
+        text-align: center;
+        padding: 2rem 0;
+        border-radius: 1rem;
+        font-weight: 500;
+        color: $color-grey-dark-5 ;
+
+        transition: all 0.2s ease-out;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 .5rem 1rem rgba($color-black, 0.1);
+            background-image: linear-gradient(to right,
+                    $color-secondary 0%,
+                    $color-secondary-light 100%);
+        }
+
+        &:active {
+            transform: translateY(0);
+            box-shadow: 0 .25rem .5rem rgba($color-black, 0.05);
+        }
     }
 }

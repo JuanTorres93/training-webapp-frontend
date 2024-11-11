@@ -709,6 +709,26 @@ body {
   color: #575a58;
 }
 
+.separator-text-between-lines {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #3c3f3d;
+  font-size: 1.4rem;
+  margin: 3rem 0;
+}
+.separator-text-between-lines::before, .separator-text-between-lines::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #575a58;
+}
+.separator-text-between-lines::before {
+  margin-right: 1rem;
+}
+.separator-text-between-lines::after {
+  margin-left: 1rem;
+}
+
 .niche-msg {
   display: flex;
   flex-direction: column;
@@ -936,9 +956,11 @@ body {
   padding: 4rem;
   background-color: #dde0de;
   border-radius: 2rem;
+  font-size: 1.6rem;
+  backface-visibility: hidden;
 }
 .register-form__image-box {
-  flex: 1 0 50%;
+  flex: 0 0 40%;
   overflow: hidden;
   border-radius: inherit;
 }
@@ -949,21 +971,33 @@ body {
   object-position: center;
 }
 .register-form__form-box {
-  background-color: orangered;
-  flex: 1 0 50%;
+  flex: 1;
   padding: 6rem 12rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
 }
-.register-form__form-box > * {
-  background-color: yellowgreen;
+.register-form__title-box {
+  margin-bottom: 6rem;
 }
 .register-form__title {
   font-size: 4rem;
   font-weight: 400;
   margin-bottom: 1rem;
+}
+.register-form__login-link {
+  display: inline-block;
+  transition: all 0.2s;
+}
+.register-form__login-link, .register-form__login-link:link, .register-form__login-link:visited {
+  color: #f08822;
+  text-decoration: none;
+}
+.register-form__login-link:hover {
+  color: #F78E2C;
+  transform: translateY(-1px);
+  text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 .register-form__form {
   width: 100%;
@@ -977,6 +1011,9 @@ body {
 .register-form__input-box:not(:last-child) {
   margin-bottom: 2rem;
 }
+.register-form__input-box--terms {
+  margin-top: 1.5rem;
+}
 .register-form__input {
   border: 1px solid transparent;
   width: 100%;
@@ -985,28 +1022,55 @@ body {
   transition: opacity 0.1s ease-out;
   color: currentColor;
 }
+.register-form__input:hover {
+  border-color: #4BDE94;
+}
 .register-form__input:focus {
-  border-color: #2FCA82;
+  border-color: #03B670;
 }
 .register-form__input:focus::placeholder {
   color: transparent;
 }
-.register-form__input:focus + .register-form__label-text, .register-form__input:not(:placeholder-shown) + .register-form__label-text {
+.register-form__input:focus + .register-form__label--input-text, .register-form__input:not(:placeholder-shown) + .register-form__label--input-text {
   transform: translateY(4rem);
   visibility: visible;
   opacity: 1;
 }
-.register-form__label-text {
-  position: absolute;
-  top: 1.3rem;
-  left: 1.7rem;
+.register-form__label {
   font-size: 1.4rem;
   font-family: inherit;
   font-weight: 400;
   color: #575a58;
+}
+.register-form__label--input-text {
+  position: absolute;
+  top: 1.3rem;
+  left: 1.7rem;
   visibility: hidden;
   opacity: 0;
   transition: all 0.1s ease-out;
+}
+.register-form__label--terms {
+  margin-left: 2rem;
+}
+.register-form__submit-button {
+  font-size: inherit;
+  background-image: linear-gradient(to right, #F78E2C, #F78E2C);
+  text-align: center;
+  padding: 2rem 0;
+  border-radius: 1rem;
+  font-weight: 500;
+  color: #2d302e;
+  transition: all 0.2s ease-out;
+}
+.register-form__submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right, #F78E2C 0%, #ffa45b 100%);
+}
+.register-form__submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
 }
 
 .landing {
