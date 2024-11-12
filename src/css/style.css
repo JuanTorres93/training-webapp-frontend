@@ -1028,6 +1028,24 @@ body {
 .register-form__input-box:not(:last-child) {
   margin-bottom: 2rem;
 }
+.register-form__input-box .show-pass-box {
+  position: absolute;
+  right: 1.5rem;
+  top: 0rem;
+  transform: translateY(60%);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.register-form__input-box .show-pass-box > * {
+  width: 100%;
+  height: 100%;
+  color: #2d302e;
+  transition: all 0.2s;
+}
+.register-form__input-box .show-pass-box > *:hover {
+  color: #575a58;
+}
 .register-form__input {
   border: 1px solid transparent;
   width: 100%;
@@ -1041,6 +1059,9 @@ body {
 }
 .register-form__input:focus {
   border-color: #03B670;
+}
+.register-form__input:focus:invalid {
+  border-color: #ea704e;
 }
 .register-form__input:focus::placeholder {
   color: transparent;

@@ -78,6 +78,31 @@
         &--terms {
             // margin-top: 1.5rem;
         }
+
+        .show-pass-box {
+            position: absolute;
+            right: 1.5rem;
+            top: 0rem;
+            transform: translateY(60%);
+            width: 2rem;
+            height: 2rem;
+            cursor: pointer;
+
+            // .show-pass-icon--opened and --closed
+            // it seems that ion-icon component does not allow to use
+            // more than one class in the same element, so to DRY the code
+            // I'm using the all children selector
+            &>* {
+                width: 100%;
+                height: 100%;
+                color: $color-grey-dark-5;
+                transition: all 0.2s;
+
+                &:hover {
+                    color: $color-grey-dark-3;
+                }
+            }
+        }
     }
 
     &__input {
@@ -95,6 +120,10 @@
 
         &:focus {
             border-color: $color-primary-dark;
+
+            &:invalid {
+                border-color: $color-red;
+            }
 
             &::placeholder {
                 color: transparent;

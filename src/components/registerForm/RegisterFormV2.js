@@ -1,8 +1,15 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
 
 const RegisterFormV2 = () => {
+    const [showPass, setShowPass] = useState(false);
+
+    const toggleShowPass = () => {
+        setShowPass(!showPass);
+    }
+
     return (
         <div className="register-form">
             <figure className="register-form__image-box">
@@ -21,21 +28,56 @@ const RegisterFormV2 = () => {
                 </div>
 
                 <form className="register-form__form">
-                    {/* TODO sanitize all inputs. Use previous form */}
                     {/* TODO traducir */}
                     <div className="register-form__input-box">
-                        <input type="text" id="username" placeholder='Username' className="base-input-text register-form__input" required />
+                        <input
+                            className="base-input-text register-form__input"
+                            id="username"
+                            type="text"
+                            placeholder='Username'
+                            // Max value defined in DB
+                            maxLength="40"
+                            required
+                        />
                         <label htmlFor="username" className="register-form__label register-form__label--input-text">Username</label>
                     </div>
 
                     <div className="register-form__input-box">
-                        <input type="email" placeholder='Email' id="email" className="base-input-text register-form__input" required />
+                        <input
+                            className="base-input-text register-form__input"
+                            id="email"
+                            type="email"
+                            placeholder='Email'
+                            // Max value defined in DB
+                            maxLength="70"
+                            required
+                        />
                         <label htmlFor="email" className="register-form__label register-form__label--input-text">Email</label>
                     </div>
 
                     <div className="register-form__input-box">
-                        <input type="password" id="password" placeholder='Password' className="base-input-text register-form__input" required />
+                        <input
+                            className="base-input-text register-form__input"
+                            id="password"
+                            type={showPass ? 'text' : 'password'}
+                            placeholder='Password'
+                            // TODO add strong password validation
+                            required
+                        />
                         <label htmlFor="password" className="register-form__label register-form__label--input-text">Password</label>
+                        <figure className="show-pass-box">
+                            {!showPass && <ion-icon
+                                onClick={toggleShowPass}
+                                name="eye-outline"
+                                class="show-pass-icon--opened">
+                            </ion-icon>}
+
+                            {showPass && <ion-icon
+                                onClick={toggleShowPass}
+                                name="eye-off-outline"
+                                class="show-pass-icon--closed">
+                            </ion-icon>}
+                        </figure>
                     </div>
 
                     {/* Accept terms and conditions */}
