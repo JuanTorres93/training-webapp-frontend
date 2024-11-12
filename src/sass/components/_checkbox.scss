@@ -1,0 +1,19 @@
+@use "../abstracts/" as *;
+
+.label-checkbox {
+    &::before {
+        content: "";
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 1.8rem;
+        height: 1.8rem;
+        background-color: $color-white;
+        border: 2px solid $color-primary;
+        border-radius: 3px;
+        margin-right: 1rem;
+        vertical-align: middle;
+        transition: background-color 0.3s, transform 0.3s;
+        cursor: pointer;
+    }
+}

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
+
 const RegisterFormV2 = () => {
     return (
         <div className="register-form">
@@ -14,7 +16,7 @@ const RegisterFormV2 = () => {
                     <h2 className="register-form__title">Create an account</h2>
                     <p className="register-form__title-subtext">
                         {/* TODO TRADUCIR y dar estilo a Link */}
-                        Already have an account? <Link className="register-form__login-link" to="/login">Login</Link>
+                        Already have an account? <Link className="register-form__login-link" to="/login">Log in</Link>
                     </p>
                 </div>
 
@@ -39,7 +41,7 @@ const RegisterFormV2 = () => {
                     {/* Accept terms and conditions */}
                     <div className="register-form__input-box register-form__input-box--terms">
                         <input type="checkbox" id="terms" className="register-form__checkbox" required />
-                        <label htmlFor="terms" className="register-form__label register-form__label--terms">I accept the terms and conditions</label>
+                        <label htmlFor="terms" className="label-checkbox register-form__label register-form__label--terms">I accept the terms and conditions</label>
                     </div>
 
                     <button type="submit" className="plain-btn register-form__submit-button">Create account</button>
@@ -49,16 +51,19 @@ const RegisterFormV2 = () => {
                 <div className="separator-text-between-lines">Or register with</div>
 
                 <div className="register-form__oauth-box">
-                    {/* TODO incluir mi componenente OAuth */}
-                    <button className="register-form__oauth-button">
-                        <ion-icon name="logo-google"></ion-icon>
-                    </button>
-                    <button className="register-form__oauth-button">
-                        <ion-icon name="logo-facebook"></ion-icon>
-                    </button>
-                    <button className="register-form__oauth-button">
-                        <ion-icon name="logo-twitter"></ion-icon>
-                    </button>
+                    {/* TODO add callback URL to server endpoint for google login */}
+                    <OAuthLoginV2 className="register-form__oauth-button"
+                        logo="/images/oauthLogos/google-logo.svg"
+                        platformName="Google"
+                        callbackURL="https://google.com"
+                    />
+
+                    {/* TODO add callback URL to server endpoint for linkedIn login */}
+                    <OAuthLoginV2 className="register-form__oauth-button"
+                        logo="/images/oauthLogos/linkedin-logo.svg"
+                        platformName="LinkedIn"
+                        callbackURL="https://linkedin.com"
+                    />
                 </div>
             </div>
         </div>

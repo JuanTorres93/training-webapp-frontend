@@ -696,6 +696,22 @@ body {
   border-bottom: none;
 }
 
+.label-checkbox::before {
+  content: "";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: #fff;
+  border: 2px solid #2FCA82;
+  border-radius: 3px;
+  margin-right: 1rem;
+  vertical-align: middle;
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
 .base-input-text {
   font-family: inherit;
   font-size: 1.6rem;
@@ -958,6 +974,7 @@ body {
   border-radius: 2rem;
   font-size: 1.6rem;
   backface-visibility: hidden;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
 }
 .register-form__image-box {
   flex: 0 0 40%;
@@ -1011,9 +1028,6 @@ body {
 .register-form__input-box:not(:last-child) {
   margin-bottom: 2rem;
 }
-.register-form__input-box--terms {
-  margin-top: 1.5rem;
-}
 .register-form__input {
   border: 1px solid transparent;
   width: 100%;
@@ -1051,7 +1065,10 @@ body {
   transition: all 0.1s ease-out;
 }
 .register-form__label--terms {
-  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  margin-left: 0rem;
+  cursor: pointer;
 }
 .register-form__submit-button {
   font-size: inherit;
@@ -1071,6 +1088,55 @@ body {
 .register-form__submit-button:active {
   transform: translateY(0);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+}
+.register-form__oauth-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.register-form__checkbox {
+  opacity: 0;
+}
+.register-form__checkbox:checked + .label-checkbox::before {
+  background-color: #2FCA82;
+  content: "✓";
+  font-size: 2rem;
+  color: #fff;
+}
+
+.oauth-login, .oauth-login:link, .oauth-login:visited {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background-color: #f1f4f2;
+  color: #2d302e;
+  border: 1px solid #858886;
+  border-radius: 1rem;
+  transition: all 0.2s;
+}
+.oauth-login:hover {
+  border: 1px solid #ffa45b;
+}
+.oauth-login:active {
+  border: 1px solid #f08822;
+  background-color: #dde0de;
+}
+.oauth-login__icon-box {
+  width: 3rem;
+  height: 3rem;
+}
+.oauth-login__icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.oauth-login__text {
+  font-size: 1.4rem;
 }
 
 .landing {
@@ -1173,7 +1239,7 @@ body {
 
 .register-page {
   display: grid;
-  grid-template-rows: [nav-start] 7rem [nav-end form-start] 60vh [form-end];
+  grid-template-rows: [nav-start] 7rem [nav-end form-start] min-content [form-end];
 }
 
 /*# sourceMappingURL=style.css.map */
