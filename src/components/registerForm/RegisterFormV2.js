@@ -3,7 +3,17 @@ import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
 
-const RegisterFormV2 = () => {
+const RegisterFormV2 = ({
+    formTitle,  // e.g: 'Create an account'
+    formSubtitle,  // e.g: 'Already have an account?'
+    formSubtitleLinkText,  // e.g: 'Log in'
+    formUsernameLabel,  // e.g: 'Username'
+    formEmailLabel,  // e.g: 'Email'
+    formPasswordLabel,  // e.g: 'Password'
+    formTermsLabel,  // e.g: 'I accept the terms and conditions'
+    formSubmitButtonText,  // e.g: 'Create account'
+    formOrRegisterWithText,  // e.g: 'Or register with'
+}) => {
     const [showPass, setShowPass] = useState(false);
 
     const toggleShowPass = () => {
@@ -19,27 +29,24 @@ const RegisterFormV2 = () => {
 
             <div className="register-form__form-box">
                 <div className="register-form__title-box">
-                    {/* TODO TRADUCIR */}
-                    <h2 className="register-form__title">Create an account</h2>
+                    <h2 className="register-form__title">{formTitle}</h2>
                     <p className="register-form__title-subtext">
-                        {/* TODO TRADUCIR y dar estilo a Link */}
-                        Already have an account? <Link className="register-form__login-link" to="/login">Log in</Link>
+                        {formSubtitle} <Link className="register-form__login-link" to="/login">{formSubtitleLinkText}</Link>
                     </p>
                 </div>
 
                 <form className="register-form__form">
-                    {/* TODO traducir */}
                     <div className="register-form__input-box">
                         <input
                             className="base-input-text register-form__input"
                             id="username"
                             type="text"
-                            placeholder='Username'
+                            placeholder={formUsernameLabel}
                             // Max value defined in DB
                             maxLength="40"
                             required
                         />
-                        <label htmlFor="username" className="register-form__label register-form__label--input-text">Username</label>
+                        <label htmlFor="username" className="register-form__label register-form__label--input-text">{formUsernameLabel}</label>
                     </div>
 
                     <div className="register-form__input-box">
@@ -47,12 +54,12 @@ const RegisterFormV2 = () => {
                             className="base-input-text register-form__input"
                             id="email"
                             type="email"
-                            placeholder='Email'
+                            placeholder={formEmailLabel}
                             // Max value defined in DB
                             maxLength="70"
                             required
                         />
-                        <label htmlFor="email" className="register-form__label register-form__label--input-text">Email</label>
+                        <label htmlFor="email" className="register-form__label register-form__label--input-text">{formEmailLabel}</label>
                     </div>
 
                     <div className="register-form__input-box">
@@ -60,11 +67,11 @@ const RegisterFormV2 = () => {
                             className="base-input-text register-form__input"
                             id="password"
                             type={showPass ? 'text' : 'password'}
-                            placeholder='Password'
+                            placeholder={formPasswordLabel}
                             // TODO add strong password validation
                             required
                         />
-                        <label htmlFor="password" className="register-form__label register-form__label--input-text">Password</label>
+                        <label htmlFor="password" className="register-form__label register-form__label--input-text">{formPasswordLabel}</label>
                         <figure className="show-pass-box">
                             {!showPass && <ion-icon
                                 onClick={toggleShowPass}
@@ -83,14 +90,14 @@ const RegisterFormV2 = () => {
                     {/* Accept terms and conditions */}
                     <div className="register-form__input-box register-form__input-box--terms">
                         <input type="checkbox" id="terms" className="register-form__checkbox" required />
-                        <label htmlFor="terms" className="label-checkbox register-form__label register-form__label--terms">I accept the terms and conditions</label>
+                        <label htmlFor="terms" className="label-checkbox register-form__label register-form__label--terms">{formTermsLabel}</label>
                     </div>
 
-                    <button type="submit" className="plain-btn register-form__submit-button">Create account</button>
+                    <button type="submit" className="plain-btn register-form__submit-button">{formSubmitButtonText}</button>
                 </form>
 
                 {/* OAuth logins */}
-                <div className="separator-text-between-lines">Or register with</div>
+                <div className="separator-text-between-lines">{formOrRegisterWithText}</div>
 
                 <div className="register-form__oauth-box">
                     {/* TODO add callback URL to server endpoint for google login */}

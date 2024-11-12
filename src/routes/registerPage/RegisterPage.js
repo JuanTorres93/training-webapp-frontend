@@ -53,7 +53,17 @@ export default function RegisterPage() {
                 signUpText={t('nav-landing-signup')}
                 cbChangeLanguage={changeLanguage} />
 
-            <RegisterFormV2 />
+            <RegisterFormV2
+                formTitle={t('register-form-title')}
+                formSubtitle={t('register-form-subtitle')}
+                formSubtitleLinkText={t('register-form-subtitle-link')}
+                formUsernameLabel={t('register-form-username-label')}
+                formEmailLabel={t('register-form-email-label')}
+                formPasswordLabel={t('register-form-password-label')}
+                formTermsLabel={t('register-form-terms-label')}
+                formSubmitButtonText={t('register-form-submit-button')}
+                formOrRegisterWithText={t('register-form-or-register-with-text')}
+            />
             {/* <RegisterForm /> */}
         </section>
     );

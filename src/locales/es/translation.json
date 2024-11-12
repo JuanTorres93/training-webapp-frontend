@@ -60,5 +60,14 @@
     "testimonial-1-text": "Durante mucho tiempo, quise ganar /masa muscular/, pero no sabía por dónde empezar. Afortunadamente, un amigo con experiencia en el tema me guió en cada paso. Me explicó los /fundamentos/ de la hipertrofia: desde cómo estructurar mis entrenamientos y ajustar las series y repeticiones, hasta cómo enfocarme en el principio de “una repetición más”.",
     "testimonial-1-author-title": "Más de 1 año de consistencia",
     "testimonial-2-text": "Ahora sigo una rutina completa que incluye tanto ejercicios básicos como específicos para cada grupo muscular, y que me reta constantemente. Estoy muy /agradecido/ de tener a alguien que me haya mostrado el camino de forma tan práctica y motivadora.",
-    "testimonial-2-author-title": "Superando metas"
+    "testimonial-2-author-title": "Superando metas",
+    "register-form-title": "Crea una cuenta",
+    "register-form-subtitle": "¿Ya tienes una cuenta?",
+    "register-form-subtitle-link": "Inicia sesión",
+    "register-form-username-label": "Nombre de usuario",
+    "register-form-email-label": "Email",
+    "register-form-password-label": "Contraseña",
+    "register-form-terms-label": "Acepto los términos y condiciones",
+    "register-form-submit-button": "Crear cuenta",
+    "register-form-or-register-with-text": "O regístrate con"
 }
