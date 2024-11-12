@@ -60,10 +60,14 @@ const router = createBrowserRouter([
     element: <LandingPage />,
     errorElement: <DefaultErrorPage />
   },
-
   {
     path: "/register",
     element: <RegisterPage />,
+    errorElement: <DefaultErrorPage />
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
     errorElement: <DefaultErrorPage />
   },
   {
@@ -104,10 +108,6 @@ const router = createBrowserRouter([
       {
         path: "generic-child",
         element: <GenericChild />
-      },
-      {
-        path: "login",
-        element: <LoginPage />
       },
     ],
   },

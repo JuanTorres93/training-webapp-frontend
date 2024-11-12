@@ -1,4 +1,3 @@
-import RegisterForm from "../../components/registerForm/RegisterForm";
 import RegisterFormV2 from "../../components/registerForm/RegisterFormV2";
 import NavHorizontal from "../../components/nav/Nav";
 

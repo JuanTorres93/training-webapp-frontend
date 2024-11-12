@@ -1263,4 +1263,9 @@ body {
   grid-template-rows: [nav-start] 7rem [nav-end form-start] min-content [form-end];
 }
 
+.login-page {
+  display: grid;
+  grid-template-rows: [nav-start] 7rem [nav-end form-start] min-content [form-end];
+}
+
 /*# sourceMappingURL=style.css.map */

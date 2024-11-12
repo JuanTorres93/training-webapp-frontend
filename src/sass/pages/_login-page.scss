@@ -1,0 +1,6 @@
+@use "../abstracts" as *;
+
+.login-page {
+    display: grid;
+    grid-template-rows: [nav-start] $landing-nav-height [nav-end form-start] min-content [form-end];
+}
