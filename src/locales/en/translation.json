@@ -72,5 +72,12 @@
     "register-form-or-register-with-text": "Or register with",
     "login-form-title": "Log in to your account",
     "login-form-subtitle": "Welcome back! Select method to log in:",
-    "login-form-or-login-with-text": "Or continue with email"
+    "login-form-or-login-with-text": "Or continue with email",
+    "login-form-email-label": "Email",
+    "login-form-password-label": "Password",
+    "login-form-remember-me-text": "Remember me",
+    "login-form-submit-button": "Log in",
+    "login-form-forgot-password-text": "Forgot password?",
+    "login-form-dont-have-account-text": "Don't have an account?",
+    "login-form-create-account-text": "Create one"
 }

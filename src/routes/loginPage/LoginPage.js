@@ -78,7 +78,13 @@ const LoginPage = () => {
                     formTitle={t('login-form-title')}
                     formSubtitle={t('login-form-subtitle')}
                     formOrloginWithText={t('login-form-or-login-with-text')}
-                // TODO poner las props
+                    formEmailLabel={t('login-form-email-label')}
+                    formPasswordLabel={t('login-form-password-label')}
+                    formRememberMeText={t('login-form-remember-me-text')}
+                    formSubmitButtonText={t('login-form-submit-button')}
+                    formForgotPasswordText={t('login-form-forgot-password-text')}
+                    formDonotHaveAccountText={t('login-form-dont-have-account-text')}
+                    formCreateAccountText={t('login-form-create-account-text')}
                 />
             </section>
 

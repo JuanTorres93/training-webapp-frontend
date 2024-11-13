@@ -7,10 +7,13 @@ const LoginFormV2 = ({
     formTitle,
     formSubtitle,
     formOrloginWithText,
-    formEmailLabel = "Email", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
-    formPasswordLabel = "Password", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
-    formRememberMeText = "Remember me", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
-    formSubmitButtonText = "Log in", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
+    formEmailLabel,
+    formPasswordLabel,
+    formRememberMeText,
+    formSubmitButtonText,
+    formForgotPasswordText,
+    formDonotHaveAccountText,
+    formCreateAccountText,
 }) => {
     const [showPass, setShowPass] = useState(false);
 
@@ -54,6 +57,9 @@ const LoginFormV2 = ({
                 <form className="login-form__form">
 
                     <div className="login-form__input-box">
+                        <figure className="login-form__input-icon-box">
+                            <ion-icon name="mail-outline" class="login-form__input-icon"></ion-icon>
+                        </figure>
                         <input
                             className="base-input-text login-form__input"
                             id="email"
@@ -67,12 +73,14 @@ const LoginFormV2 = ({
                     </div>
 
                     <div className="login-form__input-box">
+                        <figure className="login-form__input-icon-box">
+                            <ion-icon name="lock-closed-outline" class="login-form__input-icon"></ion-icon>
+                        </figure>
                         <input
                             className="base-input-text login-form__input"
                             id="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
-                            // TODO add strong password validation
                             required
                         />
                         <label htmlFor="password" className="login-form__label login-form__label--input-text">{formPasswordLabel}</label>
@@ -98,7 +106,7 @@ const LoginFormV2 = ({
 
                         {/* TODO consider if should be a span or other element */}
                         <span className='login-form__forgot'>
-                            Forgot password?
+                            {formForgotPasswordText}
                         </span>
                     </div>
 
@@ -106,7 +114,7 @@ const LoginFormV2 = ({
                 </form>
 
                 <p className="login-form__create-account">
-                    Don't have an account? <Link to="/register" className="login-form__create-account-link">Create one</Link>
+                    {formDonotHaveAccountText} <Link to="/register" className="login-form__create-account-link">{formCreateAccountText}</Link>
                 </p>
             </div>
 

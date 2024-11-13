@@ -66,10 +66,11 @@
             margin-top: 1rem;
         }
 
-        .show-pass-box {
+        .show-pass-box,
+        .login-form__input-icon-box {
             position: absolute;
             right: 1.5rem;
-            top: 0rem;
+            top: .1rem;
             transform: translateY(60%);
             width: 2rem;
             height: 2rem;
@@ -92,9 +93,14 @@
         }
     }
 
+    &__input-icon-box {
+        left: 1.5rem;
+    }
+
     &__input {
         border: 1px solid transparent;
         width: 100%;
+        padding-left: 4.5rem;
 
         &::placeholder {
             transition: opacity 0.1s ease-out;
@@ -135,7 +141,7 @@
         &--input-text {
             position: absolute;
             top: 1.3rem;
-            left: 1.7rem;
+            left: 3.8rem;
 
             visibility: hidden;
             opacity: 0;
