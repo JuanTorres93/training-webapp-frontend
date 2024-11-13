@@ -11,6 +11,7 @@
     z-index: 9999;
 
     grid-row: nav-start / nav-end;
+    grid-column: 1 / -1;
 
     color: $color-grey-dark-3;
 

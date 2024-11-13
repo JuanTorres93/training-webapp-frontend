@@ -23,8 +23,8 @@ const RegisterFormV2 = ({
     return (
         <div className="register-form">
             <figure className="register-form__image-box">
-                {/* TODO change image */}
-                <img src="/images/lastCTA.png" alt="register form image" className="register-form__image" />
+                {/* TODO make image responsive */}
+                <img src="/images/register-form-largest.jpg" alt="register form image" className="register-form__image" />
             </figure>
 
             <div className="register-form__form-box">

@@ -1,6 +1,12 @@
 @use "../abstracts" as *;
 
 .login-page {
+    height: 100vh;
+
     display: grid;
     grid-template-rows: [nav-start] $landing-nav-height [nav-end form-start] min-content [form-end];
+    grid-template-columns: [left-start] $register-and-login-pages-margin-sides [left-end center-start] 1fr [center-end right-start] $register-and-login-pages-margin-sides [right-end];
+    grid-row-gap: 10rem;
+
+    background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
 }

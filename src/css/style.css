@@ -290,6 +290,7 @@ body {
   top: 0;
   z-index: 9999;
   grid-row: nav-start/nav-end;
+  grid-column: 1/-1;
   color: #575a58;
   background-color: rgba(255, 255, 255, 0.98);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
@@ -972,6 +973,10 @@ body {
 }
 
 .register-form {
+  grid-column: center-start/center-end;
+  max-width: 136.5rem;
+  max-height: 88rem;
+  justify-self: center;
   display: flex;
   padding: 4rem;
   background-color: #dde0de;
@@ -981,7 +986,7 @@ body {
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
 }
 .register-form__image-box {
-  flex: 0 0 40%;
+  flex: 0 0 45%;
   overflow: hidden;
   border-radius: inherit;
 }
@@ -993,7 +998,8 @@ body {
 }
 .register-form__form-box {
   flex: 1;
-  padding: 6rem 12rem;
+  padding: 6rem 0;
+  padding-left: 6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1138,6 +1144,10 @@ body {
 }
 
 .login-form {
+  grid-column: center-start/center-end;
+  max-width: 136.5rem;
+  max-height: 88rem;
+  justify-self: center;
   display: flex;
   padding: 4rem;
   background-color: #dde0de;
@@ -1159,7 +1169,8 @@ body {
 }
 .login-form__form-box {
   flex: 1;
-  padding: 6rem 12rem;
+  padding: 6rem 0;
+  padding-right: 6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1311,6 +1322,7 @@ body {
   font-size: 1.4rem;
   color: #03B670;
   font-weight: 600;
+  text-align: right;
   cursor: pointer;
 }
 .login-form__forgot:hover {
@@ -1464,13 +1476,21 @@ body {
 }
 
 .register-page {
+  height: 100vh;
   display: grid;
   grid-template-rows: [nav-start] 7rem [nav-end form-start] min-content [form-end];
+  grid-template-columns: [left-start] 1rem [left-end center-start] 1fr [center-end right-start] 1rem [right-end];
+  grid-row-gap: 10rem;
+  background-image: linear-gradient(to right bottom, #4BDE94, #03B670);
 }
 
 .login-page {
+  height: 100vh;
   display: grid;
   grid-template-rows: [nav-start] 7rem [nav-end form-start] min-content [form-end];
+  grid-template-columns: [left-start] 1rem [left-end center-start] 1fr [center-end right-start] 1rem [right-end];
+  grid-row-gap: 10rem;
+  background-image: linear-gradient(to right bottom, #4BDE94, #03B670);
 }
 
 /*# sourceMappingURL=style.css.map */

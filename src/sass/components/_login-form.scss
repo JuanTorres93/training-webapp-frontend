@@ -2,6 +2,11 @@
 
 
 .login-form {
+    grid-column: center-start / center-end;
+    max-width: 136.5rem;
+    max-height: 88rem;
+    justify-self: center;
+
     display: flex;
     padding: 4rem;
     background-color: $color-grey-light-2;
@@ -25,7 +30,8 @@
 
     &__form-box {
         flex: 1;
-        padding: 6rem 12rem;
+        padding: 6rem 0;
+        padding-right: 6rem;
 
         display: flex;
         flex-direction: column;
@@ -227,6 +233,7 @@
         font-size: 1.4rem;
         color: $color-primary-dark;
         font-weight: 600;
+        text-align: right;
         cursor: pointer;
 
         &:hover {

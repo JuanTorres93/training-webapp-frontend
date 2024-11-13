@@ -119,8 +119,8 @@ const LoginFormV2 = ({
             </div>
 
             <figure className="login-form__image-box">
-                {/* TODO change image */}
-                <img src="/images/hero.png" alt="login form image" className="login-form__image" />
+                {/* TODO make image responsive */}
+                <img src="/images/login-form-largest.jpg" alt="login form image" className="login-form__image" />
             </figure>
 
         </div>
