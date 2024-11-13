@@ -203,8 +203,17 @@
         // be able to be notified by the form validation
         opacity: 0;
 
+        &+.label-checkbox::before {
+            border-color: $color-secondary;
+        }
+
+        &:hover+.label-checkbox::before {
+            border-color: $color-secondary-light;
+        }
+
         &:checked+.label-checkbox::before {
-            background-color: $color-primary;
+            border-color: $color-secondary;
+            background-color: $color-secondary;
             content: "\2713";
             font-size: 2rem;
             color: $color-white;

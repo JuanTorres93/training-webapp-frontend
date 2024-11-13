@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
 
 const LoginFormV2 = ({
+    formTitle,
+    formSubtitle,
+    formOrloginWithText,
     formEmailLabel = "Email", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
     formPasswordLabel = "Password", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
     formRememberMeText = "Remember me", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
     formSubmitButtonText = "Log in", // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR
-    formOrloginWithText = "Or continue with email" // TODO BORRAR VALOR POR DEFECTO Y TRADUCIR,
 }) => {
     const [showPass, setShowPass] = useState(false);
 
@@ -18,17 +20,35 @@ const LoginFormV2 = ({
 
     return (
         <div className="login-form">
-            <figure className="login-form__image-box">
-                {/* TODO change image */}
-                <img src="/images/lastCTA.png" alt="login form image" className="login-form__image" />
-            </figure>
-
             <div className="login-form__form-box">
                 <div className="login-form__title-box">
-                    <h2 className="login-form__title">TITLE</h2>
+                    <h2 className="login-form__title">{formTitle}</h2>
                     <p className="login-form__title-subtext">
-                        SUBITLTE
+                        {formSubtitle}
                     </p>
+                </div>
+
+                {/* OAuth logins */}
+
+                <div className="login-form__oauth-box">
+                    {/* TODO add callback URL to server endpoint for google login */}
+                    <OAuthLoginV2 className="login-form__oauth-button"
+                        logo="/images/oauthLogos/google-logo.svg"
+                        platformName="Google"
+                        callbackURL="https://google.com"
+                    />
+
+                    {/* TODO add callback URL to server endpoint for linkedIn login */}
+                    <OAuthLoginV2 className="login-form__oauth-button"
+                        logo="/images/oauthLogos/linkedin-logo.svg"
+                        platformName="LinkedIn"
+                        callbackURL="https://linkedin.com"
+                    />
+                </div>
+
+                {/* email login */}
+                <div className="u-margin-top-small">
+                    <div className=" separator-text-between-lines ">{formOrloginWithText}</div>
                 </div>
 
                 <form className="login-form__form">
@@ -71,34 +91,30 @@ const LoginFormV2 = ({
                         </figure>
                     </div>
 
-                    {/* Accept terms and conditions */}
-                    <div className="login-form__input-box login-form__input-box--terms">
+                    {/* Remember me */}
+                    <div className="login-form__input-box login-form__input-box--remember">
                         <input type="checkbox" id="terms" className="login-form__checkbox" required />
-                        <label htmlFor="terms" className="label-checkbox login-form__label login-form__label--terms">{formRememberMeText}</label>
+                        <label htmlFor="terms" className="label-checkbox login-form__label login-form__label--remember">{formRememberMeText}</label>
+
+                        {/* TODO consider if should be a span or other element */}
+                        <span className='login-form__forgot'>
+                            Forgot password?
+                        </span>
                     </div>
 
                     <button type="submit" className="plain-btn login-form__submit-button">{formSubmitButtonText}</button>
                 </form>
 
-                {/* OAuth logins */}
-                <div className="separator-text-between-lines">{formOrloginWithText}</div>
-
-                <div className="login-form__oauth-box">
-                    {/* TODO add callback URL to server endpoint for google login */}
-                    <OAuthLoginV2 className="login-form__oauth-button"
-                        logo="/images/oauthLogos/google-logo.svg"
-                        platformName="Google"
-                        callbackURL="https://google.com"
-                    />
-
-                    {/* TODO add callback URL to server endpoint for linkedIn login */}
-                    <OAuthLoginV2 className="login-form__oauth-button"
-                        logo="/images/oauthLogos/linkedin-logo.svg"
-                        platformName="LinkedIn"
-                        callbackURL="https://linkedin.com"
-                    />
-                </div>
+                <p className="login-form__create-account">
+                    Don't have an account? <Link to="/register" className="login-form__create-account-link">Create one</Link>
+                </p>
             </div>
+
+            <figure className="login-form__image-box">
+                {/* TODO change image */}
+                <img src="/images/hero.png" alt="login form image" className="login-form__image" />
+            </figure>
+
         </div>
     );
 }

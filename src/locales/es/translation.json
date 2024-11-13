@@ -69,5 +69,8 @@
     "register-form-password-label": "Contraseña",
     "register-form-terms-label": "Acepto los términos y condiciones",
     "register-form-submit-button": "Crear cuenta",
-    "register-form-or-register-with-text": "O regístrate con"
+    "register-form-or-register-with-text": "O regístrate con",
+    "login-form-title": "Inicia sesión en tu cuenta",
+    "login-form-subtitle": "¡Bienvenido de nuevo! Selecciona el método para iniciar sesión:",
+    "login-form-or-login-with-text": "O continúa con email"
 }
