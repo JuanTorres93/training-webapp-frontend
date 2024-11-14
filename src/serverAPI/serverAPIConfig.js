@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const serverBaseURL = process.env.REACT_APP_SERVER_BASE_URL;
 
+export const googleOAuthURL = `${serverBaseURL}/login/google`;
+
 // Create an instance of axios
 const apiClient = axios.create({
     baseURL: serverBaseURL,

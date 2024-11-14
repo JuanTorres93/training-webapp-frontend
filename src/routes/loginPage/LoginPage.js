@@ -2,18 +2,22 @@ import React from 'react'
 
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import Alert from '../../components/modals/alert/Alert'
+import { useDispatch, useSelector } from 'react-redux';
 
 import { machineLanguage } from "../../i18n";
 import { useTranslation } from "react-i18next";
 
 import NavHorizontal from '../../components/nav/Nav';
 import LoginFormV2 from '../../components/loginForm/LoginFormV2';
+import Alert from '../../components/modals/alert/Alert'
+import { loginUser, selectUser } from '../../features/user/userSlice';
 
 const LoginPage = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -43,6 +47,24 @@ const LoginPage = () => {
             return i18n.changeLanguage("en");
         }
     };
+
+    useEffect(() => {
+        // If user exists, then redirect to the app
+        if (user) {
+            navigate('/app');
+        }
+    }, [user, navigate]);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        // find email and password by keys in e
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        // TODO this will be just email. Right now auth requires username.
+        dispatch(loginUser({ username: email, password }));
+    }
 
     const navItems = [
         {
@@ -85,6 +107,7 @@ const LoginPage = () => {
                     formForgotPasswordText={t('login-form-forgot-password-text')}
                     formDonotHaveAccountText={t('login-form-dont-have-account-text')}
                     formCreateAccountText={t('login-form-create-account-text')}
+                    handleSubmit={handleLogin}
                 />
             </section>
 

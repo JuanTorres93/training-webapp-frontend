@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
 
+import { googleOAuthURL } from '../../serverAPI/serverAPIConfig';
+
 const RegisterFormV2 = ({
     formTitle,  // e.g: 'Create an account'
     formSubtitle,  // e.g: 'Already have an account?'
@@ -100,11 +102,10 @@ const RegisterFormV2 = ({
                 <div className="separator-text-between-lines">{formOrRegisterWithText}</div>
 
                 <div className="register-form__oauth-box">
-                    {/* TODO add callback URL to server endpoint for google login */}
                     <OAuthLoginV2 className="register-form__oauth-button"
                         logo="/images/oauthLogos/google-logo.svg"
                         platformName="Google"
-                        callbackURL="https://google.com"
+                        callbackURL={googleOAuthURL}
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}

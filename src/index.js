@@ -25,8 +25,10 @@ import './css/style.css'
 //  Elements,   // Wrapper component to include stripe components for processing payments
 //} from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
+import HomePageV2 from './routes/homePage/HomePageV2';
 import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
+import NavVertical from './components/navVertical/NavVertical';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
@@ -72,18 +74,34 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
+    element: <HomePageV2 />
+  },
+  {
+    path: "/app/home",
+    element: <HomePageV2 />
+  },
+  {
+    path: "/app/dashboard",
+    element: <HomePageV2 />
+  },
+  {
+    path: "/old",
     element: <NavBar />,
     errorElement: <DefaultErrorPage />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <HomePageV2 /> },
+      {
+        path: "home",
+        element: <HomePage />
+      },
+      {
+        path: "dashboard",
+        element: <HomePage />
+      },
       {
         // TODO delete all this path in PRODUCTION
         path: "componentDesign",
         element: <ComponentDesign />
-      },
-      {
-        path: "home",
-        element: <HomePage />
       },
       {
         path: "createTemplate",

@@ -393,6 +393,68 @@ body {
   z-index: -1;
 }
 
+.nav-vertical {
+  grid-column: nav-start/nav-end;
+  grid-row: 1/-1;
+  background-color: #2d302e;
+  color: #f1f4f2;
+}
+.nav-vertical__list {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.nav-vertical__item {
+  width: 100%;
+  height: 7rem;
+}
+.nav-vertical__item:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.nav-vertical__link, .nav-vertical__link:link, .nav-vertical__link:visited {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+  padding-left: 2rem;
+  padding-right: auto;
+  font-weight: 500;
+  transition: all 0.2s;
+  color: #f1f4f2;
+  text-decoration: none;
+}
+.nav-vertical__link:hover::after {
+  height: 100%;
+  width: 100%;
+}
+.nav-vertical__link--active, .nav-vertical__link:active {
+  background-color: #03B670 !important;
+}
+.nav-vertical__link::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: height 0.2s cubic-bezier(1, 0, 0, 1), width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s;
+  width: 2%;
+  height: 0;
+  background-color: #03B670;
+}
+.nav-vertical__icon-box {
+  margin-right: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+}
+.nav-vertical__icon-box > * {
+  width: 100%;
+  height: 100%;
+}
+
 .feature__card {
   display: flex;
   flex-direction: column;
@@ -1169,7 +1231,7 @@ body {
 }
 .login-form__form-box {
   flex: 1;
-  padding: 6rem 0;
+  padding: 6rem 1rem;
   padding-right: 6rem;
   display: flex;
   flex-direction: column;
@@ -1375,6 +1437,29 @@ body {
 }
 .oauth-login__text {
   font-size: 1.4rem;
+}
+
+.behind-app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
+  background-image: linear-gradient(to right bottom, #4BDE94, #03B670);
+}
+
+.app-layout {
+  height: 80vh;
+  margin: 6rem 7rem;
+  background-color: #f1f4f2;
+  border-radius: 3px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: [nav-start] 20rem [nav-end] repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 3rem;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.2);
 }
 
 .landing {

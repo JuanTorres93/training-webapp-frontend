@@ -17,10 +17,6 @@ const NavHorizontal = ({
     currentLanguage = "",
     cbChangeLanguage = () => { } }) => {
 
-    // TODO DELETE THESE DEBUG LOGS
-    console.log('currentLocation');
-    console.log(currentLocation);
-
     return (
         <nav className="nav-horizontal">
             {currentLocation === "/" ?

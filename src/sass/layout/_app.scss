@@ -1,0 +1,30 @@
+@use "../abstracts" as *;
+
+.behind-app {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -100;
+
+    background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+}
+
+.app-layout {
+    // TODO remove this line, here just for initial development
+    height: 80vh;
+
+    margin: 6rem 7rem;
+    background-color: $color-grey-light-3;
+    border-radius: 3px;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: [nav-start] 20rem [nav-end] repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 3rem;
+
+    box-shadow: 0 2rem 6rem rgba($color-black, 0.2);
+
+}

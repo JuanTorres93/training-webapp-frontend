@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
 
+import { googleOAuthURL } from '../../serverAPI/serverAPIConfig';
+
 const LoginFormV2 = ({
     formTitle,
     formSubtitle,
@@ -14,6 +16,7 @@ const LoginFormV2 = ({
     formForgotPasswordText,
     formDonotHaveAccountText,
     formCreateAccountText,
+    handleSubmit = () => { },
 }) => {
     const [showPass, setShowPass] = useState(false);
 
@@ -38,7 +41,7 @@ const LoginFormV2 = ({
                     <OAuthLoginV2 className="login-form__oauth-button"
                         logo="/images/oauthLogos/google-logo.svg"
                         platformName="Google"
-                        callbackURL="https://google.com"
+                        callbackURL={googleOAuthURL}
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}
@@ -54,7 +57,7 @@ const LoginFormV2 = ({
                     <div className=" separator-text-between-lines ">{formOrloginWithText}</div>
                 </div>
 
-                <form className="login-form__form">
+                <form className="login-form__form" onSubmit={handleSubmit}>
 
                     <div className="login-form__input-box">
                         <figure className="login-form__input-icon-box">
@@ -63,7 +66,9 @@ const LoginFormV2 = ({
                         <input
                             className="base-input-text login-form__input"
                             id="email"
-                            type="email"
+                            type="text"
+                            // TODO DESCOMENTAR Y BORRAR ARRIBA
+                            // type="email"
                             placeholder={formEmailLabel}
                             // Max value defined in DB
                             maxLength="70"
@@ -101,8 +106,8 @@ const LoginFormV2 = ({
 
                     {/* Remember me */}
                     <div className="login-form__input-box login-form__input-box--remember">
-                        <input type="checkbox" id="terms" className="login-form__checkbox" required />
-                        <label htmlFor="terms" className="label-checkbox login-form__label login-form__label--remember">{formRememberMeText}</label>
+                        <input type="checkbox" id="remember-me" className="login-form__checkbox" />
+                        <label htmlFor="remember-me" className="label-checkbox login-form__label login-form__label--remember">{formRememberMeText}</label>
 
                         {/* TODO consider if should be a span or other element */}
                         <span className='login-form__forgot'>
