@@ -6,8 +6,11 @@ export default function ExercisesPage() {
     return (
         <div className="behind-app">
             <main className="app-layout">
-                EXERCISES
                 <TranslatedNavVertical />
+                <section className="exercises-page">
+
+                    EXERCISES
+                </section>
             </main>
         </div>
     );

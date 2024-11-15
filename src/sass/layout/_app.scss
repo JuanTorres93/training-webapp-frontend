@@ -17,12 +17,12 @@
 
     margin: 6rem 7rem;
     background-color: $color-grey-light-3;
-    border-radius: 3px;
+    border-radius: 5px;
     overflow: hidden;
 
     display: grid;
-    grid-template-columns: [nav-start] 20rem [nav-end] repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
+    grid-template-rows: [page-top] 1fr [page-bottom];
     grid-gap: 3rem;
 
     box-shadow: 0 2rem 6rem rgba($color-black, 0.2);

@@ -1470,11 +1470,11 @@ body {
   height: 80vh;
   margin: 6rem 7rem;
   background-color: #f1f4f2;
-  border-radius: 3px;
+  border-radius: 5px;
   overflow: hidden;
   display: grid;
-  grid-template-columns: [nav-start] 20rem [nav-end] repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
+  grid-template-rows: [page-top] 1fr [page-bottom];
   grid-gap: 3rem;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.2);
 }
@@ -1593,6 +1593,16 @@ body {
   grid-template-columns: [left-start] 1rem [left-end center-start] 1fr [center-end right-start] 1rem [right-end];
   grid-row-gap: 10rem;
   background-image: linear-gradient(to right bottom, #4BDE94, #03B670);
+}
+
+.exercises-page {
+  grid-column: page-start/page-end;
+  grid-row: page-top/page-bottom;
+  padding: 4rem 0;
+  padding-right: 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 85% [content-end];
 }
 
 /*# sourceMappingURL=style.css.map */
