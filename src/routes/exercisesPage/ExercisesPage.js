@@ -1,4 +1,5 @@
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
+import ButtonNew from "../../components/ButtonNew/ButtonNew";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -8,8 +9,9 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
-
-                    EXERCISES
+                    <ButtonNew
+                        buttonText="New Exercise"
+                    />
                 </section>
             </main>
         </div>

@@ -1,0 +1,47 @@
+@use "../abstracts" as *;
+
+.button-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1.5rem;
+    border: 2px dashed $color-primary-dark;
+    border-spacing: 0;
+
+    background-color: $color-grey-light-3;
+    color: $color-grey-dark-5;
+
+    &:hover {
+        background-color: $color-grey-light-2;
+    }
+
+    &:active {
+        background-color: $color-grey-light-1;
+    }
+
+    &__icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        border-radius: 50%;
+        width: 4rem;
+        height: 4rem;
+
+        background-color: rgba($color-primary-light, 0.5);
+
+        &>* {
+            width: 60%;
+            height: 60%;
+
+            // TODO aumentar grosor ion icon?
+        }
+    }
+
+    &__text {
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+}

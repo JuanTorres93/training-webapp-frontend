@@ -5,9 +5,9 @@
     grid-row: page-top / page-bottom;
 
     padding: 4rem 0;
-    padding-right: 4rem;
+    padding-right: 3rem;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 85% [content-end];
+    grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
 }

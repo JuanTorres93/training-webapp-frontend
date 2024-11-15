@@ -1456,6 +1456,41 @@ body {
   font-size: 1.4rem;
 }
 
+.button-new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  border: 2px dashed #03B670;
+  border-spacing: 0;
+  background-color: #f1f4f2;
+  color: #2d302e;
+}
+.button-new:hover {
+  background-color: #dde0de;
+}
+.button-new:active {
+  background-color: #c3c6c4;
+}
+.button-new__icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(75, 222, 148, 0.5);
+}
+.button-new__icon-box > * {
+  width: 60%;
+  height: 60%;
+}
+.button-new__text {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
 .behind-app {
   position: fixed;
   top: 0;
@@ -1599,10 +1634,10 @@ body {
   grid-column: page-start/page-end;
   grid-row: page-top/page-bottom;
   padding: 4rem 0;
-  padding-right: 4rem;
+  padding-right: 3rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 85% [content-end];
+  grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
 }
 
 /*# sourceMappingURL=style.css.map */
