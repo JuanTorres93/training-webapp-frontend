@@ -8,7 +8,6 @@ export default function TranslatedNavVertical() {
     const { t } = useTranslation();
 
     const navItems = [
-        // TODO TRADUCIR
         {
             icon: <ion-icon name="apps-outline"></ion-icon>,
             text: t("nav-app-dashboard"),

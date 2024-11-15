@@ -16,6 +16,8 @@ const NavVertical = ({
                         return (
                             <li key={index} className="nav-vertical__item">
                                 <NavLink
+                                    // end is used to make the link active only when the path is an exact match
+                                    end
                                     to={item.path}
                                     className={({ isActive }) => isActive ? "nav-vertical__link nav-vertical__link--active" : "nav-vertical__link"}
                                 >

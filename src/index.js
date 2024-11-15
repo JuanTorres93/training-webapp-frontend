@@ -26,9 +26,9 @@ import './css/style.css'
 //} from '@stripe/react-stripe-js';
 import HomePage from './routes/homePage/HomePage';
 import HomePageV2 from './routes/homePage/HomePageV2';
+import ExercisesPage from './routes/exercisesPage/ExercisesPage';
 import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
-import NavVertical from './components/navVertical/NavVertical';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
@@ -83,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: "/app/dashboard",
     element: <HomePageV2 />
+  },
+  {
+    path: "/app/exercises",
+    element: <ExercisesPage />
   },
   {
     path: "/old",

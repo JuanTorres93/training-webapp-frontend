@@ -1,12 +1,12 @@
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 
-export default function HomePageV2() {
+export default function ExercisesPage() {
     // TODO only appear if user is logged in
 
     return (
         <div className="behind-app">
             <main className="app-layout">
-                DASHBOARD
+                EXERCISES
                 <TranslatedNavVertical />
             </main>
         </div>

@@ -68,11 +68,6 @@
             }
         }
 
-        &--active,
-        &:active {
-            background-color: $color-primary-dark !important;
-        }
-
         &::after {
             content: "";
             display: inline-block;
@@ -86,7 +81,18 @@
 
             width: 2%;
             height: 0;
-            background-color: $color-primary-dark;
+            background-color: $color-primary;
+        }
+
+        &--active,
+        &:active {
+
+            &,
+            &::after {
+                height: 100%;
+                width: 100%;
+                background-color: $color-primary-dark;
+            }
         }
     }
 

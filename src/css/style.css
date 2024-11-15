@@ -443,9 +443,6 @@ body {
   height: 100%;
   width: 100%;
 }
-.nav-vertical__link--active, .nav-vertical__link:active {
-  background-color: #03B670 !important;
-}
 .nav-vertical__link::after {
   content: "";
   display: inline-block;
@@ -456,6 +453,11 @@ body {
   transition: height 0.2s cubic-bezier(1, 0, 0, 1), width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s;
   width: 2%;
   height: 0;
+  background-color: #2FCA82;
+}
+.nav-vertical__link--active, .nav-vertical__link--active::after, .nav-vertical__link:active, .nav-vertical__link:active::after {
+  height: 100%;
+  width: 100%;
   background-color: #03B670;
 }
 .nav-vertical__icon-box {
