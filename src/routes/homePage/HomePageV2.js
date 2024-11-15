@@ -1,6 +1,8 @@
 import NavVertical from "../../components/navVertical/NavVertical";
 
 export default function HomePageV2() {
+    // TODO only appear if user is logged in
+
     const navItems = [
         // TODO TRADUCIR
         {

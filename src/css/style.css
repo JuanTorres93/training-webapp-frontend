@@ -402,15 +402,28 @@ body {
 .nav-vertical__list {
   list-style: none;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 .nav-vertical__item {
   width: 100%;
   height: 7rem;
 }
+.nav-vertical__item:first-child {
+  margin-top: 3rem;
+}
 .nav-vertical__item:not(:last-child) {
   margin-bottom: 1rem;
+}
+.nav-vertical__item--logout {
+  margin-top: auto;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+.nav-vertical__item--logout button {
+  width: 100%;
 }
 .nav-vertical__link, .nav-vertical__link:link, .nav-vertical__link:visited {
   position: relative;
@@ -729,6 +742,8 @@ body {
   border: none;
   background-color: transparent;
   font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
   transition: all 0.2s;
   text-align: left;
   cursor: pointer;
