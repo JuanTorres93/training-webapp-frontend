@@ -1,5 +1,6 @@
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
-import ButtonNew from "../../components/ButtonNew/ButtonNew";
+import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
+import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -9,9 +10,8 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
-                    <ButtonNew
-                        buttonText="New Exercise"
-                    />
+                    <TranslatedSearchBar />
+                    <TranslatedButtonNew />
                 </section>
             </main>
         </div>

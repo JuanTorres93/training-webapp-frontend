@@ -83,5 +83,7 @@
     "nav-app-dashboard": "Panel",
     "nav-app-templates": "Plantillas",
     "nav-app-exercises": "Ejercicios",
-    "nav-app-logout": "Cerrar sesión"
+    "nav-app-logout": "Cerrar sesión",
+    "button-new-exercise": "Nuevo ejercicio",
+    "button-search-placeholder": "Buscar"
 }

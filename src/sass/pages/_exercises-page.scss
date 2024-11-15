@@ -10,4 +10,5 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
+    grid-row-gap: 3rem;
 }

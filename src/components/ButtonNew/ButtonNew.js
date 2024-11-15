@@ -3,7 +3,6 @@ export default function ButtonNew({
     onClick = () => { },
 }) {
     return (
-        // TODO traducir componente
         <button
             onClick={onClick}
             className="button-new plain-btn"

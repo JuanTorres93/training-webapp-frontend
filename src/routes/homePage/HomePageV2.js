@@ -6,7 +6,6 @@ export default function HomePageV2() {
     return (
         <div className="behind-app">
             <main className="app-layout">
-                DASHBOARD
                 <TranslatedNavVertical />
             </main>
         </div>
