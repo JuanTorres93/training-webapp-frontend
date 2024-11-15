@@ -79,5 +79,9 @@
     "login-form-submit-button": "Iniciar sesión",
     "login-form-forgot-password-text": "¿Olvidaste tu contraseña?",
     "login-form-dont-have-account-text": "¿No tienes una cuenta?",
-    "login-form-create-account-text": "Crea una"
+    "login-form-create-account-text": "Crea una",
+    "nav-app-dashboard": "Panel",
+    "nav-app-templates": "Plantillas",
+    "nav-app-exercises": "Ejercicios",
+    "nav-app-logout": "Cerrar sesión"
 }

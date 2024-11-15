@@ -2,7 +2,10 @@ import { NavLink } from "react-router-dom";
 
 const NavVertical = ({
     items, // array of objects with icon, text and path
+    logoutItem,
 }) => {
+
+    // TODO button to change language
 
     return (
         <nav className="nav-vertical">
@@ -28,10 +31,9 @@ const NavVertical = ({
                 <li className="nav-vertical__item nav-vertical__item--logout">
                     <button className="nav-vertical__link plain-btn">
                         <figure className="nav-vertical__icon-box">
-                            <ion-icon name="log-out-outline"></ion-icon>
+                            {logoutItem.icon}
                         </figure>
-                        {/* TODO translate */}
-                        Log out
+                        {logoutItem.text}
                     </button>
                 </li>
             </ul>

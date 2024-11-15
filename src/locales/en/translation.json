@@ -79,5 +79,9 @@
     "login-form-submit-button": "Log in",
     "login-form-forgot-password-text": "Forgot password?",
     "login-form-dont-have-account-text": "Don't have an account?",
-    "login-form-create-account-text": "Create one"
+    "login-form-create-account-text": "Create one",
+    "nav-app-dashboard": "Dashboard",
+    "nav-app-templates": "Templates",
+    "nav-app-exercises": "Exercises",
+    "nav-app-logout": "Log out"
 }
