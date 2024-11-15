@@ -1,4 +1,5 @@
 import NavHorizontal from "../../components/nav/Nav";
+import TranslatedNavHorizontal from "../../components/nav/TranslatedNav";
 import HeroSection from "../../components/heroSection/HeroSection";
 import NicheSection from "../../components/nicheSection/NicheSection";
 import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
@@ -6,27 +7,13 @@ import FeatureSection from "../../components/featureSection/FeatureSection";
 import TestimonialsSection from "../../components/testimonialsSection/TestimonialsSection";
 
 import { useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { machineLanguage } from "../../i18n";
+import { useEffect } from "react";
 import { scroller } from 'react-scroll';
+import { useTranslation } from "react-i18next";
 
 export default function LandingPage() {
-    const [language, setLanguage] = useState(machineLanguage);
     const location = useLocation();
-
     const { t, i18n } = useTranslation();
-
-    // TODO DRY
-    const changeLanguage = () => {
-        if (i18n.language === "en") {
-            setLanguage("es");
-            return i18n.changeLanguage("es");
-        } else {
-            setLanguage("en");
-            return i18n.changeLanguage("en");
-        }
-    };
 
     useEffect(() => {
         if (location.hash) {
@@ -37,25 +24,6 @@ export default function LandingPage() {
             });
         }
     }, [location]);
-
-    const navItems = [
-        {
-            text: t('nav-landing-1'),
-            id: "niche-section",
-        },
-        {
-            text: t('nav-landing-2'),
-            id: "benefits",
-        },
-        {
-            text: t('nav-landing-3'),
-            id: "features",
-        },
-        {
-            text: t('nav-landing-4'),
-            id: "testimonials-section",
-        },
-    ];
 
     const nicheDescription = [
         {
@@ -200,13 +168,10 @@ export default function LandingPage() {
 
     return (
         <div className="landing">
-            <NavHorizontal
-                items={navItems}
+            <TranslatedNavHorizontal
                 currentLocation={location.pathname}
-                currentLanguage={language}
-                loginText={t('nav-landing-login')}
-                signUpText={t('nav-landing-signup')}
-                cbChangeLanguage={changeLanguage} />
+            />
+
             <HeroSection />
 
             <BenefitsSection

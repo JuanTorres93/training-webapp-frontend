@@ -4,10 +4,9 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
-import { machineLanguage } from "../../i18n";
 import { useTranslation } from "react-i18next";
 
-import NavHorizontal from '../../components/nav/Nav';
+import TranslatedNavHorizontal from '../../components/nav/TranslatedNav';
 import LoginFormV2 from '../../components/loginForm/LoginFormV2';
 import Alert from '../../components/modals/alert/Alert'
 import { loginUser, selectUser } from '../../features/user/userSlice';
@@ -33,20 +32,7 @@ const LoginPage = () => {
 
     }, [location]);
 
-    const [language, setLanguage] = useState(machineLanguage);
-
-    const { t, i18n } = useTranslation();
-
-    // TODO DRY
-    const changeLanguage = () => {
-        if (i18n.language === "en") {
-            setLanguage("es");
-            return i18n.changeLanguage("es");
-        } else {
-            setLanguage("en");
-            return i18n.changeLanguage("en");
-        }
-    };
+    const { t } = useTranslation();
 
     useEffect(() => {
         // If user exists, then redirect to the app
@@ -66,35 +52,13 @@ const LoginPage = () => {
         dispatch(loginUser({ username: email, password }));
     }
 
-    const navItems = [
-        {
-            text: t('nav-landing-1'),
-            path: "/#niche-section",
-        },
-        {
-            text: t('nav-landing-2'),
-            path: "/#benefits",
-        },
-        {
-            text: t('nav-landing-3'),
-            path: "/#features",
-        },
-        {
-            text: t('nav-landing-4'),
-            path: "/#testimonials-section",
-        },
-    ];
-
     return (
         <>
             <section className="login-page">
-                <NavHorizontal
-                    items={navItems}
+                <TranslatedNavHorizontal
                     currentLocation={location.pathname}
-                    currentLanguage={language}
-                    loginText={t('nav-landing-login')}
-                    signUpText={t('nav-landing-signup')}
-                    cbChangeLanguage={changeLanguage} />
+                    isInLandingPage={false}
+                />
 
                 <LoginFormV2
                     formTitle={t('login-form-title')}

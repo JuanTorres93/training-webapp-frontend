@@ -11,7 +11,7 @@ const scrollConfig = {
 
 const NavHorizontal = ({
     items, // array of objects with text and (id OR path). id is used for react-scroll, path is used for react-router-dom
-    currentLocation,
+    currentLocation,    // current path to determine if logo should be a link or a scroll link
     loginText = "",
     signUpText = "",
     currentLanguage = "",
