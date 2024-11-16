@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 const NavVertical = ({
     items, // array of objects with icon, text and path
     logoutItem,
+    currentLanguage,
+    cbChangeLanguage = () => { },
 }) => {
-
-    // TODO button to change language
 
     return (
         <nav className="nav-vertical">
@@ -39,6 +39,13 @@ const NavVertical = ({
                     </button>
                 </li>
             </ul>
+
+            <button
+                className="plain-btn"
+                onClick={cbChangeLanguage}
+            >
+                <span>{currentLanguage}</span>
+            </button>
         </nav>
     )
 }

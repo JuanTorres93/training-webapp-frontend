@@ -10,7 +10,7 @@ const userLanguage = navigator.language || navigator.userLanguage;
 // Gets the language code (first two characters)
 // e.g. 'es-ES' -> returns 'es'
 // e.g. 'en-US' -> returns 'en'
-export const machineLanguage = userLanguage.split('-')[0];
+const machineLanguage = userLanguage.split('-')[0];
 
 i18n
     .use(initReactI18next) // React integration
@@ -23,5 +23,19 @@ i18n
         fallbackLng: 'en', // Default language
         interpolation: { escapeValue: false }, // XSS protection
     });
+
+export let currentLanguage = i18n.language;
+
+export const changeLanguage = () => {
+    if (i18n.language === "en") {
+        currentLanguage = "es";
+        return i18n.changeLanguage("es");
+    } else {
+        currentLanguage = "en";
+        return i18n.changeLanguage("en");
+    }
+};
+
+
 
 export default i18n;

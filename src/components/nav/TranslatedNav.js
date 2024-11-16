@@ -1,27 +1,14 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import NavHorizontal from "./Nav";
 
-import { machineLanguage } from "../../i18n";
+import { currentLanguage, changeLanguage } from "../../i18n";
 
 const TranslatedNavHorizontal = ({
     currentLocation,    // current path to determine if logo should be a link or a scroll link
     isInLandingPage = true,    // if true, the logo will be a scroll link
 }) => {
-    const [language, setLanguage] = useState(machineLanguage);
-
-    const { t, i18n } = useTranslation();
-
-    const changeLanguage = () => {
-        if (i18n.language === "en") {
-            setLanguage("es");
-            return i18n.changeLanguage("es");
-        } else {
-            setLanguage("en");
-            return i18n.changeLanguage("en");
-        }
-    };
+    const { t } = useTranslation();
 
     let navItems;
 
@@ -69,7 +56,7 @@ const TranslatedNavHorizontal = ({
     return <NavHorizontal
         items={navItems}
         currentLocation={currentLocation}
-        currentLanguage={language}
+        currentLanguage={currentLanguage}
         loginText={t('nav-landing-login')}
         signUpText={t('nav-landing-signup')}
         cbChangeLanguage={changeLanguage}

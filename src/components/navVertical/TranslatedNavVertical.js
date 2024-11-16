@@ -2,6 +2,8 @@ import NavVertical from "./NavVertical";
 
 import { useTranslation } from "react-i18next";
 
+import { currentLanguage, changeLanguage } from "../../i18n";
+
 export default function TranslatedNavVertical() {
     // TODO only appear if user is logged in
 
@@ -35,6 +37,8 @@ export default function TranslatedNavVertical() {
         <NavVertical
             items={navItems}
             logoutItem={logoutItem}
+            currentLanguage={currentLanguage}
+            cbChangeLanguage={changeLanguage}
         />
     );
 }

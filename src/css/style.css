@@ -394,6 +394,7 @@ body {
 }
 
 .nav-vertical {
+  position: relative;
   grid-column: nav-start/nav-end;
   grid-row: 1/-1;
   background-color: #2d302e;
@@ -468,6 +469,25 @@ body {
 .nav-vertical__icon-box > * {
   width: 100%;
   height: 100%;
+}
+.nav-vertical > button {
+  position: absolute;
+  bottom: 0;
+  left: 1.5rem;
+  text-transform: uppercase;
+  width: 3.5rem;
+  height: 3.5rem;
+  text-align: center;
+  padding: 0;
+  background-color: rgba(45, 48, 46, 0.7);
+  font-size: 1.1rem;
+  color: #c3c6c4;
+}
+.nav-vertical > button:hover {
+  color: #dde0de;
+}
+.nav-vertical > button:active {
+  color: #f1f4f2;
 }
 
 .feature__card {
