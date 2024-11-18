@@ -3,6 +3,7 @@ import ButtonNew from "./ButtonNew";
 import { useTranslation } from "react-i18next";
 
 export default function TranslatedButtonNew({
+    extraClasses = "",
     onClick = () => { },
 }) {
     const { t } = useTranslation();
@@ -10,6 +11,7 @@ export default function TranslatedButtonNew({
     return (
         <ButtonNew
             buttonText={buttonText}
+            extraClasses={extraClasses}
             onClick={onClick}
         />
     );

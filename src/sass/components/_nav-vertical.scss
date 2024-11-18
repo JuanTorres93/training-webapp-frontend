@@ -5,6 +5,10 @@
     grid-column: nav-start / nav-end;
     grid-row: 1 / -1;
 
+    // This prevents logout button to be at the bottom of the page
+    // and do not dissapear if there is too much information
+    max-height: inherit;
+
     $nav-background-color: $color-grey-dark-5;
     background-color: $nav-background-color;
     color: $color-grey-light-3;

@@ -3,6 +3,8 @@
 .presenter-grid {
     display: grid;
 
+    overflow-y: scroll;
+
     // TODO CAMBIAR SI ES NECESARIO
     grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
     grid-template-rows: min-content;

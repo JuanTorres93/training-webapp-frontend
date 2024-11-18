@@ -9,15 +9,16 @@ const ExercisePresenterV2 = ({
         <div className="exercise-presenter">
             <div className="exercise-presenter__info-box">
                 <span className="exercise-presenter__name">
-                    NAME
+                    {name}
                 </span>
                 <p className="exercise-presenter__description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat corporis eveniet ipsam quisquam neque
+                    {description}
                 </p>
 
-                <div className="exercise-presenter__extra-info-box">
+                {/* TODO add stats or something? */}
+                {/* <div className="exercise-presenter__extra-info-box">
                     STATS?
-                </div>
+                </div> */}
             </div>
 
             <div className="exercise-presenter__actions-box">
