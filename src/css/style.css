@@ -1556,6 +1556,42 @@ body {
   border: 2px solid transparent;
 }
 
+.exercise-presenter {
+  display: grid;
+  grid-template-columns: [info-start] 1fr [info-end actions-start] min-content [actions-end];
+  grid-template-rows: [presenter-top] 1fr [presenter-bottom];
+  grid-column-gap: 2rem;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 2px solid transparent;
+}
+.exercise-presenter:hover, .exercise-presenter:active {
+  border-color: #2FCA82;
+}
+.exercise-presenter__actions-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.exercise-presenter__icon-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.exercise-presenter__icon-box > * {
+  width: 100%;
+  height: 100%;
+}
+.exercise-presenter__icon-box--delete:hover {
+  color: #ea704e;
+}
+.exercise-presenter__icon-box--edit:hover {
+  color: #2FCA82;
+}
+
 .behind-app {
   position: fixed;
   top: 0;
@@ -1577,6 +1613,14 @@ body {
   grid-template-rows: [page-top] 1fr [page-bottom];
   grid-gap: 3rem;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.2);
+}
+
+.presenter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  grid-template-rows: min-content;
+  grid-auto-rows: min-content;
+  grid-gap: 4rem;
 }
 
 .landing {

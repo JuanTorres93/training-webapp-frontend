@@ -1,0 +1,11 @@
+@use "../abstracts" as *;
+
+.presenter-grid {
+    display: grid;
+
+    // TODO CAMBIAR SI ES NECESARIO
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    grid-template-rows: min-content;
+    grid-auto-rows: min-content;
+    grid-gap: 4rem;
+}

@@ -1,0 +1,52 @@
+@use "../abstracts/" as *;
+
+.exercise-presenter {
+    display: grid;
+
+    grid-template-columns: [info-start] 1fr [info-end actions-start] min-content [actions-end];
+    grid-template-rows: [presenter-top] 1fr [presenter-bottom];
+
+    grid-column-gap: 2rem;
+
+    background-color: $color-white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+
+    border: 2px solid transparent;
+
+    &:hover,
+    &:active {
+        border-color: $color-primary;
+    }
+
+    &__actions-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__icon-box {
+        width: 2.5rem;
+        height: 2.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &>* {
+            width: 100%;
+            height: 100%;
+        }
+
+        &--delete {
+            &:hover {
+                color: $color-red;
+            }
+        }
+
+        &--edit {
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
