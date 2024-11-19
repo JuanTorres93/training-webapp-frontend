@@ -6,6 +6,7 @@ const PopupNameAndDescription = ({
         // TODO translate and parametrize max lengths
 
         <div className="popup-name-desc">
+            <div className="popup-name-desc__box-arrow popup-name-desc__box-arrow--top-left"></div>
             <div className="popup-name-desc__input-area">
                 <div className="popup-name-desc__input-box">
                     <label htmlFor="name" className="popup-name-desc__label">Name</label>

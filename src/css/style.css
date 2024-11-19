@@ -1614,8 +1614,8 @@ body {
 .popup-name-desc {
   z-index: 1000;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 40;
+  right: 40;
   display: grid;
   grid-template-columns: [input-start] 1fr [input-end actions-start] min-content [actions-end];
   grid-column-gap: 4rem;
@@ -1628,6 +1628,84 @@ body {
 }
 .popup-name-desc:hover {
   border-color: #03B670;
+}
+.popup-name-desc:hover .popup-name-desc__box-arrow {
+  background-color: #03B670;
+}
+.popup-name-desc__box-arrow {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: #AAADAB;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transition: all 0.2s;
+}
+.popup-name-desc__box-arrow::before {
+  content: "";
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  background-color: #dde0de;
+  clip-path: inherit;
+  transform: translateY(5px) scale(1.06);
+}
+.popup-name-desc__box-arrow--top-right {
+  top: -2rem;
+  right: 2rem;
+}
+.popup-name-desc__box-arrow--top-center {
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.popup-name-desc__box-arrow--top-left {
+  top: -2rem;
+  left: 2rem;
+}
+.popup-name-desc__box-arrow--bottom-right {
+  bottom: -2rem;
+  right: 2rem;
+  transform: rotateZ(180deg);
+}
+.popup-name-desc__box-arrow--bottom-center {
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%) rotateZ(180deg);
+}
+.popup-name-desc__box-arrow--bottom-left {
+  bottom: -2rem;
+  left: 2rem;
+  transform: rotateZ(180deg);
+}
+.popup-name-desc__box-arrow--left-top {
+  top: 2rem;
+  left: -2rem;
+  transform: rotateZ(-90deg);
+}
+.popup-name-desc__box-arrow--left-center {
+  top: 50%;
+  left: -2rem;
+  transform: translateY(-50%) rotateZ(-90deg);
+}
+.popup-name-desc__box-arrow--left-bottom {
+  bottom: 2rem;
+  left: -2rem;
+  transform: rotateZ(-90deg);
+}
+.popup-name-desc__box-arrow--right-top {
+  top: 2rem;
+  right: -2rem;
+  transform: rotateZ(90deg);
+}
+.popup-name-desc__box-arrow--right-center {
+  top: 50%;
+  right: -2rem;
+  transform: translateY(-50%) rotateZ(90deg);
+}
+.popup-name-desc__box-arrow--right-bottom {
+  bottom: 2rem;
+  right: -2rem;
+  transform: rotateZ(90deg);
 }
 .popup-name-desc__icons-area {
   display: flex;
