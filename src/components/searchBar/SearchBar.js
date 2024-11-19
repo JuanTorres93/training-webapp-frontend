@@ -1,6 +1,11 @@
-export default function SearchBar({ placeholder }) {
+export default function SearchBar({
+    placeholder,
+    extraClasses = "",
+}) {
     return (
-        <div className="search-bar">
+        <div
+            className={`search-bar ${extraClasses}`}
+        >
             <figure className="search-bar__icon-box search-bar__icon-box--search">
                 <ion-icon name="search-outline"></ion-icon>
             </figure>

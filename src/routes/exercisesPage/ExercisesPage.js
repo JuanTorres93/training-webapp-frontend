@@ -2,6 +2,7 @@ import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVer
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
 import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
+import PopupNameAndDescription from "../../components/popupNameAndDesription/PopupNameAndDescription";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -11,7 +12,11 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
-                    <TranslatedSearchBar />
+                    <PopupNameAndDescription />
+
+                    <TranslatedSearchBar
+                        extraClasses="exercises-page__search-bar"
+                    />
                     <TranslatedButtonNew
                         extraClasses="exercises-page__button-new"
                     />

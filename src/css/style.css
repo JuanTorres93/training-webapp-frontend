@@ -1558,6 +1558,7 @@ body {
 }
 
 .exercise-presenter {
+  position: relative;
   display: grid;
   grid-template-columns: [info-start] 1fr [info-end actions-start] min-content [actions-end];
   grid-template-rows: [presenter-top] 1fr [presenter-bottom];
@@ -1608,6 +1609,81 @@ body {
 }
 .exercise-presenter__icon-box--edit:hover {
   color: #2FCA82;
+}
+
+.popup-name-desc {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: [input-start] 1fr [input-end actions-start] min-content [actions-end];
+  grid-column-gap: 4rem;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  background-color: #dde0de;
+  border: 2px solid #AAADAB;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+.popup-name-desc:hover {
+  border-color: #03B670;
+}
+.popup-name-desc__icons-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.popup-name-desc__icon-box {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.popup-name-desc__icon-box > * {
+  width: 100%;
+  height: 100%;
+}
+.popup-name-desc__icon-box--reject {
+  margin-top: 2rem;
+}
+.popup-name-desc__icon-box--reject:hover {
+  color: #ea704e;
+}
+.popup-name-desc__icon-box--accept:hover {
+  color: #2FCA82;
+}
+.popup-name-desc__input-box {
+  display: flex;
+  flex-direction: column;
+}
+.popup-name-desc__input-box:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.popup-name-desc__input-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.popup-name-desc__input {
+  max-width: 30rem;
+  min-width: 100%;
+  max-height: 20rem;
+  min-height: 4.2rem;
+  color: #3c3f3d;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+.popup-name-desc__input:focus, .popup-name-desc__input:active {
+  border-color: #2FCA82;
+}
+.popup-name-desc__input:hover {
+  border-color: #4BDE94;
+}
+.popup-name-desc__label {
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
 .behind-app {
@@ -1772,6 +1848,15 @@ body {
 .exercises-page__button-new {
   grid-column: search-start/ordery-by-end;
   grid-row: new-start/new-end;
+}
+
+.exercises-page__search-bar {
+  grid-column: search-start/ordery-by-end;
+  grid-row: search-start/search-end;
+  align-self: center;
+  justify-self: center;
+  width: 70%;
+  max-width: 80%;
 }
 
 .presenter-grid--exercises {

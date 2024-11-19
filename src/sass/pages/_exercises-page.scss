@@ -18,6 +18,16 @@
     grid-row: new-start / new-end;
 }
 
+.exercises-page__search-bar {
+    grid-column: search-start / ordery-by-end;
+    grid-row: search-start / search-end;
+    align-self: center;
+    justify-self: center;
+
+    width: 70%;
+    max-width: 80%;
+}
+
 .presenter-grid--exercises {
     grid-column: search-start / ordery-by-end;
     grid-row: content-start / content-end;

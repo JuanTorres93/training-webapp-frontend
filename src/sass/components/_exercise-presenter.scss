@@ -1,6 +1,7 @@
 @use "../abstracts/" as *;
 
 .exercise-presenter {
+    position: relative;
     display: grid;
 
     grid-template-columns: [info-start] 1fr [info-end actions-start] min-content [actions-end];

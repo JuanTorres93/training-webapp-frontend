@@ -1,5 +1,3 @@
-
-
 const ExercisePresenterV2 = ({
     id,
     name,
