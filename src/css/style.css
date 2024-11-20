@@ -1614,8 +1614,8 @@ body {
 .popup-name-desc {
   z-index: 1000;
   position: absolute;
-  top: 40;
-  right: 40;
+  top: 40px;
+  left: 40px;
   display: grid;
   grid-template-columns: [input-start] 1fr [input-end actions-start] min-content [actions-end];
   grid-column-gap: 4rem;
@@ -1624,7 +1624,7 @@ body {
   background-color: #dde0de;
   border: 2px solid #AAADAB;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-  transition: all 0.2s;
+  transition: border 0.2s;
 }
 .popup-name-desc:hover {
   border-color: #03B670;
@@ -1638,7 +1638,7 @@ body {
   height: 2rem;
   background-color: #AAADAB;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  transition: all 0.2s;
+  transition: border 0.2s, opacity 0.2s;
 }
 .popup-name-desc__box-arrow::before {
   content: "";

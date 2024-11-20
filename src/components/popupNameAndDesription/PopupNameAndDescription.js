@@ -1,30 +1,42 @@
 const PopupNameAndDescription = ({
+    visibility,
+    nameLabel,
+    descriptionLabel,
+    arrowClassModifier = 'top-left',
+    topPx = 0,
+    leftPx = 0,
     onClose = () => { },
-    onEdit = () => { },
+    onAccept = () => { },
 }) => {
     return (
-        // TODO translate and parametrize max lengths
-
-        <div className="popup-name-desc">
-            <div className="popup-name-desc__box-arrow popup-name-desc__box-arrow--top-left"></div>
+        // TODO parametrize max lengths
+        <div
+            className="popup-name-desc"
+            style={{
+                top: `${topPx}px`,
+                left: `${leftPx}px`,
+                visibility: visibility,
+            }}
+        >
+            <div className={`popup-name-desc__box-arrow popup-name-desc__box-arrow--${arrowClassModifier}`}></div>
             <div className="popup-name-desc__input-area">
                 <div className="popup-name-desc__input-box">
-                    <label htmlFor="name" className="popup-name-desc__label">Name</label>
+                    <label htmlFor="name" className="popup-name-desc__label">{nameLabel}</label>
                     <input
                         id="name"
                         className="base-input-text popup-name-desc__input"
                         type="text"
-                        placeholder="Name"
+                        placeholder={nameLabel}
                         maxLength={40}
                     />
                 </div>
 
                 <div className="popup-name-desc__input-box">
-                    <label htmlFor="description" className="popup-name-desc__label">Description</label>
+                    <label htmlFor="description" className="popup-name-desc__label">{descriptionLabel}</label>
                     <textarea
                         id="description"
                         className="base-input-text popup-name-desc__input"
-                        placeholder="Description"
+                        placeholder={descriptionLabel}
                         maxLength={500}
                     >
 
@@ -33,11 +45,17 @@ const PopupNameAndDescription = ({
             </div>
 
             <div className="popup-name-desc__icons-area">
-                <figure className="popup-name-desc__icon-box popup-name-desc__icon-box--reject">
+                <figure
+                    className="popup-name-desc__icon-box popup-name-desc__icon-box--reject"
+                    onClick={onClose}
+                >
                     <ion-icon name="close-outline"></ion-icon>
                 </figure>
 
-                <figure className="popup-name-desc__icon-box popup-name-desc__icon-box--accept">
+                <figure
+                    className="popup-name-desc__icon-box popup-name-desc__icon-box--accept"
+                    onClick={onAccept}
+                >
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </figure>
             </div>

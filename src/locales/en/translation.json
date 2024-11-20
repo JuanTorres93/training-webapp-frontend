@@ -85,5 +85,7 @@
     "nav-app-exercises": "Exercises",
     "nav-app-logout": "Log out",
     "button-new-exercise": "New exercise",
-    "button-search-placeholder": "Search"
+    "button-search-placeholder": "Search",
+    "popup-name-desc-name": "Name",
+    "popup-name-desc-description": "Description"
 }

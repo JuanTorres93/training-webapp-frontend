@@ -3,8 +3,10 @@
 .popup-name-desc {
     z-index: 1000;
     position: absolute;
-    top: 40;
-    right: 40;
+    // top and left are actually controlled by JavaScript
+    // to make the popup appear near the clicked element
+    top: 40px;
+    left: 40px;
 
     $normal-border-color: $color-grey-dark-1;
     $hover-border-color: $color-primary-dark;
@@ -20,7 +22,7 @@
     border: 2px solid $normal-border-color;
     box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
 
-    transition: all 0.2s;
+    transition: border 0.2s;
 
     &:hover {
         border-color: $hover-border-color;
@@ -37,7 +39,7 @@
         height: 2rem;
         background-color: $normal-border-color;
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        transition: all 0.2s;
+        transition: border 0.2s, opacity 0.2s;
 
         // this is the background of the arrow
         &::before {

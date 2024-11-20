@@ -2,6 +2,7 @@ const ExercisePresenterV2 = ({
     id,
     name,
     description,
+    onClickEdit = () => { },
 }) => {
     return (
         <div className="exercise-presenter">
@@ -24,7 +25,10 @@ const ExercisePresenterV2 = ({
                     <ion-icon name="trash-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
-                <figure className="exercise-presenter__icon-box exercise-presenter__icon-box--edit">
+                <figure
+                    className="exercise-presenter__icon-box exercise-presenter__icon-box--edit"
+                    onClick={onClickEdit}
+                >
                     <ion-icon name="create-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
             </div>
