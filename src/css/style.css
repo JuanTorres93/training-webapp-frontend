@@ -1855,6 +1855,32 @@ body {
   background-color: #03B670;
 }
 
+.popup-rows {
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-row-gap: 2rem;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  border-radius: 1rem;
+  padding: 2rem 2.5rem;
+  background-color: #dde0de;
+  border: 2px solid #AAADAB;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  transition: border 0.2s;
+}
+.popup-rows:hover {
+  border-color: #03B670;
+}
+.popup-rows__row {
+  display: grid;
+  grid-template-columns: 4% 1fr 19%;
+  grid-column-gap: 2rem;
+  align-items: center;
+  justify-items: start;
+}
+
 .behind-app {
   position: fixed;
   top: 0;

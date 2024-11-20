@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
 import ButtonNew from "../../components/ButtonNew/ButtonNew";
-import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 import TemplatePresenter from "../../components/templatePresenter/TemplatePresenter";
+import PopupRows from "../../components/popupRows/PopupRows";
 
 
 export default function TemplatesPage() {
@@ -80,15 +80,26 @@ export default function TemplatesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="templates-page">
-
-                    {/* TODO CAMBIAR POR EL POPUP DE LAS TEMPLATES */}
-                    <TranslatedPopupNameAndDescription
-                        arrowClassModifier={arrowClassModifier}
-                        visibility={showPopup ? 'visible' : 'hidden'}
-                        leftPx={popupPosition.x}
-                        topPx={popupPosition.y}
-                        onClose={onPopupClose}
-                        onAccept={onPopupAccept}
+                    <PopupRows
+                        // TODO this will be an array of objects with the exercise info
+                        // and will change on hover
+                        rows={[
+                            {
+                                exerciseOrder: 1,
+                                exerciseName: "Bench press",
+                                numberOfSets: 4,
+                            },
+                            {
+                                exerciseOrder: 2,
+                                exerciseName: "Incline bench press",
+                                numberOfSets: 4,
+                            },
+                            {
+                                exerciseOrder: 3,
+                                exerciseName: "Dumbbell flyes",
+                                numberOfSets: 4,
+                            }
+                        ]}
                     />
 
                     <TranslatedSearchBar

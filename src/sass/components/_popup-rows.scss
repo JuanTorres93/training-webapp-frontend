@@ -1,0 +1,39 @@
+@use "../abstracts/" as *;
+
+.popup-rows {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-row-gap: 2rem;
+
+    position: absolute;
+    z-index: 1000;
+
+    // NOTE: top and left are meant to be controlled by JS
+    top: 0;
+    left: 0;
+
+
+    $normal-border-color: $color-grey-dark-1;
+    $hover-border-color: $color-primary-dark;
+
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+
+    background-color: $color-grey-light-2;
+    border: 2px solid $normal-border-color;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+
+    transition: border 0.2s;
+
+    &:hover {
+        border-color: $hover-border-color;
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: 4% 1fr 19%;
+        grid-column-gap: 2rem;
+        align-items: center;
+        justify-items: start;
+    }
+}
