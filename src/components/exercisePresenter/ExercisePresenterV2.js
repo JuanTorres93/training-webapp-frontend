@@ -3,6 +3,7 @@ const ExercisePresenterV2 = ({
     name,
     description,
     onClickEdit = () => { },
+    // TODO add onClickDelete
 }) => {
     return (
         <div className="exercise-presenter">

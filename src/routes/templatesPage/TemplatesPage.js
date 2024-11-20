@@ -5,6 +5,7 @@ import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVer
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
 import ButtonNew from "../../components/ButtonNew/ButtonNew";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
+import TemplatePresenter from "../../components/templatePresenter/TemplatePresenter";
 
 
 export default function TemplatesPage() {
@@ -101,8 +102,47 @@ export default function TemplatesPage() {
                     />
 
                     <div className="presenter-grid presenter-grid--templates">
-                        {/* TODO AQUI VAN TEMPLATES PRESENTERS */}
-                        TEMPLATE
+                        <TemplatePresenter
+                            id={1}
+                            name="Push day"
+                            description="Routine for push day. Chest, triceps, shoulders. It allows you to gain muscle mass and strength."
+                        />
+
+                        <TemplatePresenter
+                            id={20}
+                            name="Pull day"
+                            description=""
+                        />
+
+                        <TemplatePresenter
+                            id={2}
+                            name="Pull day"
+                            description="Routine for pull day. Back, biceps. It allows you to gain muscle mass and strength."
+                        />
+
+                        <TemplatePresenter
+                            id={3}
+                            name="Leg day"
+                            description="Routine for leg day. Quadriceps, hamstrings, glutes. It allows you to gain muscle mass and strength."
+                        />
+
+                        <TemplatePresenter
+                            id={4}
+                            name="Full body"
+                            description="Routine for full body. Chest, back, legs, shoulders, arms. It allows you to gain muscle mass and strength."
+                        />
+
+                        <TemplatePresenter
+                            id={5}
+                            name="Cardio"
+                            description="Routine for cardio. It allows you to improve your cardiovascular system."
+                        />
+
+                        <TemplatePresenter
+                            id={6}
+                            name="Mobility"
+                            description="Routine for mobility. It allows you to improve your flexibility and mobility."
+                        />
                     </div>
                 </section>
             </main>
