@@ -27,6 +27,7 @@ import './css/style.css'
 import HomePage from './routes/homePage/HomePage';
 import HomePageV2 from './routes/homePage/HomePageV2';
 import ExercisesPage from './routes/exercisesPage/ExercisesPage';
+import TemplatesPage from './routes/templatesPage/TemplatesPage';
 import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
   {
     path: "/app/exercises",
     element: <ExercisesPage />
+  },
+  {
+    path: "/app/templates",
+    element: <TemplatesPage />
   },
   {
     path: "/old",

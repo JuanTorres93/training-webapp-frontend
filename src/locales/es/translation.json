@@ -87,5 +87,6 @@
     "button-new-exercise": "Nuevo ejercicio",
     "button-search-placeholder": "Buscar",
     "popup-name-desc-name": "Nombre",
-    "popup-name-desc-description": "Descripción"
+    "popup-name-desc-description": "Descripción",
+    "button-new-template": "Nueva plantilla"
 }
