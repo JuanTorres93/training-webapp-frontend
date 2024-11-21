@@ -8,7 +8,7 @@ import TemplatePresenter from "../../components/templatePresenter/TemplatePresen
 import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 
-import { positionPopup } from "../../utils/popups";
+import { positionPopup, closePopupOnClickOutside } from "../../utils/popups";
 
 export default function TemplatesPage() {
     // TODO only appear if user is logged in
@@ -78,7 +78,7 @@ export default function TemplatesPage() {
 
 
     return (
-        <div className="behind-app">
+        <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopupEdit, ["hydrated"]) }}>
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="templates-page">

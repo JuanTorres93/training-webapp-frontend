@@ -6,7 +6,7 @@ import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew"
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 
-import { positionPopup } from "../../utils/popups";
+import { positionPopup, closePopupOnClickOutside } from "../../utils/popups";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -42,7 +42,7 @@ export default function ExercisesPage() {
 
 
     return (
-        <div className="behind-app">
+        <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopup, ["hydrated", "button-new", "button-new__text"]) }}>
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">

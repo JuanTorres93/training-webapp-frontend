@@ -55,3 +55,22 @@ export const positionPopup = (
         y,
     });
 };
+
+export const closePopupOnClickOutside = (event, setShowPopup, ignoredClasses = null) => {
+    // ignoredClasses is an array of strings that are class names that should not trigger the closing of the popup
+    // This allows for the popup to be able to show up in the first place
+
+    const classList = Array.from(event.target.classList);
+
+    // If the click is on the ignored class, do nothing
+    const isIgnoredClass = ignoredClasses && ignoredClasses.some((ignoredClass) => {
+        return classList.includes(ignoredClass);
+    });
+    if (isIgnoredClass) return;
+
+    const isInsidePopup = classList.some((className) => {
+        return className.startsWith('popup-name-desc');
+    });
+
+    if (!isInsidePopup) setShowPopup(false);
+};
