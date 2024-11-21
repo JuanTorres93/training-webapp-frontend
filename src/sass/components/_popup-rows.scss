@@ -1,10 +1,6 @@
 @use "../abstracts/" as *;
 
 .popup-rows {
-    display: grid;
-    grid-auto-rows: min-content;
-    grid-row-gap: 2rem;
-
     position: absolute;
     z-index: 1000;
 
@@ -29,6 +25,12 @@
 
     &:hover {
         border-color: $hover-border-color;
+    }
+
+    &__rows {
+        display: grid;
+        grid-auto-rows: min-content;
+        grid-row-gap: 2rem;
     }
 
     &__row {

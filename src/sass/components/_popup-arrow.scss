@@ -1,0 +1,96 @@
+@use "../abstracts/" as *;
+
+.popup-arrow {
+    // DOC: Hover state must be defined in the parent element as
+    // &:hover .popup-arrow {}
+
+    // This is the border of the arrow
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background-color: $color-grey-dark-1;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transition: border 0.2s,
+        opacity 0.2s;
+
+    // this is the background of the arrow
+    &::before {
+        content: "";
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        background-color: $color-grey-light-2;
+        clip-path: inherit;
+        transform: translateY(5px) scale(1.06);
+    }
+
+    &--top-right {
+        top: -2rem;
+        right: 2rem;
+    }
+
+    &--top-center {
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &--top-left {
+        top: -2rem;
+        left: 2rem;
+    }
+
+    &--bottom-right {
+        bottom: -2rem;
+        right: 2rem;
+        transform: rotateZ(180deg);
+    }
+
+    &--bottom-center {
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%) rotateZ(180deg);
+    }
+
+    &--bottom-left {
+        bottom: -2rem;
+        left: 2rem;
+        transform: rotateZ(180deg);
+    }
+
+    &--left-top {
+        top: 2rem;
+        left: -2rem;
+        transform: rotateZ(-90deg);
+    }
+
+    &--left-center {
+        top: 50%;
+        left: -2rem;
+        transform: translateY(-50%) rotateZ(-90deg);
+    }
+
+    &--left-bottom {
+        bottom: 2rem;
+        left: -2rem;
+        transform: rotateZ(-90deg);
+    }
+
+    &--right-top {
+        top: 2rem;
+        right: -2rem;
+        transform: rotateZ(90deg);
+    }
+
+    &--right-center {
+        top: 50%;
+        right: -2rem;
+        transform: translateY(-50%) rotateZ(90deg);
+    }
+
+    &--right-bottom {
+        bottom: 2rem;
+        right: -2rem;
+        transform: rotateZ(90deg);
+    }
+}

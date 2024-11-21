@@ -1,5 +1,6 @@
 const PopupRows = ({
-    visibility = 'hidden',
+    visibility,
+    arrowClassModifier,
     rows = [], // Array of objects with keys: exerciseOrder, exerciseName, numberOfSets
     topPx = 0,
     leftPx = 0,
@@ -13,21 +14,25 @@ const PopupRows = ({
                 visibility: visibility,
             }}
         >
-            {rows.map((row, index) => (
-                <div key={index} className="popup-rows__row">
-                    <span className="popup-rows__exercise-order">
-                        {row.exerciseOrder}
-                    </span>
 
-                    <span className="popup-rows__exercise-name">
-                        {row.exerciseName}
-                    </span>
+            <div className={`popup-arrow popup-arrow--${arrowClassModifier}`}></div>
+            <div className="popup-rows__rows">
+                {rows.map((row, index) => (
+                    <div key={index} className="popup-rows__row">
+                        <span className="popup-rows__exercise-order">
+                            {row.exerciseOrder}
+                        </span>
 
-                    <span className="popup-rows__exercise-sets">
-                        {row.numberOfSets} sets
-                    </span>
-                </div>
-            ))}
+                        <span className="popup-rows__exercise-name">
+                            {row.exerciseName}
+                        </span>
+
+                        <span className="popup-rows__exercise-sets">
+                            {row.numberOfSets} sets
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

@@ -12,7 +12,7 @@ export default function TemplatesPage() {
     // TODO only appear if user is logged in
     const [popupRowPosition, setPopupRowPosition] = useState({ x: 0, y: 0 });
     const [showPopupRow, setShowPopupRow] = useState(false);
-    const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
+    const [arrowClassModifier, setArrowClassModifier] = useState('top-center');
 
     const { t } = useTranslation();
 
@@ -20,28 +20,21 @@ export default function TemplatesPage() {
         setShowPopupRow(false);
     };
 
-    // TODO modificar. Está ahora mismo igual que en ejercicios
-    const handleMouseEntersTemplate = (event) => {
-        const rect = event.target.getBoundingClientRect();
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('rect');
-        console.log(rect);
-
-        let x = rect.left + window.scrollX; // Absolute X coordinate
-        let y = rect.top + rect.height + window.scrollY; // Absolute Y coordinate, just below the button   
+    const _setPopupRowPosition = (x, y) => {
 
         // TODO MAKE THIS RESPONSIVE. IT IS DEPENDENT ON THE CURRENT POPUP WIDTH
-        // Check if x is less than half of the screen
 
         // Upper part of the screen
         if (y < window.innerHeight / 2) {
-            y = y + 10; // Center the popup
+            // horizontally at start
+            x = x - 10;
             setArrowClassModifier('top-left');
         }
         // Lower part of the screen
         else {
-            y = y - 10; // Center the popup
+            // horizontally at start
+            x = x - 10;
+            y = y - 440; // Center the popup
             setArrowClassModifier('bottom-left');
         }
 
@@ -49,6 +42,15 @@ export default function TemplatesPage() {
             x,
             y,
         });
+    };
+
+    const handleMouseEntersTemplate = (event) => {
+        // DOC: currentTarget property always refers to the element to which the event is bound, i.e. the component that has the onMouseEnter.
+        const rect = event.currentTarget.getBoundingClientRect();
+
+        let x = rect.left + window.scrollX; // Absolute X coordinate
+        let y = rect.top + rect.height + window.scrollY; // Absolute Y coordinate, just below the button   
+        _setPopupRowPosition(x, y);
         setShowPopupRow(true);
     };
 
@@ -59,9 +61,9 @@ export default function TemplatesPage() {
                 <TranslatedNavVertical />
                 <section className="templates-page">
                     <PopupRows
-                        // TODO this will be an array of objects with the exercise info
-                        // and will change on hover
+                        // TODO Modify rows according hovered template
                         visibility={showPopupRow ? 'visible' : 'hidden'}
+                        arrowClassModifier={arrowClassModifier}
                         leftPx={popupRowPosition.x}
                         topPx={popupRowPosition.y}
                         rows={[
