@@ -1869,6 +1869,7 @@ body {
   border: 2px solid #AAADAB;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
   transition: border 0.2s;
+  pointer-events: none;
 }
 .popup-rows:hover {
   border-color: #03B670;

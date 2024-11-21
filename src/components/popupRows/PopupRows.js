@@ -1,5 +1,5 @@
 const PopupRows = ({
-    visibility = 'visible',
+    visibility = 'hidden',
     rows = [], // Array of objects with keys: exerciseOrder, exerciseName, numberOfSets
     topPx = 0,
     leftPx = 0,

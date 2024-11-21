@@ -2,11 +2,13 @@ const TemplatePresenter = ({
     id,
     name,
     description,
+    onMouseEnter = () => { },
+    onMouseLeave = () => { },
     onClickEdit = () => { },
     // TODO add onClickDelete
 }) => {
     return (
-        <div className="template-presenter">
+        <div className="template-presenter" onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
             <div className="template-presenter__info-box">
                 <span className="template-presenter__name">
                     {name}

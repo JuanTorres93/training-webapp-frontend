@@ -25,6 +25,8 @@
 
     transition: border 0.2s;
 
+    pointer-events: none;
+
     &:hover {
         border-color: $hover-border-color;
     }
