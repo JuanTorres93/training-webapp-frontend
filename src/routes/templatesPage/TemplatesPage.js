@@ -6,13 +6,15 @@ import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar"
 import ButtonNew from "../../components/ButtonNew/ButtonNew";
 import TemplatePresenter from "../../components/templatePresenter/TemplatePresenter";
 import PopupRows from "../../components/popupRows/PopupRows";
+import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 
+import { positionPopup } from "../../utils/popups";
 
 export default function TemplatesPage() {
     // TODO only appear if user is logged in
     const [popupRowPosition, setPopupRowPosition] = useState({ x: 0, y: 0 });
     const [showPopupRow, setShowPopupRow] = useState(false);
-    const [arrowClassModifier, setArrowClassModifier] = useState('top-center');
+    const [arrowClassModifierPopupRows, setArrowClassModifierPopupRows] = useState('top-center');
 
     const { t } = useTranslation();
 
@@ -20,37 +22,22 @@ export default function TemplatesPage() {
         setShowPopupRow(false);
     };
 
-    const _setPopupRowPosition = (x, y) => {
-
-        // TODO MAKE THIS RESPONSIVE. IT IS DEPENDENT ON THE CURRENT POPUP WIDTH
-
-        // Upper part of the screen
-        if (y < window.innerHeight / 2) {
-            // horizontally at start
-            x = x - 10;
-            setArrowClassModifier('top-left');
-        }
-        // Lower part of the screen
-        else {
-            // horizontally at start
-            x = x - 10;
-            y = y - 440; // Center the popup
-            setArrowClassModifier('bottom-left');
-        }
-
-        setPopupRowPosition({
-            x,
-            y,
-        });
-    };
-
     const handleMouseEntersTemplate = (event) => {
-        // DOC: currentTarget property always refers to the element to which the event is bound, i.e. the component that has the onMouseEnter.
-        const rect = event.currentTarget.getBoundingClientRect();
+        const upperLeft = { x: -10, y: 10, arrowClassModifier: 'top-left' };
+        const upperRight = upperLeft;
+        const lowerLeft = { x: -10, y: -440, arrowClassModifier: 'bottom-left' };
+        const lowerRight = lowerLeft;
 
-        let x = rect.left + window.scrollX; // Absolute X coordinate
-        let y = rect.top + rect.height + window.scrollY; // Absolute Y coordinate, just below the button   
-        _setPopupRowPosition(x, y);
+        positionPopup(
+            event,
+            setPopupRowPosition,
+            setArrowClassModifierPopupRows,
+            upperLeft,
+            upperRight,
+            lowerLeft,
+            lowerRight
+        );
+
         setShowPopupRow(true);
     };
 
@@ -63,7 +50,7 @@ export default function TemplatesPage() {
                     <PopupRows
                         // TODO Modify rows according hovered template
                         visibility={showPopupRow ? 'visible' : 'hidden'}
-                        arrowClassModifier={arrowClassModifier}
+                        arrowClassModifier={arrowClassModifierPopupRows}
                         leftPx={popupRowPosition.x}
                         topPx={popupRowPosition.y}
                         rows={[

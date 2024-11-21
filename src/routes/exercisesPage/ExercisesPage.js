@@ -4,8 +4,9 @@ import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVer
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
 import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
-import PopupNameAndDescription from "../../components/popupNameAndDesription/PopupNameAndDescription";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
+
+import { positionPopup } from "../../utils/popups";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -14,53 +15,23 @@ export default function ExercisesPage() {
     const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
 
     const handleClickShowPopup = (event) => {
-        const rect = event.target.getBoundingClientRect();
+        const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
+        const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
+        const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
+        const lowerRight = { x: -348, y: -265, arrowClassModifier: 'bottom-right' };
 
-        let x = rect.left + window.scrollX; // Absolute X coordinate
-        let y = rect.top + rect.height + window.scrollY; // Absolute Y coordinate, just below the button   
-
-        // TODO MAKE THIS RESPONSIVE. IT IS DEPENDENT ON THE CURRENT POPUP WIDTH
-        // Check if x is less than half of the screen
-        // Left part of the screen
-        if (x < window.innerWidth / 2) {
-            // Check if y is less than half of the screen
-            // Upper left part of the screen
-            if (y < window.innerHeight / 2) {
-                x = x - 20; // Center the popup
-                y = y + 10; // Center the popup
-                setArrowClassModifier('top-left');
-            }
-            // Bottom left part of the screen
-            else {
-                x = x - 20; // Center the popup
-                y = y - 265; // Center the popup
-                setArrowClassModifier('bottom-left');
-            }
-
-        }
-        // Right part of the screen
-        else {
-            // Check if y is less than half of the screen
-            // Upper right part of the screen
-            if (y < window.innerHeight / 2) {
-                x = x - 348; // Center the popup
-                y = y + 10; // Center the popup
-                setArrowClassModifier('top-right');
-            }
-            // Bottom right part of the screen
-            else {
-                x = x - 348; // Center the popup
-                y = y - 265; // Center the popup
-                setArrowClassModifier('bottom-right');
-            }
-        }
-
-        setPopupPosition({
-            x,
-            y,
-        });
+        positionPopup(
+            event,
+            setPopupPosition,
+            setArrowClassModifier,
+            upperLeft,
+            upperRight,
+            lowerLeft,
+            lowerRight
+        );
         setShowPopup(true);
     };
+
 
     const onPopupClose = () => {
         setShowPopup(false);
@@ -76,6 +47,8 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
+
+                    {/* TODO NEXT make this config AND ITS FUNCTIONS (at minimum) DRY */}
                     <TranslatedPopupNameAndDescription
                         arrowClassModifier={arrowClassModifier}
                         visibility={showPopup ? 'visible' : 'hidden'}

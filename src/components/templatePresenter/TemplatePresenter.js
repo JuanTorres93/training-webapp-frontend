@@ -27,7 +27,10 @@ const TemplatePresenter = ({
                     <ion-icon name="copy-outline"></ion-icon>
                 </div>
 
-                <div className="template-presenter__icon-box template-presenter__icon-box--edit">
+                <div
+                    className="template-presenter__icon-box template-presenter__icon-box--edit"
+                    onClick={onClickEdit}
+                >
                     <ion-icon name="create-outline"></ion-icon>
                 </div>
             </div>
