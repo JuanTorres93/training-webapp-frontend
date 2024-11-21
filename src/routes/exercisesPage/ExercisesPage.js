@@ -32,7 +32,6 @@ export default function ExercisesPage() {
         setShowPopup(true);
     };
 
-
     const onPopupClose = () => {
         setShowPopup(false);
     };
@@ -47,8 +46,6 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
-
-                    {/* TODO NEXT make this config AND ITS FUNCTIONS (at minimum) DRY */}
                     <TranslatedPopupNameAndDescription
                         arrowClassModifier={arrowClassModifier}
                         visibility={showPopup ? 'visible' : 'hidden'}

@@ -12,12 +12,19 @@ import { positionPopup } from "../../utils/popups";
 
 export default function TemplatesPage() {
     // TODO only appear if user is logged in
+    // State for preview popup
     const [popupRowPosition, setPopupRowPosition] = useState({ x: 0, y: 0 });
     const [showPopupRow, setShowPopupRow] = useState(false);
     const [arrowClassModifierPopupRows, setArrowClassModifierPopupRows] = useState('top-center');
 
+    // State for edit popup
+    const [popupEditPosition, setPopupEditPosition] = useState({ x: 0, y: 0 });
+    const [showPopupEdit, setShowPopupEdit] = useState(false);
+    const [arrowClassModifierPopupEdit, setArrowClassModifierPopupEdit] = useState('top-left');
+
     const { t } = useTranslation();
 
+    // Handlers for preview popup
     const handleMouseLeavesTemplate = (event) => {
         setShowPopupRow(false);
     };
@@ -40,6 +47,34 @@ export default function TemplatesPage() {
 
         setShowPopupRow(true);
     };
+
+    // Handlers for edit popup
+    const handleClickShowPopupEdit = (event) => {
+        const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
+        const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
+        const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
+        const lowerRight = { x: -348, y: -265, arrowClassModifier: 'bottom-right' };
+
+        positionPopup(
+            event,
+            setPopupEditPosition,
+            setArrowClassModifierPopupEdit,
+            upperLeft,
+            upperRight,
+            lowerLeft,
+            lowerRight
+        );
+        setShowPopupEdit(true);
+    };
+
+    const onPopupClose = () => {
+        setShowPopupEdit(false);
+    };
+
+    const onPopupAccept = () => {
+        setShowPopupEdit(false);
+    };
+
 
 
     return (
@@ -72,6 +107,15 @@ export default function TemplatesPage() {
                         ]}
                     />
 
+                    <TranslatedPopupNameAndDescription
+                        arrowClassModifier={arrowClassModifierPopupEdit}
+                        visibility={showPopupEdit ? 'visible' : 'hidden'}
+                        leftPx={popupEditPosition.x}
+                        topPx={popupEditPosition.y}
+                        onClose={onPopupClose}
+                        onAccept={onPopupAccept}
+                    />
+
                     <TranslatedSearchBar
                         extraClasses="templates-page__search-bar"
                     />
@@ -90,6 +134,7 @@ export default function TemplatesPage() {
                             description="Routine for push day. Chest, triceps, shoulders. It allows you to gain muscle mass and strength."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -98,6 +143,7 @@ export default function TemplatesPage() {
                             description=""
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -106,6 +152,7 @@ export default function TemplatesPage() {
                             description="Routine for pull day. Back, biceps. It allows you to gain muscle mass and strength."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -114,6 +161,7 @@ export default function TemplatesPage() {
                             description="Routine for leg day. Quadriceps, hamstrings, glutes. It allows you to gain muscle mass and strength."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -122,6 +170,7 @@ export default function TemplatesPage() {
                             description="Routine for full body. Chest, back, legs, shoulders, arms. It allows you to gain muscle mass and strength."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -130,6 +179,7 @@ export default function TemplatesPage() {
                             description="Routine for cardio. It allows you to improve your cardiovascular system."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
 
                         <TemplatePresenter
@@ -138,6 +188,7 @@ export default function TemplatesPage() {
                             description="Routine for mobility. It allows you to improve your flexibility and mobility."
                             onMouseEnter={handleMouseEntersTemplate}
                             onMouseLeave={handleMouseLeavesTemplate}
+                            onClickEdit={handleClickShowPopupEdit}
                         />
                     </div>
                 </section>
