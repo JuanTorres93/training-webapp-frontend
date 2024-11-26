@@ -19,9 +19,17 @@
     border: 2px solid $normal-border-color;
     box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
 
-    transition: border 0.2s;
+    opacity: 1;
+    visibility: visible;
+
+    transition: border 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
 
     pointer-events: none;
+
+    &--hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
 
     &:hover {
         border-color: $hover-border-color;

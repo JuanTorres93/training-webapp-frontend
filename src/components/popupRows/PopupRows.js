@@ -7,11 +7,13 @@ const PopupRows = ({
 }) => {
     return (
         <div
-            className="popup-rows"
+            className={`
+                popup-rows
+                ${visibility === 'hidden' ? 'popup-rows--hidden' : null}
+                `}
             style={{
                 top: `${topPx}px`,
                 left: `${leftPx}px`,
-                visibility: visibility,
             }}
         >
 
