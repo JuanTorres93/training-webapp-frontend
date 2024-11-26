@@ -3,7 +3,76 @@
 .template-creator {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
     grid-gap: 2rem;
     padding: 2rem;
+
+    &__subgrid {
+        display: grid;
+        grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end presenter-start] 1fr [presenter-end];
+        grid-gap: 2rem;
+        padding: 2rem;
+    }
+
+    &__exercises-box {
+        grid-column: exercises-start / exercises-end;
+    }
+
+    &__exercise-search-bar {
+        grid-row: name-start / name-end;
+    }
+
+    &__exercise-button-new {
+        grid-row: description-start / description-end;
+        padding: 1.5rem;
+    }
+
+    &__available-exercises-box {
+        grid-row: presenter-start / presenter-end;
+    }
+
+    &__templates-box {
+        grid-column: templates-start / templates-end;
+    }
+
+    &__used-exercises-box {
+        grid-row: presenter-start / presenter-end;
+    }
+
+    &__input-box {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__input-area {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__input {
+        max-width: 30rem;
+        min-width: 100%;
+        max-height: 20rem;
+        min-height: 4.2rem;
+
+        color: $color-grey-dark-4;
+        border: 2px solid transparent;
+
+        transition: all 0.2s;
+
+        &:focus,
+        &:active {
+            border-color: $color-primary;
+        }
+
+        &:hover {
+            border-color: $color-primary-light;
+        }
+    }
+
+    &__label {
+        font-weight: 400;
+        margin-bottom: .5rem;
+    }
 }

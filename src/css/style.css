@@ -1899,9 +1899,62 @@ body {
 
 .template-creator {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
   grid-gap: 2rem;
   padding: 2rem;
+}
+.template-creator__subgrid {
+  display: grid;
+  grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end presenter-start] 1fr [presenter-end];
+  grid-gap: 2rem;
+  padding: 2rem;
+}
+.template-creator__exercises-box {
+  grid-column: exercises-start/exercises-end;
+}
+.template-creator__exercise-search-bar {
+  grid-row: name-start/name-end;
+}
+.template-creator__exercise-button-new {
+  grid-row: description-start/description-end;
+  padding: 1.5rem;
+}
+.template-creator__available-exercises-box {
+  grid-row: presenter-start/presenter-end;
+}
+.template-creator__templates-box {
+  grid-column: templates-start/templates-end;
+}
+.template-creator__used-exercises-box {
+  grid-row: presenter-start/presenter-end;
+}
+.template-creator__input-box {
+  display: flex;
+  flex-direction: column;
+}
+.template-creator__input-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.template-creator__input {
+  max-width: 30rem;
+  min-width: 100%;
+  max-height: 20rem;
+  min-height: 4.2rem;
+  color: #3c3f3d;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+.template-creator__input:focus, .template-creator__input:active {
+  border-color: #2FCA82;
+}
+.template-creator__input:hover {
+  border-color: #4BDE94;
+}
+.template-creator__label {
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
 .behind-app {
