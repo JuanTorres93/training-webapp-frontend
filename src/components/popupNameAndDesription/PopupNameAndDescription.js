@@ -11,11 +11,13 @@ const PopupNameAndDescription = ({
     return (
         // TODO parametrize max lengths
         <div
-            className="popup-name-desc"
+            className={`
+                popup-name-desc
+                ${visibility === 'hidden' ? 'popup-name-desc--hidden' : null}
+                `}
             style={{
                 top: `${topPx}px`,
                 left: `${leftPx}px`,
-                visibility: visibility,
             }}
         >
             <div className={`popup-arrow popup-arrow--${arrowClassModifier}`}></div>
