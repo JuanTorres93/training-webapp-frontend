@@ -7,8 +7,13 @@ import ButtonNew from "../../components/ButtonNew/ButtonNew";
 import TemplatePresenter from "../../components/templatePresenter/TemplatePresenter";
 import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
+import TemplateCreator from "../../components/templateCreator/TemplateCreator";
 
-import { positionPopup, closePopupOnClickOutside } from "../../utils/popups";
+import {
+    positionPopup,
+    closePopupOnClickOutside,
+    hidePopup, showPopup,
+} from "../../utils/popups";
 
 export default function TemplatesPage() {
     // TODO only appear if user is logged in
@@ -22,6 +27,10 @@ export default function TemplatesPage() {
     const [showPopupEdit, setShowPopupEdit] = useState(false);
     const [arrowClassModifierPopupEdit, setArrowClassModifierPopupEdit] = useState('top-left');
 
+    // State for new template popup
+    const [showPopupNewTemplate, setShowPopupNewTemplate] = useState(false);
+
+    // Translation access
     const { t } = useTranslation();
 
     // Handlers for preview popup
@@ -67,21 +76,38 @@ export default function TemplatesPage() {
         setShowPopupEdit(true);
     };
 
-    const onPopupClose = () => {
-        setShowPopupEdit(false);
+
+    // Handlers for edit popup
+    const handleClickShowPopupNewTemplate = (event) => {
+        showPopup(setShowPopupNewTemplate);
     };
 
-    const onPopupAccept = () => {
-        setShowPopupEdit(false);
-    };
 
 
 
     return (
+        // TODO include new template popup both its set function and class
         <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopupEdit, ["hydrated"]) }}>
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="templates-page">
+                    {/* Popup for creating new template */}
+                    <div
+                        className={`templates-page__new-template-popup templates-page__new-template-popup--${showPopupNewTemplate ? 'real-size' : 'shrunk'}`}
+                        style={{
+                            visibility: showPopupNewTemplate ? 'visible' : 'hidden'
+                        }}
+                    >
+                        {/* Close popup button */}
+                        <figure
+                            className="templates-page__close-new-template-icon-box"
+                            onClick={() => hidePopup(setShowPopupNewTemplate)}
+                        >
+                            <ion-icon name="close-outline" className="templates-page__close-new-template-icon"></ion-icon>
+                        </figure>
+                        <TemplateCreator />
+                    </div>
+
                     <PopupRows
                         // TODO Modify rows according hovered template
                         visibility={showPopupRow ? 'visible' : 'hidden'}
@@ -112,8 +138,8 @@ export default function TemplatesPage() {
                         visibility={showPopupEdit ? 'visible' : 'hidden'}
                         leftPx={popupEditPosition.x}
                         topPx={popupEditPosition.y}
-                        onClose={onPopupClose}
-                        onAccept={onPopupAccept}
+                        onClose={() => hidePopup(setShowPopupEdit)}
+                        onAccept={() => showPopup(setShowPopupEdit)}
                     />
 
                     <TranslatedSearchBar
@@ -123,8 +149,7 @@ export default function TemplatesPage() {
                     <ButtonNew
                         buttonText={t("button-new-template")}
                         extraClasses="templates-page__button-new"
-                    // TODO show new template popup
-                    // onClick={}
+                        onClick={handleClickShowPopupNewTemplate}
                     />
 
                     <div className="presenter-grid presenter-grid--templates">

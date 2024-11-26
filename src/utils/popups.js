@@ -1,3 +1,11 @@
+export const hidePopup = (setShowPopup) => {
+    setShowPopup(false);
+};
+
+export const showPopup = (setShowPopup) => {
+    setShowPopup(true);
+};
+
 export const positionPopup = (
     event,
     setPopupPosition,
@@ -57,6 +65,7 @@ export const positionPopup = (
 };
 
 export const closePopupOnClickOutside = (event, setShowPopup, ignoredClasses = null) => {
+    // TODO update for accepting an array of setShowPopups
     // ignoredClasses is an array of strings that are class names that should not trigger the closing of the popup
     // This allows for the popup to be able to show up in the first place
 

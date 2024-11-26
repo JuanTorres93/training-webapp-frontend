@@ -6,7 +6,11 @@ import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew"
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 
-import { positionPopup, closePopupOnClickOutside } from "../../utils/popups";
+import {
+    positionPopup,
+    closePopupOnClickOutside,
+    hidePopup, showPopup as showPopupFn,
+} from "../../utils/popups";
 
 export default function ExercisesPage() {
     // TODO only appear if user is logged in
@@ -32,14 +36,6 @@ export default function ExercisesPage() {
         setShowPopup(true);
     };
 
-    const onPopupClose = () => {
-        setShowPopup(false);
-    };
-
-    const onPopupAccept = () => {
-        setShowPopup(false);
-    };
-
 
     return (
         <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopup, ["hydrated", "button-new", "button-new__text"]) }}>
@@ -51,8 +47,8 @@ export default function ExercisesPage() {
                         visibility={showPopup ? 'visible' : 'hidden'}
                         leftPx={popupPosition.x}
                         topPx={popupPosition.y}
-                        onClose={onPopupClose}
-                        onAccept={onPopupAccept}
+                        onClose={() => hidePopup(setShowPopup)}
+                        onAccept={() => showPopupFn(setShowPopup)}
                     />
 
                     <TranslatedSearchBar

@@ -11,6 +11,62 @@
     grid-template-columns: [search-start] 1fr [search-end order-by-start] 10% [order-by-end];
     grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
     grid-row-gap: 3rem;
+
+
+
+    &__new-template-popup {
+        position: fixed;
+        z-index: 8000;
+        top: 0;
+        left: 0;
+
+        border-radius: 1rem;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        backdrop-filter: blur(1rem) brightness(80%);
+
+        width: 95%;
+        height: 95%;
+        // TODO Change color?
+        background-color: rgba($color-white, .7);
+
+        // If modified, do it also in its modifier classes below
+        transform: translate(2.5%, 2.5%);
+
+        transition: transform .1s;
+
+        &--shrunk {
+            transform: translate(2.5%, 2.5%) scale(.8);
+        }
+
+        &--real-size {
+            transform: translate(2.5%, 2.5%) scale(1);
+        }
+
+    }
+
+    &__close-new-template-icon-box {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+
+        width: 3rem;
+        height: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &>* {
+            width: 100%;
+            height: 100%;
+
+            &:hover {
+                color: $color-red;
+            }
+        }
+
+    }
 }
 
 .templates-page__button-new {
