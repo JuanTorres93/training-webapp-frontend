@@ -1885,6 +1885,13 @@ body {
   transform: rotateZ(90deg);
 }
 
+.template-creator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2rem;
+  padding: 2rem;
+}
+
 .behind-app {
   position: fixed;
   top: 0;
@@ -2085,13 +2092,19 @@ body {
   height: 95%;
   background-color: rgba(255, 255, 255, 0.7);
   transform: translate(2.5%, 2.5%);
-  transition: transform 0.1s;
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
 }
 .templates-page__new-template-popup--shrunk {
   transform: translate(2.5%, 2.5%) scale(0.8);
 }
 .templates-page__new-template-popup--real-size {
   transform: translate(2.5%, 2.5%) scale(1);
+}
+.templates-page__new-template-popup--hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 .templates-page__close-new-template-icon-box {
   position: absolute;

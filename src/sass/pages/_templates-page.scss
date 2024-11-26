@@ -32,7 +32,9 @@
         // If modified, do it also in its modifier classes below
         transform: translate(2.5%, 2.5%);
 
-        transition: transform .1s;
+        opacity: 1;
+        visibility: visible;
+        transition: transform .2s ease, opacity .2s ease, visibility .2s ease;
 
         &--shrunk {
             transform: translate(2.5%, 2.5%) scale(.8);
@@ -42,6 +44,10 @@
             transform: translate(2.5%, 2.5%) scale(1);
         }
 
+        &--hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
     }
 
     &__close-new-template-icon-box {

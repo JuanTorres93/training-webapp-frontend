@@ -93,10 +93,11 @@ export default function TemplatesPage() {
                 <section className="templates-page">
                     {/* Popup for creating new template */}
                     <div
-                        className={`templates-page__new-template-popup templates-page__new-template-popup--${showPopupNewTemplate ? 'real-size' : 'shrunk'}`}
-                        style={{
-                            visibility: showPopupNewTemplate ? 'visible' : 'hidden'
-                        }}
+                        className={`
+                            templates-page__new-template-popup 
+                            templates-page__new-template-popup--${showPopupNewTemplate ? 'real-size' : 'shrunk'}
+                            ${!showPopupNewTemplate ? 'templates-page__new-template-popup--hidden' : null}
+                            `}
                     >
                         {/* Close popup button */}
                         <figure
