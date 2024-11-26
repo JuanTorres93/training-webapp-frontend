@@ -3,36 +3,28 @@
 .template-creator {
     display: grid;
 
+    padding: 4rem;
+
     grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
-    grid-gap: 2rem;
-    padding: 2rem;
-
-    &__subgrid {
-        display: grid;
-        grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end presenter-start] 1fr [presenter-end];
-        grid-gap: 2rem;
-        padding: 2rem;
-    }
-
-    &__exercises-box {
-        grid-column: exercises-start / exercises-end;
-    }
+    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end presenter-start] 1fr [presenter-end];
+    grid-row-gap: 2rem;
+    grid-column-gap: 8rem;
 
     &__exercise-search-bar {
         grid-row: name-start / name-end;
+        align-self: end;
+        justify-self: center;
     }
 
     &__exercise-button-new {
         grid-row: description-start / description-end;
-        padding: 1.5rem;
+        padding: 1.3rem;
+        align-self: start;
+        margin-top: 2.5rem;
     }
 
     &__available-exercises-box {
         grid-row: presenter-start / presenter-end;
-    }
-
-    &__templates-box {
-        grid-column: templates-start / templates-end;
     }
 
     &__used-exercises-box {
