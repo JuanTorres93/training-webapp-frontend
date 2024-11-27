@@ -3,8 +3,8 @@ import TranslatedSearchBar from "../searchBar/TranslatedSearchBar";
 import TranslatedButtonNew from "../ButtonNew/TranslatedButtonNew";
 
 const TemplateCreator = ({
-    nameLabel = "Name",
-    descriptionLabel = "Description",
+    nameLabel = "Template name",
+    descriptionLabel = "Template description",
 }) => {
     // TODO traducir
     return (
@@ -65,8 +65,23 @@ const TemplateCreator = ({
                 </textarea>
             </div>
             <div className="template-creator__used-exercises-box">
-                {/* TODO use ExercisePresenter component */}
-                USED EXERCISE
+                <ExercisePresenterV2
+                    extraClasses="exercise-presenter--creating-template"
+                    orderInTemplate={1}
+                    id="2"
+                    name="Push up"
+                    description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The push up is a basic movement that is very valuable for building strength and muscle mass."
+                // onClickEdit={handleClickShowPopup}
+                />
+
+                <ExercisePresenterV2
+                    extraClasses="exercise-presenter--creating-template"
+                    orderInTemplate={2}
+                    id="3"
+                    name="Squat"
+                    description="Exercise for the leg muscles. It is a compound exercise that also involves the glutes, hamstrings, quads, and lower back. The squat is a basic movement that is very valuable for building strength and muscle mass."
+                // onClickEdit={handleClickShowPopup}
+                />
             </div>
         </div>
     );

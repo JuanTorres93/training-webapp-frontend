@@ -33,6 +33,11 @@
 
     &__used-exercises-box {
         grid-row: presenter-start / presenter-end;
+
+        display: grid;
+        grid-template-rows: min-content;
+        grid-auto-rows: min-content;
+        grid-gap: 2rem;
     }
 
     &__input-box {

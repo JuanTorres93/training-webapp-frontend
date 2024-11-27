@@ -1,10 +1,11 @@
 @use "../abstracts/" as *;
 
+
 .exercise-presenter {
     position: relative;
     display: grid;
 
-    grid-template-columns: [info-start] 1fr [info-end actions-start] min-content [actions-end];
+    grid-template-columns: [order-start] min-content [order-end info-start] 1fr [info-end sets-start] min-content [sets-end actions-start] min-content [actions-end];
     grid-template-rows: [presenter-top] 1fr [presenter-bottom];
 
     grid-column-gap: 2rem;
@@ -24,6 +25,11 @@
     }
 
     &__info-box {
+        // Starts in order and ends in actions due to the fact that the default component
+        // will not show the order number
+        grid-column: order-start / actions-start;
+        grid-row: presenter-top / presenter-bottom;
+
         display: grid;
         grid-template-columns: 1fr;
         grid-auto-rows: min-content;
@@ -43,6 +49,9 @@
     }
 
     &__actions-box {
+        grid-column: actions-start / actions-end;
+        grid-row: presenter-top / presenter-bottom;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -71,6 +80,29 @@
                 color: $color-primary;
             }
         }
+
+        &--remove-from-template {
+            display: none;
+
+            &:hover {
+                color: $color-red;
+            }
+        }
+    }
+
+    &__sets-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__input-sets {
+        max-width: 7rem;
+        border: 1px solid $color-grey-dark-2;
+        text-align: center;
+
+        // Remove arrows from number input
+        appearance: textfield;
     }
 }
 
@@ -81,5 +113,58 @@
 
     .exercise-presenter__info-box {
         grid-column: 1 / -1;
+    }
+}
+
+
+.exercise-presenter--creating-template {
+
+    .exercise-presenter {
+
+        // Layout the order
+        &__order-box {
+            grid-column: order-start / order-end;
+            grid-row: presenter-top / presenter-bottom;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        // order number
+        &__order {
+            font-size: 2.5rem;
+            font-weight: 400;
+            font-family: inherit;
+            color: $color-grey-dark-3;
+            padding: 0 1rem;
+        }
+
+        &__info-box {
+            grid-column: info-start / info-end;
+        }
+
+        &__sets-box {
+            grid-column: sets-start / sets-end;
+        }
+
+        // Only show remove from template action
+        &__icon-box--remove-from-template {
+            display: inline-block;
+        }
+
+        &__icon-box--edit {
+            display: none;
+        }
+
+        &__icon-box--delete {
+            display: none;
+        }
+
+        // Center icon vertically
+        &__actions-box {
+            justify-content: center;
+        }
+
     }
 }
