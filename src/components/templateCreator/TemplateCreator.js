@@ -1,3 +1,4 @@
+import ExercisePresenterV2 from "../exercisePresenter/ExercisePresenterV2";
 import TranslatedSearchBar from "../searchBar/TranslatedSearchBar";
 import TranslatedButtonNew from "../ButtonNew/TranslatedButtonNew";
 
@@ -17,8 +18,29 @@ const TemplateCreator = ({
             // onClick={handleClickShowPopup}
             />
             <div className="template-creator__available-exercises-box">
-                {/* TODO use ExercisePresenter component */}
-                AVAILABLE EXERCISE
+                <ExercisePresenterV2
+                    extraClasses="exercise-presenter--no-actions"
+                    id="1"
+                    name="Pull up"
+                    description="Exercise for the back muscles. It is a compound exercise that also involves the biceps, forearms, traps, and the rear deltoids. The pull up is a basic movement that is very valuable for building strength and muscle mass."
+                // onClickEdit={handleClickShowPopup}
+                />
+
+                <ExercisePresenterV2
+                    extraClasses="exercise-presenter--no-actions"
+                    id="2"
+                    name="Push up"
+                    description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The push up is a basic movement that is very valuable for building strength and muscle mass."
+                // onClickEdit={handleClickShowPopup}
+                />
+
+                <ExercisePresenterV2
+                    extraClasses="exercise-presenter--no-actions"
+                    id="3"
+                    name="Squat"
+                    description="Exercise for the leg muscles. It is a compound exercise that also involves the glutes, hamstrings, quads, and lower back. The squat is a basic movement that is very valuable for building strength and muscle mass."
+                // onClickEdit={handleClickShowPopup}
+                />
             </div>
             <div className="template-creator__input-box">
                 <label htmlFor="name" className="template-creator__label">{nameLabel}</label>

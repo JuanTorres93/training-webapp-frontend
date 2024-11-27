@@ -73,3 +73,13 @@
         }
     }
 }
+
+.exercise-presenter--no-actions {
+    .exercise-presenter__actions-box {
+        display: none;
+    }
+
+    .exercise-presenter__info-box {
+        grid-column: 1 / -1;
+    }
+}

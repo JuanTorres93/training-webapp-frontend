@@ -6,7 +6,7 @@
     padding: 4rem;
 
     grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
-    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end presenter-start] 1fr [presenter-end];
+    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 4rem [spacing-end presenter-start] 1fr [presenter-end];
     grid-row-gap: 2rem;
     grid-column-gap: 8rem;
 
@@ -25,6 +25,10 @@
 
     &__available-exercises-box {
         grid-row: presenter-start / presenter-end;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        grid-gap: 2rem;
     }
 
     &__used-exercises-box {

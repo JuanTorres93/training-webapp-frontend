@@ -2,11 +2,12 @@ const ExercisePresenterV2 = ({
     id,
     name,
     description,
+    extraClasses = "",
     onClickEdit = () => { },
     // TODO add onClickDelete
 }) => {
     return (
-        <div className="exercise-presenter">
+        <div className={`exercise-presenter ${extraClasses}`}>
             <div className="exercise-presenter__info-box">
                 <span className="exercise-presenter__name">
                     {name}
