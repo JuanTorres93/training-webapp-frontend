@@ -88,5 +88,11 @@
     "button-search-placeholder": "Search",
     "popup-name-desc-name": "Name",
     "popup-name-desc-description": "Description",
-    "button-new-template": "New template"
+    "button-new-template": "New template",
+    "template-creator-name-label": "Template name",
+    "template-creator-description-label": "Template description",
+    "template-creator-available-exercises-text": "Available exercises",
+    "template-creator-used-exercises-text": "Selected exercises",
+    "template-creator-create-template-text": "Create template",
+    "template-creator-placeholder-sets": "Sets"
 }

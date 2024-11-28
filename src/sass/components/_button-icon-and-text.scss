@@ -1,0 +1,46 @@
+@use "../abstracts/" as *;
+
+// TODO Create invalid state for the user to know when they can create the template
+.button-icon-and-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    background-color: $color-primary;
+    color: $color-grey-dark-5;
+    padding: 2rem 3rem;
+
+    border-radius: 1rem;
+
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: $color-primary-light;
+    }
+
+    &:active {
+        background-color: $color-primary-dark;
+    }
+
+    &__ion-icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 3.5rem;
+        height: 3.5rem;
+
+        &>* {
+            width: 80%;
+            height: 80%;
+        }
+    }
+
+    &__text {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 400;
+    }
+}

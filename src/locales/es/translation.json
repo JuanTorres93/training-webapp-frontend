@@ -88,5 +88,11 @@
     "button-search-placeholder": "Buscar",
     "popup-name-desc-name": "Nombre",
     "popup-name-desc-description": "Descripción",
-    "button-new-template": "Nueva plantilla"
+    "button-new-template": "Nueva plantilla",
+    "template-creator-name-label": "Nombre de la plantilla",
+    "template-creator-description-label": "Descripción de la plantilla",
+    "template-creator-available-exercises-text": "Ejercicios disponibles",
+    "template-creator-used-exercises-text": "Ejercicios seleccionados",
+    "template-creator-create-template-text": "Crear plantilla",
+    "template-creator-placeholder-sets": "Series"
 }

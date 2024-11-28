@@ -105,14 +105,11 @@
         }
     }
 
-    &__confirm-button-box {
+    &__confirm-button {
         grid-column: create-button-start / create-button-end;
         grid-row: name-start / description-end;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
+
 
     // TODO ADD CLASS FOR CONFIRM BUTTON
 }

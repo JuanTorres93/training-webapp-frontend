@@ -2,6 +2,7 @@ const ExercisePresenterV2 = ({
     id,
     name,
     description,
+    placeholderSets = "Sets",
     orderInTemplate = null, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
     extraClasses = "",
     onClickEdit = () => { },
@@ -37,8 +38,7 @@ const ExercisePresenterV2 = ({
                     <input
                         className="base-input-text exercise-presenter__input-sets"
                         type="number"
-                        // TODO TRADUCIR
-                        placeholder="Sets"
+                        placeholder={placeholderSets}
                         max={99}
                         min={1}
                     />

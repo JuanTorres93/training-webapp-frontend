@@ -1627,10 +1627,13 @@ body {
   justify-content: center;
 }
 .exercise-presenter__input-sets {
-  max-width: 7rem;
+  width: 9rem;
   border: 1px solid #858886;
   text-align: center;
   appearance: textfield;
+}
+.exercise-presenter__input-sets:invalid {
+  border-color: #ea704e;
 }
 
 .exercise-presenter--no-actions .exercise-presenter__actions-box {
@@ -2041,12 +2044,44 @@ body {
   grid-row: spacing-start/spacing-end;
   grid-column: templates-start/templates-end;
 }
-.template-creator__confirm-button-box {
+.template-creator__confirm-button {
   grid-column: create-button-start/create-button-end;
   grid-row: name-start/description-end;
+}
+
+.button-icon-and-text {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
+  align-content: center;
+  justify-content: center;
+  background-color: #2FCA82;
+  color: #2d302e;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  transition: all 0.2s;
+}
+.button-icon-and-text:hover {
+  background-color: #4BDE94;
+}
+.button-icon-and-text:active {
+  background-color: #03B670;
+}
+.button-icon-and-text__ion-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.button-icon-and-text__ion-icon-box > * {
+  width: 80%;
+  height: 80%;
+}
+.button-icon-and-text__text {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 
 .behind-app {

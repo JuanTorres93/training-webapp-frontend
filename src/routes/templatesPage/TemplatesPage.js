@@ -7,7 +7,7 @@ import ButtonNew from "../../components/ButtonNew/ButtonNew";
 import TemplatePresenter from "../../components/templatePresenter/TemplatePresenter";
 import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
-import TemplateCreator from "../../components/templateCreator/TemplateCreator";
+import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 
 import {
     positionPopup,
@@ -106,7 +106,7 @@ export default function TemplatesPage() {
                         >
                             <ion-icon name="close-outline" className="templates-page__close-new-template-icon"></ion-icon>
                         </figure>
-                        <TemplateCreator />
+                        <TranslatedTemplateCreator />
                     </div>
 
                     <PopupRows
