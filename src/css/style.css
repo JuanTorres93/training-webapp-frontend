@@ -1961,8 +1961,8 @@ body {
 .template-creator {
   display: grid;
   padding: 4rem;
-  grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
-  grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 4rem [spacing-end presenter-start] 1fr [presenter-end];
+  grid-template-columns: [exercises-start] 1fr [exercises-end templates-start input-start] 0.7fr [input-end create-button-start] 0.3fr [create-button-end templates-end];
+  grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 6rem [spacing-end presenter-start] 1fr [presenter-end];
   grid-row-gap: 2rem;
   grid-column-gap: 8rem;
 }
@@ -1978,12 +1978,14 @@ body {
   margin-top: 2.5rem;
 }
 .template-creator__available-exercises-box {
+  grid-column: exercises-start/exercises-end;
   grid-row: presenter-start/presenter-end;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 2rem;
 }
 .template-creator__used-exercises-box {
+  grid-column: templates-start/templates-end;
   grid-row: presenter-start/presenter-end;
   display: grid;
   grid-template-rows: min-content;
@@ -1993,6 +1995,14 @@ body {
 .template-creator__input-box {
   display: flex;
   flex-direction: column;
+}
+.template-creator__input-box--name {
+  grid-row: name-start/name-end;
+  grid-column: templates-start/input-end;
+}
+.template-creator__input-box--description {
+  grid-row: description-start/description-end;
+  grid-column: templates-start/input-end;
 }
 .template-creator__input-area {
   display: flex;
@@ -2017,6 +2027,26 @@ body {
 .template-creator__label {
   font-weight: 400;
   margin-bottom: 0.5rem;
+}
+.template-creator__separator {
+  align-self: center;
+  justify-self: center;
+  width: 60%;
+}
+.template-creator__separator--available-exercises {
+  grid-row: spacing-start/spacing-end;
+  grid-column: exercises-start/exercises-end;
+}
+.template-creator__separator--used-exercises {
+  grid-row: spacing-start/spacing-end;
+  grid-column: templates-start/templates-end;
+}
+.template-creator__confirm-button-box {
+  grid-column: create-button-start/create-button-end;
+  grid-row: name-start/description-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .behind-app {

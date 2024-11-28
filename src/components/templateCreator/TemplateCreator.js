@@ -8,7 +8,6 @@ const TemplateCreator = ({
 }) => {
     // TODO traducir
     return (
-        // TODO HACERLO TODO UNA SOLA GRID PARA MEJOR ALINEACIÓN
         <div className="template-creator">
             <TranslatedSearchBar
                 extraClasses="template-creator__exercise-search-bar"
@@ -17,6 +16,9 @@ const TemplateCreator = ({
                 extraClasses="template-creator__exercise-button-new"
             // onClick={handleClickShowPopup}
             />
+
+            <div className="template-creator__separator template-creator__separator--available-exercises separator-text-between-lines">Available exercises</div>
+
             <div className="template-creator__available-exercises-box">
                 <ExercisePresenterV2
                     extraClasses="exercise-presenter--no-actions"
@@ -42,7 +44,7 @@ const TemplateCreator = ({
                 // onClickEdit={handleClickShowPopup}
                 />
             </div>
-            <div className="template-creator__input-box">
+            <div className="template-creator__input-box template-creator__input-box--name">
                 <label htmlFor="name" className="template-creator__label">{nameLabel}</label>
                 <input
                     id="name"
@@ -53,7 +55,7 @@ const TemplateCreator = ({
                 />
             </div>
 
-            <div className="template-creator__input-box">
+            <div className="template-creator__input-box template-creator__input-box--description">
                 <label htmlFor="description" className="template-creator__label">{descriptionLabel}</label>
                 <textarea
                     id="description"
@@ -64,6 +66,15 @@ const TemplateCreator = ({
 
                 </textarea>
             </div>
+
+            <div className="template-creator__confirm-button-box">
+                {/* TODO CREAR UN BOTÓN DE CONFIRMACIÓN. COMPONENTE LLAMADO BUTTON ICON AND TEXT */}
+                {/* TODO BORRAR ESTE TEXTO */}
+                BUTTON
+            </div>
+
+            <div className="template-creator__separator template-creator__separator--used-exercises separator-text-between-lines">Selected exercises</div>
+
             <div className="template-creator__used-exercises-box">
                 <ExercisePresenterV2
                     extraClasses="exercise-presenter--creating-template"

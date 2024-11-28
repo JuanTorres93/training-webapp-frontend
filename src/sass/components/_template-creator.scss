@@ -5,8 +5,8 @@
 
     padding: 4rem;
 
-    grid-template-columns: [exercises-start] 1fr [exercises-end templates-start] 1fr [templates-end];
-    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 4rem [spacing-end presenter-start] 1fr [presenter-end];
+    grid-template-columns: [exercises-start] 1fr [exercises-end templates-start input-start] .7fr [input-end create-button-start] .3fr [create-button-end templates-end];
+    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 6rem [spacing-end presenter-start] 1fr [presenter-end];
     grid-row-gap: 2rem;
     grid-column-gap: 8rem;
 
@@ -24,6 +24,7 @@
     }
 
     &__available-exercises-box {
+        grid-column: exercises-start / exercises-end;
         grid-row: presenter-start / presenter-end;
 
         display: grid;
@@ -32,6 +33,7 @@
     }
 
     &__used-exercises-box {
+        grid-column: templates-start / templates-end;
         grid-row: presenter-start / presenter-end;
 
         display: grid;
@@ -43,6 +45,16 @@
     &__input-box {
         display: flex;
         flex-direction: column;
+
+        &--name {
+            grid-row: name-start / name-end;
+            grid-column: templates-start / input-end;
+        }
+
+        &--description {
+            grid-row: description-start / description-end;
+            grid-column: templates-start / input-end;
+        }
     }
 
     &__input-area {
@@ -76,4 +88,31 @@
         font-weight: 400;
         margin-bottom: .5rem;
     }
+
+    &__separator {
+        align-self: center;
+        justify-self: center;
+        width: 60%;
+
+        &--available-exercises {
+            grid-row: spacing-start / spacing-end;
+            grid-column: exercises-start / exercises-end;
+        }
+
+        &--used-exercises {
+            grid-row: spacing-start / spacing-end;
+            grid-column: templates-start / templates-end;
+        }
+    }
+
+    &__confirm-button-box {
+        grid-column: create-button-start / create-button-end;
+        grid-row: name-start / description-end;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    // TODO ADD CLASS FOR CONFIRM BUTTON
 }
