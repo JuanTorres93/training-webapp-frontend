@@ -1,0 +1,10 @@
+@use "../abstracts" as *;
+
+.home-page {
+    grid-column: page-start / page-end;
+    grid-row: page-top / page-bottom;
+
+    padding: 4rem 0;
+    padding-right: 3rem;
+
+}

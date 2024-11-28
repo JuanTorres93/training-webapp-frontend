@@ -7,6 +7,10 @@ export default function HomePageV2() {
         <div className="behind-app">
             <main className="app-layout">
                 <TranslatedNavVertical />
+                <section className="home-page">
+                    {/* TODO DELETE */}
+                    HOME PAGE
+                </section>
             </main>
         </div>
     );
