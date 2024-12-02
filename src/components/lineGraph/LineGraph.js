@@ -46,10 +46,28 @@ const LineGraph = ({ data /* see data tab */ }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'count',
+            legend: 'Weight',
             legendOffset: -40,
             legendPosition: 'middle',
             truncateTickAt: 0
+        }}
+        tooltip={({ point }) => {
+            // Obtain machine's locale
+            const locale = navigator.language || navigator.userLanguage;
+
+            // Format date using machine's locale
+            const formattedDate = point.data.x.toLocaleDateString(locale, {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+            });
+
+            return (
+                <div className='line-graph__tooltip' >
+                    <span className='line-graph__tooltip-date'>{formattedDate}</span>
+                    <p>{point.serieId}: <span className="line-graph__tooltip-data">{point.data.y}</span></p>
+                </div>
+            );
         }}
         pointSize={10}
         pointColor={{ theme: 'background' }}

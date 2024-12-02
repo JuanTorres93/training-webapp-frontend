@@ -2084,6 +2084,27 @@ body {
   font-weight: 400;
 }
 
+.line-graph__tooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #3c3f3d;
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+.line-graph__tooltip-date {
+  margin-bottom: 1.5rem;
+}
+.line-graph__tooltip-data {
+  color: #03B670;
+  font-weight: 500;
+}
+
 .behind-app {
   position: fixed;
   top: 0;

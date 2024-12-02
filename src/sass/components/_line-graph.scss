@@ -1,0 +1,30 @@
+@use "../abstracts/" as *;
+
+.line-graph {
+
+    // Tooltip styling
+    &__tooltip {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.2rem 2rem;
+        background: rgba($color-white, 0.9);
+        color: $color-grey-dark-4;
+        border-radius: .5rem;
+
+        font-size: 1.6rem;
+        font-weight: 400;
+
+        box-shadow: 0 0.5rem 1rem rgba($color-black, 0.1);
+    }
+
+    &__tooltip-date {
+        margin-bottom: 1.5rem;
+    }
+
+    &__tooltip-data {
+        color: $color-primary-dark;
+        font-weight: 500;
+    }
+}
