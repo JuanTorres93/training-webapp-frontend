@@ -4,8 +4,6 @@ import { ResponsiveLine } from '@nivo/line'
 // IMPORTANT: make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
 const LineGraph = ({ data /* see data tab */ }) => {
     // data prop is an array of objects, each object represents a line and
     // has an id and data property. The data property is an array of objects
@@ -16,7 +14,7 @@ const LineGraph = ({ data /* see data tab */ }) => {
             data={data}
             curve="monotoneX" // smooth curve instead of straight lines
             colors="#03B670" // Line color. NOTE: Several colors can be added, or use color schemes
-            margin={{ top: 50, right: 44, bottom: 80, left: 100 }}
+            margin={{ top: 50, right: 44, bottom: 80, left: 50 }}
             // xScale defines how data is processed, represented and mapped on the X axis. 
             // Its main function is to specify the data type, how the axis is 
             // scaled, and how information is interpreted in the chart. 
@@ -44,15 +42,17 @@ const LineGraph = ({ data /* see data tab */ }) => {
                 legend: 'Date',
                 legendOffset: 60,
                 format: "%b %d", // format date to show month and day
-                tickValues: 'every 1 day',
+                // TODO adjust responsively for them no to overlap
+                tickValues: 'every 2 day',
                 legendPosition: 'middle',
             }}
             axisLeft={{
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                // TODO Translate
-                legend: 'Weight',
+                // legend is the name of the axis
+                // Not included because I name the graph in the layout
+                // legend: 'Weight',
                 legendOffset: -80,
                 legendPosition: 'middle',
                 truncateTickAt: 0

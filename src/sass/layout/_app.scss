@@ -22,7 +22,7 @@
 
     display: grid;
     grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
-    grid-template-rows: [page-top] 1fr [page-bottom];
+    grid-template-rows: [page-top] 90vh [page-bottom];
     grid-gap: 3rem;
 
     box-shadow: 0 2rem 6rem rgba($color-black, 0.2);

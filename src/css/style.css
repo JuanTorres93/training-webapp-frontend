@@ -2123,7 +2123,7 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
-  grid-template-rows: [page-top] 1fr [page-bottom];
+  grid-template-rows: [page-top] 90vh [page-bottom];
   grid-gap: 3rem;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.2);
 }
@@ -2362,8 +2362,24 @@ body {
   grid-row: page-top/page-bottom;
   padding: 4rem 0;
   padding-right: 3rem;
-  height: 80vh;
-  width: 70vw;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-gap: 4rem;
+}
+.home-page__recent-workouts-box {
+  background-color: red;
+  grid-column: 1/-1;
+  grid-row: 1/-5;
+}
+.home-page__weight-progress-box {
+  grid-row: -5/-1;
+  grid-column: 1/-4;
+}
+.home-page__weight-input-box {
+  background-color: green;
+  grid-row: -5/-1;
+  grid-column: -4/-1;
 }
 
 /*# sourceMappingURL=style.css.map */

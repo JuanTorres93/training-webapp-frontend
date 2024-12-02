@@ -7,11 +7,29 @@
     padding: 4rem 0;
     padding-right: 3rem;
 
-    // TODO revisar. Altura necesita ser fija para las gráficas responsive
-    // La anchura parece que también, aunque no lo ponga en la documentación.
-    // Esto está aquí temporamente. Realmente tendré que fijar estas dimensiones en el
-    // componente padre de las gráficas, que será algún hijo del contenedor que tenga esta clase
-    height: 80vh;
-    width: 70vw;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    grid-gap: 4rem;
+
+    // Layout
+
+    &__recent-workouts-box {
+        background-color: red;
+        grid-column: 1 / -1;
+        grid-row: 1 / -5;
+    }
+
+    &__weight-progress-box {
+        grid-row: -5 / -1;
+        grid-column: 1 / -4;
+    }
+
+    &__weight-input-box {
+        background-color: green;
+        grid-row: -5 / -1;
+        grid-column: -4 / -1;
+
+    }
 
 }

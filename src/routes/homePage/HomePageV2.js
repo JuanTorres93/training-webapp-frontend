@@ -65,9 +65,17 @@ export default function HomePageV2() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="home-page">
-                    {/* TODO DELETE */}
-                    HOME PAGE HOLA
-                    <LineGraph data={data} />
+                    <div className="home-page__recent-workouts-box">
+                        RECENT WORKOUTS
+                    </div>
+                    <div className="home-page__weight-progress-box">
+                        {/* TODO translate and make title */}
+                        WEIGHT
+                        <LineGraph data={data} />
+                    </div>
+                    <div className="home-page__weight-input-box">
+                        INPUT WEIGHT
+                    </div>
                 </section>
             </main>
         </div>
