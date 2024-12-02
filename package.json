@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@atlaskit/css-reset": "6.10.1",
+    "@nivo/core": "^0.88.0",
+    "@nivo/bar": "^0.88.0",
+    "@nivo/line": "^0.88.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^14.5.1",

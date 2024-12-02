@@ -2341,6 +2341,8 @@ body {
   grid-row: page-top/page-bottom;
   padding: 4rem 0;
   padding-right: 3rem;
+  height: 80vh;
+  width: 70vw;
 }
 
 /*# sourceMappingURL=style.css.map */
