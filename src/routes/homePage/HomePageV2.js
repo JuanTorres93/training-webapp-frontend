@@ -6,54 +6,54 @@ export default function HomePageV2() {
 
     const data = [
         {
-            "id": "japan",
+            "id": "Weight",
             "data": [
                 {
-                    "x": "plane",
+                    "x": new Date("2024-11-01"),
                     "y": 36
                 },
                 {
-                    "x": "helicopter",
+                    "x": new Date("2024-11-02"),
                     "y": 25
                 },
                 {
-                    "x": "boat",
+                    "x": new Date("2024-11-03"),
                     "y": 191
                 },
                 {
-                    "x": "train",
+                    "x": new Date("2024-11-04"),
                     "y": 246
                 },
                 {
-                    "x": "subway",
+                    "x": new Date("2024-11-05"),
                     "y": 100
                 },
                 {
-                    "x": "bus",
+                    "x": new Date("2024-11-06"),
                     "y": 274
                 },
                 {
-                    "x": "car",
+                    "x": new Date("2024-11-07"),
                     "y": 220
                 },
                 {
-                    "x": "moto",
+                    "x": new Date("2024-11-08"),
                     "y": 126
                 },
                 {
-                    "x": "bicycle",
+                    "x": new Date("2024-11-09"),
                     "y": 29
                 },
                 {
-                    "x": "horse",
+                    "x": new Date("2024-11-10"),
                     "y": 294
                 },
                 {
-                    "x": "skateboard",
+                    "x": new Date("2024-11-11"),
                     "y": 189
                 },
                 {
-                    "x": "others",
+                    "x": new Date("2024-11-12"),
                     "y": 40
                 }
             ]

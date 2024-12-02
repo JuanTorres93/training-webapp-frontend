@@ -12,8 +12,19 @@ const LineGraph = ({ data /* see data tab */ }) => (
     // where each object represents a point on the line and has an x and y property.
     <ResponsiveLine
         data={data}
+        curve="monotoneX" // smooth curve instead of straight lines
+        colors="#03B670" // Line color. NOTE: Several colors can be added, or use color schemes
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: 'point' }}
+        // xScale defines how data is processed, represented and mapped on the X axis. 
+        // Its main function is to specify the data type, how the axis is 
+        // scaled, and how information is interpreted in the chart. 
+        // It is one of the key configurations that allows data to fit correctly 
+        // into the chart layout.
+        xScale={{
+            type: 'time', // Define x type as time
+            format: 'native', // Use Date objects as x value
+            precision: 'day', // Use day as the smallest unit of time
+        }}
         yScale={{
             type: 'linear',
             min: 'auto',
@@ -24,14 +35,12 @@ const LineGraph = ({ data /* see data tab */ }) => (
         yFormat=" >-.2f"
         axisTop={null}
         axisRight={null}
+        // axisBottom controls how is VISUALLY drawn and labeled the X axis.
         axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'transportation',
-            legendOffset: 36,
-            legendPosition: 'middle',
-            truncateTickAt: 0
+            legend: 'Date',
+            legendOffset: -12,
+            format: "%b %d", // format date to show month and day
+            tickValues: 'every 1 day',
         }}
         axisLeft={{
             tickSize: 5,
