@@ -4,7 +4,7 @@ import { ResponsiveLine } from '@nivo/line'
 // IMPORTANT: make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
-const LineGraph = ({ data /* see data tab */ }) => {
+const LineGraph = ({ data, valuesInYAxis }) => {
     // data prop is an array of objects, each object represents a line and
     // has an id and data property. The data property is an array of objects
     // where each object represents a point on the line and has an x and y property.
@@ -25,7 +25,7 @@ const LineGraph = ({ data /* see data tab */ }) => {
                 format: 'native', // Use Date objects as x value
                 precision: 'day', // Use day as the smallest unit of time
             }}
-            //enableGridX={false} // Disable grid lines on X axis (vertical lines)
+            enableGridX={false} // Disable grid lines on X axis (vertical lines)
             yScale={{
                 type: 'linear',
                 min: 'auto',
@@ -33,6 +33,7 @@ const LineGraph = ({ data /* see data tab */ }) => {
                 stacked: true,
                 reverse: false
             }}
+            enableGridY={false} // Disable grid lines on Y axis (horizontal lines)
             yFormat=" >-.2f"
             axisTop={null}
             axisRight={null}
@@ -47,15 +48,13 @@ const LineGraph = ({ data /* see data tab */ }) => {
                 legendPosition: 'middle',
             }}
             axisLeft={{
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
                 // legend is the name of the axis
                 // Not included because I name the graph in the layout
                 // legend: 'Weight',
                 legendOffset: -80,
                 legendPosition: 'middle',
-                truncateTickAt: 0
+                truncateTickAt: 0,
+                ...(valuesInYAxis && { tickValues: valuesInYAxis }), // Show only the values in the array
             }}
             tooltip={({ point }) => {
                 // Obtain machine's locale
