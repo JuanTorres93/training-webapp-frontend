@@ -131,6 +131,41 @@ export default function HomePageV2() {
         },
     ];
 
+
+    // TODO Datos reales
+    const setsData = [
+        {
+            datetime: "2024-11-11",
+            sets: [
+                { set: 1, reps: 7, weight: 40 },
+                { set: 2, reps: 7, weight: 50 },
+                { set: 3, reps: 6, weight: 60 },
+                { set: 4, reps: 6, weight: 60 },
+                { set: 5, reps: 6, weight: 60 },
+            ],
+        },
+        {
+            datetime: "2024-11-12",
+            sets: [
+                { set: 1, reps: 8, weight: 45 },
+                { set: 2, reps: 8, weight: 55 },
+                { set: 3, reps: 7, weight: 65 },
+                { set: 4, reps: 9, weight: 65 },
+                { set: 5, reps: 6, weight: 60 },
+            ],
+        },
+        {
+            datetime: "2024-11-09",
+            sets: [
+                { set: 1, reps: 8, weight: 45 },
+                { set: 2, reps: 8, weight: 55 },
+                { set: 3, reps: 7, weight: 65 },
+                { set: 4, reps: 7, weight: 65 },
+                { set: 5, reps: 7, weight: 60 },
+            ],
+        },
+    ];
+
     return (
         <div className="behind-app">
             <main className="app-layout">
@@ -138,7 +173,9 @@ export default function HomePageV2() {
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box">
                         RECENT WORKOUTS
-                        <ChartSetsAndWeight />
+                        <ChartSetsAndWeight
+                            data={setsData}
+                        />
                     </div>
                     <div
                         ref={weightGraphContainerRef}
