@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import LineGraph from "../../components/lineGraph/LineGraph";
+import ChartSetsAndWeight from "../../components/chartSetsAndWeight/ChartSetsAndWeight";
 
 export default function HomePageV2() {
     // TODO only appear if user is logged in
@@ -137,6 +138,7 @@ export default function HomePageV2() {
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box">
                         RECENT WORKOUTS
+                        <ChartSetsAndWeight />
                     </div>
                     <div
                         ref={weightGraphContainerRef}

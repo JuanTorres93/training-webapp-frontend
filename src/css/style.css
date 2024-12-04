@@ -2368,7 +2368,6 @@ body {
   grid-gap: 4rem;
 }
 .home-page__recent-workouts-box {
-  background-color: red;
   grid-column: 1/-1;
   grid-row: 1/-5;
 }
