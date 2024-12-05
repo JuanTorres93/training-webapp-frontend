@@ -24,6 +24,7 @@ const ChartSetsAndWeight = ({ data }) => {
     //         ],
     //     },
     // ];
+    const colorWeight = "#ea704e";
 
     const processData = (data) => {
         return data.flatMap((dataPoint, dayIndex) => {
@@ -113,12 +114,9 @@ const ChartSetsAndWeight = ({ data }) => {
     }, [data]);
 
     const LineLayer = ({ bars, yScale }) => {
+
         const points = bars.map(bar => {
             const originalData = bar.data.data;
-
-            // TODO DELETE THESE DEBUG LOGS
-            console.log('originalData');
-            console.log(originalData);
 
             const setNumber = extractNumberFromKey(bar.key);
             const setKey = `weight${setNumber}`; // Build the key to access the weight
@@ -128,7 +126,6 @@ const ChartSetsAndWeight = ({ data }) => {
 
             return {
                 x: bar.x + bar.width / 2, // Centrar el punto sobre la barra
-                // TODO modificar valor y para representar el peso
                 y: yScale(weightInRepsScale),
                 weight,
                 weightInRepsScale,
@@ -143,18 +140,19 @@ const ChartSetsAndWeight = ({ data }) => {
                 {/* Línea que conecta los puntos */}
                 <path
                     d={`
-          M ${points[0].x},${points[0].y}
-          ${points.slice(1).map(point => `L ${point.x},${point.y}`).join(" ")}
-        `}
+                      M ${points[0].x},${points[0].y}
+                      ${points.slice(1).map(point => `L ${point.x},${point.y}`).join(" ")}
+                    `}
                     fill="none"
-                    stroke="red"
+                    stroke={colorWeight}
                     strokeWidth={2}
                 />
                 {/* Puntos */}
                 {points.map((point, index) => (
                     (
                         <g>
-                            <text
+                            {/* NOTE: TO show weight above marker */}
+                            {/* <text
                                 key={index}
                                 x={point.x}
                                 y={point.y - 10} // Position the text above the bar
@@ -166,8 +164,8 @@ const ChartSetsAndWeight = ({ data }) => {
                                 }}
                             >
                                 {point.weight} kg
-                            </text>
-                            <circle key={index} cx={point.x} cy={point.y} r={4} fill="red" />
+                            </text> */}
+                            <circle key={index} cx={point.x} cy={point.y} r={4} fill={colorWeight} />
                         </g>
                     )
                 ))}
@@ -187,21 +185,54 @@ const ChartSetsAndWeight = ({ data }) => {
             innerPadding={10}
             colors="#2FCA82"
             axisBottom={{
+                // TODO traducir
                 legend: "Day",
                 legendPosition: "middle",
                 legendOffset: 60,
-                // format: "%b %d", // format date to show month and day
             }}
             axisLeft={{
+                // TODO traducir
                 legend: "Repeticiones",
                 legendPosition: "middle",
                 legendOffset: -40,
             }}
             axisRight={{
+                // TODO traducir
+                // TODO cambiar el color de la escala
                 legend: "Peso (kg)",
                 legendPosition: "middle",
-                legendOffset: 50,
-                format: (value) => `${convertRepsToWeightScale(value)}`,
+                legendOffset: 65,
+                // Needed to define a custom renderTick to change the 
+                // color of the right axis.
+                // If only would have needed to adjust the scale, then
+                // I could have used the format property as
+                // format: (value) => `${convertRepsToWeightScale(value)}`,
+                renderTick: (tick) => {
+                    return (
+                        <g transform={`translate(${tick.x},${tick.y})`}>
+                            <line
+                                x1={0}
+                                x2={-6}
+                                y1={0}
+                                y2={0}
+                                stroke={colorWeight}
+                            />
+                            <text
+                                x={6}
+                                y={4}
+                                textAnchor="start"
+                                style={{
+                                    fill: colorWeight,
+                                    fontSize: "1.5rem",
+                                    fontWeight: "400",
+                                    fontFamily: "inherit",
+                                }}
+                            >
+                                {convertRepsToWeightScale(tick.value)}
+                            </text>
+                        </g>
+                    );
+                },
             }}
             layers={[
                 "grid",
