@@ -135,33 +135,33 @@ export default function HomePageV2() {
     // TODO Datos reales
     const setsData = [
         {
-            datetime: "2024-11-11",
+            datetime: new Date("2024-11-11"),
             sets: [
-                { set: 1, reps: 7, weight: 40 },
-                { set: 2, reps: 7, weight: 50 },
-                { set: 3, reps: 6, weight: 60 },
-                { set: 4, reps: 6, weight: 60 },
-                { set: 5, reps: 6, weight: 60 },
+                { set: 1, reps: 7, weight: 30 },
+                { set: 2, reps: 7, weight: 30 },
+                { set: 3, reps: 6, weight: 30 },
+                { set: 4, reps: 6, weight: 30 },
+                { set: 5, reps: 6, weight: 30 },
             ],
         },
         {
-            datetime: "2024-11-12",
+            datetime: new Date("2024-11-12"),
             sets: [
-                { set: 1, reps: 8, weight: 45 },
-                { set: 2, reps: 8, weight: 55 },
-                { set: 3, reps: 7, weight: 65 },
-                { set: 4, reps: 9, weight: 65 },
-                { set: 5, reps: 6, weight: 60 },
+                { set: 1, reps: 8, weight: 35 },
+                { set: 2, reps: 8, weight: 35 },
+                { set: 3, reps: 7, weight: 35 },
+                { set: 4, reps: 9, weight: 35 },
+                { set: 5, reps: 6, weight: 35 },
             ],
         },
         {
-            datetime: "2024-11-09",
+            datetime: new Date("2024-11-14"),
             sets: [
-                { set: 1, reps: 8, weight: 45 },
-                { set: 2, reps: 8, weight: 55 },
-                { set: 3, reps: 7, weight: 65 },
-                { set: 4, reps: 7, weight: 65 },
-                { set: 5, reps: 7, weight: 60 },
+                { set: 1, reps: 8, weight: 40 },
+                { set: 2, reps: 8, weight: 40 },
+                { set: 3, reps: 8, weight: 40 },
+                { set: 4, reps: 7, weight: 40 },
+                { set: 5, reps: 7, weight: 40 },
             ],
         },
     ];
