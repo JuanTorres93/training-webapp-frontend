@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
-const ChartSetsAndWeight = ({ data }) => {
+const ChartSetsAndWeight = ({
+    data,
+    weightText = "Weight",
+    repsText = "Reps",
+    dayText = "Day",
+}) => {
     // data comes in this format (an array of objects):
     // data = [
     //     {
@@ -185,21 +190,17 @@ const ChartSetsAndWeight = ({ data }) => {
             innerPadding={10}
             colors="#2FCA82"
             axisBottom={{
-                // TODO traducir
-                legend: "Day",
+                legend: dayText,
                 legendPosition: "middle",
-                legendOffset: 60,
+                legendOffset: 50,
             }}
             axisLeft={{
-                // TODO traducir
-                legend: "Repeticiones",
+                legend: repsText,
                 legendPosition: "middle",
                 legendOffset: -40,
             }}
             axisRight={{
-                // TODO traducir
-                // TODO cambiar el color de la escala
-                legend: "Peso (kg)",
+                legend: weightText,
                 legendPosition: "middle",
                 legendOffset: 65,
                 // Needed to define a custom renderTick to change the 
@@ -234,6 +235,22 @@ const ChartSetsAndWeight = ({ data }) => {
                     );
                 },
             }}
+            tooltip={({ id, value, data }) => {
+                // id is the text reps and a number, e.g. reps8. Extract the number using a regex
+                const setNumber = id.match(/\d+/)[0];
+                const weight = data[`weight${setNumber}`];
+
+                return (
+                    <div
+                        className="tooltip"
+                    >
+                        <span className='tooltip__date'>{data.datetime}</span>
+                        {/* TODO traducir */}
+                        <p>{repsText}: <span className="tooltip__data">{value}</span></p>
+                        <p>{weightText}: <span className="tooltip__data tooltip__data--red">{weight}</span></p>
+                    </div>
+                )
+            }}
             layers={[
                 "grid",
                 "axes",
@@ -250,6 +267,7 @@ const ChartSetsAndWeight = ({ data }) => {
                             fontSize: '1.5rem', // Size of numeric labels
                             fill: '#3c3f3d', // Color of numeric labels
                             fontWeight: '400',
+                            fontFamily: 'inherit',
                         },
                     },
                     legend: {
@@ -257,6 +275,7 @@ const ChartSetsAndWeight = ({ data }) => {
                             fontSize: '1.6rem', // Size of axis name
                             fill: '#3c3f3d', // Color of axis name
                             fontWeight: '400',
+                            fontFamily: 'inherit',
                         },
                     },
                 },

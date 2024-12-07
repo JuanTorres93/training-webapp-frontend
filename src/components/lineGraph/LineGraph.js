@@ -4,7 +4,7 @@ import { ResponsiveLine } from '@nivo/line'
 // IMPORTANT: make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
-const LineGraph = ({ data, valuesInYAxis }) => {
+const LineGraph = ({ data, valuesInYAxis, dateText, weightText }) => {
     // data prop is an array of objects, each object represents a line and
     // has an id and data property. The data property is an array of objects
     // where each object represents a point on the line and has an x and y property.
@@ -40,7 +40,7 @@ const LineGraph = ({ data, valuesInYAxis }) => {
             // axisBottom controls how is VISUALLY drawn and labeled the X axis.
             axisBottom={{
                 // TODO Translate
-                legend: 'Date',
+                legend: dateText, // Name of the axis
                 legendOffset: 60,
                 format: "%b %d", // format date to show month and day
                 // TODO adjust responsively for them no to overlap
@@ -68,9 +68,9 @@ const LineGraph = ({ data, valuesInYAxis }) => {
                 });
 
                 return (
-                    <div className='line-graph__tooltip' >
-                        <span className='line-graph__tooltip-date'>{formattedDate}</span>
-                        <p>{point.serieId}: <span className="line-graph__tooltip-data">{point.data.y}</span></p>
+                    <div className='tooltip' >
+                        <span className='tooltip__date'>{formattedDate}</span>
+                        <p>{weightText}: <span className="tooltip__data">{point.data.y}</span></p>
                     </div>
                 );
             }}

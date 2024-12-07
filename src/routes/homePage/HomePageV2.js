@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
-import LineGraph from "../../components/lineGraph/LineGraph";
-import ChartSetsAndWeight from "../../components/chartSetsAndWeight/ChartSetsAndWeight";
+import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
+import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/TranslatedChartSetsAndWeight";
 
 export default function HomePageV2() {
     // TODO only appear if user is logged in
@@ -173,7 +173,7 @@ export default function HomePageV2() {
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box">
                         RECENT WORKOUTS
-                        <ChartSetsAndWeight
+                        <TranslatedChartSetsAndWeight
                             data={setsData}
                         />
                     </div>
@@ -183,7 +183,7 @@ export default function HomePageV2() {
                     >
                         {/* TODO translate and make title */}
                         WEIGHT
-                        <LineGraph
+                        <TranslatedLineGraph
                             data={data}
                             valuesInYAxis={ticksCount}
                         />

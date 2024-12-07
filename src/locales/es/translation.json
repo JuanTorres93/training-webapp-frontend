@@ -94,5 +94,8 @@
     "template-creator-available-exercises-text": "Ejercicios disponibles",
     "template-creator-used-exercises-text": "Ejercicios seleccionados",
     "template-creator-create-template-text": "Crear plantilla",
-    "template-creator-placeholder-sets": "Series"
+    "template-creator-placeholder-sets": "Series",
+    "tooltip-weight": "Peso",
+    "tooltip-reps": "Repeticiones",
+    "tooltip-day": "Día"
 }
