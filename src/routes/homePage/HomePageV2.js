@@ -171,25 +171,51 @@ export default function HomePageV2() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="home-page">
-                    <div className="home-page__recent-workouts-box">
-                        RECENT WORKOUTS
+                    <div className="home-page__recent-workouts-box home-page__dashboard-box">
+                        <h3 className="home-page__dashboard-box-title">
+
+                            RECENT WORKOUTS
+                        </h3>
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                         />
                     </div>
                     <div
                         ref={weightGraphContainerRef}
-                        className="home-page__weight-progress-box"
+                        className="home-page__weight-progress-box home-page__dashboard-box"
                     >
-                        {/* TODO translate and make title */}
-                        WEIGHT
+                        <h3 className="home-page__dashboard-box-title">
+                            {/* TODO translate */}
+                            WEIGHT PROGRESS
+                        </h3>
                         <TranslatedLineGraph
                             data={data}
                             valuesInYAxis={ticksCount}
                         />
                     </div>
-                    <div className="home-page__weight-input-box">
-                        INPUT WEIGHT
+                    <div className="home-page__weight-input-box home-page__dashboard-box">
+                        <h3 className="home-page__dashboard-box-title">
+                            TODAY'S WEIGHT
+                        </h3>
+
+                        <form className="home-page__weight-input-form">
+                            <input
+                                className="base-input-text exercise-presenter__input-sets home-page__weight-input"
+                                type="number"
+                                id="weight"
+                                name="weight"
+                                // TODO substitute with real last value
+                                placeholder="last: 75.4"
+                                min="0"
+                                step="0.1"
+                                required
+                            />
+                            <button
+                                className="plain-btn home-page__weight-button"
+                                type="submit">
+                                Submit
+                            </button>
+                        </form>
                     </div>
                 </section>
             </main>
