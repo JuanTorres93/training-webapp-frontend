@@ -2373,6 +2373,10 @@ body {
 .home-page__recent-workouts-box {
   grid-column: 1/-1;
   grid-row: 1/-5;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-gap: 2rem;
 }
 .home-page__weight-progress-box {
   grid-row: -5/-1;
@@ -2435,6 +2439,29 @@ body {
 }
 .home-page__weight-button:active {
   background-color: #03B670;
+}
+.home-page__workout-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #2d302e;
+  border-radius: 1rem;
+  user-select: none;
+  cursor: pointer;
+  padding: 2rem;
+  text-align: center;
+  background-color: #dde0de;
+  transition: all 0.2s;
+}
+.home-page__workout-name:hover {
+  background-color: #03B670;
+  color: #fff;
+}
+.home-page__workout-name:active {
+  background-color: #4BDE94;
+  color: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */

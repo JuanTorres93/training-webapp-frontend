@@ -173,11 +173,43 @@ export default function HomePageV2() {
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">
-
                             RECENT WORKOUTS
                         </h3>
+                        <span className="home-page__workout-name">
+                            PUSH
+                        </span>
                         <TranslatedChartSetsAndWeight
                             data={setsData}
+                            isSmall={true}
+                        />
+
+                        <span className="home-page__workout-name">
+                            PULL
+                        </span>
+                        <TranslatedChartSetsAndWeight
+                            data={setsData}
+                            isSmall={true}
+                        />
+                        <span className="home-page__workout-name">
+                            LEG
+                        </span>
+                        <TranslatedChartSetsAndWeight
+                            data={setsData}
+                            isSmall={true}
+                        />
+                        <span className="home-page__workout-name">
+                            Empujes traseros
+                        </span>
+                        <TranslatedChartSetsAndWeight
+                            data={setsData}
+                            isSmall={true}
+                        />
+                        <span className="home-page__workout-name">
+                            Empujes frontales y medios
+                        </span>
+                        <TranslatedChartSetsAndWeight
+                            data={setsData}
+                            isSmall={true}
                         />
                     </div>
                     <div

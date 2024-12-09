@@ -18,8 +18,10 @@
         grid-column: 1 / -1;
         grid-row: 1 / -5;
 
-        // display: grid;
-        // grid-template-rows: repeat(7, 1fr);
+        display: grid;
+        grid-template-columns: 15% 85%;
+        grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
+        grid-gap: 2rem;
     }
 
     &__weight-progress-box {
@@ -95,6 +97,32 @@
 
         &:active {
             background-color: $color-primary-dark;
+        }
+    }
+
+    &__workout-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $color-grey-dark-5;
+        border-radius: 1rem;
+        user-select: none;
+        cursor: pointer;
+        padding: 2rem;
+        text-align: center;
+        background-color: $color-grey-light-2;
+        transition: all .2s;
+
+        &:hover {
+            background-color: $color-primary-dark;
+            color: $color-white;
+        }
+
+        &:active {
+            background-color: $color-primary-light;
+            color: $color-white;
         }
     }
 }

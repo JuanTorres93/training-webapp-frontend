@@ -6,6 +6,7 @@ const ChartSetsAndWeight = ({
     weightText = "Weight",
     repsText = "Reps",
     dayText = "Day",
+    isSmall = false,
 }) => {
     // data comes in this format (an array of objects):
     // data = [
@@ -178,6 +179,8 @@ const ChartSetsAndWeight = ({
         );
     };
 
+    const chartMargin = isSmall ? { top: 0, right: 0, bottom: 0, left: 0 } : { top: 50, right: 80, bottom: 80, left: 60 };
+
     return (
         <ResponsiveBar
             data={barData}
@@ -185,10 +188,13 @@ const ChartSetsAndWeight = ({
             // Represent each set as a group of reps. Reps are keyed as rep1, rep2, rep3, etc.
             keys={Array.from(new Set(barData.flatMap((dataPoint) => Object.keys(dataPoint).filter((key) => key.startsWith('reps')))))}
             groupMode="grouped"
-            margin={{ top: 50, right: 80, bottom: 80, left: 60 }}
+            margin={chartMargin}
             padding={0.3}
             innerPadding={10}
             colors="#2FCA82"
+            enableGridY={!isSmall}
+            // Show value in bars
+            label={(d) => isSmall ? null : d.value}
             axisBottom={{
                 legend: dayText,
                 legendPosition: "middle",
@@ -210,6 +216,7 @@ const ChartSetsAndWeight = ({
                 // format: (value) => `${convertRepsToWeightScale(value)}`,
                 renderTick: (tick) => {
                     return (
+                        !isSmall &&
                         <g transform={`translate(${tick.x},${tick.y})`}>
                             <line
                                 x1={0}

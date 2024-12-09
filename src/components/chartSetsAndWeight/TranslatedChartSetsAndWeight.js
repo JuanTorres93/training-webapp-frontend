@@ -1,7 +1,10 @@
 import { useTranslation } from "react-i18next";
 import ChartSetsAndWeight from "./ChartSetsAndWeight";
 
-const TranslatedChartSetsAndWeight = ({ data }) => {
+const TranslatedChartSetsAndWeight = ({
+    data,
+    isSmall,
+}) => {
     const { t } = useTranslation();
     const weightText = t("tooltip-weight");
     const repsText = t("tooltip-reps");
@@ -13,6 +16,7 @@ const TranslatedChartSetsAndWeight = ({ data }) => {
             weightText={weightText}
             repsText={repsText}
             dayText={dayText}
+            isSmall={isSmall}
         />
     );
 };
