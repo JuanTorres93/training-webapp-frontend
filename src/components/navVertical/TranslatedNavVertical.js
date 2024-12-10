@@ -26,6 +26,13 @@ export default function TranslatedNavVertical() {
             text: t("nav-app-exercises"),
             path: "/app/exercises",
         },
+        {
+            // TODO: only show if a training is in progress
+            text: t("nav-app-current-workout"),
+            path: "/app/runWorkout",
+            // icon: <ion-icon name="fitness-outline"></ion-icon>,
+            icon: <ion-icon name="pulse-outline"></ion-icon>,
+        },
     ];
 
     const logoutItem = {

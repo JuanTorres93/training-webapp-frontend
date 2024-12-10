@@ -83,6 +83,7 @@
     "nav-app-dashboard": "Dashboard",
     "nav-app-templates": "Templates",
     "nav-app-exercises": "Exercises",
+    "nav-app-current-workout": "Workout",
     "nav-app-logout": "Log out",
     "button-new-exercise": "New exercise",
     "button-search-placeholder": "Search",
