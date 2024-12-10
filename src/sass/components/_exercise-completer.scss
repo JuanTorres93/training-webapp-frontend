@@ -1,0 +1,51 @@
+@use "../abstracts/" as *;
+
+.exercise-completer {
+    display: grid;
+
+    grid-template-columns: [info-start] 1fr [info-end chart-start] 1fr [chart-end];
+    grid-gap: 2rem;
+
+    padding: 2rem;
+    background-color: rgba($color-white, .7);
+
+    font-size: 1.6rem;
+
+    &__info-box {
+        grid-column: info-start / info-end;
+
+        display: grid;
+        grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 1fr [reps-end];
+        grid-gap: 1rem;
+        align-items: center;
+        justify-items: center;
+    }
+
+    &__chart-box {
+        grid-column: chart-start / chart-end;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+
+        padding: 1rem 0;
+        background-color: $color-primary-dark;
+        color: $color-grey-light-3;
+        border-radius: 1rem;
+
+        justify-self: stretch;
+    }
+
+    &__input {
+        width: 90%;
+    }
+
+    &__weight,
+    &__reps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

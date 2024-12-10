@@ -248,7 +248,7 @@ export default function HomePageV2() {
 
                         <form className="home-page__weight-input-form">
                             <input
-                                className="base-input-text exercise-presenter__input-sets home-page__weight-input"
+                                className="base-input-text integer-input home-page__weight-input"
                                 type="number"
                                 id="weight"
                                 name="weight"

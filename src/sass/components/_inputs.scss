@@ -13,3 +13,16 @@
         color: $color-grey-dark-3;
     }
 }
+
+.integer-input {
+    width: 9rem;
+    border: 1px solid $color-grey-dark-2;
+    text-align: center;
+
+    // Remove arrows from number input
+    appearance: textfield;
+
+    &:invalid {
+        border-color: $color-red;
+    }
+}

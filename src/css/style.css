@@ -830,6 +830,16 @@ body {
   color: #575a58;
 }
 
+.integer-input {
+  width: 9rem;
+  border: 1px solid #858886;
+  text-align: center;
+  appearance: textfield;
+}
+.integer-input:invalid {
+  border-color: #ea704e;
+}
+
 .separator-text-between-lines {
   display: flex;
   align-items: center;
@@ -1626,15 +1636,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-.exercise-presenter__input-sets {
-  width: 9rem;
-  border: 1px solid #858886;
-  text-align: center;
-  appearance: textfield;
-}
-.exercise-presenter__input-sets:invalid {
-  border-color: #ea704e;
-}
 
 .exercise-presenter--no-actions .exercise-presenter__actions-box {
   display: none;
@@ -2106,6 +2107,44 @@ body {
 }
 .tooltip__data--red {
   color: #ea704e;
+}
+
+.exercise-completer {
+  display: grid;
+  grid-template-columns: [info-start] 1fr [info-end chart-start] 1fr [chart-end];
+  grid-gap: 2rem;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 1.6rem;
+}
+.exercise-completer__info-box {
+  grid-column: info-start/info-end;
+  display: grid;
+  grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 1fr [reps-end];
+  grid-gap: 1rem;
+  align-items: center;
+  justify-items: center;
+}
+.exercise-completer__chart-box {
+  grid-column: chart-start/chart-end;
+}
+.exercise-completer__title {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #03B670;
+  color: #f1f4f2;
+  border-radius: 1rem;
+  justify-self: stretch;
+}
+.exercise-completer__input {
+  width: 90%;
+}
+.exercise-completer__weight, .exercise-completer__reps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .behind-app {

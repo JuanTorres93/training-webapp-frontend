@@ -36,7 +36,7 @@ const ExercisePresenterV2 = ({
                 <div className="exercise-presenter__sets-box">
                     {/* TODO validate only integers */}
                     <input
-                        className="base-input-text exercise-presenter__input-sets"
+                        className="base-input-text integer-input"
                         type="number"
                         placeholder={placeholderSets}
                         max={99}
