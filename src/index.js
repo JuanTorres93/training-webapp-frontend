@@ -30,6 +30,8 @@ import ExercisesPage from './routes/exercisesPage/ExercisesPage';
 import TemplatesPage from './routes/templatesPage/TemplatesPage';
 import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
+import RunWorkoutPageV2 from './routes/runWorkoutPage/RunWorkoutPageV2';
+
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
 import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
@@ -92,6 +94,10 @@ const router = createBrowserRouter([
   {
     path: "/app/templates",
     element: <TemplatesPage />
+  },
+  {
+    path: "/app/runWorkout",
+    element: <RunWorkoutPageV2 />
   },
   {
     path: "/old",
