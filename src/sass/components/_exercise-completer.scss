@@ -15,7 +15,7 @@
         grid-column: info-start / info-end;
 
         display: grid;
-        grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 1fr [reps-end];
+        grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 50% [reps-end];
         grid-gap: 1rem;
         align-items: center;
         justify-items: center;
@@ -23,6 +23,9 @@
 
     &__chart-box {
         grid-column: chart-start / chart-end;
+        // TODO remove and find a way to make chart responsive
+        max-height: 20rem;
+        max-width: 80rem;
     }
 
     &__title {

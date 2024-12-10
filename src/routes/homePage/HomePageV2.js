@@ -5,6 +5,8 @@ import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/Tr
 
 import { useTranslation } from "react-i18next";
 
+import { calculateTicks } from "../../utils/charts";
+
 export default function HomePageV2() {
     // TODO only appear if user is logged in
     const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
@@ -13,35 +15,7 @@ export default function HomePageV2() {
 
     const { t } = useTranslation();
 
-    useEffect(() => {
-        // Function to calculate the number of ticks based on the container's height
-        const calculateYTicks = (height) => {
-            return Math.max(2, Math.floor(height / 75)); // Add tick every 75px (Nivo may not respect this)
-        };
-
-        const calculateXTicks = (width) => {
-            return Math.max(2, Math.floor(width / 140)); // Add tick every 75px (Nivo may not respect this)
-        };
-
-        const handleResize = (entries) => {
-            for (let entry of entries) {
-                const { height, width } = entry.contentRect;
-                setTicksCountYAxis(calculateYTicks(height));
-                setTicksCountXAxis(calculateXTicks(width));
-            }
-        };
-
-        // Create a ResizeObserver to observe changes in the container's dimensions
-        const resizeObserver = new ResizeObserver(handleResize);
-
-        // Observe container only if it exists
-        if (weightGraphContainerRef.current) {
-            resizeObserver.observe(weightGraphContainerRef.current);
-        }
-
-        // Clean up when component unmounts
-        return () => resizeObserver.disconnect();
-    }, []);
+    useEffect(calculateTicks(weightGraphContainerRef, setTicksCountYAxis, setTicksCountXAxis), []);
 
     const data = [
         {
