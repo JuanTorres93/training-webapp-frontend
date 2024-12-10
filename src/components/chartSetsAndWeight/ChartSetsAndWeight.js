@@ -3,6 +3,7 @@ import { ResponsiveBar } from "@nivo/bar";
 
 const ChartSetsAndWeight = ({
     data,
+    valuesInYAxis, // NOTE: cannot do the same in X axis due to line layer
     weightText = "Weight",
     repsText = "Reps",
     dayText = "Day",
@@ -204,11 +205,13 @@ const ChartSetsAndWeight = ({
                 legend: repsText,
                 legendPosition: "middle",
                 legendOffset: -40,
+                ...(valuesInYAxis && { tickValues: valuesInYAxis }), // Show only the values in the array (Or the specified number of values)
             }}
             axisRight={{
                 legend: weightText,
                 legendPosition: "middle",
                 legendOffset: 65,
+                ...(valuesInYAxis && { tickValues: valuesInYAxis }), // Show only the values in the array (Or the specified number of values)
                 // Needed to define a custom renderTick to change the 
                 // color of the right axis.
                 // If only would have needed to adjust the scale, then

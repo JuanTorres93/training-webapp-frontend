@@ -97,5 +97,10 @@
     "template-creator-placeholder-sets": "Sets",
     "tooltip-weight": "Weight",
     "tooltip-reps": "Reps",
-    "tooltip-day": "Day"
+    "tooltip-day": "Day",
+    "home-page-recent-workouts": "Recent workouts",
+    "home-page-weight-progress": "Weight progress",
+    "home-page-todays-weight": "Today's weight",
+    "home-page-last-weight-placeholder": "Last:",
+    "home-page-submit-weight": "Submit"
 }

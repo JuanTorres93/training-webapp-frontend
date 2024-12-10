@@ -3,21 +3,31 @@ import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVer
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/TranslatedChartSetsAndWeight";
 
+import { useTranslation } from "react-i18next";
+
 export default function HomePageV2() {
     // TODO only appear if user is logged in
-    const [ticksCount, setTicksCount] = useState(5); // Initial number of ticks
+    const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
+    const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks
     const weightGraphContainerRef = useRef(null); // Reference to the container
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         // Function to calculate the number of ticks based on the container's height
-        const calculateTicks = (height) => {
+        const calculateYTicks = (height) => {
             return Math.max(2, Math.floor(height / 75)); // Add tick every 75px (Nivo may not respect this)
+        };
+
+        const calculateXTicks = (width) => {
+            return Math.max(2, Math.floor(width / 140)); // Add tick every 75px (Nivo may not respect this)
         };
 
         const handleResize = (entries) => {
             for (let entry of entries) {
-                const { height } = entry.contentRect;
-                setTicksCount(calculateTicks(height));
+                const { height, width } = entry.contentRect;
+                setTicksCountYAxis(calculateYTicks(height));
+                setTicksCountXAxis(calculateXTicks(width));
             }
         };
 
@@ -173,14 +183,16 @@ export default function HomePageV2() {
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">
-                            RECENT WORKOUTS
+                            {t('home-page-recent-workouts')}
                         </h3>
                         <span className="home-page__workout-name">
                             PUSH
                         </span>
+                        {/* TODO hacer una nueva gráfica para reflejar el progreso de sesiones de entrenamiento enteras. Investigar sobre volumen de entrenamiento? */}
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
+                            valuesInYAxis={ticksCountYAxis}
                         />
 
                         <span className="home-page__workout-name">
@@ -189,6 +201,7 @@ export default function HomePageV2() {
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
+                            valuesInYAxis={ticksCountYAxis}
                         />
                         <span className="home-page__workout-name">
                             LEG
@@ -196,6 +209,7 @@ export default function HomePageV2() {
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
+                            valuesInYAxis={ticksCountYAxis}
                         />
                         <span className="home-page__workout-name">
                             Empujes traseros
@@ -203,6 +217,7 @@ export default function HomePageV2() {
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
+                            valuesInYAxis={ticksCountYAxis}
                         />
                         <span className="home-page__workout-name">
                             Empujes frontales y medios
@@ -210,6 +225,7 @@ export default function HomePageV2() {
                         <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
+                            valuesInYAxis={ticksCountYAxis}
                         />
                     </div>
                     <div
@@ -217,17 +233,17 @@ export default function HomePageV2() {
                         className="home-page__weight-progress-box home-page__dashboard-box"
                     >
                         <h3 className="home-page__dashboard-box-title">
-                            {/* TODO translate */}
-                            WEIGHT PROGRESS
+                            {t('home-page-weight-progress')}
                         </h3>
                         <TranslatedLineGraph
                             data={data}
-                            valuesInYAxis={ticksCount}
+                            valuesInYAxis={ticksCountYAxis}
+                            valuesInXAxis={ticksCountXAxis}
                         />
                     </div>
                     <div className="home-page__weight-input-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">
-                            TODAY'S WEIGHT
+                            {t('home-page-todays-weight')}
                         </h3>
 
                         <form className="home-page__weight-input-form">
@@ -237,7 +253,7 @@ export default function HomePageV2() {
                                 id="weight"
                                 name="weight"
                                 // TODO substitute with real last value
-                                placeholder="last: 75.4"
+                                placeholder={t('home-page-last-weight-placeholder') + " 70.9"}
                                 min="0"
                                 step="0.1"
                                 required
@@ -245,7 +261,7 @@ export default function HomePageV2() {
                             <button
                                 className="plain-btn home-page__weight-button"
                                 type="submit">
-                                Submit
+                                {t('home-page-submit-weight')}
                             </button>
                         </form>
                     </div>

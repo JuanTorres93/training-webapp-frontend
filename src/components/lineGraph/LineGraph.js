@@ -4,7 +4,13 @@ import { ResponsiveLine } from '@nivo/line'
 // IMPORTANT: make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
-const LineGraph = ({ data, valuesInYAxis, dateText, weightText }) => {
+const LineGraph = ({
+    data,
+    valuesInYAxis,
+    valuesInXAxis,
+    dateText,
+    weightText
+}) => {
     // data prop is an array of objects, each object represents a line and
     // has an id and data property. The data property is an array of objects
     // where each object represents a point on the line and has an x and y property.
@@ -46,6 +52,7 @@ const LineGraph = ({ data, valuesInYAxis, dateText, weightText }) => {
                 // TODO adjust responsively for them no to overlap
                 tickValues: 'every 2 day',
                 legendPosition: 'middle',
+                ...(valuesInXAxis && { tickValues: valuesInXAxis }), // Show only the values in the array (Or the specified number of values)
             }}
             axisLeft={{
                 // legend is the name of the axis
@@ -54,7 +61,7 @@ const LineGraph = ({ data, valuesInYAxis, dateText, weightText }) => {
                 legendOffset: -80,
                 legendPosition: 'middle',
                 truncateTickAt: 0,
-                ...(valuesInYAxis && { tickValues: valuesInYAxis }), // Show only the values in the array
+                ...(valuesInYAxis && { tickValues: valuesInYAxis }), // Show only the values in the array (Or the specified number of values)
             }}
             tooltip={({ point }) => {
                 // Obtain machine's locale

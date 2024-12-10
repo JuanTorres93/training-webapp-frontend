@@ -4,6 +4,7 @@ import ChartSetsAndWeight from "./ChartSetsAndWeight";
 const TranslatedChartSetsAndWeight = ({
     data,
     isSmall,
+    valuesInYAxis,
 }) => {
     const { t } = useTranslation();
     const weightText = t("tooltip-weight");
@@ -17,6 +18,7 @@ const TranslatedChartSetsAndWeight = ({
             repsText={repsText}
             dayText={dayText}
             isSmall={isSmall}
+            valuesInYAxis={valuesInYAxis}
         />
     );
 };
