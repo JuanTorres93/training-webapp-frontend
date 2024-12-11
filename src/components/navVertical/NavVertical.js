@@ -5,6 +5,7 @@ const NavVertical = ({
     logoutItem,
     currentLanguage,
     cbChangeLanguage = () => { },
+    cbHandleLogout = () => { },
 }) => {
 
     return (
@@ -31,7 +32,10 @@ const NavVertical = ({
                     })
                 }
                 <li className="nav-vertical__item nav-vertical__item--logout">
-                    <button className="nav-vertical__link plain-btn">
+                    <button
+                        className="nav-vertical__link plain-btn"
+                        onClick={cbHandleLogout}
+                    >
                         <figure className="nav-vertical__icon-box">
                             {logoutItem.icon}
                         </figure>

@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
 import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
+
+import { selectUser } from "../../features/user/userSlice";
 
 import {
     positionPopup,
@@ -13,7 +18,16 @@ import {
 } from "../../utils/popups";
 
 export default function ExercisesPage() {
-    // TODO only appear if user is logged in
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
+
+
     const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
     const [showPopup, setShowPopup] = useState(false);
     const [arrowClassModifier, setArrowClassModifier] = useState('top-left');

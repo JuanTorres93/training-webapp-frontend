@@ -2,10 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import ExerciseCompleterV2 from "../../components/exerciseCompleter/ExerciseCompleterV2";
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { calculateTicks } from "../../utils/charts";
+import { selectUser } from "../../features/user/userSlice";
 
 export default function RunWorkoutPageV2() {
-    // TODO only appear if user is logged in
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
+
     const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
     const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks
     const weightGraphContainerRef = useRef(null); // Reference to the container

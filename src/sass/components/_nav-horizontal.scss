@@ -132,6 +132,10 @@
                 text-shadow: 0 .5rem 1rem rgba($color-black, .1);
             }
         }
+
+        &--app {
+            margin-left: 3rem;
+        }
     }
 
     &__flag-icon {

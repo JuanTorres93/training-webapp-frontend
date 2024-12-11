@@ -1,4 +1,3 @@
-import NavHorizontal from "../../components/nav/Nav";
 import TranslatedNavHorizontal from "../../components/nav/TranslatedNav";
 import HeroSection from "../../components/heroSection/HeroSection";
 import NicheSection from "../../components/nicheSection/NicheSection";
@@ -10,10 +9,15 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { scroller } from 'react-scroll';
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+
+import { selectUser } from "../../features/user/userSlice";
 
 export default function LandingPage() {
     const location = useLocation();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+
+    const user = useSelector(selectUser);
 
     useEffect(() => {
         if (location.hash) {
@@ -170,6 +174,7 @@ export default function LandingPage() {
         <div className="landing">
             <TranslatedNavHorizontal
                 currentLocation={location.pathname}
+                userIsLoggedIn={user ? true : false}
             />
 
             <HeroSection />

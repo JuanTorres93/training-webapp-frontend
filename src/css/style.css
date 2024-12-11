@@ -384,6 +384,9 @@ body {
   color: #f08822;
   text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
+.nav-horizontal__action-link--app {
+  margin-left: 3rem;
+}
 .nav-horizontal__flag-icon {
   position: absolute;
   top: 0;

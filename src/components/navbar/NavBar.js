@@ -129,7 +129,6 @@ function NavBar() {
             <Outlet />
 
 
-
             {/* Modals */}
             <ConfirmDialog
                 isOpen={isConfirmOpen}

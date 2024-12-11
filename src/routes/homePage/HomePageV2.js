@@ -4,11 +4,22 @@ import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph"
 import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/TranslatedChartSetsAndWeight";
 
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 import { calculateTicks } from "../../utils/charts";
 
 export default function HomePageV2() {
-    // TODO only appear if user is logged in
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
+
     const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
     const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks
     const weightGraphContainerRef = useRef(null); // Reference to the container

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
@@ -9,6 +11,8 @@ import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 
+import { selectUser } from "../../features/user/userSlice";
+
 import {
     positionPopup,
     closePopupOnClickOutside,
@@ -16,7 +20,15 @@ import {
 } from "../../utils/popups";
 
 export default function TemplatesPage() {
-    // TODO only appear if user is logged in
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
+
     // State for preview popup
     const [popupRowPosition, setPopupRowPosition] = useState({ x: 0, y: 0 });
     const [showPopupRow, setShowPopupRow] = useState(false);
@@ -76,14 +88,10 @@ export default function TemplatesPage() {
         setShowPopupEdit(true);
     };
 
-
     // Handlers for edit popup
     const handleClickShowPopupNewTemplate = (event) => {
         showPopup(setShowPopupNewTemplate);
     };
-
-
-
 
     return (
         // TODO include new template popup both its set function and class

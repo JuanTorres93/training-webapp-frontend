@@ -7,6 +7,7 @@ import { currentLanguage, changeLanguage } from "../../i18n";
 const TranslatedNavHorizontal = ({
     currentLocation,    // current path to determine if logo should be a link or a scroll link
     isInLandingPage = true,    // if true, the logo will be a scroll link
+    userIsLoggedIn = false,
 }) => {
     const { t } = useTranslation();
 
@@ -57,6 +58,7 @@ const TranslatedNavHorizontal = ({
         items={navItems}
         currentLocation={currentLocation}
         currentLanguage={currentLanguage}
+        userIsLoggedIn={userIsLoggedIn}
         loginText={t('nav-landing-login')}
         signUpText={t('nav-landing-signup')}
         cbChangeLanguage={changeLanguage}

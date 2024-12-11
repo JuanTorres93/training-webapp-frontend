@@ -1,13 +1,22 @@
 import NavVertical from "./NavVertical";
 
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { currentLanguage, changeLanguage } from "../../i18n";
+import { logoutUser } from "../../features/user/userSlice";
 
 export default function TranslatedNavVertical() {
-    // TODO only appear if user is logged in
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { t } = useTranslation();
+
+    const cbHandleLogout = () => {
+        dispatch(logoutUser()).then(() => {
+            navigate("/");
+        });
+    };
 
     const navItems = [
         {
@@ -46,6 +55,7 @@ export default function TranslatedNavVertical() {
             logoutItem={logoutItem}
             currentLanguage={currentLanguage}
             cbChangeLanguage={changeLanguage}
+            cbHandleLogout={cbHandleLogout}
         />
     );
 }

@@ -2,9 +2,22 @@ import RegisterFormV2 from "../../components/registerForm/RegisterFormV2";
 import TranslatedNavHorizontal from "../../components/nav/TranslatedNav";
 
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/user/userSlice";
 
 export default function RegisterPage() {
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate("/app");
+        }
+    }, [user]);
+
     const location = useLocation();
 
     const { t } = useTranslation();

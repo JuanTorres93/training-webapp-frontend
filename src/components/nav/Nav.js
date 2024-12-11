@@ -12,6 +12,7 @@ const scrollConfig = {
 const NavHorizontal = ({
     items, // array of objects with text and (id OR path). id is used for react-scroll, path is used for react-router-dom
     currentLocation,    // current path to determine if logo should be a link or a scroll link
+    userIsLoggedIn = false,
     loginText = "",
     signUpText = "",
     currentLanguage = "",
@@ -59,13 +60,24 @@ const NavHorizontal = ({
                     }
                 </button>
 
-                <Link to="/login" className="nav-horizontal__action-link">
-                    {loginText}
-                </Link>
+                {!userIsLoggedIn &&
+                    <Link to="/login" className="nav-horizontal__action-link">
+                        {loginText}
+                    </Link>
+                }
 
-                <Link to="/register" className="nav-horizontal__action-link nav-horizontal__action-link--cta">
-                    {signUpText}
-                </Link>
+                {!userIsLoggedIn &&
+                    <Link to="/register" className="nav-horizontal__action-link nav-horizontal__action-link--cta">
+                        {signUpText}
+                    </Link>
+                }
+
+                {userIsLoggedIn &&
+                    <Link to="/app" className="nav-horizontal__action-link nav-horizontal__action-link--cta nav-horizontal__action-link--app">
+                        app
+                    </Link>
+                }
+
             </div>
         </nav>
     )
