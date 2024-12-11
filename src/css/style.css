@@ -2111,7 +2111,7 @@ body {
 
 .exercise-completer {
   display: grid;
-  grid-template-columns: [info-start] 1fr [info-end chart-start] 60% [chart-end];
+  grid-template-columns: [info-start] 1fr [info-end chart-start] 65% [chart-end];
   grid-template-rows: [exercise-title-start] 0.1rem [exercise-title-end info-start] 1fr [info-end];
   grid-gap: 2rem;
   padding: 2rem;
@@ -2550,6 +2550,25 @@ body {
   padding-top: 6rem;
   padding-right: 3rem;
   overflow-y: scroll;
+}
+.run-workout-page__finish-button {
+  justify-self: center;
+  align-self: center;
+  padding: 3rem 6rem;
+  font-size: 2.2rem;
+  font-weight: 500;
+  border-radius: 1rem;
+  background-color: #2FCA82;
+  color: #f1f4f2;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.run-workout-page__finish-button:hover {
+  background-color: #03B670;
+}
+.run-workout-page__finish-button:active {
+  background-color: #4BDE94;
 }
 
 /*# sourceMappingURL=style.css.map */

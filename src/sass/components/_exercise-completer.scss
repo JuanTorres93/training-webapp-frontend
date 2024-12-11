@@ -3,7 +3,7 @@
 .exercise-completer {
     display: grid;
 
-    grid-template-columns: [info-start] 1fr [info-end chart-start] 60% [chart-end];
+    grid-template-columns: [info-start] 1fr [info-end chart-start] 65% [chart-end];
     grid-template-rows: [exercise-title-start] .1rem [exercise-title-end info-start] 1fr [info-end];
     grid-gap: 2rem;
 
