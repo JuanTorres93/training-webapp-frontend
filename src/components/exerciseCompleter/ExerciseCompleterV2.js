@@ -1,8 +1,17 @@
 import TranslatedChartSetsAndWeight from "../chartSetsAndWeight/TranslatedChartSetsAndWeight.js";
 
-const ExerciseCompleterV2 = ({ previousData, ticksCountYAxis }) => {
+const ExerciseCompleterV2 = ({
+    previousData,
+    ticksCountYAxis,
+    exerciseName,
+}) => {
     return (
         <div className="exercise-completer">
+            <div className="exercise-completer__exercise-title-box">
+                <h3 className="exercise-completer__exercise-title">
+                    {exerciseName}
+                </h3>
+            </div>
             <div className="exercise-completer__info-box">
                 {/* Column titles */}
                 <div className="exercise-completer__title">

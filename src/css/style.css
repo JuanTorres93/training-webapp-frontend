@@ -2112,14 +2112,42 @@ body {
 .exercise-completer {
   display: grid;
   grid-template-columns: [info-start] 1fr [info-end chart-start] 60% [chart-end];
+  grid-template-rows: [exercise-title-start] 0.1rem [exercise-title-end info-start] 1fr [info-end];
   grid-gap: 2rem;
   padding: 2rem;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 1rem;
   font-size: 1.6rem;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.exercise-completer:hover {
+  border-color: #2FCA82;
+}
+.exercise-completer:hover .exercise-completer__exercise-title {
+  background-color: #2FCA82;
+  color: #f1f4f2;
+}
+.exercise-completer__exercise-title-box {
+  grid-column: 1/-1;
+  grid-row: exercise-title-start/exercise-title-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exercise-completer__exercise-title {
+  transform: translateY(-50%);
+  font-size: 2rem;
+  font-weight: 500;
+  background-color: #AAADAB;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  color: #575a58;
+  transition: all 0.2s;
 }
 .exercise-completer__info-box {
   grid-column: info-start/info-end;
+  grid-row: info-start/info-end;
   display: grid;
   grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(9rem, 20%) [reps-end];
   grid-auto-rows: min-content;
@@ -2129,6 +2157,7 @@ body {
 }
 .exercise-completer__chart-box {
   grid-column: chart-start/chart-end;
+  grid-row: info-start/info-end;
   align-self: end;
   height: 95%;
   width: 100%;
@@ -2516,8 +2545,9 @@ body {
   grid-template-columns: 100%;
   grid-template-rows: min-content;
   grid-auto-rows: min-content;
-  grid-gap: 4rem;
+  grid-gap: 6rem;
   padding: 3rem 0;
+  padding-top: 6rem;
   padding-right: 3rem;
   overflow-y: scroll;
 }

@@ -4,6 +4,7 @@
     display: grid;
 
     grid-template-columns: [info-start] 1fr [info-end chart-start] 60% [chart-end];
+    grid-template-rows: [exercise-title-start] .1rem [exercise-title-end info-start] 1fr [info-end];
     grid-gap: 2rem;
 
     padding: 2rem;
@@ -11,9 +12,43 @@
     border-radius: 1rem;
 
     font-size: 1.6rem;
+    border: 1px solid transparent;
+
+    transition: all .2s;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    &:hover &__exercise-title {
+        background-color: $color-primary;
+        color: $color-grey-light-3;
+    }
+
+    &__exercise-title-box {
+        grid-column: 1 / -1;
+        grid-row: exercise-title-start / exercise-title-end;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__exercise-title {
+        transform: translateY(-50%);
+        font-size: 2rem;
+        font-weight: 500;
+        background-color: $color-grey-dark-1;
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+        color: $color-grey-dark-3;
+
+        transition: all .2s;
+    }
 
     &__info-box {
         grid-column: info-start / info-end;
+        grid-row: info-start / info-end;
 
         display: grid;
         grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(9rem, 20%) [reps-end];
@@ -25,6 +60,7 @@
 
     &__chart-box {
         grid-column: chart-start / chart-end;
+        grid-row: info-start / info-end;
         align-self: end;
         height: 95%;
         width: 100%;

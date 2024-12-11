@@ -79,11 +79,13 @@ export default function RunWorkoutPageV2() {
                     <ExerciseCompleterV2
                         previousData={setsData}
                         ticksCountYAxis={ticksCountYAxis}
+                        exerciseName={"Bench Press"}
                     />
 
                     <ExerciseCompleterV2
                         previousData={setsData}
                         ticksCountYAxis={ticksCountYAxis}
+                        exerciseName={"Squat"}
                     />
                 </section>
             </main>

@@ -180,7 +180,7 @@ const ChartSetsAndWeight = ({
         );
     };
 
-    const chartMargin = isSmall ? { top: 0, right: 0, bottom: 0, left: 0 } : { top: 50, right: 80, bottom: 80, left: 60 };
+    const chartMargin = isSmall ? { top: 0, right: 0, bottom: 40, left: 0 } : { top: 50, right: 80, bottom: 80, left: 60 };
 
     return (
         <ResponsiveBar
