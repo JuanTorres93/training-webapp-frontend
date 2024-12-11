@@ -1,3 +1,15 @@
 @use "../abstracts/" as *;
 
-.run-workout-page {}
+.run-workout-page {
+    display: grid;
+
+    grid-template-columns: 100%;
+    grid-template-rows: min-content;
+    grid-auto-rows: min-content;
+    grid-gap: 4rem;
+
+    padding: 3rem 0;
+    padding-right: 3rem;
+
+    overflow-y: scroll;
+}
