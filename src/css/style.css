@@ -2121,13 +2121,15 @@ body {
   grid-column: info-start/info-end;
   display: grid;
   grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 50% [reps-end];
+  grid-auto-rows: min-content;
   grid-gap: 1rem;
   align-items: center;
   justify-items: center;
 }
 .exercise-completer__chart-box {
   grid-column: chart-start/chart-end;
-  max-height: 20rem;
+  align-self: end;
+  height: 90%;
   max-width: 80rem;
 }
 .exercise-completer__title {

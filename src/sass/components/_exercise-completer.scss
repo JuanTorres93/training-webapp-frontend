@@ -4,6 +4,7 @@
     display: grid;
 
     grid-template-columns: [info-start] 1fr [info-end chart-start] 1fr [chart-end];
+    // grid-template-rows: [row-start] min-content [row-end];
     grid-gap: 2rem;
 
     padding: 2rem;
@@ -16,6 +17,7 @@
 
         display: grid;
         grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] 50% [reps-end];
+        grid-auto-rows: min-content;
         grid-gap: 1rem;
         align-items: center;
         justify-items: center;
@@ -23,9 +25,11 @@
 
     &__chart-box {
         grid-column: chart-start / chart-end;
+        align-self: end;
+        height: 90%;
         // TODO remove and find a way to make chart responsive
-        max-height: 20rem;
         max-width: 80rem;
+
     }
 
     &__title {
