@@ -157,7 +157,7 @@ const ChartSetsAndWeight = ({
                 {/* Puntos */}
                 {points.map((point, index) => (
                     (
-                        <g>
+                        <g key={index}>
                             {/* NOTE: TO show weight above marker */}
                             {/* <text
                                 key={index}
@@ -172,7 +172,7 @@ const ChartSetsAndWeight = ({
                             >
                                 {point.weight} kg
                             </text> */}
-                            <circle key={index} cx={point.x} cy={point.y} r={4} fill={colorWeight} />
+                            <circle cx={point.x} cy={point.y} r={4} fill={colorWeight} />
                         </g>
                     )
                 ))}

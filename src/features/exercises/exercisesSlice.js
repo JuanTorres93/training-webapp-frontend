@@ -34,9 +34,9 @@ export const getCommonExercises = createAsyncThunk(
 export const createExercise = createAsyncThunk(
     `${sliceName}/createExercise`,
     async (arg, thunkAPI) => {
-        const { alias, description } = arg;
+        const { name, description } = arg;
         // Error is handled from redux state when promise is rejected
-        const response = await createExerciseInDb(alias, description);
+        const response = await createExerciseInDb(name, description);
 
         return response;
     }
@@ -58,8 +58,8 @@ const exercisesSlice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
-            userCreatedExercises: null,
-            commonExercises: null,
+            userCreatedExercises: [],
+            commonExercises: [],
             exercisesInNewTemplate: [],
         },
         isLoading: [],
@@ -97,10 +97,10 @@ const exercisesSlice = createSlice({
                 state[sliceName].userCreatedExercises.push(exercise);
             }
 
-            // Order by id
-            state[sliceName].userCreatedExercises.sort((a, b) => a.id - b.id);
-            state[sliceName].commonExercises.sort((a, b) => a.id - b.id);
-            state[sliceName].exercisesInNewTemplate.sort((a, b) => a.id - b.id);
+            // Order by name
+            state[sliceName].userCreatedExercises.sort((a, b) => a.name - b.name);
+            state[sliceName].commonExercises.sort((a, b) => a.name - b.name);
+            state[sliceName].exercisesInNewTemplate.sort((a, b) => a.name - b.name);
         },
         updateExerciseSets: (state, action) => {
             // action.payload is an object with the properties id and sets
@@ -124,7 +124,12 @@ const exercisesSlice = createSlice({
         })
         builder.addCase(getExercisesFromUser.fulfilled, (state, action) => {
             let userExercises = action.payload;
+
+            // Order by name
+            userExercises.sort((a, b) => a.name - b.name);
+
             state[sliceName].userCreatedExercises = userExercises;
+
             state.isLoading.pop();
             state.hasError = false;
         })
@@ -139,12 +144,16 @@ const exercisesSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getCommonExercises.fulfilled, (state, action) => {
-            const commonExercises = action.payload.map(exercise => {
+            let commonExercises = action.payload.map(exercise => {
                 return {
                     ...exercise,
                     isCommon: true,
                 };
             });
+
+            // Order by name
+            commonExercises.sort((a, b) => a.name - b.name);
+
             state[sliceName].commonExercises = commonExercises;
             state.isLoading.pop();
             state.hasError = false;

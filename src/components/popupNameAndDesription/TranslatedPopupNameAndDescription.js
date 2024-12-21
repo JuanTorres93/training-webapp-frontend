@@ -8,7 +8,7 @@ const TranslatedPopupNameAndDescription = ({
     topPx = 0,
     leftPx = 0,
     onClose = () => { },
-    onAccept = () => { },
+    acceptDispatchGenerator = () => { },
 }) => {
     const { t } = useTranslation();
 
@@ -21,7 +21,7 @@ const TranslatedPopupNameAndDescription = ({
             topPx={topPx}
             leftPx={leftPx}
             onClose={onClose}
-            onAccept={onAccept}
+            acceptDispatchGenerator={acceptDispatchGenerator}
         />
     );
 }

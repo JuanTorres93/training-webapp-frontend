@@ -5,9 +5,9 @@ import { serverBaseURL } from "./serverAPIConfig";
 const endpoint = serverBaseURL + '/exercises';
 
 
-export async function createExercise(alias, description) {
+export async function createExercise(name, description) {
     const body = {
-        alias,
+        name,
         description,
     };
 

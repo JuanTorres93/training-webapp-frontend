@@ -28,10 +28,8 @@ function TestimonialsSection({
                     </figure>
 
                     <div className="testimonial__text-box">
-                        <p className="testimonial__text">
-                            {/* testimonial.text can have text wrapped in /text/. This signals that it must be highlighted */}
-                            <p className="testimonial__text" dangerouslySetInnerHTML={{ __html: highlightText(testimonial.text) }} />
-                        </p>
+                        {/* testimonial.text can have text wrapped in /text/. This signals that it must be highlighted */}
+                        <p className="testimonial__text" dangerouslySetInnerHTML={{ __html: highlightText(testimonial.text) }} />
 
                     </div>
 

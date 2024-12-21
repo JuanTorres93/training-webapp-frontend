@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 const PopupNameAndDescription = ({
     visibility,
     nameLabel,
@@ -6,8 +8,26 @@ const PopupNameAndDescription = ({
     topPx = 0,
     leftPx = 0,
     onClose = () => { },
-    onAccept = () => { },
+    acceptDispatchGenerator = () => { },
 }) => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if (visibility === 'hidden') {
+            setName('');
+            setDescription('');
+        }
+    }, [visibility]);
+
+    const executeOnAccept = () => {
+        const dispatchFunction = acceptDispatchGenerator();
+        dispatchFunction(name, description).then(() => {
+            setName('');
+            setDescription('');
+        });
+    };
+
     return (
         // TODO parametrize max lengths
         <div
@@ -28,6 +48,8 @@ const PopupNameAndDescription = ({
                         id="name"
                         className="base-input-text popup-name-desc__input"
                         type="text"
+                        onChange={(event) => setName(event.target.value)}
+                        value={name}
                         placeholder={nameLabel}
                         maxLength={40}
                     />
@@ -38,6 +60,8 @@ const PopupNameAndDescription = ({
                     <textarea
                         id="description"
                         className="base-input-text popup-name-desc__input"
+                        onChange={(event) => setDescription(event.target.value)}
+                        value={description}
                         placeholder={descriptionLabel}
                         maxLength={500}
                     >
@@ -56,7 +80,7 @@ const PopupNameAndDescription = ({
 
                 <figure
                     className="popup-name-desc__icon-box popup-name-desc__icon-box--accept"
-                    onClick={onAccept}
+                    onClick={executeOnAccept}
                 >
                     <ion-icon name="checkmark-outline"></ion-icon>
                 </figure>

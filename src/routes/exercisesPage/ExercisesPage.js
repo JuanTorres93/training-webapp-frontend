@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
@@ -10,16 +10,36 @@ import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePres
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 
 import { selectUser } from "../../features/user/userSlice";
+import {
+    createExercise,
+    getExercisesFromUser,
+    selectCommonExercises,
+    selectUserExercises,
+} from "../../features/exercises/exercisesSlice";
 
 import {
     positionPopup,
     closePopupOnClickOutside,
-    hidePopup, showPopup as showPopupFn,
+    hidePopup,
 } from "../../utils/popups";
 
 export default function ExercisesPage() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const userExercises = useSelector(selectUserExercises);
+    const commonExercises = useSelector(selectCommonExercises);
+
+    const [availableExercises, setAvailableExercises] = useState([]);
+    const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+    const [showPopup, setShowPopup] = useState(false);
+    const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
+    // This is a flag for calling different functions when the popup is accepted
+    // (Create new exercise, edit exercise, etc.)
+    const [callerShowingPopup, setCallerShowingPopup] = useState('');
+    const buttonNewCaller = 'button-new';
+    const exercisePresenterCaller = 'exercise-presenter';
 
     useEffect(() => {
         if (!user) {
@@ -28,11 +48,11 @@ export default function ExercisesPage() {
     }, [user]);
 
 
-    const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-    const [showPopup, setShowPopup] = useState(false);
-    const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
+    useEffect(() => {
+        setAvailableExercises([...userExercises, ...commonExercises]);
+    }, [userExercises, commonExercises]);
 
-    const handleClickShowPopup = (event) => {
+    const handleClickShowPopup = caller => (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
@@ -47,8 +67,30 @@ export default function ExercisesPage() {
             lowerLeft,
             lowerRight
         );
+        setCallerShowingPopup(caller);
         setShowPopup(true);
     };
+
+    const generateAcceptPopupDispatch = (e) => {
+        if (callerShowingPopup === buttonNewCaller) {
+            // Give componente a function to use with its stored values
+            return async (name, description) => {
+                dispatch(createExercise({ name, description })).then((response) => {
+                    // Update user's exercises list
+                    dispatch(getExercisesFromUser({
+                        userId: user.id,
+                    }));
+                }).then(() => {
+                    hidePopup(setShowPopup);
+                });
+            };
+        } else if (callerShowingPopup === exercisePresenterCaller) {
+            console.log('Editing exercise');
+            // TODO EDIT EXERCISE
+        }
+    };
+
+    // TODO DELETE EXERCISE
 
 
     return (
@@ -62,7 +104,7 @@ export default function ExercisesPage() {
                         leftPx={popupPosition.x}
                         topPx={popupPosition.y}
                         onClose={() => hidePopup(setShowPopup)}
-                        onAccept={() => showPopupFn(setShowPopup)}
+                        acceptDispatchGenerator={generateAcceptPopupDispatch}
                     />
 
                     <TranslatedSearchBar
@@ -70,58 +112,23 @@ export default function ExercisesPage() {
                     />
                     <TranslatedButtonNew
                         extraClasses="exercises-page__button-new"
-                        onClick={handleClickShowPopup}
+                        onClick={handleClickShowPopup(buttonNewCaller)}
                     />
 
                     <div className="presenter-grid presenter-grid--exercises">
-                        <ExercisePresenterV2
-                            id="1"
-                            name="Pull up"
-                            description="Exercise for the back muscles. It is a compound exercise that also involves the biceps, forearms, traps, and the rear deltoids. The pull up is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="2"
-                            name="Push up"
-                            description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The push up is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="3"
-                            name="Squat"
-                            description="Exercise for the leg muscles. It is a compound exercise that also involves the glutes, lower back, hamstrings, calves, and the core. The squat is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="4"
-                            name="Deadlift"
-                            description="Exercise for the back muscles. It is a compound exercise that also involves the glutes, hamstrings, calves, and the core. The deadlift is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="5"
-                            name="Bench press"
-                            description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The bench press is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="6"
-                            name="Overhead press    "
-                            description="Exercise for the shoulder muscles. It is a compound exercise that also involves the triceps. The overhead press is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="7"
-                            name="Dips"
-                            description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The dips is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
-                        <ExercisePresenterV2
-                            id="8"
-                            name="Barbell row"
-                            description="Exercise for the back muscles. It is a compound exercise that also involves the biceps, forearms, traps, and the rear deltoids. The barbell row is a basic movement that is very valuable for building strength and muscle mass."
-                            onClickEdit={handleClickShowPopup}
-                        />
+                        {
+                            availableExercises.map((exercise) => {
+                                return (
+                                    <ExercisePresenterV2
+                                        key={exercise.id}
+                                        id={exercise.id}
+                                        name={exercise.name}
+                                        description={exercise.description}
+                                        onClickEdit={handleClickShowPopup(exercisePresenterCaller)}
+                                    />
+                                );
+                            })
+                        }
                     </div>
                 </section>
             </main>
