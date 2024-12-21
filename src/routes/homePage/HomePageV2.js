@@ -1,22 +1,43 @@
-import { useState, useEffect, useRef } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useState, useEffect, useRef, use } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/TranslatedChartSetsAndWeight";
 
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, loginUser } from "../../features/user/userSlice";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { calculateTicks } from "../../utils/charts";
 
 export default function HomePageV2() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!user) {
+        const searchParams = new URLSearchParams(location.search);
+
+        const token = searchParams.get("token");
+
+        let userId = null;
+        if (token) {
+            const data = jwtDecode(token);
+            userId = data.userId;
+        }
+
+        if (!user && !userId) {
             navigate("/login");
+        }
+
+        if (userId) {
+            dispatch(loginUser({
+                userIdOAuth: userId,
+            })).then(() => {
+                navigate("/app");
+            });
         }
     }, [user]);
 
