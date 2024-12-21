@@ -5,12 +5,14 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/user/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, registerUser } from "../../features/user/userSlice";
 
 export default function RegisterPage() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         if (user) {
@@ -39,6 +41,8 @@ export default function RegisterPage() {
                 formTermsLabel={t('register-form-terms-label')}
                 formSubmitButtonText={t('register-form-submit-button')}
                 formOrRegisterWithText={t('register-form-or-register-with-text')}
+                dispatchFunction={dispatch}
+                registerAction={registerUser}
             />
             {/* <RegisterForm /> */}
         </section>

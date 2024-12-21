@@ -4,13 +4,20 @@ import { serverBaseURL } from "./serverAPIConfig";
 
 const usersEndPoint = serverBaseURL + '/users';
 
-export async function register(alias, email, password, registeredViaOAuth) {
+export async function register(username, email, password, oauth_registration, is_premium, is_early_adopter) {
+    const created_at = new Date().toISOString();
     const body = {
-        alias,
+        username,
         email,
         password,
-        registeredViaOAuth,
+        is_premium,
+        is_early_adopter,
+        created_at,
     };
+
+    if (oauth_registration) {
+        body.oauth_registration = oauth_registration;
+    }
 
     const response = await apiClient.post(usersEndPoint, body, {
         headers: {
@@ -18,6 +25,7 @@ export async function register(alias, email, password, registeredViaOAuth) {
         },
         withCredentials: true,
     });
+
     try {
         return response.data;
     } catch (error) {

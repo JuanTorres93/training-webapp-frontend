@@ -79,12 +79,14 @@ export const logoutUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     `${sliceName}/registerUser`,
     async (arg, thunkAPI) => {
-        // arg = { username, email, password, registeredViaOauth }
+        // arg = { username, email, password, oauth_registration, is_premium, is_early_adopter }
         const response = await register(
             arg.username,
             arg.email,
             arg.password,
-            arg.registeredViaOAuth,
+            arg.oauth_registration,
+            arg.is_premium,
+            arg.is_early_adopter,
         );
 
         if (response.id) {

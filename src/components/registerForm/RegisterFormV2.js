@@ -15,12 +15,30 @@ const RegisterFormV2 = ({
     formTermsLabel,  // e.g: 'I accept the terms and conditions'
     formSubmitButtonText,  // e.g: 'Create account'
     formOrRegisterWithText,  // e.g: 'Or register with'
+    dispatchFunction = () => { },
+    registerAction = (arg) => { },
 }) => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [terms, setTerms] = useState(false);
     const [showPass, setShowPass] = useState(false);
 
     const toggleShowPass = () => {
         setShowPass(!showPass);
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatchFunction(registerAction({
+            username,
+            email,
+            password,
+            oauth_registration: null,
+            is_premium: false,
+            is_early_adopter: false,
+        }));
+    };
 
     return (
         <div className="register-form">
@@ -37,10 +55,12 @@ const RegisterFormV2 = ({
                     </p>
                 </div>
 
-                <form className="register-form__form">
+                <form className="register-form__form" onSubmit={handleSubmit}>
                     <div className="register-form__input-box">
                         <input
                             className="base-input-text register-form__input"
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
                             id="username"
                             type="text"
                             placeholder={formUsernameLabel}
@@ -54,6 +74,8 @@ const RegisterFormV2 = ({
                     <div className="register-form__input-box">
                         <input
                             className="base-input-text register-form__input"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             id="email"
                             type="email"
                             placeholder={formEmailLabel}
@@ -67,6 +89,8 @@ const RegisterFormV2 = ({
                     <div className="register-form__input-box">
                         <input
                             className="base-input-text register-form__input"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             id="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
@@ -91,7 +115,14 @@ const RegisterFormV2 = ({
 
                     {/* Accept terms and conditions */}
                     <div className="register-form__input-box register-form__input-box--terms">
-                        <input type="checkbox" id="terms" className="register-form__checkbox" required />
+                        <input
+                            type="checkbox"
+                            onChange={(e) => setTerms(e.target.checked)}
+                            value={terms}
+                            id="terms"
+                            className="register-form__checkbox"
+                            required
+                        />
                         <label htmlFor="terms" className="label-checkbox register-form__label register-form__label--terms">{formTermsLabel}</label>
                     </div>
 
