@@ -1,3 +1,6 @@
+// import react needed for testing
+import React from "react";
+
 const ButtonIconAndText = ({
     ionIcon,
     text,
