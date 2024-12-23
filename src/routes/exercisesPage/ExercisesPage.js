@@ -8,7 +8,7 @@ import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar"
 import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
-import PopupOptionOrCancel from "../../components/popupOptionOrCancel/PopupOptionOrCancel";
+import DeletePopupOptionOrCancel from "../../components/popupOptionOrCancel/DeletePopupOptionOrCancel";
 
 import { selectUser } from "../../features/user/userSlice";
 import {
@@ -108,7 +108,9 @@ export default function ExercisesPage() {
                         acceptDispatchGenerator={generateAcceptPopupDispatch}
                     />
 
-                    <PopupOptionOrCancel />
+                    <DeletePopupOptionOrCancel
+                    // TODO prop subtitle is template name
+                    />
 
                     <TranslatedSearchBar
                         extraClasses="exercises-page__search-bar"

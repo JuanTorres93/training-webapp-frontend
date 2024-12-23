@@ -103,5 +103,8 @@
     "home-page-weight-progress": "Progreso de peso",
     "home-page-todays-weight": "Peso actual",
     "home-page-last-weight-placeholder": "Ayer:",
-    "home-page-submit-weight": "Enviar"
+    "home-page-submit-weight": "Enviar",
+    "delete-text": "Borrar",
+    "cancel-text": "Cancelar",
+    "delete-popup-title": "¿Estás seguro de que quieres borrar esto?"
 }

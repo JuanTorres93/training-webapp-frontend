@@ -103,5 +103,8 @@
     "home-page-weight-progress": "Weight progress",
     "home-page-todays-weight": "Today's weight",
     "home-page-last-weight-placeholder": "Last:",
-    "home-page-submit-weight": "Submit"
+    "home-page-submit-weight": "Submit",
+    "delete-text": "Delete",
+    "cancel-text": "Cancel",
+    "delete-popup-title": "Are you sure you want to delete this?"
 }
