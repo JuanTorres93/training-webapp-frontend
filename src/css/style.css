@@ -2186,6 +2186,104 @@ body {
   justify-content: center;
 }
 
+.popup-option-or-cancel {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0.1rem) brightness(90%);
+}
+.popup-option-or-cancel__dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  grid-template-rows: repeat(3, min-content);
+  grid-gap: 2rem;
+  transform: translate(-20%, -50%);
+  background-color: #fff;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+.popup-option-or-cancel__icon-box {
+  justify-self: center;
+  width: 5.5rem;
+  height: 5.5rem;
+}
+.popup-option-or-cancel__icon-box > * {
+  width: 100%;
+  height: 100%;
+}
+.popup-option-or-cancel__icon-box--positive {
+  color: #2FCA82;
+}
+.popup-option-or-cancel__icon-box--delete {
+  color: #ea704e;
+}
+.popup-option-or-cancel__text-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.popup-option-or-cancel__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.popup-option-or-cancel__subtitle {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+}
+.popup-option-or-cancel__buttons-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+}
+.popup-option-or-cancel__buttons-box > * {
+  justify-self: center;
+}
+.popup-option-or-cancel__button {
+  padding: 1.3rem 3.3rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #dde0de;
+  transition: all 0.2s;
+}
+.popup-option-or-cancel__button:hover {
+  background-color: #dde0de;
+}
+.popup-option-or-cancel__button:active {
+  background-color: #f1f4f2;
+}
+.popup-option-or-cancel__button--positive {
+  background-color: #2FCA82;
+  color: #fff;
+  border: none;
+}
+.popup-option-or-cancel__button--positive:hover {
+  background-color: #03B670;
+}
+.popup-option-or-cancel__button--positive:active {
+  background-color: #4BDE94;
+}
+.popup-option-or-cancel__button--delete {
+  background-color: #ea704e;
+  color: #fff;
+  border: none;
+}
+.popup-option-or-cancel__button--delete:hover {
+  background-color: #cd4925;
+}
+.popup-option-or-cancel__button--delete:active {
+  background-color: #f58b6d;
+}
+
 .behind-app {
   position: fixed;
   top: 0;

@@ -8,6 +8,7 @@ import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar"
 import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew";
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
+import PopupOptionOrCancel from "../../components/popupOptionOrCancel/PopupOptionOrCancel";
 
 import { selectUser } from "../../features/user/userSlice";
 import {
@@ -106,6 +107,8 @@ export default function ExercisesPage() {
                         onClose={() => hidePopup(setShowPopup)}
                         acceptDispatchGenerator={generateAcceptPopupDispatch}
                     />
+
+                    <PopupOptionOrCancel />
 
                     <TranslatedSearchBar
                         extraClasses="exercises-page__search-bar"
