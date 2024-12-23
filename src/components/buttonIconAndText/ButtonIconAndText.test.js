@@ -37,5 +37,13 @@ describe('ButtonIconAndText', () => {
             expect(description).toBeInTheDocument();
             expect(description.innerHTML).toStrictEqual(ionIcon);
         });
+
+        it('calls onClick when clicked', () => {
+            const button = screen.getByText(text);
+
+            button.click();
+
+            expect(onClick).toHaveBeenCalled();
+        });
     })
 })
