@@ -164,6 +164,7 @@ export default function ExercisesPage() {
                                         key={exercise.id}
                                         id={exercise.id}
                                         name={exercise.name}
+                                        isCommon={exercise.isCommon}
                                         description={exercise.description}
                                         onClickEdit={handleClickShowNameDescPopup(exercisePresenterCaller)}
                                         onClickDelete={handleClickShowDeletePopup(exercise.id)}
