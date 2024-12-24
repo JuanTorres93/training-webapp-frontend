@@ -1,6 +1,8 @@
 import React from "react";
 
 const PopupOptionOrCancel = ({
+    // visibility can be "visible" or "hidden"
+    visibility = 'hidden',
     // type can be "positive" or "delete"
     type = "delete",
     title = "Option or Cancel",
@@ -10,8 +12,15 @@ const PopupOptionOrCancel = ({
     handleOption = () => { },
     handleCancel = () => { },
 }) => {
+    const getAndExecuteOptionDispatch = () => {
+        const optionDispatch = handleOption();
+        optionDispatch();
+    };
+
     return (
-        <div className="popup-option-or-cancel">
+        <div
+            className={`popup-option-or-cancel ${visibility === 'hidden' ? 'popup-option-or-cancel--hidden' : ''}`}
+        >
             <div className="popup-option-or-cancel__dialog">
                 <figure className={`popup-option-or-cancel__icon-box popup-option-or-cancel__icon-box--${type}`}>
                     {type === "positive" ?
@@ -34,7 +43,7 @@ const PopupOptionOrCancel = ({
 
                     <div
                         className={`popup-option-or-cancel__button popup-option-or-cancel__button--${type}`}
-                        onClick={handleOption}
+                        onClick={getAndExecuteOptionDispatch}
                     >
                         {option}
                     </div>

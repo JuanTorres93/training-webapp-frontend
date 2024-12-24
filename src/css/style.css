@@ -2194,6 +2194,13 @@ body {
   width: 100%;
   height: 100%;
   backdrop-filter: blur(0.1rem) brightness(90%);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.2s;
+}
+.popup-option-or-cancel--hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 .popup-option-or-cancel__dialog {
   position: absolute;

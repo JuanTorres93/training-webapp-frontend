@@ -4,6 +4,7 @@ import PopupOptionOrCancel from "./PopupOptionOrCancel";
 import { useTranslation } from "react-i18next";
 
 const DeletePopupOptionOrCancel = ({
+    visibility = 'hidden',
     subtitle = "Choose an option or cancel",
     handleOption = () => { },
     handleCancel = () => { },
@@ -15,6 +16,7 @@ const DeletePopupOptionOrCancel = ({
 
     return (
         <PopupOptionOrCancel
+            visibility={visibility}
             type="delete"
             title={title}
             subtitle={subtitle}

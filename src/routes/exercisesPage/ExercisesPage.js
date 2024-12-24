@@ -16,7 +16,13 @@ import {
     getExercisesFromUser,
     selectCommonExercises,
     selectUserExercises,
+    deleteExercise,
 } from "../../features/exercises/exercisesSlice";
+
+import {
+    getAllUserCreatedTemplates,
+    getUserRecentWorkouts,
+} from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 import {
     positionPopup,
@@ -34,7 +40,9 @@ export default function ExercisesPage() {
 
     const [availableExercises, setAvailableExercises] = useState([]);
     const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-    const [showPopup, setShowPopup] = useState(false);
+    const [showNameDescPopup, setShowNameDescPopup] = useState(false);
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [exerciseIdToDelete, setExerciseIdToDelete] = useState('');
     const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
     // This is a flag for calling different functions when the popup is accepted
     // (Create new exercise, edit exercise, etc.)
@@ -53,7 +61,7 @@ export default function ExercisesPage() {
         setAvailableExercises([...userExercises, ...commonExercises]);
     }, [userExercises, commonExercises]);
 
-    const handleClickShowPopup = caller => (event) => {
+    const handleClickShowNameDescPopup = caller => (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
@@ -69,8 +77,13 @@ export default function ExercisesPage() {
             lowerRight
         );
         setCallerShowingPopup(caller);
-        setShowPopup(true);
+        setShowNameDescPopup(true);
     };
+
+    const handleClickShowDeletePopup = exerciseId => (event) => {
+        setExerciseIdToDelete(exerciseId);
+        setShowDeletePopup(true);
+    }
 
     const generateAcceptPopupDispatch = (e) => {
         if (callerShowingPopup === buttonNewCaller) {
@@ -82,7 +95,7 @@ export default function ExercisesPage() {
                         userId: user.id,
                     }));
                 }).then(() => {
-                    hidePopup(setShowPopup);
+                    hidePopup(setShowNameDescPopup);
                 });
             };
         } else if (callerShowingPopup === exercisePresenterCaller) {
@@ -91,25 +104,48 @@ export default function ExercisesPage() {
         }
     };
 
-    // TODO DELETE EXERCISE
+    const generateDeleteExerciseDispatch = (e) => {
+        return () => {
+            dispatch(deleteExercise({ exerciseId: exerciseIdToDelete })).then((response) => {
+                // Update user's exercises list
+                dispatch(getExercisesFromUser({
+                    userId: user.id,
+                }));
+                // Get user's templates
+                dispatch(getAllUserCreatedTemplates({
+                    userId: user.id,
+                }));
+                // Get user's recent workouts
+                dispatch(getUserRecentWorkouts({
+                    userId: user.id,
+                }));
+            }).then(() => {
+                setExerciseIdToDelete('');
+                hidePopup(setShowDeletePopup);
+            });
+        }
+    };
 
 
     return (
-        <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopup, ["hydrated", "button-new", "button-new__text"]) }}>
+        <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowNameDescPopup, ["hydrated", "button-new", "button-new__text"]) }}>
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
                     <TranslatedPopupNameAndDescription
                         arrowClassModifier={arrowClassModifier}
-                        visibility={showPopup ? 'visible' : 'hidden'}
+                        visibility={showNameDescPopup ? 'visible' : 'hidden'}
                         leftPx={popupPosition.x}
                         topPx={popupPosition.y}
-                        onClose={() => hidePopup(setShowPopup)}
+                        onClose={() => hidePopup(setShowNameDescPopup)}
                         acceptDispatchGenerator={generateAcceptPopupDispatch}
                     />
 
                     <DeletePopupOptionOrCancel
-                    // TODO prop subtitle is template name
+                        visibility={showDeletePopup ? 'visible' : 'hidden'}
+                        handleCancel={() => hidePopup(setShowDeletePopup)}
+                        handleOption={generateDeleteExerciseDispatch}
+                        subtitle={exerciseIdToDelete ? availableExercises.find(exercise => exercise.id === exerciseIdToDelete).name : ''}
                     />
 
                     <TranslatedSearchBar
@@ -117,7 +153,7 @@ export default function ExercisesPage() {
                     />
                     <TranslatedButtonNew
                         extraClasses="exercises-page__button-new"
-                        onClick={handleClickShowPopup(buttonNewCaller)}
+                        onClick={handleClickShowNameDescPopup(buttonNewCaller)}
                     />
 
                     <div className="presenter-grid presenter-grid--exercises">
@@ -129,7 +165,8 @@ export default function ExercisesPage() {
                                         id={exercise.id}
                                         name={exercise.name}
                                         description={exercise.description}
-                                        onClickEdit={handleClickShowPopup(exercisePresenterCaller)}
+                                        onClickEdit={handleClickShowNameDescPopup(exercisePresenterCaller)}
+                                        onClickDelete={handleClickShowDeletePopup(exercise.id)}
                                     />
                                 );
                             })

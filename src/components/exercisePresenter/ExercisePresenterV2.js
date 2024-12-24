@@ -6,7 +6,7 @@ const ExercisePresenterV2 = ({
     orderInTemplate = null, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
     extraClasses = "",
     onClickEdit = () => { },
-    // TODO add onClickDelete
+    onClickDelete = () => { },
 }) => {
     return (
         <div className={`exercise-presenter ${extraClasses}`}>
@@ -46,7 +46,10 @@ const ExercisePresenterV2 = ({
             )}
 
             <div className="exercise-presenter__actions-box">
-                <figure className="exercise-presenter__icon-box exercise-presenter__icon-box--delete">
+                <figure
+                    className="exercise-presenter__icon-box exercise-presenter__icon-box--delete"
+                    onClick={onClickDelete}
+                >
                     <ion-icon name="trash-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
