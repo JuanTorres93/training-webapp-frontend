@@ -1,3 +1,6 @@
+// import react needed for testing
+import React from "react";
+
 import TranslatedChartSetsAndWeight from "../chartSetsAndWeight/TranslatedChartSetsAndWeight.js";
 
 const ExerciseCompleterV2 = ({

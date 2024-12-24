@@ -1,3 +1,6 @@
+// import react needed for testing
+import React from "react";
+
 import { useState, useEffect } from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
