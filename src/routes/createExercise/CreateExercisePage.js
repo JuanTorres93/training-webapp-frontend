@@ -1,3 +1,5 @@
+// TODO BORRAR ESTE ARCHIVO. YA HE UTILIZADO TODA LA LÓGICA QUE NECESITABA DE AQUÍ
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";

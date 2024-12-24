@@ -3,6 +3,7 @@ import { getAllExercisesFromUser } from "../../serverAPI/exercises";
 
 import {
     createExercise as createExerciseInDb,
+    updateExercise as updateExerciseInDb,
     deleteExercise as deleteExerciseInDb,
     getCommonExercises as getCommonExercisesFromDb,
 } from "../../serverAPI/exercises";
@@ -37,6 +38,17 @@ export const createExercise = createAsyncThunk(
         const { name, description } = arg;
         // Error is handled from redux state when promise is rejected
         const response = await createExerciseInDb(name, description);
+
+        return response;
+    }
+);
+
+export const updateExercise = createAsyncThunk(
+    `${sliceName}/updateExercise`,
+    async (arg, thunkAPI) => {
+        const { exerciseId, name, description } = arg;
+        // Error is handled from redux state when promise is rejected
+        const response = await updateExerciseInDb(exerciseId, name, description);
 
         return response;
     }
@@ -98,9 +110,9 @@ const exercisesSlice = createSlice({
             }
 
             // Order by name
-            state[sliceName].userCreatedExercises.sort((a, b) => a.name - b.name);
-            state[sliceName].commonExercises.sort((a, b) => a.name - b.name);
-            state[sliceName].exercisesInNewTemplate.sort((a, b) => a.name - b.name);
+            state[sliceName].userCreatedExercises.sort((a, b) => a.name.localeCompare(b.name));
+            state[sliceName].commonExercises.sort((a, b) => a.name.localeCompare(b.name));
+            state[sliceName].exercisesInNewTemplate.sort((a, b) => a.name.localeCompare(b.name));
         },
         updateExerciseSets: (state, action) => {
             // action.payload is an object with the properties id and sets
@@ -126,7 +138,7 @@ const exercisesSlice = createSlice({
             let userExercises = action.payload;
 
             // Order by name
-            userExercises.sort((a, b) => a.name - b.name);
+            userExercises.sort((a, b) => a.name.localeCompare(b.name));
 
             state[sliceName].userCreatedExercises = userExercises;
 
@@ -152,7 +164,7 @@ const exercisesSlice = createSlice({
             });
 
             // Order by name
-            commonExercises.sort((a, b) => a.name - b.name);
+            commonExercises.sort((a, b) => a.name.localeCompare(b.name));
 
             state[sliceName].commonExercises = commonExercises;
             state.isLoading.pop();
@@ -179,6 +191,23 @@ const exercisesSlice = createSlice({
             state.hasError = false;
         })
         builder.addCase(createExercise.rejected, (state, action) => {
+            state.isLoading.pop();
+            state.hasError = true;
+        })
+
+        // update exercise
+        builder.addCase(updateExercise.pending, (state, action) => {
+            state.isLoading.push(LOADING_FLAG);
+            state.hasError = false;
+        })
+        builder.addCase(updateExercise.fulfilled, (state, action) => {
+            let updatedExercise = action.payload;
+            let index = state[sliceName].userCreatedExercises.findIndex(exercise => exercise.id === updatedExercise.id);
+            state[sliceName].userCreatedExercises[index] = updatedExercise;
+            state.isLoading.pop();
+            state.hasError = false;
+        })
+        builder.addCase(updateExercise.rejected, (state, action) => {
             state.isLoading.pop();
             state.hasError = true;
         })

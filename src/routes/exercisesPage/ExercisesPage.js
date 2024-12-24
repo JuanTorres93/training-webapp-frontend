@@ -13,6 +13,7 @@ import DeletePopupOptionOrCancel from "../../components/popupOptionOrCancel/Dele
 import { selectUser } from "../../features/user/userSlice";
 import {
     createExercise,
+    updateExercise,
     getExercisesFromUser,
     selectCommonExercises,
     selectUserExercises,
@@ -43,6 +44,7 @@ export default function ExercisesPage() {
     const [showNameDescPopup, setShowNameDescPopup] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const [exerciseIdToDelete, setExerciseIdToDelete] = useState('');
+    const [exerciseIdToEdit, setExerciseIdToEdit] = useState('');
     const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
     // This is a flag for calling different functions when the popup is accepted
     // (Create new exercise, edit exercise, etc.)
@@ -61,7 +63,7 @@ export default function ExercisesPage() {
         setAvailableExercises([...userExercises, ...commonExercises]);
     }, [userExercises, commonExercises]);
 
-    const handleClickShowNameDescPopup = caller => (event) => {
+    const handleClickShowNameDescPopup = caller => exerciseId => (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
@@ -76,6 +78,13 @@ export default function ExercisesPage() {
             lowerLeft,
             lowerRight
         );
+
+        if (exerciseId) {
+            setExerciseIdToEdit(exerciseId);
+        } else {
+            setExerciseIdToEdit('');
+        }
+
         setCallerShowingPopup(caller);
         setShowNameDescPopup(true);
     };
@@ -99,8 +108,12 @@ export default function ExercisesPage() {
                 });
             };
         } else if (callerShowingPopup === exercisePresenterCaller) {
-            console.log('Editing exercise');
-            // TODO EDIT EXERCISE
+            return async (name, description) => {
+                dispatch(updateExercise({ exerciseId: exerciseIdToEdit, name, description })).then(() => {
+                    setExerciseIdToEdit('');
+                    hidePopup(setShowNameDescPopup);
+                });
+            };
         }
     };
 
@@ -153,7 +166,7 @@ export default function ExercisesPage() {
                     />
                     <TranslatedButtonNew
                         extraClasses="exercises-page__button-new"
-                        onClick={handleClickShowNameDescPopup(buttonNewCaller)}
+                        onClick={handleClickShowNameDescPopup(buttonNewCaller)(null)}
                     />
 
                     <div className="presenter-grid presenter-grid--exercises">
@@ -166,7 +179,7 @@ export default function ExercisesPage() {
                                         name={exercise.name}
                                         isCommon={exercise.isCommon}
                                         description={exercise.description}
-                                        onClickEdit={handleClickShowNameDescPopup(exercisePresenterCaller)}
+                                        onClickEdit={handleClickShowNameDescPopup(exercisePresenterCaller)(exercise.id)}
                                         onClickDelete={handleClickShowDeletePopup(exercise.id)}
                                     />
                                 );
