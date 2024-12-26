@@ -44,8 +44,7 @@
         grid-auto-rows: min-content;
         grid-gap: 2rem;
 
-        // TODO uncomment when implementing
-        // overflow-y: scroll;
+        overflow-y: scroll;
     }
 
     &__input-box {

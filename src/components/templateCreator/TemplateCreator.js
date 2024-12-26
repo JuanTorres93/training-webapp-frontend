@@ -15,25 +15,33 @@ const TemplateCreator = ({
     placeholderSets,
     exercisesData,
 }) => {
+    const [newTemplateName, setNewTemplateName] = useState('');
+    const [newTemplateDescription, setNewTemplateDescription] = useState('');
+    const [newTemplateExercises, setNewTemplateExercises] = useState([]);
+
     const [searchTerm, setSearchTerm] = useState('');
+    const [availableExercises, setAvailableExercises] = useState([]);
     const [shownExercises, setShownExercises] = useState([]);
     const [fuse, setFuse] = useState(null);
 
+
+    useEffect(() => {
+        setAvailableExercises(exercisesData);
+    }, [exercisesData]);
+
     useEffect(() => {
         // Fuse config
-        const fuseInstance = new Fuse(exercisesData, {
+        const fuseInstance = new Fuse(availableExercises, {
             keys: ['name'],
             threshold: 0.1,
         });
 
         setFuse(fuseInstance);
-    }, [exercisesData]);
+    }, [availableExercises]);
 
     useEffect(() => {
-        const avExercises = exercisesData;
-
         if (searchTerm.trim() === '') {
-            setShownExercises(avExercises);
+            setShownExercises(availableExercises);
             return;
         }
 
@@ -43,7 +51,29 @@ const TemplateCreator = ({
             setShownExercises(filteredExercises);
         }
 
-    }, [exercisesData, searchTerm]);
+    }, [availableExercises, searchTerm]);
+
+    const selectExerciseForNewTemplate = (exerciseId) => {
+        const exercise = availableExercises.find(exercise => exercise.id === exerciseId);
+
+        if (!exercise) {
+            return;
+        }
+
+        setNewTemplateExercises([...newTemplateExercises, exercise]);
+        setAvailableExercises(availableExercises.filter(exercise => exercise.id !== exerciseId));
+    };
+
+    const removeExerciseFromNewTemplate = (exerciseId) => {
+        const exercise = newTemplateExercises.find(exercise => exercise.id === exerciseId);
+
+        if (!exercise) {
+            return;
+        }
+
+        setAvailableExercises([exercise, ...availableExercises]);
+        setNewTemplateExercises(newTemplateExercises.filter(exercise => exercise.id !== exerciseId));
+    }
 
     return (
         <div className="template-creator">
@@ -61,13 +91,18 @@ const TemplateCreator = ({
             <div className="template-creator__available-exercises-box">
                 {
                     shownExercises.map((exercise) => (
-                        <ExercisePresenterV2
-                            extraClasses="exercise-presenter--no-actions u-mouse-pointer-hover"
-                            id={exercise.id}
-                            name={exercise.name}
-                            description={exercise.description}
-                        // onClickEdit={handleClickShowPopup}
-                        />
+                        <div
+                            className="template-creator__available-exercise-wrapper"
+                            onClick={() => selectExerciseForNewTemplate(exercise.id)}
+                            key={exercise.id}
+                        >
+                            <ExercisePresenterV2
+                                extraClasses="exercise-presenter--no-actions u-mouse-pointer-hover"
+                                id={exercise.id}
+                                name={exercise.name}
+                                description={exercise.description}
+                            />
+                        </div>
                     ))
                 }
             </div>
@@ -76,6 +111,8 @@ const TemplateCreator = ({
                 <input
                     id="name"
                     className="base-input-text template-creator__input"
+                    onChange={(event) => setNewTemplateName(event.target.value)}
+                    value={newTemplateName}
                     type="text"
                     placeholder={nameLabel}
                     maxLength={40}
@@ -87,6 +124,8 @@ const TemplateCreator = ({
                 <textarea
                     id="description"
                     className="base-input-text template-creator__input"
+                    onChange={(event) => setNewTemplateDescription(event.target.value)}
+                    value={newTemplateDescription}
                     placeholder={descriptionLabel}
                     maxLength={500}
                 >
@@ -103,25 +142,20 @@ const TemplateCreator = ({
             <div className="template-creator__separator template-creator__separator--used-exercises separator-text-between-lines">{usedExercisesText}</div>
 
             <div className="template-creator__used-exercises-box">
-                <ExercisePresenterV2
-                    extraClasses="exercise-presenter--creating-template"
-                    orderInTemplate={1}
-                    id="2"
-                    name="Push up"
-                    description="Exercise for the chest muscles. It is a compound exercise that also involves the triceps and the front deltoids. The push up is a basic movement that is very valuable for building strength and muscle mass."
-                    placeholderSets={placeholderSets}
-                // onClickEdit={handleClickShowPopup}
-                />
-
-                <ExercisePresenterV2
-                    extraClasses="exercise-presenter--creating-template"
-                    orderInTemplate={2}
-                    id="3"
-                    name="Squat"
-                    description="Exercise for the leg muscles. It is a compound exercise that also involves the glutes, hamstrings, quads, and lower back. The squat is a basic movement that is very valuable for building strength and muscle mass."
-                    placeholderSets={placeholderSets}
-                // onClickEdit={handleClickShowPopup}
-                />
+                {
+                    newTemplateExercises.map((exercise, index) => (
+                        <ExercisePresenterV2
+                            key={exercise.id}
+                            id={exercise.id}
+                            orderInTemplate={index + 1}
+                            extraClasses="exercise-presenter--creating-template"
+                            name={exercise.name}
+                            description={exercise.description}
+                            placeholderSets={placeholderSets}
+                            onClickRemoveFromTemplate={() => { removeExerciseFromNewTemplate(exercise.id) }}
+                        />
+                    ))
+                }
             </div>
         </div>
     );

@@ -2017,6 +2017,7 @@ body {
   grid-template-rows: min-content;
   grid-auto-rows: min-content;
   grid-gap: 2rem;
+  overflow-y: scroll;
 }
 .template-creator__input-box {
   display: flex;

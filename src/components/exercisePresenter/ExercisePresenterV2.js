@@ -8,6 +8,7 @@ const ExercisePresenterV2 = ({
     extraClasses = "",
     onClickEdit = () => { },
     onClickDelete = () => { },
+    onClickRemoveFromTemplate = () => { },
 }) => {
     return (
         <div className={`exercise-presenter ${isCommon ? 'exercise-presenter--no-actions' : ''} ${extraClasses}`}>
@@ -57,6 +58,7 @@ const ExercisePresenterV2 = ({
 
                 <figure
                     className="exercise-presenter__icon-box exercise-presenter__icon-box--remove-from-template"
+                    onClick={onClickRemoveFromTemplate}
                     enabled={isCommon ? 'false' : 'true'}
                 >
                     <ion-icon name="remove-circle-outline" className="exercise-presenter__icon"></ion-icon>
