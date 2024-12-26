@@ -1,7 +1,8 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import Fuse from "fuse.js";
 
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedSearchBar from "../../components/searchBar/TranslatedSearchBar";
@@ -52,14 +53,41 @@ export default function TemplatesPage() {
     // state for available templates
     const [availableTemplates, setAvailableTemplates] = useState([]);
 
+    // State for templates search bar
+    const [searchTemplateTerm, setSearchTemplateTerm] = useState('');
+    const [fuse, setFuse] = useState(null);
+
     // Translation access
     const { t } = useTranslation();
 
     useEffect(() => {
+        // Fuse config
+        const avTemplates = [...userTemplates, ...commonTemplates];
+
+        const fuseInstance = new Fuse(avTemplates, {
+            keys: ['name'],
+            threshold: 0.1,
+        });
+
+        setFuse(fuseInstance);
+    }, [userTemplates, commonTemplates]);
+
+    useEffect(() => {
         // Compute available templates
         const avTemplates = [...userTemplates, ...commonTemplates];
-        setAvailableTemplates(avTemplates);
-    }, [userTemplates, commonTemplates]);
+
+        if (searchTemplateTerm.trim() === '') {
+            setAvailableTemplates(avTemplates);
+            return;
+        }
+
+        // Filter templates according search term
+        if (fuse) {
+            const filteredTemplates = fuse.search(searchTemplateTerm).map(result => result.item);
+            setAvailableTemplates(filteredTemplates);
+        }
+
+    }, [userTemplates, commonTemplates, searchTemplateTerm]);
 
     // Handlers for preview popup
     const handleMouseLeavesTemplate = (event) => {
@@ -162,6 +190,7 @@ export default function TemplatesPage() {
 
                     <TranslatedSearchBar
                         extraClasses="templates-page__search-bar"
+                        parentSearchSetterFunction={setSearchTemplateTerm}
                     />
 
                     <ButtonNew
