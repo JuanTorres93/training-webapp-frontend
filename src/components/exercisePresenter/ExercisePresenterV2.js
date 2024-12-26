@@ -49,17 +49,22 @@ const ExercisePresenterV2 = ({
             <div className="exercise-presenter__actions-box">
                 <figure
                     className="exercise-presenter__icon-box exercise-presenter__icon-box--delete"
+                    enabled={isCommon ? 'false' : 'true'}
                     onClick={onClickDelete}
                 >
                     <ion-icon name="trash-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
-                <figure className="exercise-presenter__icon-box exercise-presenter__icon-box--remove-from-template">
+                <figure
+                    className="exercise-presenter__icon-box exercise-presenter__icon-box--remove-from-template"
+                    enabled={isCommon ? 'false' : 'true'}
+                >
                     <ion-icon name="remove-circle-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
                 <figure
                     className="exercise-presenter__icon-box exercise-presenter__icon-box--edit"
+                    enabled={isCommon ? 'false' : 'true'}
                     onClick={onClickEdit}
                 >
                     <ion-icon name="create-outline" className="exercise-presenter__icon"></ion-icon>

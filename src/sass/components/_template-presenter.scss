@@ -123,3 +123,14 @@
         }
     }
 }
+
+
+.template-presenter--no-actions {
+    .template-presenter__actions-box {
+        display: none;
+    }
+
+    .template-presenter__info-box {
+        grid-column: 1 / -1;
+    }
+}

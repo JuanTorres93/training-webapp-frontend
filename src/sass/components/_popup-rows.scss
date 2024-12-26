@@ -43,9 +43,17 @@
 
     &__row {
         display: grid;
-        grid-template-columns: 4% 1fr 19%;
+        grid-template-columns: 4% max-content 1fr;
         grid-column-gap: 2rem;
         align-items: center;
         justify-items: start;
+    }
+
+    &__exercise-name {
+        margin-right: auto;
+    }
+
+    &__exercise-sets {
+        justify-self: end;
     }
 }

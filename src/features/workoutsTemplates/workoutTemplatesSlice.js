@@ -401,20 +401,8 @@ const slice = createSlice({
 });
 
 // Export selectors
-export const selectUserTemplates = createSelector(
-    (state) => state[sliceName][sliceName].userCreatedTemplates,
-    (userCreatedTemplates) => userCreatedTemplates.map(template => ({
-        ...template,
-        name: template.alias
-    }))
-);
-export const selectCommonTemplates = createSelector(
-    (state) => state[sliceName][sliceName].commonTemplates,
-    (commonTemplates) => commonTemplates.map(template => ({
-        ...template,
-        name: template.alias
-    }))
-);
+export const selectUserTemplates = state => state[sliceName][sliceName].userCreatedTemplates;
+export const selectCommonTemplates = state => state[sliceName][sliceName].commonTemplates;
 export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
 export const selectTemplatesLoading = state => state[sliceName].isLoading.length > 0;
 export const selectTemplatesError = state => state[sliceName].hasError;

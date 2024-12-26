@@ -1854,6 +1854,13 @@ body {
   background-color: #03B670;
 }
 
+.template-presenter--no-actions .template-presenter__actions-box {
+  display: none;
+}
+.template-presenter--no-actions .template-presenter__info-box {
+  grid-column: 1/-1;
+}
+
 .popup-rows {
   position: absolute;
   z-index: 1000;
@@ -1883,10 +1890,16 @@ body {
 }
 .popup-rows__row {
   display: grid;
-  grid-template-columns: 4% 1fr 19%;
+  grid-template-columns: 4% max-content 1fr;
   grid-column-gap: 2rem;
   align-items: center;
   justify-items: start;
+}
+.popup-rows__exercise-name {
+  margin-right: auto;
+}
+.popup-rows__exercise-sets {
+  justify-self: end;
 }
 
 .popup-arrow {

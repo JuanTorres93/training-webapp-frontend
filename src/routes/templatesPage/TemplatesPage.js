@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -12,6 +12,10 @@ import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesr
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 
 import { selectUser } from "../../features/user/userSlice";
+import {
+    selectUserTemplates,
+    selectCommonTemplates,
+} from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 import {
     positionPopup,
@@ -21,6 +25,8 @@ import {
 
 export default function TemplatesPage() {
     const user = useSelector(selectUser);
+    const userTemplates = useSelector(selectUserTemplates);
+    const commonTemplates = useSelector(selectCommonTemplates);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,16 +47,26 @@ export default function TemplatesPage() {
 
     // State for new template popup
     const [showPopupNewTemplate, setShowPopupNewTemplate] = useState(false);
+    const [popupRows, setPopupRows] = useState([]);
+
+    // state for available templates
+    const [availableTemplates, setAvailableTemplates] = useState([]);
 
     // Translation access
     const { t } = useTranslation();
+
+    useEffect(() => {
+        // Compute available templates
+        const avTemplates = [...userTemplates, ...commonTemplates];
+        setAvailableTemplates(avTemplates);
+    }, [userTemplates, commonTemplates]);
 
     // Handlers for preview popup
     const handleMouseLeavesTemplate = (event) => {
         setShowPopupRow(false);
     };
 
-    const handleMouseEntersTemplate = (event) => {
+    const handleMouseEntersTemplate = templateId => (event) => {
         const upperLeft = { x: -10, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = upperLeft;
         const lowerLeft = { x: -10, y: -440, arrowClassModifier: 'bottom-left' };
@@ -65,6 +81,16 @@ export default function TemplatesPage() {
             lowerLeft,
             lowerRight
         );
+
+        // Get template exercises
+
+        const template = availableTemplates.find(t => t.id === templateId);
+        const templateExercises = template.exercises.map((exercise, index) => ({
+            exerciseOrder: exercise.order,
+            exerciseName: exercise.name,
+            numberOfSets: exercise.sets,
+        }));
+        setPopupRows(templateExercises);
 
         setShowPopupRow(true);
     };
@@ -118,28 +144,11 @@ export default function TemplatesPage() {
                     </div>
 
                     <PopupRows
-                        // TODO Modify rows according hovered template
                         visibility={showPopupRow ? 'visible' : 'hidden'}
                         arrowClassModifier={arrowClassModifierPopupRows}
                         leftPx={popupRowPosition.x}
                         topPx={popupRowPosition.y}
-                        rows={[
-                            {
-                                exerciseOrder: 1,
-                                exerciseName: "Bench press",
-                                numberOfSets: 4,
-                            },
-                            {
-                                exerciseOrder: 2,
-                                exerciseName: "Incline bench press",
-                                numberOfSets: 4,
-                            },
-                            {
-                                exerciseOrder: 3,
-                                exerciseName: "Dumbbell flyes",
-                                numberOfSets: 4,
-                            }
-                        ]}
+                        rows={popupRows}
                     />
 
                     <TranslatedPopupNameAndDescription
@@ -162,68 +171,20 @@ export default function TemplatesPage() {
                     />
 
                     <div className="presenter-grid presenter-grid--templates">
-                        <TemplatePresenter
-                            id={1}
-                            name="Push day"
-                            description="Routine for push day. Chest, triceps, shoulders. It allows you to gain muscle mass and strength."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={20}
-                            name="Pull day"
-                            description=""
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={2}
-                            name="Pull day"
-                            description="Routine for pull day. Back, biceps. It allows you to gain muscle mass and strength."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={3}
-                            name="Leg day"
-                            description="Routine for leg day. Quadriceps, hamstrings, glutes. It allows you to gain muscle mass and strength."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={4}
-                            name="Full body"
-                            description="Routine for full body. Chest, back, legs, shoulders, arms. It allows you to gain muscle mass and strength."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={5}
-                            name="Cardio"
-                            description="Routine for cardio. It allows you to improve your cardiovascular system."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
-
-                        <TemplatePresenter
-                            id={6}
-                            name="Mobility"
-                            description="Routine for mobility. It allows you to improve your flexibility and mobility."
-                            onMouseEnter={handleMouseEntersTemplate}
-                            onMouseLeave={handleMouseLeavesTemplate}
-                            onClickEdit={handleClickShowPopupEdit}
-                        />
+                        {
+                            availableTemplates.map((template) => (
+                                <TemplatePresenter
+                                    key={template.id}
+                                    id={template.id}
+                                    name={template.name}
+                                    description={template.description}
+                                    isCommonTemplate={template.isCommon}
+                                    onMouseEnter={handleMouseEntersTemplate(template.id)}
+                                    onMouseLeave={handleMouseLeavesTemplate}
+                                    onClickEdit={handleClickShowPopupEdit}
+                                />
+                            ))
+                        }
                     </div>
                 </section>
             </main>

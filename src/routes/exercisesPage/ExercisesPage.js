@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Fuse from "fuse.js";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -46,6 +47,8 @@ export default function ExercisesPage() {
     const [exerciseIdToDelete, setExerciseIdToDelete] = useState('');
     const [exerciseIdToEdit, setExerciseIdToEdit] = useState('');
     const [arrowClassModifier, setArrowClassModifier] = useState('top-left');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [fuse, setFuse] = useState(null);
     // This is a flag for calling different functions when the popup is accepted
     // (Create new exercise, edit exercise, etc.)
     const [callerShowingPopup, setCallerShowingPopup] = useState('');
@@ -58,10 +61,34 @@ export default function ExercisesPage() {
         }
     }, [user]);
 
+    useEffect(() => {
+        // Fuse config
+        const avExercises = [...userExercises, ...commonExercises];
+
+        const fuseInstance = new Fuse(avExercises, {
+            keys: ['name'],
+            threshold: 0.1,
+        });
+
+        setFuse(fuseInstance);
+    }, [userExercises, commonExercises]);
 
     useEffect(() => {
-        setAvailableExercises([...userExercises, ...commonExercises]);
-    }, [userExercises, commonExercises]);
+        const avExercises = [...userExercises, ...commonExercises];
+
+
+        if (searchTerm.trim() === '') {
+            setAvailableExercises(avExercises);
+            return;
+        }
+
+        // Filter exercises according search term
+        if (fuse) {
+            const filteredExercises = fuse.search(searchTerm).map(result => result.item);
+            setAvailableExercises(filteredExercises);
+        }
+
+    }, [userExercises, commonExercises, searchTerm]);
 
     const handleClickShowNameDescPopup = caller => exerciseId => (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
@@ -163,6 +190,7 @@ export default function ExercisesPage() {
 
                     <TranslatedSearchBar
                         extraClasses="exercises-page__search-bar"
+                        parentSearchSetterFunction={setSearchTerm}
                     />
                     <TranslatedButtonNew
                         extraClasses="exercises-page__button-new"
