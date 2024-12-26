@@ -9,3 +9,9 @@
 .u-margin-top-small {
     margin-top: 2rem;
 }
+
+.u-mouse-pointer-hover {
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -9,6 +9,7 @@
     grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 6rem [spacing-end presenter-start] 1fr [presenter-end];
     grid-row-gap: 2rem;
     grid-column-gap: 8rem;
+    max-height: 100%;
 
     &__exercise-search-bar {
         grid-row: name-start / name-end;
@@ -30,6 +31,8 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
         grid-gap: 2rem;
+
+        overflow-y: scroll;
     }
 
     &__used-exercises-box {
@@ -40,6 +43,9 @@
         grid-template-rows: min-content;
         grid-auto-rows: min-content;
         grid-gap: 2rem;
+
+        // TODO uncomment when implementing
+        // overflow-y: scroll;
     }
 
     &__input-box {

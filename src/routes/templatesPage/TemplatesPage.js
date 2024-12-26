@@ -13,6 +13,7 @@ import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesr
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 
 import { selectUser } from "../../features/user/userSlice";
+import { selectUserExercises, selectCommonExercises } from "../../features/exercises/exercisesSlice";
 import {
     selectUserTemplates,
     selectCommonTemplates,
@@ -53,6 +54,12 @@ export default function TemplatesPage() {
     // state for available templates
     const [availableTemplates, setAvailableTemplates] = useState([]);
 
+    // state for available exercises
+    const userExercises = useSelector(selectUserExercises);
+    const commonExercises = useSelector(selectCommonExercises);
+
+    const [availableExercises, setAvailableExercises] = useState([]);
+
     // State for templates search bar
     const [searchTemplateTerm, setSearchTemplateTerm] = useState('');
     const [fuse, setFuse] = useState(null);
@@ -88,6 +95,13 @@ export default function TemplatesPage() {
         }
 
     }, [userTemplates, commonTemplates, searchTemplateTerm]);
+
+    // Compute available exercises
+    useEffect(() => {
+        const avExercises = [...userExercises, ...commonExercises];
+
+        setAvailableExercises(avExercises);
+    }, [userExercises, commonExercises]);
 
     // Handlers for preview popup
     const handleMouseLeavesTemplate = (event) => {
@@ -168,7 +182,9 @@ export default function TemplatesPage() {
                         >
                             <ion-icon name="close-outline" className="templates-page__close-new-template-icon"></ion-icon>
                         </figure>
-                        <TranslatedTemplateCreator />
+                        <TranslatedTemplateCreator
+                            exercisesData={availableExercises}
+                        />
                     </div>
 
                     <PopupRows

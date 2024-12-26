@@ -206,6 +206,10 @@ body {
   margin-top: 2rem;
 }
 
+.u-mouse-pointer-hover:hover {
+  cursor: pointer;
+}
+
 .hero {
   position: relative;
   z-index: 10;
@@ -1985,6 +1989,7 @@ body {
   grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 6rem [spacing-end presenter-start] 1fr [presenter-end];
   grid-row-gap: 2rem;
   grid-column-gap: 8rem;
+  max-height: 100%;
 }
 .template-creator__exercise-search-bar {
   grid-row: name-start/name-end;
@@ -2003,6 +2008,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   grid-gap: 2rem;
+  overflow-y: scroll;
 }
 .template-creator__used-exercises-box {
   grid-column: templates-start/templates-end;
