@@ -1,6 +1,5 @@
 @use "../abstracts/" as *;
 
-// TODO Create invalid state for the user to know when they can create the template
 .button-icon-and-text {
     display: flex;
     flex-wrap: wrap;
@@ -22,6 +21,16 @@
 
     &:active {
         background-color: $color-primary-dark;
+    }
+
+    &--disabled {
+        background-color: $color-grey-light-1;
+        color: $color-grey-light-3;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: $color-grey-light-1;
+        }
     }
 
     &__ion-icon-box {

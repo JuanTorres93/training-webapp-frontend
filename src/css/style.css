@@ -2091,6 +2091,14 @@ body {
 .button-icon-and-text:active {
   background-color: #03B670;
 }
+.button-icon-and-text--disabled {
+  background-color: #c3c6c4;
+  color: #f1f4f2;
+  cursor: not-allowed;
+}
+.button-icon-and-text--disabled:hover {
+  background-color: #c3c6c4;
+}
 .button-icon-and-text__ion-icon-box {
   display: flex;
   align-items: center;

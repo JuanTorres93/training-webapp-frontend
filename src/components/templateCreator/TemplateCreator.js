@@ -14,10 +14,14 @@ const TemplateCreator = ({
     createTemplateText,
     placeholderSets,
     exercisesData,
+    newTemplateDispatchGenerator = () => {
+        return (templateName, templateDescription, exercisesInTemplate) => { return new Promise((resolve, reject) => { }) }
+    },
 }) => {
     const [newTemplateName, setNewTemplateName] = useState('');
     const [newTemplateDescription, setNewTemplateDescription] = useState('');
     const [newTemplateExercises, setNewTemplateExercises] = useState([]);
+    const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState('');
     const [availableExercises, setAvailableExercises] = useState([]);
@@ -53,6 +57,16 @@ const TemplateCreator = ({
 
     }, [availableExercises, searchTerm]);
 
+    useEffect(() => {
+        // TODO add condition to check valid sets for every exercise
+        if (newTemplateName.trim() === '' || newTemplateExercises.length === 0) {
+            setConfirmButtonEnabled(false);
+            return;
+        }
+
+        setConfirmButtonEnabled(true);
+    }, [newTemplateName, newTemplateDescription, newTemplateExercises]);
+
     const selectExerciseForNewTemplate = (exerciseId) => {
         const exercise = availableExercises.find(exercise => exercise.id === exerciseId);
 
@@ -64,16 +78,34 @@ const TemplateCreator = ({
         setAvailableExercises(availableExercises.filter(exercise => exercise.id !== exerciseId));
     };
 
-    const removeExerciseFromNewTemplate = (exerciseId) => {
-        const exercise = newTemplateExercises.find(exercise => exercise.id === exerciseId);
+    const removeExerciseFromNewTemplate = (exercisesIds) => {
+        const idsToRemove = Array.isArray(exercisesIds) ? exercisesIds : [exercisesIds];
 
-        if (!exercise) {
+        const exercisesToRemove = newTemplateExercises.filter(exercise => idsToRemove.includes(exercise.id));
+
+        if (exercisesToRemove.length === 0) {
             return;
         }
 
-        setAvailableExercises([exercise, ...availableExercises]);
-        setNewTemplateExercises(newTemplateExercises.filter(exercise => exercise.id !== exerciseId));
+        setAvailableExercises([...exercisesToRemove, ...availableExercises]);
+        setNewTemplateExercises(newTemplateExercises.filter(exercise => !idsToRemove.includes(exercise.id)));
     }
+
+    const createNewTemplate = async () => {
+        const dispatchAction = newTemplateDispatchGenerator();
+        try {
+            const borrar = await dispatchAction(newTemplateName, newTemplateDescription, newTemplateExercises);
+            // clean up
+            setNewTemplateName('');
+            setNewTemplateDescription('');
+            const exercisesIdToReturn = newTemplateExercises.map(exercise => {
+                return exercise.id;
+            });
+            removeExerciseFromNewTemplate(exercisesIdToReturn);
+        } catch (error) {
+
+        }
+    };
 
     return (
         <div className="template-creator">
@@ -137,6 +169,8 @@ const TemplateCreator = ({
                 ionIcon={<ion-icon name="checkmark-outline"></ion-icon>}
                 text={createTemplateText}
                 extraClasses="template-creator__confirm-button"
+                onClick={createNewTemplate}
+                disabled={!confirmButtonEnabled}
             />
 
             <div className="template-creator__separator template-creator__separator--used-exercises separator-text-between-lines">{usedExercisesText}</div>
@@ -148,6 +182,8 @@ const TemplateCreator = ({
                             key={exercise.id}
                             id={exercise.id}
                             orderInTemplate={index + 1}
+                            exercisesInTemplate={newTemplateExercises}
+                            exercisesInTemplateSetter={setNewTemplateExercises}
                             extraClasses="exercise-presenter--creating-template"
                             name={exercise.name}
                             description={exercise.description}

@@ -13,8 +13,8 @@ import {
     selectCommonExercises,
     selectExercisesInNewTemplate,
     selectExercisesLoading,
-    addExerciseToTemplate,
-    removeExerciseFromTemplate,
+    // addExerciseToTemplate,
+    // removeExerciseFromTemplate,
     deleteExercise,
 } from "../../features/exercises/exercisesSlice";
 
@@ -64,11 +64,11 @@ export default function CreateTemplatePage() {
     }, [user, navigate]);
 
     const handleSelectExercise = (exerciseInfo) => {
-        dispatch(addExerciseToTemplate(exerciseInfo));
+        // dispatch(addExerciseToTemplate(exerciseInfo));
     };
 
     const handleRemoveExercise = (exerciseId) => {
-        dispatch(removeExerciseFromTemplate(exerciseId));
+        // dispatch(removeExerciseFromTemplate(exerciseId));
     };
 
     const handleDeleteExerciseFromDb = ({ id }) => {
@@ -98,7 +98,7 @@ export default function CreateTemplatePage() {
                 e.target["template-name"].value = '';
                 e.target["template-description"].value = '';
                 selectedExercises.forEach(exercise => {
-                    dispatch(removeExerciseFromTemplate(exercise.id));
+                    // dispatch(removeExerciseFromTemplate(exercise.id));
                 });
 
                 const newTemplate = action.payload;

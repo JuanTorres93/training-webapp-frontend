@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 const ExercisePresenterV2 = ({
     id,
     name,
@@ -5,11 +7,43 @@ const ExercisePresenterV2 = ({
     isCommon = false,
     placeholderSets = "Sets",
     orderInTemplate = null, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
+    exercisesInTemplate = [], // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
+    exercisesInTemplateSetter = () => { }, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
     extraClasses = "",
     onClickEdit = () => { },
     onClickDelete = () => { },
     onClickRemoveFromTemplate = () => { },
 }) => {
+    const [numberOfSets, setNumberOfSets] = useState(1);
+
+    const updateSetsInTemplate = (newSets) => {
+        if (orderInTemplate !== null) {
+            const exerciseInTemplate = exercisesInTemplate.find(exercise => exercise.id === id);
+            if (exerciseInTemplate && /^-?\d+$/.test(newSets)) {
+                const sets = parseInt(newSets);
+
+                const updatedExercise = { ...exerciseInTemplate };
+                updatedExercise.sets = sets;
+
+                // make a copy of exercisesInTemplate, update the exercise and set it
+                const updatedExercises = [...exercisesInTemplate];
+                const index = updatedExercises.findIndex(exercise => exercise.id === id);
+                updatedExercises[index] = updatedExercise;
+                exercisesInTemplateSetter(updatedExercises);
+            }
+        }
+    };
+
+    const handleSetsChange = (event) => {
+        const value = event.target.value;
+        setNumberOfSets(value);
+        updateSetsInTemplate(value);
+    };
+
+    useEffect(() => {
+        updateSetsInTemplate(numberOfSets);
+    }, [orderInTemplate]);
+
     return (
         <div className={`exercise-presenter ${isCommon ? 'exercise-presenter--no-actions' : ''} ${extraClasses}`}>
             {orderInTemplate !== null && (
@@ -39,6 +73,8 @@ const ExercisePresenterV2 = ({
                     {/* TODO validate only integers */}
                     <input
                         className="base-input-text integer-input"
+                        onChange={handleSetsChange}
+                        value={numberOfSets}
                         type="number"
                         placeholder={placeholderSets}
                         max={99}

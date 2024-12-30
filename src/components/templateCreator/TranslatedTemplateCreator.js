@@ -2,7 +2,10 @@ import TemplateCreator from "./TemplateCreator";
 
 import { useTranslation } from "react-i18next";
 
-const TranslatedTemplateCreator = ({ exercisesData }) => {
+const TranslatedTemplateCreator = ({
+    exercisesData,
+    newTemplateDispatchGenerator,
+}) => {
     const { t } = useTranslation();
     const nameLabel = t("template-creator-name-label");
     const descriptionLabel = t("template-creator-description-label");
@@ -20,6 +23,7 @@ const TranslatedTemplateCreator = ({ exercisesData }) => {
             createTemplateText={createTemplateText}
             placeholderSets={placeholderSets}
             exercisesData={exercisesData}
+            newTemplateDispatchGenerator={newTemplateDispatchGenerator}
         />
     );
 };

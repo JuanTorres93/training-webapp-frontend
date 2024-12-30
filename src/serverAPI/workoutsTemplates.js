@@ -5,10 +5,10 @@ import { serverBaseURL } from "./serverAPIConfig";
 const endpoint = serverBaseURL + '/workouts/templates';
 
 
-export async function createTemplate({ userId, alias, description }) {
+export async function createTemplate({ userId, name, description }) {
     const body = {
         userId,
-        alias,
+        name,
         description,
     };
 

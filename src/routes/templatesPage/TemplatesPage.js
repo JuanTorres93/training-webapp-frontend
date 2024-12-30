@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Fuse from "fuse.js";
 
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
@@ -13,11 +13,20 @@ import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesr
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 
 import { selectUser } from "../../features/user/userSlice";
-import { selectUserExercises, selectCommonExercises } from "../../features/exercises/exercisesSlice";
 import {
+    selectUserExercises,
+    selectCommonExercises,
+    removeExerciseFromTemplate,
+} from "../../features/exercises/exercisesSlice";
+import {
+    createWorkoutTemplate,
+    getAllUserCreatedTemplates,
     selectUserTemplates,
     selectCommonTemplates,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+
+// TODO refactor and include in slice for exercises?
+import { addExerciseToTemplate as addExerciseToTemplateInDb } from "../../serverAPI/workoutsTemplates";
 
 import {
     positionPopup,
@@ -30,6 +39,7 @@ export default function TemplatesPage() {
     const userTemplates = useSelector(selectUserTemplates);
     const commonTemplates = useSelector(selectCommonTemplates);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (!user) {
@@ -161,6 +171,69 @@ export default function TemplatesPage() {
         showPopup(setShowPopupNewTemplate);
     };
 
+    const createDispatchNewTemplate = () => {
+        return (templateName, templateDescription, exercisesInTemplate) => {
+            // Create the template object
+            const createTemplateBodyRequest = {
+                userId: user.id,
+                name: templateName,
+                description: templateDescription ? templateDescription : '',
+            };
+
+            // Create the template in the backend
+            // Dispatch the action to create the template. Handle any errors and clean form if success
+            // Return as promise to be able to wait for it and do a clean up
+            return new Promise((resolve, reject) => {
+                dispatch(createWorkoutTemplate(createTemplateBodyRequest))
+                    .then((action) => {
+                        const newTemplate = action.payload;
+                        const promises = [];
+
+                        let exerciseOrder = 1;
+
+                        exercisesInTemplate.forEach(exercise => {
+                            const addExercisesToTemplateInfo = {
+                                templateId: newTemplate.id,
+                                exerciseId: exercise.id,
+                                exerciseOrder: exerciseOrder,
+                                exerciseSets: exercise.sets,
+                            };
+
+                            exerciseOrder++;
+
+                            promises.push(
+                                addExerciseToTemplateInDb(addExercisesToTemplateInfo)
+                            );
+                        });
+
+                        // Wait for promises to resolve and handle them
+                        Promise.all(promises)
+                            .then(() => {
+                                // Update workout list
+                                dispatch(getAllUserCreatedTemplates({ userId: user.id })).then(() => {
+                                    resolve({
+                                        msg: 'Template created successfully',
+                                    });
+                                });
+                            })
+                            .catch((error) => {
+                                reject({
+                                    msg: 'Error adding exercises to template',
+                                    error,
+                                });
+                            });
+
+                    })
+                    .catch((error) => {
+                        reject({
+                            msg: 'Error creating template',
+                            error,
+                        });
+                    });
+            });
+        }
+    }
+
     return (
         // TODO include new template popup both its set function and class
         <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopupEdit, ["hydrated"]) }}>
@@ -184,6 +257,7 @@ export default function TemplatesPage() {
                         </figure>
                         <TranslatedTemplateCreator
                             exercisesData={availableExercises}
+                            newTemplateDispatchGenerator={createDispatchNewTemplate}
                         />
                     </div>
 

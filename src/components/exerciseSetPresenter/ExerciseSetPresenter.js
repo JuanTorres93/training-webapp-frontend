@@ -5,13 +5,13 @@ import stylesExercisePresenter from './../exercisePresenter/ExercisePresenter.mo
 
 import styles from './ExerciseSetPresenter.module.css'
 
-import { updateExerciseSets } from '../../features/exercises/exercisesSlice';
+// import { updateExerciseSets } from '../../features/exercises/exercisesSlice';
 
 function ExerciseSetPresenter({ id, name, description, handleClick = () => { } }) {
     const dispatch = useDispatch();
 
     const handleUpdateSets = (sets) => {
-        dispatch(updateExerciseSets({ id, sets }));
+        // dispatch(updateExerciseSets({ id, sets }));
     };
 
     return (
