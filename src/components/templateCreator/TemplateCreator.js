@@ -109,14 +109,14 @@ const TemplateCreator = ({
 
     return (
         <div className="template-creator">
+            {/* TODO Better indication and positioning of exercises search bar */}
             <TranslatedSearchBar
                 extraClasses="template-creator__exercise-search-bar"
                 parentSearchSetterFunction={setSearchTerm}
             />
-            <TranslatedButtonNew
+            {/* <TranslatedButtonNew
                 extraClasses="template-creator__exercise-button-new"
-            // onClick={handleClickShowPopup}
-            />
+            /> */}
 
             <div className="template-creator__separator template-creator__separator--available-exercises separator-text-between-lines">{availableExercisesText}</div>
 

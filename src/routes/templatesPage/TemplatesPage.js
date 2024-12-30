@@ -124,9 +124,36 @@ export default function TemplatesPage() {
     };
 
     const handleMouseEntersTemplate = templateId => (event) => {
+        // Get template exercises
+        const template = availableTemplates.find(t => t.id === templateId);
+        const templateExercises = template.exercises.map((exercise, index) => ({
+            exerciseOrder: exercise.order,
+            exerciseName: exercise.name,
+            numberOfSets: exercise.sets,
+        }));
+        setPopupRows(templateExercises);
+
+        // Position popup
         const upperLeft = { x: -10, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = upperLeft;
-        const lowerLeft = { x: -10, y: -440, arrowClassModifier: 'bottom-left' };
+
+        // compensate for the popup height when different number of exercises in the lower part
+        const numberOfExercises = template.exercises.length;
+        const heighStep = 40;
+
+        const referenceNumberOfExercises = 4;
+        const exercisesDifference = Math.abs(referenceNumberOfExercises - numberOfExercises);
+
+        let extraLowerOffset = 0;
+        if (numberOfExercises > referenceNumberOfExercises) {
+            // Rise the popup
+            extraLowerOffset = -heighStep * exercisesDifference;
+        } else if (numberOfExercises < referenceNumberOfExercises) {
+            // Lower the popup
+            extraLowerOffset = heighStep * exercisesDifference;
+        }
+
+        const lowerLeft = { x: -10, y: -440 + extraLowerOffset, arrowClassModifier: 'bottom-left' };
         const lowerRight = lowerLeft;
 
         positionPopup(
@@ -139,16 +166,7 @@ export default function TemplatesPage() {
             lowerRight
         );
 
-        // Get template exercises
-
-        const template = availableTemplates.find(t => t.id === templateId);
-        const templateExercises = template.exercises.map((exercise, index) => ({
-            exerciseOrder: exercise.order,
-            exerciseName: exercise.name,
-            numberOfSets: exercise.sets,
-        }));
-        setPopupRows(templateExercises);
-
+        // Show popup
         setShowPopupRow(true);
     };
 
@@ -156,7 +174,6 @@ export default function TemplatesPage() {
     const handleClickShowPopupEdit = (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
-        // TODO compensate for the popup height when different number of exercises in the lower part
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
         const lowerRight = { x: -348, y: -265, arrowClassModifier: 'bottom-right' };
 
