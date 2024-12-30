@@ -89,9 +89,9 @@ export async function addFinishDateToWorkout({ workoutId }) {
     return response.data;
 };
 
-export async function getWorkoutsIdsAssociatedWithTemplateAndUser({ templateName }) {
+export async function getWorkoutsIdsAssociatedWithTemplateAndUser({ templateId }) {
     // User is checked in the backend with the login
-    const ep = `${END_POINT}/all/${templateName}`;
+    const ep = `${END_POINT}/all/${templateId}`;
     const response = await apiClient.get(ep, {
         withCredentials: true,
     });

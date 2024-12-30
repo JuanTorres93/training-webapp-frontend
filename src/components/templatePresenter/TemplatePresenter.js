@@ -6,7 +6,7 @@ const TemplatePresenter = ({
     onMouseEnter = () => { },
     onMouseLeave = () => { },
     onClickEdit = () => { },
-    // TODO add onClickDelete
+    onClickDelete = () => { },
 }) => {
     return (
         <div
@@ -27,6 +27,7 @@ const TemplatePresenter = ({
                 <div
                     className="template-presenter__icon-box template-presenter__icon-box--delete"
                     enabled={isCommonTemplate ? 'false' : 'true'}
+                    onClick={onClickDelete}
                 >
                     <ion-icon name="trash-outline"></ion-icon>
                 </div>

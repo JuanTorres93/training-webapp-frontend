@@ -94,7 +94,7 @@ const TemplateCreator = ({
     const createNewTemplate = async () => {
         const dispatchAction = newTemplateDispatchGenerator();
         try {
-            const borrar = await dispatchAction(newTemplateName, newTemplateDescription, newTemplateExercises);
+            await dispatchAction(newTemplateName, newTemplateDescription, newTemplateExercises);
             // clean up
             setNewTemplateName('');
             setNewTemplateDescription('');
@@ -103,7 +103,7 @@ const TemplateCreator = ({
             });
             removeExerciseFromNewTemplate(exercisesIdToReturn);
         } catch (error) {
-
+            console.error(error);
         }
     };
 

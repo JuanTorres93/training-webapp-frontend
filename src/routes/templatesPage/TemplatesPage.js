@@ -11,18 +11,19 @@ import TemplatePresenter from "../../components/templatePresenter/TemplatePresen
 import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
+import DeletePopupOptionOrCancel from "../../components/popupOptionOrCancel/DeletePopupOptionOrCancel";
 
 import { selectUser } from "../../features/user/userSlice";
 import {
     selectUserExercises,
     selectCommonExercises,
-    removeExerciseFromTemplate,
 } from "../../features/exercises/exercisesSlice";
 import {
     createWorkoutTemplate,
     getAllUserCreatedTemplates,
     selectUserTemplates,
     selectCommonTemplates,
+    deleteTemplateFromUser,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 // TODO refactor and include in slice for exercises?
@@ -60,6 +61,10 @@ export default function TemplatesPage() {
     // State for new template popup
     const [showPopupNewTemplate, setShowPopupNewTemplate] = useState(false);
     const [popupRows, setPopupRows] = useState([]);
+
+    // State for delete popup
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [templateIdToDelete, setTemplateIdToDelete] = useState('');
 
     // state for available templates
     const [availableTemplates, setAvailableTemplates] = useState([]);
@@ -151,6 +156,7 @@ export default function TemplatesPage() {
     const handleClickShowPopupEdit = (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
+        // TODO compensate for the popup height when different number of exercises in the lower part
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
         const lowerRight = { x: -348, y: -265, arrowClassModifier: 'bottom-right' };
 
@@ -164,6 +170,22 @@ export default function TemplatesPage() {
             lowerRight
         );
         setShowPopupEdit(true);
+    };
+
+    // delete template functionallity
+
+    const handleClickShowDeletePopup = templateId => (event) => {
+        setTemplateIdToDelete(templateId);
+        setShowDeletePopup(true);
+    };
+
+    const generateDeleteTemplateDispatch = (e) => {
+        return async () => {
+            dispatch(deleteTemplateFromUser({ templateId: templateIdToDelete })).then(() => {
+                setTemplateIdToDelete('');
+                hidePopup(setShowDeletePopup);
+            });
+        }
     };
 
     // Handlers for edit popup
@@ -269,6 +291,14 @@ export default function TemplatesPage() {
                         rows={popupRows}
                     />
 
+                    {/* POPUP for deleting templates */}
+                    <DeletePopupOptionOrCancel
+                        visibility={showDeletePopup ? 'visible' : 'hidden'}
+                        handleCancel={() => hidePopup(setShowDeletePopup)}
+                        handleOption={generateDeleteTemplateDispatch}
+                        subtitle={templateIdToDelete ? availableTemplates.find(template => template.id === templateIdToDelete).name : ''}
+                    />
+
                     <TranslatedPopupNameAndDescription
                         arrowClassModifier={arrowClassModifierPopupEdit}
                         visibility={showPopupEdit ? 'visible' : 'hidden'}
@@ -301,6 +331,7 @@ export default function TemplatesPage() {
                                     onMouseEnter={handleMouseEntersTemplate(template.id)}
                                     onMouseLeave={handleMouseLeavesTemplate}
                                     onClickEdit={handleClickShowPopupEdit}
+                                    onClickDelete={handleClickShowDeletePopup(template.id)}
                                 />
                             ))
                         }

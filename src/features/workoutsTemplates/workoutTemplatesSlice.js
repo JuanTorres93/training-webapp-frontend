@@ -116,11 +116,10 @@ export const deleteTemplateFromUser = createAsyncThunk(
     async (arg, thunkAPI) => {
         // arg is an object with the property templateId
 
-        const templateInfo = await getTemplateInfo(arg);
+        const { templateId } = arg;
 
-        const templateName = templateInfo['alias'];
         const workoutIdsresponse = await getWorkoutsIdsAssociatedWithTemplateAndUser({
-            templateName
+            templateId
         });
 
         const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
