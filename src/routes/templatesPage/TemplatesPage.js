@@ -20,6 +20,7 @@ import {
 } from "../../features/exercises/exercisesSlice";
 import {
     createWorkoutTemplate,
+    updateWorkoutTemplate,
     getAllUserCreatedTemplates,
     selectUserTemplates,
     selectCommonTemplates,
@@ -57,6 +58,7 @@ export default function TemplatesPage() {
     const [popupEditPosition, setPopupEditPosition] = useState({ x: 0, y: 0 });
     const [showPopupEdit, setShowPopupEdit] = useState(false);
     const [arrowClassModifierPopupEdit, setArrowClassModifierPopupEdit] = useState('top-left');
+    const [templateIdToEdit, setTemplateIdToEdit] = useState('');
 
     // State for new template popup
     const [showPopupNewTemplate, setShowPopupNewTemplate] = useState(false);
@@ -171,7 +173,7 @@ export default function TemplatesPage() {
     };
 
     // Handlers for edit popup
-    const handleClickShowPopupEdit = (event) => {
+    const handleClickShowPopupEdit = templateId => (event) => {
         const upperLeft = { x: -20, y: 10, arrowClassModifier: 'top-left' };
         const upperRight = { x: -348, y: 10, arrowClassModifier: 'top-right' };
         const lowerLeft = { x: -20, y: -265, arrowClassModifier: 'bottom-left' };
@@ -186,6 +188,8 @@ export default function TemplatesPage() {
             lowerLeft,
             lowerRight
         );
+
+        setTemplateIdToEdit(templateId);
         setShowPopupEdit(true);
     };
 
@@ -208,6 +212,15 @@ export default function TemplatesPage() {
     // Handlers for edit popup
     const handleClickShowPopupNewTemplate = (event) => {
         showPopup(setShowPopupNewTemplate);
+    };
+
+    const handleEditTemplate = (event) => {
+        // Give componente a function to use with its stored values
+        return async (name, description) => {
+            dispatch(updateWorkoutTemplate({ templateId: templateIdToEdit, name, description })).then((response) => {
+                hidePopup(setShowPopupEdit);
+            });
+        };
     };
 
     const createDispatchNewTemplate = () => {
@@ -322,7 +335,7 @@ export default function TemplatesPage() {
                         leftPx={popupEditPosition.x}
                         topPx={popupEditPosition.y}
                         onClose={() => hidePopup(setShowPopupEdit)}
-                        onAccept={() => showPopup(setShowPopupEdit)}
+                        acceptDispatchGenerator={handleEditTemplate}
                     />
 
                     <TranslatedSearchBar
@@ -347,7 +360,7 @@ export default function TemplatesPage() {
                                     isCommonTemplate={template.isCommon}
                                     onMouseEnter={handleMouseEntersTemplate(template.id)}
                                     onMouseLeave={handleMouseLeavesTemplate}
-                                    onClickEdit={handleClickShowPopupEdit}
+                                    onClickEdit={handleClickShowPopupEdit(template.id)}
                                     onClickDelete={handleClickShowDeletePopup(template.id)}
                                 />
                             ))

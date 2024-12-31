@@ -32,12 +32,12 @@ const TemplatePresenter = ({
                     <ion-icon name="trash-outline"></ion-icon>
                 </div>
 
-                <div
+                {/* <div
                     className="template-presenter__icon-box template-presenter__icon-box--duplicate"
                     enabled={isCommonTemplate ? 'false' : 'true'}
                 >
                     <ion-icon name="copy-outline"></ion-icon>
-                </div>
+                </div> */}
 
                 <div
                     className="template-presenter__icon-box template-presenter__icon-box--edit"

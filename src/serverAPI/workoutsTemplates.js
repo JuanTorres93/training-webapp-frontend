@@ -22,6 +22,22 @@ export async function createTemplate({ userId, name, description }) {
     return response.data;
 };
 
+export async function updateTemplate({ templateId, name, description }) {
+    const body = {
+        name,
+        description,
+    };
+
+    const response = await apiClient.put(endpoint + `/${templateId}`, body, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+    });
+
+    return response.data;
+};
+
 export async function addExerciseToTemplate({ templateId, exerciseId, exerciseOrder, exerciseSets }) {
     const body = {
         exerciseId,

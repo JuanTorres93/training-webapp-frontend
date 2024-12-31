@@ -1,8 +1,8 @@
-import { createSelector } from "reselect";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getTemplateInfo } from "../../serverAPI/workoutsTemplates";
 import {
     createTemplate,
+    updateTemplate,
     getAllUserTemplates,
     getCommonTemplates,
     getRecentWorkouts,
@@ -24,6 +24,35 @@ export const createWorkoutTemplate = createAsyncThunk(
         const response = await createTemplate(arg);
 
         response['description'] = response['description'] ? response['description'] : '';
+
+        return response;
+    }
+);
+
+export const updateWorkoutTemplate = createAsyncThunk(
+    `${sliceName}/updateWorkoutTemplate`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties templateId, alias and description
+        // Error is handled from redux state when promise is rejected
+
+        // TODO DRY these ifs
+        if (!arg.description || arg.description.trim() === '') {
+            // Access the state from thunkAPI
+            const state = thunkAPI.getState();
+
+            const template = state[sliceName][sliceName].userCreatedTemplates.find(t => t.id === arg.templateId);
+            arg.description = template.description ? template.description : '';
+        }
+
+        if (!arg.name || arg.name.trim() === '') {
+            // Access the state from thunkAPI
+            const state = thunkAPI.getState();
+
+            const template = state[sliceName][sliceName].userCreatedTemplates.find(t => t.id === arg.templateId);
+            arg.name = template.name ? template.name : '';
+        }
+
+        const response = await updateTemplate(arg);
 
         return response;
     }
@@ -294,6 +323,30 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.rejected, (state, action) => {
+            state.isLoading.pop();
+            state.hasError = true;
+        })
+
+        // Update workout template
+        builder.addCase(updateWorkoutTemplate.pending, (state, action) => {
+            state.isLoading.push(LOADING_FLAG);
+            state.hasError = false;
+        })
+        builder.addCase(updateWorkoutTemplate.fulfilled, (state, action) => {
+            const updatedTemplate = action.payload;
+            const updatedTemplateId = updatedTemplate.id;
+
+            // Update template in user created templates
+            const index = state[sliceName].userCreatedTemplates.findIndex(
+                template => template.id === updatedTemplateId
+            );
+
+            state[sliceName].userCreatedTemplates[index] = updatedTemplate;
+
+            state.isLoading.pop();
+            state.hasError = false;
+        })
+        builder.addCase(updateWorkoutTemplate.rejected, (state, action) => {
             state.isLoading.pop();
             state.hasError = true;
         })

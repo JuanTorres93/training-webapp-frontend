@@ -46,8 +46,27 @@ export const createExercise = createAsyncThunk(
 export const updateExercise = createAsyncThunk(
     `${sliceName}/updateExercise`,
     async (arg, thunkAPI) => {
-        const { exerciseId, name, description } = arg;
         // Error is handled from redux state when promise is rejected
+        let { exerciseId, name, description } = arg;
+
+        // TODO DRY these ifs
+        if (!description || description.trim() === '') {
+            // Access the state from thunkAPI
+            const state = thunkAPI.getState();
+
+            // Get the exercise from the state
+            const exercise = state[sliceName][sliceName].userCreatedExercises.find(exercise => exercise.id === exerciseId);
+            description = exercise.description;
+        }
+
+        if (!name || name.trim() === '') {
+            // Access the state from thunkAPI
+            const state = thunkAPI.getState();
+
+            // Get the exercise from the state
+            const exercise = state[sliceName][sliceName].userCreatedExercises.find(exercise => exercise.id === exerciseId);
+            name = exercise.name;
+        }
         const response = await updateExerciseInDb(exerciseId, name, description);
 
         return response;
