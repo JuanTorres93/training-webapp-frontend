@@ -63,6 +63,28 @@ export default function RunWorkoutPageV2() {
 
     useEffect(calculateTicks(weightGraphContainerRef, setTicksCountYAxis, setTicksCountXAxis), []);
 
+    let exerciseCompleters = [];
+
+    // If last workout does not exist
+    if (!lastWorkout || lastWorkout.exercises.length === 0) {
+        exerciseCompleters = activeTemplate.exercises.map((exercise) => {
+            const rows = Array.from({ length: exercise.sets }, (_, i) => ({
+                setNumber: i + 1,
+                previousWeight: 0,
+                previousReps: 0,
+            }));
+
+            return (
+                <ExerciseCompleterV2
+                    previousData={[]}
+                    ticksCountYAxis={ticksCountYAxis}
+                    exerciseName={exercise.name}
+                    rowsInfo={rows}
+                />
+            );
+        });
+    }
+
     // TODO Datos reales
     const setsData = [
         {
@@ -191,17 +213,8 @@ export default function RunWorkoutPageV2() {
 
                     ref={weightGraphContainerRef}
                 >
-                    <ExerciseCompleterV2
-                        previousData={setsData}
-                        ticksCountYAxis={ticksCountYAxis}
-                        exerciseName={"Bench Press"}
-                    />
-
-                    <ExerciseCompleterV2
-                        previousData={setsData2}
-                        ticksCountYAxis={ticksCountYAxis}
-                        exerciseName={"Squat"}
-                    />
+                    {/* Render exercise completers */}
+                    {exerciseCompleters}
 
                     {/* FINISH BUTTON */}
                     <button className="plain-btn run-workout-page__finish-button">

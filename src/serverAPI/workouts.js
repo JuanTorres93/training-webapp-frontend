@@ -5,9 +5,9 @@ import { serverBaseURL } from "./serverAPIConfig";
 const END_POINT = serverBaseURL + '/workouts';
 
 
-export async function createWorkout({ alias, description }) {
+export async function createWorkout({ templateId, description }) {
     const body = {
-        alias,
+        template_id: templateId,
         description,
     };
 
@@ -23,6 +23,7 @@ export async function createWorkout({ alias, description }) {
 
 export async function getLastWorkoutFromTemplate({ templateId, userId }) {
     const ep = `${END_POINT}/last/${templateId}/user/${userId}`;
+
     const response = await apiClient.get(ep, {
         withCredentials: true,
     });

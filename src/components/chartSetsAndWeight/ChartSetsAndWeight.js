@@ -142,6 +142,10 @@ const ChartSetsAndWeight = ({
             }
         });
 
+        if (points.length === 0) {
+            return null;
+        }
+
         // order points by x
         points.sort((a, b) => a.x - b.x);
 

@@ -7,6 +7,7 @@ const ExerciseCompleterV2 = ({
     previousData,
     ticksCountYAxis,
     exerciseName,
+    rowsInfo = [],
 }) => {
     // previousData is an array of objects with the following structure:
     // [
@@ -22,7 +23,17 @@ const ExerciseCompleterV2 = ({
     //    },
     // ]
 
+    // rowsInfo is an array of objects with the following structure:
+    // [
+    //    {
+    //        setNumber: N,
+    //        previousWeight: W,
+    //        previousReps: R,
+    //    },
+    // ]
+
     return (
+        // TODO TRANSLATE
         <div className="exercise-completer">
             <div className="exercise-completer__exercise-title-box">
                 <h3 className="exercise-completer__exercise-title">
@@ -41,173 +52,34 @@ const ExerciseCompleterV2 = ({
                     reps
                 </div>
 
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
-
-                <div className="exercise-completer__set-number">
-                    1
-                </div>
-                <div className="exercise-completer__weight">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-                <div className="exercise-completer__reps">
-                    {/* TODO and set number to name */}
-                    {/* TODO last session value as placeholder */}
-                    <input
-                        className="base-input-text integer-input exercise-completer__input"
-                        type="number"
-                        name="reps"
-                        placeholder="Reps"
-                    />
-                </div>
+                {/* Rows */}
+                {
+                    rowsInfo && rowsInfo.map((rowInfo, index) => {
+                        return (
+                            <React.Fragment key={index}>
+                                <div className="exercise-completer__set-number">
+                                    {rowInfo.setNumber}
+                                </div>
+                                <div className="exercise-completer__weight">
+                                    <input
+                                        className="base-input-text integer-input exercise-completer__input"
+                                        type="number"
+                                        name="weight"
+                                        placeholder={rowInfo.previousWeight ? new String(rowInfo.previousWeight) : 'Weight'}
+                                    />
+                                </div>
+                                <div className="exercise-completer__reps">
+                                    <input
+                                        className="base-input-text integer-input exercise-completer__input"
+                                        type="number"
+                                        name="reps"
+                                        placeholder="Reps"
+                                    />
+                                </div>
+                            </React.Fragment>
+                        );
+                    })
+                }
             </div>
 
             <div className="exercise-completer__chart-box">

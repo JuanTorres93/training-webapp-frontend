@@ -17,7 +17,7 @@ const LOADING_FLAG = true;
 export const createWorkout = createAsyncThunk(
     `${sliceName}/createWorkout`,
     async (arg, thunkAPI) => {
-        // arg is an object with the properties alias and description
+        // arg is an object with the properties templateId and description
         // Error is handled from redux state when promise is rejected
         const response = await createWorkoutInDb(arg);
 

@@ -19,6 +19,10 @@ import {
     selectCommonExercises,
 } from "../../features/exercises/exercisesSlice";
 import {
+    createWorkout,
+    setLastWorkout,
+} from "../../features/workouts/workoutSlice";
+import {
     createWorkoutTemplate,
     updateWorkoutTemplate,
     getAllUserCreatedTemplates,
@@ -296,7 +300,27 @@ export default function TemplatesPage() {
             // TODO warn user about invalid template
             return
         } else {
-            navigate(`/app/runWorkout/${templateId}`);
+            // I'm not using availableTemplates because it may be filtered
+            const allTemplates = [...userTemplates, ...commonTemplates];
+            const template = allTemplates.find(t => t.id === templateId);
+
+            // Create workout and then redirect to run workout page
+            dispatch(createWorkout({
+                templateId: template.id,
+                // description: template.description ? template.description : '',
+                // TODO modify in some time in the future?
+                description: '',
+            })).then((response) => {
+                const workout = response.payload;
+
+                // TODO NEXT check this dispatch
+                dispatch(setLastWorkout({
+                    templateId: template.id,
+                    userId: user.id,
+                }));
+                navigate(`/app/runWorkout/${templateId}`);
+            });
+
         }
     };
 
