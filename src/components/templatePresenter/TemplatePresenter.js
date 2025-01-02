@@ -3,6 +3,7 @@ const TemplatePresenter = ({
     name,
     description,
     isCommonTemplate = false,
+    onClickStart = () => { },
     onMouseEnter = () => { },
     onMouseLeave = () => { },
     onClickEdit = () => { },
@@ -49,7 +50,10 @@ const TemplatePresenter = ({
             </div>
 
             <div className="template-presenter__start-box">
-                <button className="plain-btn template-presenter__launch-template">
+                <button
+                    className="plain-btn template-presenter__launch-template"
+                    onClick={onClickStart}
+                >
                     TRAIN!
                 </button>
             </div>

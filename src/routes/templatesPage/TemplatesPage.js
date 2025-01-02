@@ -286,6 +286,20 @@ export default function TemplatesPage() {
         }
     }
 
+    // Handle start workout
+    const handleStartWorkout = templateId => (e) => {
+        // check templateId is UUID
+        const uuidRegex = new RegExp(
+            "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        );
+        if (!uuidRegex.test(templateId)) {
+            // TODO warn user about invalid template
+            return
+        } else {
+            navigate(`/app/runWorkout/${templateId}`);
+        }
+    };
+
     return (
         // TODO include new template popup both its set function and class
         <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopupEdit, ["hydrated"]) }}>
@@ -362,6 +376,7 @@ export default function TemplatesPage() {
                                     onMouseLeave={handleMouseLeavesTemplate}
                                     onClickEdit={handleClickShowPopupEdit(template.id)}
                                     onClickDelete={handleClickShowDeletePopup(template.id)}
+                                    onClickStart={handleStartWorkout(template.id)}
                                 />
                             ))
                         }

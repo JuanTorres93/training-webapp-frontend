@@ -8,6 +8,20 @@ const ExerciseCompleterV2 = ({
     ticksCountYAxis,
     exerciseName,
 }) => {
+    // previousData is an array of objects with the following structure:
+    // [
+    //    {
+    //        datetime: new Date("2024-11-14"),
+    //        sets: [
+    //            { set: 1, reps: 10, weight: 60 },
+    //            { set: 2, reps: 10, weight: 60 },
+    //            { set: 3, reps: 9, weight: 60 },
+    //            { set: 4, reps: 9, weight: 60 },
+    //            { set: 5, reps: 8, weight: 60 },
+    //        ],
+    //    },
+    // ]
+
     return (
         <div className="exercise-completer">
             <div className="exercise-completer__exercise-title-box">

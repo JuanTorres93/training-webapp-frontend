@@ -2,21 +2,60 @@ import { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import ExerciseCompleterV2 from "../../components/exerciseCompleter/ExerciseCompleterV2";
 
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    useNavigate,
+    useParams,
+} from "react-router-dom";
 
 import { calculateTicks } from "../../utils/charts";
 import { selectUser } from "../../features/user/userSlice";
+import {
+    // previous RunWorkoutPage.js
+    selectLastWorkout,
+    finishWorkout,
+    // previous StartWorkoutPage.js
+    createWorkout,
+    setLastWorkout,
+    setLastNWorkouts,
+    selectLastNWorkouts,
+    selectWorkoutsLoading,
+} from "../../features/workouts/workoutSlice";
+import {
+    selectActiveTemplate,
+    setActiveTemplate,
+} from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 export default function RunWorkoutPageV2() {
-    const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { templateId } = useParams();
+
+    const user = useSelector(selectUser);
+    const lastWorkout = useSelector(selectLastWorkout);
+    const lastNWorkouts = useSelector(selectLastNWorkouts);
+    const activeTemplate = useSelector(selectActiveTemplate);
 
     useEffect(() => {
         if (!user) {
             navigate("/login");
         }
     }, [user]);
+
+    // set active template
+    useEffect(() => {
+        // check templateId is UUID
+        const uuidRegex = new RegExp(
+            "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+        );
+        if (!uuidRegex.test(templateId)) {
+            // TODO warn user about invalid template
+            navigate("/app/templates");
+        }
+
+        dispatch(setActiveTemplate(templateId));
+    }, [templateId]);
 
     const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
     const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks

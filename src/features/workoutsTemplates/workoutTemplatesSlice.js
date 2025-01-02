@@ -230,15 +230,14 @@ const slice = createSlice({
             recentWorkouts: [], // Stored here instead of in workoutsSlice
             // Because the id of the template is stored
             // and it can be used to fetch the template
-            activeTemplate: null,
+            activeTemplate: {},
         },
         isLoading: [],
         hasError: false,
     },
     reducers: {
         setActiveTemplate: (state, action) => {
-            // Action payload is the template id, it should be 
-            // contained in the userCreatedTemplates array
+            // Action payload is the template id
             const template = state[sliceName].userCreatedTemplates.find(
                 template => template.id === action.payload
             ) || state[sliceName].commonTemplates.find(
