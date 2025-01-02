@@ -317,8 +317,9 @@ export default function TemplatesPage() {
                 dispatch(setLastWorkout({
                     templateId: template.id,
                     userId: user.id,
-                }));
-                navigate(`/app/runWorkout/${templateId}`);
+                })).then((res) => {
+                    navigate(`/app/runWorkout/${templateId}/${workout.id}`);
+                });
             });
 
         }

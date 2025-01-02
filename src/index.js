@@ -97,7 +97,7 @@ const router = createBrowserRouter([
   },
   {
     // TODO add a /:workoutId at the end of the path?
-    path: "/app/runWorkout/:templateId",
+    path: "/app/runWorkout/:templateId/:workoutId",
     element: <RunWorkoutPageV2 />
   },
   {

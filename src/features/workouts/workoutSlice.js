@@ -122,9 +122,9 @@ const slice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
-            activeWorkout: null, // Its exercises property contain the values for each set.
-            lastWorkout: null,   // For showing last values
-            lastNWorkouts: null, // For showing progress
+            activeWorkout: {}, // Its exercises property contain the values for each set.
+            lastWorkout: {},   // For showing last values
+            lastNWorkouts: [], // For showing progress
         },
         isLoading: [],
         hasError: false,
@@ -320,7 +320,7 @@ const slice = createSlice({
 });
 
 // Export selectors
-export const selectActiveWorkout = state => state[sliceName][sliceName].activeTemplate;
+export const selectActiveWorkout = state => state[sliceName][sliceName].activeWorkout;
 export const selectWorkoutsLoading = state => state[sliceName].isLoading.length > 0;
 export const selectWorkoutsError = state => state[sliceName].hasError;
 
