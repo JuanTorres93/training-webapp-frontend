@@ -45,8 +45,11 @@ export default function TranslatedNavVertical() {
     };
 
     useEffect(() => {
+        const activeTemplateExists = Object.keys(activeTemplate).length > 0;
+        const activeWorkoutExists = Object.keys(activeWorkout).length > 0;
+
         // Show Workout nav item when it is needed
-        if (activeTemplate && activeWorkout) {
+        if (activeTemplateExists && activeWorkoutExists) {
             // Only show if there is an active template
             const workoutNavItem = {
                 text: t("nav-app-current-workout"),

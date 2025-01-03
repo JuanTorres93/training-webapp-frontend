@@ -245,7 +245,7 @@ const slice = createSlice({
             );
 
             if (!template) {
-                state[sliceName].activeTemplate = null;
+                state[sliceName].activeTemplate = {};
             } else {
                 state[sliceName].activeTemplate = template;
             }
