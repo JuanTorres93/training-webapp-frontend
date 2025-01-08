@@ -101,7 +101,14 @@ export const finishWorkout = createAsyncThunk(
         // Update finish date
         promises.push(addFinishDateToWorkout({ workoutId: activeWorkout.id }));
 
+        const currentActiveWorkout = {
+            ...thunkAPI.getState()[sliceName][sliceName].activeWorkout,
+        };
+
         try {
+            // Set active workout to empty before promises for user experience
+            thunkAPI.dispatch(slice.actions.clearActiveWorkout());
+
             await Promise.all(promises);
             // Select current user id
             const userId = thunkAPI.getState().user.user.id;
@@ -113,6 +120,8 @@ export const finishWorkout = createAsyncThunk(
 
             return true;
         } catch (error) {
+            // Restore active workout. Currently not working because this action fullfils despite having an error. Maybe due to the try/catch block.
+            thunkAPI.dispatch(slice.actions.restoreActiveWorkout(currentActiveWorkout));
             return false;
         }
     }
@@ -137,45 +146,54 @@ const slice = createSlice({
             const { exerciseId, exerciseOrder, setNumber, weight, reps } = action.payload;
             const { activeWorkout } = state[sliceName];
 
-            if (activeWorkout.exercises.length === 0) {
-                // If there are no exercises, create the first one
-                activeWorkout.exercises = [{
+            // If there are exercises, check if the exercise exists
+            const exerciseIndex = activeWorkout.exercises.findIndex((exercise) => (
+                exercise.id === exerciseId && exercise.order === exerciseOrder
+            ));
+
+            if (exerciseIndex === -1) {
+                // If the exercise does not exist, create it
+                activeWorkout.exercises.push({
                     id: exerciseId,
                     order: exerciseOrder,
                     sets: [{ setNumber, weight, reps }],
-                }];
+                });
             } else {
-                // If there are exercises, check if the exercise exists
-                const exerciseIndex = activeWorkout.exercises.findIndex((exercise) => (
-                    exercise.id === exerciseId && exercise.order === exerciseOrder
-                ));
+                // If the exercise exists, update it
+                const exercise = activeWorkout.exercises[exerciseIndex];
+                const setIndex = exercise.sets.findIndex((set) => set.setNumber === setNumber);
 
-                if (exerciseIndex === -1) {
-                    // If the exercise does not exist, create it
-                    activeWorkout.exercises.push({
-                        id: exerciseId,
-                        order: exerciseOrder,
-                        sets: [{ setNumber, weight, reps }],
-                    });
+                if (setIndex === -1) {
+                    // If the set does not exist, create it
+                    exercise.sets.push({ setNumber, weight, reps });
                 } else {
-                    // If the exercise exists, update it
-                    const exercise = activeWorkout.exercises[exerciseIndex];
-                    const setIndex = exercise.sets.findIndex((set) => set.setNumber === setNumber);
-
-                    if (setIndex === -1) {
-                        // If the set does not exist, create it
-                        exercise.sets.push({ setNumber, weight, reps });
-                    } else {
-                        // If the set exists, update it
-                        exercise.sets[setIndex] = { setNumber, weight, reps };
-                    }
+                    // If the set exists, update it
+                    exercise.sets[setIndex] = { setNumber, weight, reps };
                 }
             }
         },
 
         clearLastWorkout: (state) => {
-            state[sliceName].lastWorkout = null;
-        }
+            state[sliceName].lastWorkout = {};
+        },
+
+        clearActiveWorkoutExercises: (state) => {
+            state[sliceName].activeWorkout.exercises = [];
+        },
+
+        clearActiveWorkout: (state) => {
+            // Right now, used only in this file to clear the active workout when it is finished
+            state[sliceName].activeWorkout = {};
+        },
+
+        restoreActiveWorkout: (state, action) => {
+            // action.payload is an activeWorkoutObject
+
+            // Right now, used only in this file to clear the active workout when
+            // it is finished. It is cleared before the promises are resolved.
+            // This action restores the active workout to the state if they fail.
+            state[sliceName].activeWorkout = action.payload;
+        },
     },
     extraReducers: builder => {
         // Create workout template
@@ -205,12 +223,12 @@ const slice = createSlice({
 
             // if lastWorkout is the deleted workout, clear it
             if (state[sliceName].lastWorkout && state[sliceName].lastWorkout.id === workoutId) {
-                state[sliceName].lastWorkout = null;
+                state[sliceName].lastWorkout = {};
             }
 
             // Same for activeWorkout
             if (state[sliceName].activeWorkout && state[sliceName].activeWorkout.id === workoutId) {
-                state[sliceName].activeWorkout = null;
+                state[sliceName].activeWorkout = {};
             }
 
             state.isLoading.pop();
@@ -308,7 +326,7 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(finishWorkout.fulfilled, (state, action) => {
-            state[sliceName].activeWorkout = null;
+            state[sliceName].activeWorkout = {};
             state.isLoading.pop();
             state.hasError = false;
         })
@@ -331,6 +349,7 @@ export const selectLastNWorkouts = state => state[sliceName][sliceName].lastNWor
 export const {
     updateActiveWorkoutExercise,
     clearLastWorkout,
+    clearActiveWorkoutExercises,
 } = slice.actions;
 
 // Export reducer

@@ -48,6 +48,11 @@ export default function TranslatedNavVertical() {
         const activeTemplateExists = Object.keys(activeTemplate).length > 0;
         const activeWorkoutExists = Object.keys(activeWorkout).length > 0;
 
+
+        // check index of contains runWorkout in navItems
+        const runWorkoutIndex = navItems.findIndex((item) => item.text === t("nav-app-current-workout"));
+
+
         // Show Workout nav item when it is needed
         if (activeTemplateExists && activeWorkoutExists) {
             // Only show if there is an active template
@@ -58,20 +63,28 @@ export default function TranslatedNavVertical() {
                 icon: <ion-icon name="pulse-outline"></ion-icon>,
             };
 
-            // check index of contains runWorkout in navItems
-            const runWorkoutIndex = navItems.findIndex((item) => item.text === t("nav-app-current-workout"));
-
+            // If runWorkout is already in navItems, update it
             if (runWorkoutIndex !== -1) {
                 const newNavItems = [...navItems];
 
                 newNavItems[runWorkoutIndex] = workoutNavItem;
 
                 setNavItems(newNavItems);
-            } else {
+            }
+            // If runWorkout is not in navItems, add it
+            else {
                 const newNavItems = [...navItems];
 
                 setNavItems([...newNavItems, workoutNavItem]);
             }
+        }
+        // If there is no active workout, remove the runWorkout item from the nav
+        else if (runWorkoutIndex !== -1) {
+            const newNavItems = [...navItems];
+
+            newNavItems.splice(runWorkoutIndex, 1);
+
+            setNavItems(newNavItems);
         }
 
     }, [activeTemplate, activeWorkout, user]);

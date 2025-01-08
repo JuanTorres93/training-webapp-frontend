@@ -30,6 +30,11 @@ export async function getLastWorkoutFromTemplate({ templateId, userId }) {
 
     const jsonResponse = response.data;
 
+    // if jsonResponse is empty, return an empty object
+    if (Object.keys(jsonResponse).length === 0) {
+        return {};
+    }
+
     const lastWorkout = {
         ...jsonResponse,
         exercises: jsonResponse.exercises.filter((exercise) => exercise.id !== null),

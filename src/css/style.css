@@ -2208,6 +2208,9 @@ body {
 .exercise-completer__input {
   width: 90%;
 }
+.exercise-completer__input::placeholder {
+  color: #AAADAB;
+}
 .exercise-completer__weight, .exercise-completer__reps {
   display: flex;
   align-items: center;
