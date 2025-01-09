@@ -181,6 +181,16 @@ export default function HomePageV2() {
                 { set: 5, reps: 7, weight: 40 },
             ],
         },
+        {
+            datetime: new Date("2024-11-15"),
+            sets: [
+                { set: 1, reps: 8, weight: 40 },
+                { set: 2, reps: 8, weight: 40 },
+                { set: 3, reps: 7, weight: 40 },
+                { set: 4, reps: 7, weight: 40 },
+                { set: 5, reps: 7, weight: 40 },
+            ],
+        },
     ];
 
     return (

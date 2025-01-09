@@ -8,7 +8,7 @@ const ChartWorkoutVolume = ({
     data,
     valuesInYAxis,
     valuesInXAxis,
-    weightText = "Weight",
+    volumeText = "Volume",
     repsText = "Reps",
     dayText = "Day",
 }) => {
@@ -35,7 +35,7 @@ const ChartWorkoutVolume = ({
     //     },
     // ];
     const colorBad = "#ea704e";
-    const colorImprove = "#00c3d0"; // #2FCA82
+    const colorImprove = "#2FCA82"; // #00c3d0
 
     const formatDate = (date) => {
         return date.toLocaleDateString("default", {
@@ -48,10 +48,11 @@ const ChartWorkoutVolume = ({
     };
 
     const processData = (data) => {
-        const processedData = data.flatMap((dataPoint, dayIndex) => {
+        const processedData = data.flatMap((dataPoint, index) => {
             const formattedDate = formatDate(dataPoint.datetime);
             const processedPoint = {
                 x: formattedDate,
+                index,
             };
 
             const totalVolume = dataPoint.sets.reduce((totalVolume, set) => {
@@ -63,9 +64,15 @@ const ChartWorkoutVolume = ({
             return processedPoint;
         })
 
+        // Add `isLower` field to determine if the value is lower than the previous one
+        const withComparison = processedData.map((point, index, array) => ({
+            ...point,
+            isLower: index > 0 ? point.y < array[index - 1].y : false,
+        }));
+
         // Remove items with same x and keep only the last one
         const uniqueData = Array.from(
-            processedData.reduce((map, item) => map.set(item.x, item), new Map()).values()
+            withComparison.reduce((map, item) => map.set(item.x, item), new Map()).values()
         );
 
         const dataInNivoLineFormat = [
@@ -88,7 +95,16 @@ const ChartWorkoutVolume = ({
         <ResponsiveLine
             data={volumeData}
             curve="monotoneX" // smooth curve instead of straight lines
-            colors="#03B670" // Line color. NOTE: Several colors can be added, or use color schemes
+            // colors="#03B670"
+            colors="#c3c6c4"
+            pointSymbol={(point) => {
+                // Change color of points 
+                const color = point.datum.isLower ? colorBad : colorImprove;
+                return (
+                    <circle cx="0" cy="0" r="5" stroke={color} strokeWidth="2" fill={color} />
+                );
+            }}
+
             margin={{ top: 10, right: 30, bottom: 10, left: 30 }}
             // xScale defines how data is processed, represented and mapped on the X axis. 
             // Its main function is to specify the data type, how the axis is 
@@ -139,26 +155,19 @@ const ChartWorkoutVolume = ({
             //}}
             axisLeft={null}
 
-            //tooltip={({ point }) => {
-            //    // Obtain machine's locale
-            //    const locale = navigator.language || navigator.userLanguage;
+            tooltip={({ point }) => {
+                // Obtain machine's locale
+                const locale = navigator.language || navigator.userLanguage;
 
-            //    // Format date using machine's locale
-            //    const formattedDate = point.data.x.toLocaleDateString(locale, {
-            //        day: '2-digit',
-            //        month: 'short',
-            //        year: 'numeric',
-            //    });
-
-            //    return (
-            //        <div className='tooltip' >
-            //            <span className='tooltip__date'>{formattedDate}</span>
-            //            <p>{weightText}: <span className="tooltip__data">{point.data.y}</span></p>
-            //        </div>
-            //    );
-            //}}
+                return (
+                    <div className='tooltip' >
+                        <span className='tooltip__date'>{point.data.x}</span>
+                        <p>{volumeText}: <span className="tooltip__data">{point.data.y}</span></p>
+                    </div>
+                );
+            }}
             pointSize={10}
-            pointColor={{ theme: 'background' }}
+            // pointColor={{ theme: 'background' }}
             pointBorderWidth={2}
             pointBorderColor={{ from: 'serieColor' }}
             pointLabel="data.yFormatted"
