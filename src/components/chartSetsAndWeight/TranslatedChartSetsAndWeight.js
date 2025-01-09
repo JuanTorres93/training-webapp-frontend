@@ -3,6 +3,7 @@ import ChartSetsAndWeight from "./ChartSetsAndWeight";
 
 const TranslatedChartSetsAndWeight = ({
     data,
+    realTimeData,
     isSmall,
     valuesInYAxis,
 }) => {
@@ -14,6 +15,7 @@ const TranslatedChartSetsAndWeight = ({
     return (
         <ChartSetsAndWeight
             data={data}
+            realTimeData={realTimeData}
             weightText={weightText}
             repsText={repsText}
             dayText={dayText}

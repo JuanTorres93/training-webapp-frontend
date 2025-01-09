@@ -7,12 +7,13 @@ import { ResponsiveBar } from "@nivo/bar";
 const ChartSetsAndWeight = ({
     data,
     valuesInYAxis, // NOTE: cannot do the same in X axis due to line layer
+    realTimeData = [],
     weightText = "Weight",
     repsText = "Reps",
     dayText = "Day",
     isSmall = false,
 }) => {
-    // data comes in this format (an array of objects):
+    // data and realTimeData come in this format (an array of objects ORDERED BY DATE):
     // data = [
     //     {
     //         datetime: new Date("2024-11-10"),
@@ -99,10 +100,11 @@ const ChartSetsAndWeight = ({
     };
 
     useEffect(() => {
-        setBarData(processData(data));
+        const newData = [...data, ...realTimeData];
+        setBarData(processData(newData));
 
         // Calculate max reps in data
-        const maxRepsFinder = data.reduce((maxReps, dataPoint) => {
+        const maxRepsFinder = newData.reduce((maxReps, dataPoint) => {
             const reps = dataPoint.sets.reduce((reps, set) => {
                 return Math.max(reps, set.reps);
             }, 0);
@@ -113,7 +115,7 @@ const ChartSetsAndWeight = ({
         setMaxReps(maxRepsFinder);
 
         // Calculate weight range in data
-        let weightRangeFinder = data.reduce((weightRange, dataPoint) => {
+        let weightRangeFinder = newData.reduce((weightRange, dataPoint) => {
             const weights = dataPoint.sets.map(set => set.weight);
 
             return [
@@ -131,7 +133,7 @@ const ChartSetsAndWeight = ({
         }
 
         setWeightRange(weightRangeFinder);
-    }, [data]);
+    }, [data, realTimeData]);
 
     const LineLayer = ({ bars, yScale }) => {
 

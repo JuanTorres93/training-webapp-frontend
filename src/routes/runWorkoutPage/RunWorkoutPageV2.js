@@ -39,6 +39,10 @@ export default function RunWorkoutPageV2() {
     const lastNWorkouts = useSelector(selectLastNWorkouts);
     const activeTemplate = useSelector(selectActiveTemplate);
 
+    // I'm using this instead of the selector of activeWorkout beacause
+    // it throws an error of max depth for preventing infinite loops
+    const [startDate, setStartDate] = useState(new Date());
+
     useEffect(() => {
         if (!user) {
             navigate("/login");
@@ -100,6 +104,7 @@ export default function RunWorkoutPageV2() {
                     <ExerciseCompleterV2
                         key={exercise.id}
                         previousData={[]}
+                        workoutStartDate={startDate}
                         ticksCountYAxis={ticksCountYAxis}
                         exerciseName={exercise.name}
                         rowsInfo={rows}
@@ -168,6 +173,7 @@ export default function RunWorkoutPageV2() {
                     key={setExerciseInfo[0].id}
                     previousData={previousData}
                     ticksCountYAxis={ticksCountYAxis}
+                    workoutStartDate={startDate}
                     exerciseName={setExerciseInfo[0].name}
                     rowsInfo={rows}
                     dispatchGenerator={generateDispatchForUpdatingWorkout(setExerciseInfo[0].id, setExerciseInfo[0].order)}

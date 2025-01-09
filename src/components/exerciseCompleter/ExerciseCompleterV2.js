@@ -7,6 +7,7 @@ const ExerciseCompleterV2 = ({
     previousData,
     ticksCountYAxis,
     exerciseName,
+    workoutStartDate,
     rowsInfo = [],
     dispatchGenerator = (setNumber, weight, reps) => { },
     // Empty the exercises of the active workout
@@ -51,6 +52,25 @@ const ExerciseCompleterV2 = ({
     // }
 
     const [exerciseData, setExerciseData] = useState({});
+    // State for updating the chart in real time. Is an array for ease of use. Since I
+    // have a function that already works with arrays
+    const [realTimeData, setRealTimeData] = useState([]);
+
+    useEffect(() => {
+        const currentDataPoint = {
+            datetime: workoutStartDate
+        };
+
+        currentDataPoint.sets = Object.keys(exerciseData).map(setNumber => {
+            return {
+                set: parseInt(setNumber),
+                weight: exerciseData[setNumber].weight,
+                reps: exerciseData[setNumber].reps,
+            };
+        });
+
+        setRealTimeData([currentDataPoint]);
+    }, [exerciseData]);
 
     const handleInputChange = type => setNumber => (event) => {
         // type is either 'weight' or 'reps'
@@ -174,6 +194,7 @@ const ExerciseCompleterV2 = ({
             <div className="exercise-completer__chart-box">
                 <TranslatedChartSetsAndWeight
                     data={previousData}
+                    realTimeData={realTimeData}
                     isSmall={true}
                     valuesInYAxis={ticksCountYAxis}
                 />
