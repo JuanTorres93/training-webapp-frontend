@@ -37,13 +37,16 @@ const ChartSetsAndWeight = ({
     const colorWeight = "#ea704e";
 
     const processData = (data) => {
-        return data.flatMap((dataPoint, dayIndex) => {
+        const processedData = data.flatMap((dataPoint, dayIndex) => {
             // At time of development, Nivo can't use time axis
             // for bar charts, so I'm doing here the processing
             // of the format
             const formattedDate = dataPoint.datetime.toLocaleDateString("default", {
                 month: "short",
                 day: "numeric",
+                // TODO remove or format label to show below the month and day
+                hour: "2-digit",
+                minute: "2-digit",
             });
 
             let processedPoint = {
@@ -63,6 +66,13 @@ const ChartSetsAndWeight = ({
 
             return processedPoint;
         })
+
+        // Remove items with same datetime and keep only the last one
+        const uniqueData = Array.from(
+            processedData.reduce((map, item) => map.set(item.datetime, item), new Map()).values()
+        );
+
+        return uniqueData;
     };
 
     const [barData, setBarData] = useState(processData(data));

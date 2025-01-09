@@ -15,9 +15,9 @@ import {
     selectLastWorkout,
     finishWorkout,
     // previous StartWorkoutPage.js
-    createWorkout,
-    setLastWorkout,
-    setLastNWorkouts,
+    // createWorkout, // already used in TemplatePage.js
+    // setLastWorkout, // already used in TemplatePage.js
+    // setLastNWorkouts, // already used in TemplatePage.js
     selectLastNWorkouts,
     selectWorkoutsLoading,
     updateActiveWorkoutExercise,
@@ -135,14 +135,38 @@ export default function RunWorkoutPageV2() {
             }));
 
             // Chart
-            // TODO use data FROM N LAST WORKOUTS
-            const previousData = [];
+            const previousData = lastNWorkouts.map(workout => {
+                const data = {};
 
+                data.datetime = new Date(workout.startDate);
+
+                const previousExercises = workout.exercises.filter((exercise) => {
+                    return exercise.id === setExerciseInfo[0].id;
+                });
+
+                const sets = previousExercises.map((exercise) => {
+                    return {
+                        set: exercise.set,
+                        weight: exercise.weight,
+                        reps: exercise.reps,
+                    }
+                });
+
+                data.sets = sets;
+
+                return data;
+            });
+
+
+            // Order previousData by datetime
+            previousData.sort((a, b) => {
+                return a.datetime - b.datetime;
+            });
 
             return (
                 <ExerciseCompleterV2
                     key={setExerciseInfo[0].id}
-                    previousData={[]}
+                    previousData={previousData}
                     ticksCountYAxis={ticksCountYAxis}
                     exerciseName={setExerciseInfo[0].name}
                     rowsInfo={rows}

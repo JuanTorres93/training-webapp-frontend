@@ -21,6 +21,7 @@ import {
 import {
     createWorkout,
     setLastWorkout,
+    setLastNWorkouts,
 } from "../../features/workouts/workoutSlice";
 import {
     createWorkoutTemplate,
@@ -313,12 +314,17 @@ export default function TemplatesPage() {
             })).then((response) => {
                 const workout = response.payload;
 
-                // TODO NEXT check this dispatch
                 dispatch(setLastWorkout({
                     templateId: template.id,
                     userId: user.id,
-                })).then((res) => {
-                    navigate(`/app/runWorkout/${templateId}/${workout.id}`);
+                })).then(() => {
+                    dispatch(setLastNWorkouts({
+                        templateId: template.id,
+                        userId: user.id,
+                        numberOfWorkouts: 7,
+                    })).then((res) => {
+                        navigate(`/app/runWorkout/${templateId}/${workout.id}`);
+                    })
                 });
             });
 
