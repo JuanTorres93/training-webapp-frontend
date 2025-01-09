@@ -2,7 +2,8 @@ import { jwtDecode } from "jwt-decode";
 import { useState, useEffect, useRef, use } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
-import TranslatedChartSetsAndWeight from "../../components/chartSetsAndWeight/TranslatedChartSetsAndWeight";
+// TODO translate and substitute
+import ChartWorkoutVolume from "../../components/chartWorkoutVolume/ChartWorkoutVolume";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -192,54 +193,45 @@ export default function HomePageV2() {
                             {t('home-page-recent-workouts')}
                         </h3>
                         <span className="home-page__workout-name">
-                            NOMBRE
+                            PUSH
                         </span>
-                        <div>
-                            GRÁFICA SIN DIV
-                        </div>
-
-                        {/* <span className="home-page__workout-name"> */}
-                        {/* PUSH */}
-                        {/* </span> */}
-                        {/* TODO hacer una nueva gráfica para reflejar el progreso de sesiones de entrenamiento enteras. Investigar sobre volumen de entrenamiento? */}
-                        {/* <TranslatedChartSetsAndWeight
+                        <ChartWorkoutVolume
                             data={setsData}
-                            isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
                         />
 
                         <span className="home-page__workout-name">
-                            PULL
+                            PUSH
                         </span>
-                        <TranslatedChartSetsAndWeight
+                        <ChartWorkoutVolume
                             data={setsData}
-                            isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
                         />
+
                         <span className="home-page__workout-name">
                             LEG
                         </span>
-                        <TranslatedChartSetsAndWeight
+                        <ChartWorkoutVolume
                             data={setsData}
-                            isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
                         />
+
                         <span className="home-page__workout-name">
                             Empujes traseros
                         </span>
-                        <TranslatedChartSetsAndWeight
+                        <ChartWorkoutVolume
                             data={setsData}
-                            isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
                         />
+
                         <span className="home-page__workout-name">
                             Empujes frontales y medios
                         </span>
-                        <TranslatedChartSetsAndWeight
+                        <ChartWorkoutVolume
                             data={setsData}
-                            isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
-                        /> */}
+                        />
+
                     </div>
                     <div
                         ref={weightGraphContainerRef}
