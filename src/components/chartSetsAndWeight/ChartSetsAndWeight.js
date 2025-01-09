@@ -36,20 +36,26 @@ const ChartSetsAndWeight = ({
     //     },
     // ];
     const colorWeight = "#ea704e";
+    const colorCurrent = "#00c3d0";
+
+    const [lastIndex, setLastIndex] = useState(0);
+
+    const formatDate = (date) => {
+        return date.toLocaleDateString("default", {
+            month: "short",
+            day: "numeric",
+            // TODO remove or format label to show below the month and day
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+    };
 
     const processData = (data) => {
         const processedData = data.flatMap((dataPoint, dayIndex) => {
             // At time of development, Nivo can't use time axis
             // for bar charts, so I'm doing here the processing
             // of the format
-            const formattedDate = dataPoint.datetime.toLocaleDateString("default", {
-                month: "short",
-                day: "numeric",
-                // TODO remove or format label to show below the month and day
-                hour: "2-digit",
-                minute: "2-digit",
-            });
-
+            const formattedDate = formatDate(dataPoint.datetime);
             let processedPoint = {
                 datetime: formattedDate,
                 dayIndex, // Para usar como posición en el eje X
@@ -101,6 +107,11 @@ const ChartSetsAndWeight = ({
 
     useEffect(() => {
         const newData = [...data, ...realTimeData];
+
+        if (realTimeData.length > 0) {
+            setLastIndex(formatDate(new Date(realTimeData[0].datetime)));
+        }
+
         setBarData(processData(newData));
 
         // Calculate max reps in data
@@ -211,7 +222,10 @@ const ChartSetsAndWeight = ({
             margin={chartMargin}
             padding={0.3}
             innerPadding={10}
-            colors="#2FCA82"
+            // colors="#2FCA82"
+            colors={({ indexValue }) => {
+                return indexValue === lastIndex ? colorCurrent : '#2FCA82';
+            }}
             enableGridY={!isSmall}
             // Show value in bars
             label={(d) => isSmall ? null : d.value}

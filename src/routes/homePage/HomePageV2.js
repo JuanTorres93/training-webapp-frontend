@@ -192,10 +192,17 @@ export default function HomePageV2() {
                             {t('home-page-recent-workouts')}
                         </h3>
                         <span className="home-page__workout-name">
-                            PUSH
+                            NOMBRE
                         </span>
+                        <div>
+                            GRÁFICA SIN DIV
+                        </div>
+
+                        {/* <span className="home-page__workout-name"> */}
+                        {/* PUSH */}
+                        {/* </span> */}
                         {/* TODO hacer una nueva gráfica para reflejar el progreso de sesiones de entrenamiento enteras. Investigar sobre volumen de entrenamiento? */}
-                        <TranslatedChartSetsAndWeight
+                        {/* <TranslatedChartSetsAndWeight
                             data={setsData}
                             isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
@@ -232,7 +239,7 @@ export default function HomePageV2() {
                             data={setsData}
                             isSmall={true}
                             valuesInYAxis={ticksCountYAxis}
-                        />
+                        /> */}
                     </div>
                     <div
                         ref={weightGraphContainerRef}
