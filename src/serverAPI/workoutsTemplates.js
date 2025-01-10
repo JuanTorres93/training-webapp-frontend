@@ -103,7 +103,7 @@ export async function getTemplateInfo({ templateId }) {
     return response.data;
 };
 
-export async function getRecentWorkouts({ userId, numberOfWorkouts = 6 }) {
+export async function getRecentWorkouts({ userId, numberOfWorkouts = 20 }) {
     const response = await apiClient.get(endpoint + `/last/user/${userId}/${numberOfWorkouts}`, {
         withCredentials: true,
     });

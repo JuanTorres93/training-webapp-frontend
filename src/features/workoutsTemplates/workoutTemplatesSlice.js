@@ -10,7 +10,10 @@ import {
     removeExerciseFromTemplate,
     updateExerciseFromTemplate as updateExerciseFromTemplateInDB,
 } from "../../serverAPI/workoutsTemplates";
-import { getWorkoutsIdsAssociatedWithTemplateAndUser } from "../../serverAPI/workouts";
+import {
+    getWorkoutsIdsAssociatedWithTemplateAndUser,
+    getLastNWorkoutsFromTemplate,
+} from "../../serverAPI/workouts";
 import { deleteWorkout, deleteExerciseFromWorkout } from "../workouts/workoutSlice";
 
 export const sliceName = 'workoutTemplates';
@@ -135,8 +138,32 @@ export const getUserRecentWorkouts = createAsyncThunk(
             }
         });
 
+        // Keep only the last 5 unique templates at most
+        if (uniqueTemplates.length > 5) {
+            uniqueTemplates.splice(0, uniqueTemplates.length - 5);
+        }
 
-        return response;
+        // Get last N workouts for each template
+        const lastNWorkoutsPromises = [];
+
+        uniqueTemplates.forEach(template => {
+            lastNWorkoutsPromises.push(
+                getLastNWorkoutsFromTemplate({
+                    templateId: template.id,
+                    userId: arg.userId,
+                    numberOfWorkouts: 10
+                })
+            );
+        });
+
+        const lastNWorkouts = await Promise.all(lastNWorkoutsPromises);
+
+        // lastNWorkouts is an array of arrays of objects . Order by object.startDate, most recent last
+        const sortedLastNWorkouts = lastNWorkouts.map(workouts => {
+            return workouts.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+        });
+
+        return sortedLastNWorkouts;
     }
 );
 
@@ -309,15 +336,7 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(getUserRecentWorkouts.fulfilled, (state, action) => {
-            const templates = action.payload;
-            const recentWorkouts = templates.map(template => {
-                return {
-                    id: template.template_id,
-                    date: template.workout_date,
-                    name: template.workout_name,
-                }
-            });
-            state[sliceName].recentWorkouts = recentWorkouts;
+            state[sliceName].recentWorkouts = action.payload;
             state.isLoading.pop();
             state.hasError = false;
         })

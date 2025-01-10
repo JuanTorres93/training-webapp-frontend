@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { useState, useEffect, useRef, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 // TODO translate and substitute
@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUser, loginUser } from "../../features/user/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+
 import { calculateTicks } from "../../utils/charts";
 
 export default function HomePageV2() {
@@ -17,6 +19,8 @@ export default function HomePageV2() {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+
+    const recentWorkouts = useSelector(selectRecentWorkouts);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -148,51 +152,6 @@ export default function HomePageV2() {
         },
     ];
 
-
-    // TODO Datos reales
-    const setsData = [
-        {
-            datetime: new Date("2024-11-11"),
-            sets: [
-                { set: 1, reps: 7, weight: 30 },
-                { set: 2, reps: 7, weight: 30 },
-                { set: 3, reps: 6, weight: 30 },
-                { set: 4, reps: 6, weight: 30 },
-                { set: 5, reps: 6, weight: 30 },
-            ],
-        },
-        {
-            datetime: new Date("2024-11-12"),
-            sets: [
-                { set: 1, reps: 8, weight: 35 },
-                { set: 2, reps: 8, weight: 35 },
-                { set: 3, reps: 7, weight: 35 },
-                { set: 4, reps: 9, weight: 35 },
-                { set: 5, reps: 6, weight: 35 },
-            ],
-        },
-        {
-            datetime: new Date("2024-11-14"),
-            sets: [
-                { set: 1, reps: 8, weight: 40 },
-                { set: 2, reps: 8, weight: 40 },
-                { set: 3, reps: 8, weight: 40 },
-                { set: 4, reps: 7, weight: 40 },
-                { set: 5, reps: 7, weight: 40 },
-            ],
-        },
-        {
-            datetime: new Date("2024-11-15"),
-            sets: [
-                { set: 1, reps: 8, weight: 40 },
-                { set: 2, reps: 8, weight: 40 },
-                { set: 3, reps: 7, weight: 40 },
-                { set: 4, reps: 7, weight: 40 },
-                { set: 5, reps: 7, weight: 40 },
-            ],
-        },
-    ];
-
     return (
         <div className="behind-app">
             <main className="app-layout">
@@ -202,45 +161,46 @@ export default function HomePageV2() {
                         <h3 className="home-page__dashboard-box-title">
                             {t('home-page-recent-workouts')}
                         </h3>
-                        <span className="home-page__workout-name">
-                            PUSH
-                        </span>
-                        <ChartWorkoutVolume
-                            data={setsData}
-                            valuesInYAxis={ticksCountYAxis}
-                        />
+                        {
+                            recentWorkouts.length > 0 &&
+                            recentWorkouts.map((previousWorkouts) => {
+                                const workoutName = previousWorkouts.length > 0 ? previousWorkouts[0].name : "";
 
-                        <span className="home-page__workout-name">
-                            PUSH
-                        </span>
-                        <ChartWorkoutVolume
-                            data={setsData}
-                            valuesInYAxis={ticksCountYAxis}
-                        />
+                                if (!workoutName) {
+                                    return null;
+                                }
 
-                        <span className="home-page__workout-name">
-                            LEG
-                        </span>
-                        <ChartWorkoutVolume
-                            data={setsData}
-                            valuesInYAxis={ticksCountYAxis}
-                        />
+                                // workout is an array of objects
+                                const setsData = previousWorkouts.map((workout) => {
+                                    const datetime = new Date(workout.startDate);
 
-                        <span className="home-page__workout-name">
-                            Empujes traseros
-                        </span>
-                        <ChartWorkoutVolume
-                            data={setsData}
-                            valuesInYAxis={ticksCountYAxis}
-                        />
+                                    const sets = workout.exercises.map((exercise) => {
+                                        return {
+                                            set: exercise.set,
+                                            reps: exercise.reps,
+                                            weight: exercise.weight,
+                                        };
+                                    });
 
-                        <span className="home-page__workout-name">
-                            Empujes frontales y medios
-                        </span>
-                        <ChartWorkoutVolume
-                            data={setsData}
-                            valuesInYAxis={ticksCountYAxis}
-                        />
+                                    return {
+                                        datetime,
+                                        sets,
+                                    };
+                                });
+
+                                return (
+                                    <React.Fragment>
+                                        <span className="home-page__workout-name">
+                                            {workoutName}
+                                        </span>
+                                        <ChartWorkoutVolume
+                                            data={setsData}
+                                            valuesInYAxis={ticksCountYAxis}
+                                        />
+                                    </React.Fragment>
+                                )
+                            })
+                        }
 
                     </div>
                     <div
