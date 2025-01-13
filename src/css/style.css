@@ -2656,6 +2656,19 @@ body {
 .home-page__weight-button:active {
   background-color: #03B670;
 }
+.home-page__weight-text-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.home-page__current-weight {
+  font-weight: 600;
+  color: #03B670;
+}
+.home-page__current-weight::before {
+  content: " ";
+}
 .home-page__workout-name {
   display: flex;
   align-items: center;

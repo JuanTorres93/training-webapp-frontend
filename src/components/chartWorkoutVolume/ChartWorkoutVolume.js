@@ -6,11 +6,7 @@ import { ResponsiveLine } from "@nivo/line";
 
 const ChartWorkoutVolume = ({
     data,
-    valuesInYAxis,
-    valuesInXAxis,
     volumeText = "Volume",
-    repsText = "Reps",
-    dayText = "Day",
 }) => {
     // data come in this format (an array of objects ORDERED BY DATE):
     // data = [

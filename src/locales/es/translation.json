@@ -104,7 +104,10 @@
     "home-page-todays-weight": "Peso actual",
     "home-page-last-weight-placeholder": "Ayer:",
     "home-page-submit-weight": "Enviar",
+    "home-page-last-weight": "Hoy has registrado un peso de",
+    "home-page-no-weight": "No has registrado tu peso hoy",
     "delete-text": "Borrar",
     "cancel-text": "Cancelar",
-    "delete-popup-title": "¿Estás seguro de que quieres borrar esto?"
+    "delete-popup-title": "¿Estás seguro de que quieres borrar esto?",
+    "extra-volume": "Volumen"
 }

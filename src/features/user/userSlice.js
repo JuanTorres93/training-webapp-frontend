@@ -9,6 +9,8 @@ import {
     getCommonTemplatesForUser,
     getUserRecentWorkouts,
 } from "../workoutsTemplates/workoutTemplatesSlice";
+import { fetchWeightHistory } from "../weights/weightSlice";
+
 import { resetApp } from "../../index";
 
 export const sliceName = 'user';
@@ -46,6 +48,10 @@ export const loginUser = createAsyncThunk(
         }));
         // Get user's recent workouts
         thunkAPI.dispatch(getUserRecentWorkouts({
+            userId
+        }));
+        // Get user's weight history
+        thunkAPI.dispatch(fetchWeightHistory({
             userId
         }));
 

@@ -18,6 +18,7 @@ import userReducer, { sliceName as userName } from '../features/user/userSlice';
 import exerciseReducer, { sliceName as exerciseName } from '../features/exercises/exercisesSlice';
 import templateReducer, { sliceName as templateName } from '../features/workoutsTemplates/workoutTemplatesSlice';
 import workoutReducer, { sliceName as workoutName } from '../features/workouts/workoutSlice';
+import weightReducer, { sliceName as weightName } from '../features/weights/weightSlice';
 
 // Action for restarting the state
 const RESET_STATE = 'RESET_STATE';
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
   [exerciseName]: exerciseReducer,
   [templateName]: templateReducer,
   [workoutName]: workoutReducer,
+  [weightName]: weightReducer,
 });
 
 // Modify rootReducer to handle state reset

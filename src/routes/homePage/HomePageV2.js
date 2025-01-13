@@ -2,8 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
-// TODO translate and substitute
-import ChartWorkoutVolume from "../../components/chartWorkoutVolume/ChartWorkoutVolume";
+import TranslatedChartWorkoutVolume from "../../components/chartWorkoutVolume/TranslatedChartWorkoutVolume";
 
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +10,10 @@ import { selectUser, loginUser } from "../../features/user/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import {
+    selectCurrentWeight,
+    addCurrentDayWeight,
+} from "../../features/weights/weightSlice";
 
 import { calculateTicks } from "../../utils/charts";
 
@@ -21,6 +24,9 @@ export default function HomePageV2() {
     const dispatch = useDispatch();
 
     const recentWorkouts = useSelector(selectRecentWorkouts);
+    const currentWeight = useSelector(selectCurrentWeight);
+
+    const [todaysWeight, setTodaysWeight] = useState('');
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -198,9 +204,9 @@ export default function HomePageV2() {
                                         <span className="home-page__workout-name">
                                             {workoutName}
                                         </span>
-                                        <ChartWorkoutVolume
+                                        <TranslatedChartWorkoutVolume
                                             data={setsData}
-                                            valuesInYAxis={ticksCountYAxis}
+                                        // valuesInYAxis={ticksCountYAxis}
                                         />
                                     </React.Fragment>
                                 )
@@ -229,6 +235,9 @@ export default function HomePageV2() {
                         <form className="home-page__weight-input-form">
                             <input
                                 className="base-input-text integer-input home-page__weight-input"
+                                // TODO add validation?
+                                onChange={(e) => setTodaysWeight(e.target.value)}
+                                value={todaysWeight}
                                 type="number"
                                 id="weight"
                                 name="weight"
@@ -238,9 +247,37 @@ export default function HomePageV2() {
                                 step="0.1"
                                 required
                             />
+
+                            <div className="home-page__weight-text-box">
+                                {
+                                    currentWeight &&
+                                    <p className="home-page__weight-text">
+                                        {t('home-page-last-weight')}
+                                        <span className="home-page__current-weight">
+                                            {currentWeight}
+                                        </span>
+                                    </p>
+                                }
+                                {
+                                    !currentWeight &&
+                                    <p className="home-page__weight-text">
+                                        {t('home-page-no-weight')}
+                                    </p>
+                                }
+                            </div>
                             <button
                                 className="plain-btn home-page__weight-button"
-                                type="submit">
+                                type="submit"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    dispatch(addCurrentDayWeight({
+                                        userId: user.id,
+                                        weight: todaysWeight,
+                                    })).then(() => {
+                                        setTodaysWeight('');
+                                    });
+                                }}
+                            >
                                 {t('home-page-submit-weight')}
                             </button>
                         </form>
