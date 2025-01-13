@@ -170,6 +170,9 @@ export default function HomePageV2() {
                                     return null;
                                 }
 
+
+                                const workoutId = previousWorkouts[0].id ? previousWorkouts[0].id : workoutName;
+
                                 // workout is an array of objects
                                 const setsData = previousWorkouts.map((workout) => {
                                     const datetime = new Date(workout.startDate);
@@ -189,7 +192,9 @@ export default function HomePageV2() {
                                 });
 
                                 return (
-                                    <React.Fragment>
+                                    <React.Fragment
+                                        key={workoutId}
+                                    >
                                         <span className="home-page__workout-name">
                                             {workoutName}
                                         </span>
