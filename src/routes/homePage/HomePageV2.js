@@ -12,6 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import {
     selectCurrentWeight,
+    selectWeightHistory,
     addCurrentDayWeight,
 } from "../../features/weights/weightSlice";
 
@@ -25,8 +26,10 @@ export default function HomePageV2() {
 
     const recentWorkouts = useSelector(selectRecentWorkouts);
     const currentWeight = useSelector(selectCurrentWeight);
+    const weightHistory = useSelector(selectWeightHistory);
 
     const [todaysWeight, setTodaysWeight] = useState('');
+    const [weightDataChart, setWeightDataChart] = useState([]);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -52,111 +55,40 @@ export default function HomePageV2() {
         }
     }, [user]);
 
+    useEffect(() => {
+        if (weightHistory.length > 0) {
+            const data = weightHistory.map((weight) => {
+                return {
+                    x: new Date(weight.date),
+                    y: weight.value,
+                };
+            });
+
+            const weightLine = {
+                // TODO: Add translation. Use: tooltip-weight
+                id: "Weight",
+                data,
+            };
+
+            setWeightDataChart([weightLine]);
+        }
+    }, [weightHistory]);
+
     const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
     const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks
     const weightGraphContainerRef = useRef(null); // Reference to the container
 
     const { t } = useTranslation();
 
-    useEffect(calculateTicks(weightGraphContainerRef, setTicksCountYAxis, setTicksCountXAxis), []);
+    useEffect(
+        calculateTicks(
+            weightGraphContainerRef,
+            setTicksCountYAxis,
+            setTicksCountXAxis,
+            weightHistory.length
+        ),
+        [weightHistory]);
 
-    const data = [
-        {
-            "id": "Weight",
-            "data": [
-                {
-                    "x": new Date("2024-11-01"),
-                    "y": 70.1
-                },
-                {
-                    "x": new Date("2024-11-02"),
-                    "y": 70.4
-                },
-                {
-                    "x": new Date("2024-11-03"),
-                    "y": 70.3
-                },
-                {
-                    "x": new Date("2024-11-04"),
-                    "y": 70.2
-                },
-                {
-                    "x": new Date("2024-11-05"),
-                    "y": 70.6
-                },
-                {
-                    "x": new Date("2024-11-06"),
-                    "y": 70.5
-                },
-                {
-                    "x": new Date("2024-11-07"),
-                    "y": 70.7
-                },
-                {
-                    "x": new Date("2024-11-08"),
-                    "y": 70.8
-                },
-                {
-                    "x": new Date("2024-11-09"),
-                    "y": 70.6
-                },
-                {
-                    "x": new Date("2024-11-10"),
-                    "y": 70.5
-                },
-                {
-                    "x": new Date("2024-11-11"),
-                    "y": 70.7
-                },
-                {
-                    "x": new Date("2024-11-12"),
-                    "y": 70.9
-                },
-                // Create 10 more data points that follow a similar uptrend
-                {
-                    "x": new Date("2024-11-13"),
-                    "y": 71.1
-                },
-                {
-                    "x": new Date("2024-11-14"),
-                    "y": 71.3
-                },
-                {
-                    "x": new Date("2024-11-15"),
-                    "y": 71.5
-                },
-                {
-                    "x": new Date("2024-11-16"),
-                    "y": 71.7
-                },
-                {
-                    "x": new Date("2024-11-17"),
-                    "y": 71.9
-                },
-                {
-                    "x": new Date("2024-11-18"),
-                    "y": 72.1
-                },
-                {
-                    "x": new Date("2024-11-19"),
-                    "y": 72.3
-                },
-                {
-                    "x": new Date("2024-11-20"),
-                    "y": 72.5
-                },
-                {
-                    "x": new Date("2024-11-21"),
-                    "y": 72.7
-                },
-                {
-                    "x": new Date("2024-11-22"),
-                    "y": 72.9
-                },
-
-            ]
-        },
-    ];
 
     return (
         <div className="behind-app">
@@ -221,11 +153,15 @@ export default function HomePageV2() {
                         <h3 className="home-page__dashboard-box-title">
                             {t('home-page-weight-progress')}
                         </h3>
-                        <TranslatedLineGraph
-                            data={data}
-                            valuesInYAxis={ticksCountYAxis}
-                            valuesInXAxis={ticksCountXAxis}
-                        />
+                        {
+                            weightDataChart.length > 0 &&
+                            <TranslatedLineGraph
+                                data={weightDataChart}
+                                valuesInYAxis={ticksCountYAxis}
+                                valuesInXAxis={ticksCountXAxis}
+                            />
+                        }
+                        {/* TODO add loading state and no data text */}
                     </div>
                     <div className="home-page__weight-input-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">

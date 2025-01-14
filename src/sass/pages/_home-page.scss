@@ -108,6 +108,10 @@
         font-size: 1.8rem;
     }
 
+    &__weight-text {
+        text-align: center;
+    }
+
     &__current-weight {
         font-weight: 600;
         color: $color-primary-dark;

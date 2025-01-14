@@ -1,15 +1,32 @@
-export const calculateTicks = (ref, stateSetFunctionYAxis, stateSetFunctionXAxis) => {
+export const calculateTicks = (
+    ref,
+    stateSetFunctionYAxis,
+    stateSetFunctionXAxis,
+    totalValues = null,
+) => {
     // IMPORTANT: This function must be the callback of a useEffect hook (with an empty dependency array?)
     // IMPORTANT: a useRef hook must also be used
 
     return () => {
         // Function to calculate the number of ticks based on the container's height
         const calculateYTicks = (height) => {
-            return Math.max(2, Math.floor(height / 75)); // Add tick every 75px (Nivo may not respect this)
+            const calculatedTicks = Math.max(2, Math.floor(height / 75)); // Add tick every 75px (Nivo may not respect this)
+
+            if (totalValues) {
+                return Math.min(totalValues, calculatedTicks);
+            }
+
+            return calculatedTicks;
         };
 
         const calculateXTicks = (width) => {
-            return Math.max(2, Math.floor(width / 140)); // Add tick every 75px (Nivo may not respect this)
+            const calculatedTicks = Math.max(2, Math.floor(width / 140)); // Add tick every 75px (Nivo may not respect this)
+
+            if (totalValues) {
+                return Math.min(totalValues, calculatedTicks);
+            }
+
+            return calculatedTicks;
         };
 
         const handleResize = (entries) => {

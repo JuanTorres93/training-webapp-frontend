@@ -2662,6 +2662,9 @@ body {
   justify-content: center;
   font-size: 1.8rem;
 }
+.home-page__weight-text {
+  text-align: center;
+}
 .home-page__current-weight {
   font-weight: 600;
   color: #03B670;

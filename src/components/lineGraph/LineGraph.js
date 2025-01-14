@@ -14,6 +14,32 @@ const LineGraph = ({
     // data prop is an array of objects, each object represents a line and
     // has an id and data property. The data property is an array of objects
     // where each object represents a point on the line and has an x and y property.
+    // Example:
+    // data = [
+    //     {
+    //         id: 'weight',
+    //         data: [
+    //             { x: new Date('2021-07-01'), y: 100 },
+    //             { x: new Date('2021-07-02'), y: 101 },
+    //             { x: new Date('2021-07-03'), y: 102 },
+    //         ],
+    //     },
+    //  ];
+
+    if (valuesInXAxis === 2) {
+        // get oldest and newest date
+        const oldestDate = data[0].data[0].x;
+        const newestDate = data[0].data[data[0].data.length - 1].x;
+
+        valuesInXAxis = [oldestDate, newestDate];
+    } else if (valuesInXAxis === 3) {
+        // get oldest, newest and middle date
+        const oldestDate = data[0].data[0].x;
+        const newestDate = data[0].data[data[0].data.length - 1].x;
+        const middleDate = data[0].data[Math.floor(data[0].data.length / 2)].x;
+
+        valuesInXAxis = [oldestDate, middleDate, newestDate];
+    }
 
     return (
         <ResponsiveLine
@@ -45,11 +71,9 @@ const LineGraph = ({
             axisRight={null}
             // axisBottom controls how is VISUALLY drawn and labeled the X axis.
             axisBottom={{
-                // TODO Translate
                 legend: dateText, // Name of the axis
                 legendOffset: 60,
                 format: "%b %d", // format date to show month and day
-                // TODO adjust responsively for them no to overlap
                 tickValues: 'every 2 day',
                 legendPosition: 'middle',
                 ...(valuesInXAxis && { tickValues: valuesInXAxis }), // Show only the values in the array (Or the specified number of values)
