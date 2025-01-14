@@ -17,6 +17,7 @@ const LoginFormV2 = ({
     formDonotHaveAccountText,
     formCreateAccountText,
     handleSubmit = () => { },
+    isLoading = false,
 }) => {
     const [showPass, setShowPass] = useState(false);
 
@@ -38,10 +39,12 @@ const LoginFormV2 = ({
 
                 <div className="login-form__oauth-box">
                     {/* TODO add callback URL to server endpoint for google login */}
-                    <OAuthLoginV2 className="login-form__oauth-button"
+                    <OAuthLoginV2
+                        className="login-form__oauth-button"
                         logo="/images/oauthLogos/google-logo.svg"
                         platformName="Google"
                         callbackURL={googleOAuthURL}
+                        isEnabled={!isLoading}
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}
@@ -49,6 +52,7 @@ const LoginFormV2 = ({
                         logo="/images/oauthLogos/linkedin-logo.svg"
                         platformName="LinkedIn"
                         callbackURL="https://linkedin.com"
+                        isEnabled={!isLoading}
                     />
                 </div>
 

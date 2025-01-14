@@ -14,6 +14,7 @@ import {
     selectCurrentWeight,
     selectWeightHistory,
     addCurrentDayWeight,
+    updateCurrentDayWeight,
 } from "../../features/weights/weightSlice";
 
 import { calculateTicks } from "../../utils/charts";
@@ -88,6 +89,26 @@ export default function HomePageV2() {
             weightHistory.length
         ),
         [weightHistory]);
+
+    const handleTodaysWeightSubmit = (e) => {
+        e.preventDefault();
+
+        if (!currentWeight) {
+            return dispatch(addCurrentDayWeight({
+                userId: user.id,
+                weight: todaysWeight,
+            })).then(() => {
+                setTodaysWeight('');
+            });
+        } else {
+            return dispatch(updateCurrentDayWeight({
+                userId: user.id,
+                weight: todaysWeight,
+            })).then(() => {
+                setTodaysWeight('');
+            });
+        }
+    };
 
 
     return (
@@ -178,7 +199,7 @@ export default function HomePageV2() {
                                 id="weight"
                                 name="weight"
                                 // TODO substitute with real last value
-                                placeholder={t('home-page-last-weight-placeholder') + " 70.9"}
+                                placeholder={t('home-page-last-weight-placeholder') + ` ${weightHistory.length > 0 ? weightHistory[weightHistory.length - 1].value : ''}`}
                                 min="0"
                                 step="0.1"
                                 required
@@ -204,15 +225,7 @@ export default function HomePageV2() {
                             <button
                                 className="plain-btn home-page__weight-button"
                                 type="submit"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    dispatch(addCurrentDayWeight({
-                                        userId: user.id,
-                                        weight: todaysWeight,
-                                    })).then(() => {
-                                        setTodaysWeight('');
-                                    });
-                                }}
+                                onClick={handleTodaysWeightSubmit}
                             >
                                 {t('home-page-submit-weight')}
                             </button>

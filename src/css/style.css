@@ -1493,6 +1493,18 @@ body {
 .oauth-login__text {
   font-size: 1.4rem;
 }
+.oauth-login--disabled {
+  cursor: not-allowed;
+  filter: grayscale(80%);
+  border: none;
+}
+.oauth-login--disabled:hover {
+  border: 1px solid #858886 !important;
+}
+.oauth-login--disabled:active {
+  border: 1px solid #858886;
+  background-color: #f1f4f2;
+}
 
 .button-new {
   display: flex;

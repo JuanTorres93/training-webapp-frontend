@@ -23,6 +23,24 @@ export const addCurrentDayWeight = createAsyncThunk(
     }
 );
 
+export const updateCurrentDayWeight = createAsyncThunk(
+    `${sliceName}/updateCurrentDayWeight`,
+    async (arg, thunkAPI) => {
+        // arg is an object with the properties {userId, weight}
+
+        // get the current date in YYYY-MM-DD format
+        const date = new Date();
+
+        // Error is handled from redux state when promise is rejected
+        const response = await api.updateNewWeight({
+            ...arg,
+            date,
+        });
+
+        return response;
+    }
+);
+
 export const fetchWeightHistory = createAsyncThunk(
     `${sliceName}/fetchWeightHistory`,
     async (arg, thunkAPI) => {
@@ -61,6 +79,26 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(addCurrentDayWeight.rejected, (state, action) => {
+            state.isLoading.pop();
+            state.hasError = true;
+        })
+
+        // Update weight
+        builder.addCase(updateCurrentDayWeight.pending, (state, action) => {
+            state.isLoading.push(LOADING_FLAG);
+            state.hasError = false;
+        })
+        builder.addCase(updateCurrentDayWeight.fulfilled, (state, action) => {
+            state[sliceName].current = action.payload.value;
+            // update weight in history
+            const index = state[sliceName].history.findIndex(
+                entry => entry.date === action.payload.date
+            );
+            state[sliceName].history[index] = action.payload;
+            state.isLoading.pop();
+            state.hasError = false;
+        })
+        builder.addCase(updateCurrentDayWeight.rejected, (state, action) => {
             state.isLoading.pop();
             state.hasError = true;
         })

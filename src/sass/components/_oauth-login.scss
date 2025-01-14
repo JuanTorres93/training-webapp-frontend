@@ -45,4 +45,20 @@
     &__text {
         font-size: 1.4rem;
     }
+
+    &--disabled {
+        cursor: not-allowed;
+
+        filter: grayscale(80%);
+        border: none;
+
+        &:hover {
+            border: 1px solid $color-grey-dark-2 !important;
+        }
+
+        &:active {
+            border: 1px solid $color-grey-dark-2;
+            background-color: $color-grey-light-3;
+        }
+    }
 }
