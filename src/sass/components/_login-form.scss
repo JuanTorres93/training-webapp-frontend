@@ -128,6 +128,25 @@
                 color: transparent;
             }
         }
+
+        &--disabled {
+            cursor: not-allowed;
+            background-color: $color-grey-light-2;
+            border-color: $color-grey-dark-3;
+            color: $color-grey-dark-3;
+
+            // Overwrite background color on autofill
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus {
+                -webkit-box-shadow: 0 0 0px 1000px $color-grey-light-2 inset;
+            }
+
+            &:hover {
+                border-color: $color-grey-dark-3;
+            }
+
+        }
     }
 
     &__input:focus+&__label--input-text,
@@ -190,6 +209,26 @@
             transform: translateY(0);
             box-shadow: 0 .25rem .5rem rgba($color-black, 0.05);
         }
+
+        &--disabled {
+            $backgroundImage: linear-gradient(to right,
+                    $color-grey-dark-2,
+                    $color-grey-light-1);
+            background-image: $backgroundImage;
+            cursor: not-allowed;
+            transform: none;
+
+            &:hover {
+                background-image: $backgroundImage;
+                transform: none;
+            }
+
+            &:active {
+                background-image: $backgroundImage;
+                transform: none;
+                box-shadow: none;
+            }
+        }
     }
 
     &__oauth-box {
@@ -227,6 +266,16 @@
             font-size: 2rem;
             color: $color-white;
         }
+
+        &--disabled {
+
+            &+.label-checkbox::before,
+            &+.label-checkbox::after {
+                cursor: not-allowed;
+                background-color: $color-grey-light-2 !important;
+                border-color: $color-grey-dark-3 !important;
+            }
+        }
     }
 
     &__forgot {
@@ -238,6 +287,11 @@
 
         &:hover {
             color: $color-primary-light;
+        }
+
+        &--disabled {
+            color: $color-grey-dark-2 !important;
+            cursor: not-allowed;
         }
     }
 
@@ -260,6 +314,11 @@
 
         &:hover {
             color: $color-primary-light;
+        }
+
+        &--disabled {
+            color: $color-grey-dark-2 !important;
+            cursor: not-allowed;
         }
     }
 }

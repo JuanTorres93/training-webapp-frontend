@@ -68,7 +68,7 @@ const LoginFormV2 = ({
                             <ion-icon name="mail-outline" class="login-form__input-icon"></ion-icon>
                         </figure>
                         <input
-                            className="base-input-text login-form__input"
+                            className={`base-input-text login-form__input ${isLoading ? 'login-form__input--disabled' : ''}`}
                             id="email"
                             type="text"
                             // TODO DESCOMENTAR Y BORRAR ARRIBA
@@ -76,6 +76,7 @@ const LoginFormV2 = ({
                             placeholder={formEmailLabel}
                             // Max value defined in DB
                             maxLength="70"
+                            disabled={isLoading}
                             required
                         />
                         <label htmlFor="email" className="login-form__label login-form__label--input-text">{formEmailLabel}</label>
@@ -86,7 +87,7 @@ const LoginFormV2 = ({
                             <ion-icon name="lock-closed-outline" class="login-form__input-icon"></ion-icon>
                         </figure>
                         <input
-                            className="base-input-text login-form__input"
+                            className={`base-input-text login-form__input ${isLoading ? 'login-form__input--disabled' : ''}`}
                             id="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
@@ -95,13 +96,13 @@ const LoginFormV2 = ({
                         <label htmlFor="password" className="login-form__label login-form__label--input-text">{formPasswordLabel}</label>
                         <figure className="show-pass-box">
                             {!showPass && <ion-icon
-                                onClick={toggleShowPass}
+                                onClick={isLoading ? () => { } : toggleShowPass}
                                 name="eye-outline"
                                 class="show-pass-icon--opened">
                             </ion-icon>}
 
                             {showPass && <ion-icon
-                                onClick={toggleShowPass}
+                                onClick={isLoading ? () => { } : toggleShowPass}
                                 name="eye-off-outline"
                                 class="show-pass-icon--closed">
                             </ion-icon>}
@@ -110,20 +111,36 @@ const LoginFormV2 = ({
 
                     {/* Remember me */}
                     <div className="login-form__input-box login-form__input-box--remember">
-                        <input type="checkbox" id="remember-me" className="login-form__checkbox" />
+                        <input
+                            type="checkbox"
+                            id="remember-me"
+                            className={`login-form__checkbox ${isLoading ? 'login-form__checkbox--disabled' : ''}`}
+                            disabled={isLoading}
+                        />
                         <label htmlFor="remember-me" className="label-checkbox login-form__label login-form__label--remember">{formRememberMeText}</label>
 
                         {/* TODO consider if should be a span or other element */}
-                        <span className='login-form__forgot'>
+                        <span className={`login-form__forgot ${isLoading ? 'login-form__forgot--disabled' : ''}`}>
                             {formForgotPasswordText}
                         </span>
                     </div>
 
-                    <button type="submit" className="plain-btn login-form__submit-button">{formSubmitButtonText}</button>
+                    {/* Login button */}
+                    <button
+                        type="submit"
+                        className={`plain-btn login-form__submit-button ${isLoading ? 'login-form__submit-button--disabled' : ''}`}
+                        disabled={isLoading}
+                    >
+                        {formSubmitButtonText}
+                    </button>
                 </form>
 
-                <p className="login-form__create-account">
-                    {formDonotHaveAccountText} <Link to="/register" className="login-form__create-account-link">{formCreateAccountText}</Link>
+                <p className={`login-form__create-account`}>
+                    {formDonotHaveAccountText} <Link to="/register"
+                        className={`login-form__create-account-link ${isLoading ? 'login-form__create-account-link--disabled' : ''}`}
+                    >
+                        {formCreateAccountText}
+                    </Link>
                 </p>
             </div>
 

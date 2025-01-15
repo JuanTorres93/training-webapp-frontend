@@ -1364,6 +1364,18 @@ body {
 .login-form__input:focus::placeholder {
   color: transparent;
 }
+.login-form__input--disabled {
+  cursor: not-allowed;
+  background-color: #dde0de;
+  border-color: #575a58;
+  color: #575a58;
+}
+.login-form__input--disabled:-webkit-autofill, .login-form__input--disabled:-webkit-autofill:hover, .login-form__input--disabled:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #dde0de inset;
+}
+.login-form__input--disabled:hover {
+  border-color: #575a58;
+}
 .login-form__input:focus + .login-form__label--input-text, .login-form__input:not(:placeholder-shown) + .login-form__label--input-text {
   transform: translateY(4rem);
   visibility: visible;
@@ -1410,6 +1422,20 @@ body {
   transform: translateY(0);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
 }
+.login-form__submit-button--disabled {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  cursor: not-allowed;
+  transform: none;
+}
+.login-form__submit-button--disabled:hover {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+}
+.login-form__submit-button--disabled:active {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+  box-shadow: none;
+}
 .login-form__oauth-box {
   display: flex;
   justify-content: center;
@@ -1435,6 +1461,11 @@ body {
   font-size: 2rem;
   color: #fff;
 }
+.login-form__checkbox--disabled + .label-checkbox::before, .login-form__checkbox--disabled + .label-checkbox::after {
+  cursor: not-allowed;
+  background-color: #dde0de !important;
+  border-color: #575a58 !important;
+}
 .login-form__forgot {
   font-size: 1.4rem;
   color: #03B670;
@@ -1444,6 +1475,10 @@ body {
 }
 .login-form__forgot:hover {
   color: #4BDE94;
+}
+.login-form__forgot--disabled {
+  color: #858886 !important;
+  cursor: not-allowed;
 }
 .login-form__create-account {
   font-size: 1.4rem;
@@ -1458,6 +1493,10 @@ body {
 }
 .login-form__create-account-link:hover {
   color: #4BDE94;
+}
+.login-form__create-account-link--disabled {
+  color: #858886 !important;
+  cursor: not-allowed;
 }
 
 .oauth-login, .oauth-login:link, .oauth-login:visited {
