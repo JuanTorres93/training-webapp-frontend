@@ -47,10 +47,6 @@ export const fetchWeightHistory = createAsyncThunk(
         // arg is an object with the properties {userId}
         const response = await api.getAllWeightsFromUser(arg.userId);
 
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('response');
-        console.log(response);
-
         return response;
     }
 );

@@ -40,6 +40,7 @@ import {
     closePopupOnClickOutside,
     hidePopup, showPopup,
 } from "../../utils/popups";
+import { handleStartWorkout } from "../utils";
 
 export default function TemplatesPage() {
     const user = useSelector(selectUser);
@@ -291,46 +292,6 @@ export default function TemplatesPage() {
         }
     }
 
-    // Handle start workout
-    const handleStartWorkout = templateId => (e) => {
-        // check templateId is UUID
-        const uuidRegex = new RegExp(
-            "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-        );
-        if (!uuidRegex.test(templateId)) {
-            // TODO warn user about invalid template
-            return
-        } else {
-            // I'm not using availableTemplates because it may be filtered
-            const allTemplates = [...userTemplates, ...commonTemplates];
-            const template = allTemplates.find(t => t.id === templateId);
-
-            // Create workout and then redirect to run workout page
-            dispatch(createWorkout({
-                templateId: template.id,
-                // description: template.description ? template.description : '',
-                // TODO modify in some time in the future?
-                description: '',
-            })).then((response) => {
-                const workout = response.payload;
-
-                dispatch(setLastWorkout({
-                    templateId: template.id,
-                    userId: user.id,
-                })).then(() => {
-                    dispatch(setLastNWorkouts({
-                        templateId: template.id,
-                        userId: user.id,
-                        numberOfWorkouts: 7,
-                    })).then((res) => {
-                        navigate(`/app/runWorkout/${templateId}/${workout.id}`);
-                    })
-                });
-            });
-
-        }
-    };
-
     return (
         // TODO include new template popup both its set function and class
         <div className="behind-app" onClick={(event) => { closePopupOnClickOutside(event, setShowPopupEdit, ["hydrated"]) }}>
@@ -407,7 +368,16 @@ export default function TemplatesPage() {
                                     onMouseLeave={handleMouseLeavesTemplate}
                                     onClickEdit={handleClickShowPopupEdit(template.id)}
                                     onClickDelete={handleClickShowDeletePopup(template.id)}
-                                    onClickStart={handleStartWorkout(template.id)}
+                                    // I'm not using availableTemplates because it may be filtered
+                                    onClickStart={
+                                        handleStartWorkout(user)(template.id)
+                                            ([...userTemplates, ...commonTemplates])
+                                            (dispatch)
+                                            (createWorkout)
+                                            (setLastWorkout)
+                                            (setLastNWorkouts)
+                                            (navigate)
+                                    }
                                 />
                             ))
                         }

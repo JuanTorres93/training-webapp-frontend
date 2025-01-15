@@ -9,13 +9,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUser, loginUser } from "../../features/user/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { selectRecentWorkouts } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import {
+    createWorkout,
+    setLastWorkout,
+    setLastNWorkouts,
+} from "../../features/workouts/workoutSlice";
+import {
+    selectRecentWorkouts,
+    selectUserTemplates,
+    selectCommonTemplates,
+} from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import {
     selectCurrentWeight,
     selectWeightHistory,
     addCurrentDayWeight,
     updateCurrentDayWeight,
 } from "../../features/weights/weightSlice";
+
+import { handleStartWorkout } from "../utils";
 
 import { calculateTicks } from "../../utils/charts";
 
@@ -28,6 +39,9 @@ export default function HomePageV2() {
     const recentWorkouts = useSelector(selectRecentWorkouts);
     const currentWeight = useSelector(selectCurrentWeight);
     const weightHistory = useSelector(selectWeightHistory);
+
+    const userTemplates = useSelector(selectUserTemplates);
+    const commonTemplates = useSelector(selectCommonTemplates);
 
     const [todaysWeight, setTodaysWeight] = useState('');
     const [weightDataChart, setWeightDataChart] = useState([]);
@@ -131,6 +145,7 @@ export default function HomePageV2() {
 
 
                                 const workoutId = previousWorkouts[0].id ? previousWorkouts[0].id : workoutName;
+                                const templateId = previousWorkouts[0].template_id;
 
                                 // workout is an array of objects
                                 const setsData = previousWorkouts.map((workout) => {
@@ -154,7 +169,18 @@ export default function HomePageV2() {
                                     <React.Fragment
                                         key={workoutId}
                                     >
-                                        <span className="home-page__workout-name">
+                                        <span
+                                            className="home-page__workout-name"
+                                            onClick={
+                                                handleStartWorkout(user)(templateId)
+                                                    ([...userTemplates, ...commonTemplates])
+                                                    (dispatch)
+                                                    (createWorkout)
+                                                    (setLastWorkout)
+                                                    (setLastNWorkouts)
+                                                    (navigate)
+                                            }
+                                        >
                                             {workoutName}
                                         </span>
                                         <TranslatedChartWorkoutVolume
