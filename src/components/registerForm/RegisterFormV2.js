@@ -17,6 +17,7 @@ const RegisterFormV2 = ({
     formOrRegisterWithText,  // e.g: 'Or register with'
     dispatchFunction = () => { },
     registerAction = (arg) => { },
+    isLoading = false,
 }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -51,14 +52,19 @@ const RegisterFormV2 = ({
                 <div className="register-form__title-box">
                     <h2 className="register-form__title">{formTitle}</h2>
                     <p className="register-form__title-subtext">
-                        {formSubtitle} <Link className="register-form__login-link" to="/login">{formSubtitleLinkText}</Link>
+                        {formSubtitle} <Link
+                            className={`register-form__login-link ${isLoading ? 'register-form__login-link--disabled' : ''}`}
+                            to={`${isLoading ? '' : '/login'}`}
+                        >
+                            {formSubtitleLinkText}
+                        </Link>
                     </p>
                 </div>
 
                 <form className="register-form__form" onSubmit={handleSubmit}>
                     <div className="register-form__input-box">
                         <input
-                            className="base-input-text register-form__input"
+                            className={`base-input-text register-form__input ${isLoading ? 'register-form__input--disabled' : ''}`}
                             onChange={(e) => setUsername(e.target.value)}
                             value={username}
                             id="username"
@@ -66,6 +72,7 @@ const RegisterFormV2 = ({
                             placeholder={formUsernameLabel}
                             // Max value defined in DB
                             maxLength="40"
+                            disabled={isLoading}
                             required
                         />
                         <label htmlFor="username" className="register-form__label register-form__label--input-text">{formUsernameLabel}</label>
@@ -73,7 +80,7 @@ const RegisterFormV2 = ({
 
                     <div className="register-form__input-box">
                         <input
-                            className="base-input-text register-form__input"
+                            className={`base-input-text register-form__input ${isLoading ? 'register-form__input--disabled' : ''}`}
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             id="email"
@@ -81,6 +88,7 @@ const RegisterFormV2 = ({
                             placeholder={formEmailLabel}
                             // Max value defined in DB
                             maxLength="70"
+                            disabled={isLoading}
                             required
                         />
                         <label htmlFor="email" className="register-form__label register-form__label--input-text">{formEmailLabel}</label>
@@ -88,25 +96,26 @@ const RegisterFormV2 = ({
 
                     <div className="register-form__input-box">
                         <input
-                            className="base-input-text register-form__input"
+                            className={`base-input-text register-form__input ${isLoading ? 'register-form__input--disabled' : ''}`}
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                             id="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
                             // TODO add strong password validation
+                            disabled={isLoading}
                             required
                         />
                         <label htmlFor="password" className="register-form__label register-form__label--input-text">{formPasswordLabel}</label>
                         <figure className="show-pass-box">
                             {!showPass && <ion-icon
-                                onClick={toggleShowPass}
+                                onClick={isLoading ? () => { } : toggleShowPass}
                                 name="eye-outline"
                                 class="show-pass-icon--opened">
                             </ion-icon>}
 
                             {showPass && <ion-icon
-                                onClick={toggleShowPass}
+                                onClick={isLoading ? () => { } : toggleShowPass}
                                 name="eye-off-outline"
                                 class="show-pass-icon--closed">
                             </ion-icon>}
@@ -120,13 +129,21 @@ const RegisterFormV2 = ({
                             onChange={(e) => setTerms(e.target.checked)}
                             value={terms}
                             id="terms"
-                            className="register-form__checkbox"
+                            className={`register-form__checkbox ${isLoading ? 'register-form__checkbox--disabled' : ''}`}
+                            disabled={isLoading}
                             required
                         />
                         <label htmlFor="terms" className="label-checkbox register-form__label register-form__label--terms">{formTermsLabel}</label>
                     </div>
 
-                    <button type="submit" className="plain-btn register-form__submit-button">{formSubmitButtonText}</button>
+                    {/* Register button */}
+                    <button
+                        type="submit"
+                        className={`plain-btn register-form__submit-button ${isLoading ? 'register-form__submit-button--disabled' : ''}`}
+                        disabled={isLoading}
+                    >
+                        {formSubmitButtonText}
+                    </button>
                 </form>
 
                 {/* OAuth logins */}
@@ -137,6 +154,7 @@ const RegisterFormV2 = ({
                         logo="/images/oauthLogos/google-logo.svg"
                         platformName="Google"
                         callbackURL={googleOAuthURL}
+                        isEnabled={!isLoading}
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}
@@ -144,6 +162,7 @@ const RegisterFormV2 = ({
                         logo="/images/oauthLogos/linkedin-logo.svg"
                         platformName="LinkedIn"
                         callbackURL="https://linkedin.com"
+                        isEnabled={!isLoading}
                     />
                 </div>
             </div>

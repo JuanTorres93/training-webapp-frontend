@@ -1143,6 +1143,10 @@ body {
   transform: translateY(-1px);
   text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
 }
+.register-form__login-link--disabled {
+  color: #858886 !important;
+  cursor: not-allowed;
+}
 .register-form__form {
   width: 100%;
   display: flex;
@@ -1193,6 +1197,18 @@ body {
 .register-form__input:focus::placeholder {
   color: transparent;
 }
+.register-form__input--disabled {
+  cursor: not-allowed;
+  background-color: #dde0de;
+  border-color: #575a58;
+  color: #575a58;
+}
+.register-form__input--disabled:-webkit-autofill, .register-form__input--disabled:-webkit-autofill:hover, .register-form__input--disabled:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #dde0de inset;
+}
+.register-form__input--disabled:hover {
+  border-color: #575a58;
+}
 .register-form__input:focus + .register-form__label--input-text, .register-form__input:not(:placeholder-shown) + .register-form__label--input-text {
   transform: translateY(4rem);
   visibility: visible;
@@ -1237,6 +1253,22 @@ body {
   transform: translateY(0);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
 }
+.register-form__submit-button--disabled {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.register-form__submit-button--disabled:hover {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+  box-shadow: none;
+}
+.register-form__submit-button--disabled:active {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+  box-shadow: none;
+}
 .register-form__oauth-box {
   display: flex;
   justify-content: center;
@@ -1258,6 +1290,11 @@ body {
   content: "✓";
   font-size: 2rem;
   color: #fff;
+}
+.register-form__checkbox--disabled + .label-checkbox::before, .register-form__checkbox--disabled:hover + .label-checkbox::before, .register-form__checkbox--disabled:checked + .label-checkbox::before {
+  cursor: not-allowed;
+  background-color: #dde0de !important;
+  border-color: #575a58 !important;
 }
 
 .login-form {
@@ -1426,10 +1463,12 @@ body {
   background-image: linear-gradient(to right, #858886, #c3c6c4);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 .login-form__submit-button--disabled:hover {
   background-image: linear-gradient(to right, #858886, #c3c6c4);
   transform: none;
+  box-shadow: none;
 }
 .login-form__submit-button--disabled:active {
   background-image: linear-gradient(to right, #858886, #c3c6c4);

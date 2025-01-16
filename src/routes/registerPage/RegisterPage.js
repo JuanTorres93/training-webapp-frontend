@@ -6,10 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, registerUser } from "../../features/user/userSlice";
+import {
+    selectUser,
+    registerUser,
+    selectUserIsLoading,
+} from "../../features/user/userSlice";
 
 export default function RegisterPage() {
     const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -43,6 +48,7 @@ export default function RegisterPage() {
                 formOrRegisterWithText={t('register-form-or-register-with-text')}
                 dispatchFunction={dispatch}
                 registerAction={registerUser}
+                isLoading={userIsLoading}
             />
             {/* <RegisterForm /> */}
         </section>

@@ -217,10 +217,12 @@
             background-image: $backgroundImage;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
 
             &:hover {
                 background-image: $backgroundImage;
                 transform: none;
+                box-shadow: none;
             }
 
             &:active {

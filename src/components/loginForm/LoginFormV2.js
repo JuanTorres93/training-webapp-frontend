@@ -136,7 +136,7 @@ const LoginFormV2 = ({
                 </form>
 
                 <p className={`login-form__create-account`}>
-                    {formDonotHaveAccountText} <Link to="/register"
+                    {formDonotHaveAccountText} <Link to={`${isLoading ? '' : '/register'}`}
                         className={`login-form__create-account-link ${isLoading ? 'login-form__create-account-link--disabled' : ''}`}
                     >
                         {formCreateAccountText}
