@@ -2413,6 +2413,37 @@ body {
   background-color: #f58b6d;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner-base, .spinner-20-rem, .spinner-5-rem, .spinner-2p2-rem {
+  display: inline-block;
+  border: 4px solid;
+  border-color: #ccc transparent transparent transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-2p2-rem {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.spinner-5-rem {
+  width: 3rem;
+  height: 3rem;
+}
+
+.spinner-20-rem {
+  width: 20rem;
+  height: 20rem;
+}
+
 .behind-app {
   position: fixed;
   top: 0;
@@ -2686,10 +2717,22 @@ body {
 .home-page__weight-progress-box {
   grid-row: -5/-1;
   grid-column: 1/-4;
+  display: flex;
 }
 .home-page__weight-input-box {
   grid-row: -5/-1;
   grid-column: -4/-1;
+}
+.home-page__recent-spinner {
+  grid-column: 1/-1;
+  grid-row: 1/-5;
+  margin: auto;
+}
+.home-page__weight-spinner {
+  grid-row: -5/-1;
+  grid-column: 1/-4;
+  margin: auto !important;
+  text-align: center;
 }
 .home-page__dashboard-box {
   position: relative;
@@ -2732,6 +2775,7 @@ body {
 }
 .home-page__weight-button {
   background-color: #03B670;
+  align-self: stretch;
   color: #fff;
   padding: 4rem 40%;
   border-radius: 1rem;
@@ -2745,6 +2789,13 @@ body {
 }
 .home-page__weight-button:active {
   background-color: #03B670;
+}
+.home-page__weight-button--disabled {
+  background-color: #dde0de !important;
+  cursor: not-allowed;
+}
+.home-page__weight-button--disabled:hover, .home-page__weight-button--disabled:active {
+  background-color: #dde0de !important;
 }
 .home-page__weight-text-box {
   display: flex;

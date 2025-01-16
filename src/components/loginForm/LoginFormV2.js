@@ -131,7 +131,8 @@ const LoginFormV2 = ({
                         className={`plain-btn login-form__submit-button ${isLoading ? 'login-form__submit-button--disabled' : ''}`}
                         disabled={isLoading}
                     >
-                        {formSubmitButtonText}
+                        {!isLoading && formSubmitButtonText}
+                        {isLoading && <div className="spinner-2p2-rem"></div>}
                     </button>
                 </form>
 

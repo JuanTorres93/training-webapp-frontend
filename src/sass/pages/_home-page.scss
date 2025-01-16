@@ -27,11 +27,26 @@
     &__weight-progress-box {
         grid-row: -5 / -1;
         grid-column: 1 / -4;
+
+        display: flex;
     }
 
     &__weight-input-box {
         grid-row: -5 / -1;
         grid-column: -4 / -1;
+    }
+
+    &__recent-spinner {
+        grid-column: 1 / -1;
+        grid-row: 1 / -5;
+        margin: auto;
+    }
+
+    &__weight-spinner {
+        grid-row: -5 / -1;
+        grid-column: 1 / -4;
+        margin: auto !important;
+        text-align: center;
     }
 
     // Styling
@@ -84,6 +99,7 @@
 
     &__weight-button {
         background-color: $color-primary-dark;
+        align-self: stretch;
         color: $color-white;
         padding: 4rem 40%;
         border-radius: 1rem;
@@ -98,6 +114,16 @@
 
         &:active {
             background-color: $color-primary-dark;
+        }
+
+        &--disabled {
+            background-color: $color-grey-light-2 !important;
+            cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                background-color: $color-grey-light-2 !important;
+            }
         }
     }
 

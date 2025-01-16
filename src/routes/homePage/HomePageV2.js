@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartWorkoutVolume from "../../components/chartWorkoutVolume/TranslatedChartWorkoutVolume";
@@ -10,6 +10,7 @@ import { selectUser, loginUser } from "../../features/user/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import {
+    selectWorkoutsLoading,
     createWorkout,
     setLastWorkout,
     setLastNWorkouts,
@@ -18,10 +19,12 @@ import {
     selectRecentWorkouts,
     selectUserTemplates,
     selectCommonTemplates,
+    selectTemplatesLoading,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import {
     selectCurrentWeight,
     selectWeightHistory,
+    selectWeightIsLoading,
     addCurrentDayWeight,
     updateCurrentDayWeight,
 } from "../../features/weights/weightSlice";
@@ -37,14 +40,23 @@ export default function HomePageV2() {
     const dispatch = useDispatch();
 
     const recentWorkouts = useSelector(selectRecentWorkouts);
+    const workoutsLoading = useSelector(selectWorkoutsLoading);
+
     const currentWeight = useSelector(selectCurrentWeight);
     const weightHistory = useSelector(selectWeightHistory);
+    const weightIsLoading = useSelector(selectWeightIsLoading);
 
     const userTemplates = useSelector(selectUserTemplates);
     const commonTemplates = useSelector(selectCommonTemplates);
+    const templatesLoading = useSelector(selectTemplatesLoading);
 
     const [todaysWeight, setTodaysWeight] = useState('');
     const [weightDataChart, setWeightDataChart] = useState([]);
+    const [templatesAndWorkoutsLoading, setTemplatesAndWorkoutsLoading] = useState(true);
+
+    useEffect(() => {
+        setTemplatesAndWorkoutsLoading(templatesLoading || workoutsLoading);
+    }, [templatesLoading, workoutsLoading]);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -134,8 +146,15 @@ export default function HomePageV2() {
                         <h3 className="home-page__dashboard-box-title">
                             {t('home-page-recent-workouts')}
                         </h3>
+                        {/* TODO MEJORAR LA LÓGICA DE LOADING STATE */}
                         {
-                            recentWorkouts.length > 0 &&
+                            // If workouts are loading, show an spinner
+                            templatesAndWorkoutsLoading &&
+                            <div className="home-page__recent-spinner spinner-20-rem"></div>
+                        }
+                        {
+                            // If there are recent workouts, map them
+                            !templatesAndWorkoutsLoading && recentWorkouts.length > 0 &&
                             recentWorkouts.map((previousWorkouts) => {
                                 const workoutName = previousWorkouts.length > 0 ? previousWorkouts[0].name : "";
 
@@ -192,6 +211,15 @@ export default function HomePageV2() {
                             })
                         }
 
+                        {
+                            // If there are no recent workouts and they are not loading, show a message
+                            !templatesAndWorkoutsLoading && recentWorkouts.length === 0 &&
+                            // TODO style this p tag
+                            <p>
+                                {t('home-page-no-recent-workouts')}
+                            </p>
+                        }
+
                     </div>
                     <div
                         ref={weightGraphContainerRef}
@@ -201,14 +229,24 @@ export default function HomePageV2() {
                             {t('home-page-weight-progress')}
                         </h3>
                         {
-                            weightDataChart.length > 0 &&
+                            weightIsLoading &&
+                            <div className="home-page__weight-spinner spinner-20-rem"></div>
+                        }
+                        {
+                            !weightIsLoading && weightDataChart.length > 0 &&
                             <TranslatedLineGraph
                                 data={weightDataChart}
                                 valuesInYAxis={ticksCountYAxis}
                                 valuesInXAxis={ticksCountXAxis}
                             />
                         }
-                        {/* TODO add loading state and no data text */}
+                        {
+                            !weightIsLoading && weightDataChart.length === 0 &&
+                            // TODO style this p tag
+                            <p>
+                                {t('home-page-no-weight-history')}
+                            </p>
+                        }
                     </div>
                     <div className="home-page__weight-input-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">
@@ -249,11 +287,13 @@ export default function HomePageV2() {
                                 }
                             </div>
                             <button
-                                className="plain-btn home-page__weight-button"
+                                className={`plain-btn home-page__weight-button ${(weightIsLoading || (todaysWeight.trim() === '')) ? 'home-page__weight-button--disabled' : ''}`}
                                 type="submit"
                                 onClick={handleTodaysWeightSubmit}
+                                disabled={weightIsLoading || (todaysWeight.trim() === '')}
                             >
-                                {t('home-page-submit-weight')}
+                                {!weightIsLoading && t('home-page-submit-weight')}
+                                {weightIsLoading && <div className="spinner-5-rem"></div>}
                             </button>
                         </form>
                     </div>
