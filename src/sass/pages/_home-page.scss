@@ -171,5 +171,17 @@
             background-color: $color-primary-light;
             color: $color-white;
         }
+
+        &--disabled {
+            background-color: $color-grey-light-2;
+            color: $color-grey-dark-5;
+            cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                background-color: $color-grey-light-2 !important;
+                color: $color-grey-dark-5 !important;
+            }
+        }
     }
 }

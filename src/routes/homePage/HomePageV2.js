@@ -20,6 +20,7 @@ import {
     selectUserTemplates,
     selectCommonTemplates,
     selectTemplatesLoading,
+    selectActiveTemplate,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import {
     selectCurrentWeight,
@@ -49,6 +50,7 @@ export default function HomePageV2() {
     const userTemplates = useSelector(selectUserTemplates);
     const commonTemplates = useSelector(selectCommonTemplates);
     const templatesLoading = useSelector(selectTemplatesLoading);
+    const activeTemplate = useSelector(selectActiveTemplate);
 
     const [todaysWeight, setTodaysWeight] = useState('');
     const [weightDataChart, setWeightDataChart] = useState([]);
@@ -136,6 +138,70 @@ export default function HomePageV2() {
         }
     };
 
+    const _createRecentWorkouts = (isLoading) => {
+        return recentWorkouts.map((previousWorkouts) => {
+            const workoutName = previousWorkouts.length > 0 ? previousWorkouts[0].name : "";
+
+            if (!workoutName) {
+                return null;
+            }
+
+            const workoutId = previousWorkouts[0].id ? previousWorkouts[0].id : workoutName;
+            const templateId = previousWorkouts[0].template_id;
+
+            // workout is an array of objects
+            const setsData = previousWorkouts.map((workout) => {
+                const datetime = new Date(workout.startDate);
+
+                const sets = workout.exercises.map((exercise) => {
+                    return {
+                        set: exercise.set,
+                        reps: exercise.reps,
+                        weight: exercise.weight,
+                    };
+                });
+
+                return {
+                    datetime,
+                    sets,
+                };
+            });
+
+            // Button and chart should have different logic
+            const buttonIsEnabled = !templatesAndWorkoutsLoading;
+            const templateIsActiveTemplate = activeTemplate && activeTemplate.id === templateId;
+            const templateIsLoading = templateIsActiveTemplate && templatesAndWorkoutsLoading;
+
+            return (
+                <React.Fragment
+                    key={workoutId}
+                >
+                    <span
+                        className={`home-page__workout-name ${buttonIsEnabled ? 'home-page__workout-name--enabled' : 'home-page__workout-name--disabled'}`}
+                        onClick={
+                            !buttonIsEnabled ?
+                                () => { } :
+                                handleStartWorkout(user)(templateId)
+                                    ([...userTemplates, ...commonTemplates])
+                                    (dispatch)
+                                    (createWorkout)
+                                    (setLastWorkout)
+                                    (setLastNWorkouts)
+                                    (navigate)
+                        }
+                        disabled={!buttonIsEnabled}
+                    >
+                        {workoutName}
+                    </span>
+                    <TranslatedChartWorkoutVolume
+                        data={setsData}
+                        isLoading={templateIsLoading}
+                    // valuesInYAxis={ticksCountYAxis}
+                    />
+                </React.Fragment>
+            )
+        })
+    }
 
     return (
         <div className="behind-app">
@@ -146,71 +212,7 @@ export default function HomePageV2() {
                         <h3 className="home-page__dashboard-box-title">
                             {t('home-page-recent-workouts')}
                         </h3>
-                        {/* TODO MEJORAR LA LÓGICA DE LOADING STATE */}
-                        {
-                            // If workouts are loading, show an spinner
-                            templatesAndWorkoutsLoading &&
-                            <div className="home-page__recent-spinner spinner-20-rem"></div>
-                        }
-                        {
-                            // If there are recent workouts, map them
-                            !templatesAndWorkoutsLoading && recentWorkouts.length > 0 &&
-                            recentWorkouts.map((previousWorkouts) => {
-                                const workoutName = previousWorkouts.length > 0 ? previousWorkouts[0].name : "";
-
-                                if (!workoutName) {
-                                    return null;
-                                }
-
-
-                                const workoutId = previousWorkouts[0].id ? previousWorkouts[0].id : workoutName;
-                                const templateId = previousWorkouts[0].template_id;
-
-                                // workout is an array of objects
-                                const setsData = previousWorkouts.map((workout) => {
-                                    const datetime = new Date(workout.startDate);
-
-                                    const sets = workout.exercises.map((exercise) => {
-                                        return {
-                                            set: exercise.set,
-                                            reps: exercise.reps,
-                                            weight: exercise.weight,
-                                        };
-                                    });
-
-                                    return {
-                                        datetime,
-                                        sets,
-                                    };
-                                });
-
-                                return (
-                                    <React.Fragment
-                                        key={workoutId}
-                                    >
-                                        <span
-                                            className="home-page__workout-name"
-                                            onClick={
-                                                handleStartWorkout(user)(templateId)
-                                                    ([...userTemplates, ...commonTemplates])
-                                                    (dispatch)
-                                                    (createWorkout)
-                                                    (setLastWorkout)
-                                                    (setLastNWorkouts)
-                                                    (navigate)
-                                            }
-                                        >
-                                            {workoutName}
-                                        </span>
-                                        <TranslatedChartWorkoutVolume
-                                            data={setsData}
-                                        // valuesInYAxis={ticksCountYAxis}
-                                        />
-                                    </React.Fragment>
-                                )
-                            })
-                        }
-
+                        {/* HERE ARE SHOWN RECENT WORKOUTS CHARTS */}
                         {
                             // If there are no recent workouts and they are not loading, show a message
                             !templatesAndWorkoutsLoading && recentWorkouts.length === 0 &&
@@ -219,7 +221,23 @@ export default function HomePageV2() {
                                 {t('home-page-no-recent-workouts')}
                             </p>
                         }
+                        {
+                            // If workouts are loading and redux has no recentWorkouts, show an spinner in the entire box
+                            templatesAndWorkoutsLoading && recentWorkouts.length === 0 &&
+                            <div className="home-page__recent-spinner spinner-20-rem"></div>
+                        }
+                        {
+                            // If there are recent workouts and is not loading, map them
+                            !templatesAndWorkoutsLoading && recentWorkouts.length > 0 &&
+                            _createRecentWorkouts(false)
+                        }
+                        {
+                            // If there are recent workouts and just one is loading, map them
+                            templatesAndWorkoutsLoading && recentWorkouts.length > 0 &&
+                            _createRecentWorkouts(true)
+                        }
 
+                        {/* END OF RECENT WORKOUTS CHARTS */}
                     </div>
                     <div
                         ref={weightGraphContainerRef}

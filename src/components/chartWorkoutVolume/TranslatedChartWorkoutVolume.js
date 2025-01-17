@@ -6,12 +6,17 @@ import ChartWorkoutVolume from "./ChartWorkoutVolume";
 
 const TranslatedChartWorkoutVolume = ({
     data,
+    isLoading,
 }) => {
     const { t } = useTranslation();
     const volumeText = t("extra-volume");
 
     return (
-        <ChartWorkoutVolume data={data} volumeText={volumeText} />
+        <ChartWorkoutVolume
+            data={data}
+            volumeText={volumeText}
+            isLoading={isLoading}
+        />
     );
 }
 

@@ -7,6 +7,7 @@ import { ResponsiveLine } from "@nivo/line";
 const ChartWorkoutVolume = ({
     data,
     volumeText = "Volume",
+    isLoading = false,
 }) => {
     // data come in this format (an array of objects ORDERED BY DATE):
     // data = [
@@ -86,6 +87,10 @@ const ChartWorkoutVolume = ({
     useEffect(() => {
         setVolumeData(processData(data));
     }, [data]);
+
+    if (isLoading) {
+        return <div className="spinner-10-rem chart-workout-volume__chart-spinner"></div>
+    }
 
     return (
         <ResponsiveLine

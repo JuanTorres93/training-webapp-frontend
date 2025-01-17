@@ -1,3 +1,4 @@
+import { setActiveTemplate } from "../features/workoutsTemplates/workoutTemplatesSlice";
 
 // Handle start workout
 export const handleStartWorkout = user => templateId => allTemplates => dispatchFn =>
@@ -12,6 +13,12 @@ export const handleStartWorkout = user => templateId => allTemplates => dispatch
                 return
             } else {
                 const template = allTemplates.find(t => t.id === templateId);
+
+                if (template) {
+                    // This is done here for loading states, but it is later
+                    // also done in the workoutTemplatesSlice
+                    dispatchFn(setActiveTemplate(template.id));
+                }
 
                 // Create workout and then redirect to run workout page
                 dispatchFn(createWorkoutAction({

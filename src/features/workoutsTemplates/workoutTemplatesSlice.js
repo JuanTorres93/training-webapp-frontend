@@ -178,14 +178,7 @@ export const deleteTemplateFromUser = createAsyncThunk(
             templateId
         });
 
-        const workoutIds = workoutIdsresponse.map(workout => workout.workout_id);
-
         const response = await deleteTemplate(arg);
-
-        // Delete all workouts associated with the template
-        workoutIds.forEach(workoutId => {
-            thunkAPI.dispatch(deleteWorkout({ workoutId }));
-        });
 
         return response;
     }
@@ -384,9 +377,9 @@ const slice = createSlice({
             );
 
             // Remove it from recent workouts
-            state[sliceName].recentWorkouts = state[sliceName].recentWorkouts.filter(
-                workout => workout.id !== templateId
-            );
+            state[sliceName].recentWorkouts = state[sliceName].recentWorkouts.filter(template => {
+                return template[0].template_id !== templateId;
+            });
 
             state.isLoading.pop();
             state.hasError = false;

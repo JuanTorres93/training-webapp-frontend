@@ -29,6 +29,12 @@
     height: 3rem;
 }
 
+.spinner-10-rem {
+    @extend .spinner-base;
+    width: 10rem;
+    height: 10rem;
+}
+
 .spinner-20-rem {
     @extend .spinner-base;
     width: 20rem;

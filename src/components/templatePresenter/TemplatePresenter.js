@@ -8,6 +8,7 @@ const TemplatePresenter = ({
     onMouseLeave = () => { },
     onClickEdit = () => { },
     onClickDelete = () => { },
+    isLoading = false,
 }) => {
     return (
         <div
@@ -52,7 +53,7 @@ const TemplatePresenter = ({
             <div className="template-presenter__start-box">
                 <button
                     className="plain-btn template-presenter__launch-template"
-                    onClick={onClickStart}
+                    onClick={isLoading ? () => { } : onClickStart}
                 >
                     TRAIN!
                 </button>

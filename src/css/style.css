@@ -2421,7 +2421,7 @@ body {
     transform: rotate(360deg);
   }
 }
-.spinner-base, .spinner-20-rem, .spinner-5-rem, .spinner-2p2-rem {
+.spinner-base, .spinner-20-rem, .spinner-10-rem, .spinner-5-rem, .spinner-2p2-rem {
   display: inline-block;
   border: 4px solid;
   border-color: #ccc transparent transparent transparent;
@@ -2439,9 +2439,18 @@ body {
   height: 3rem;
 }
 
+.spinner-10-rem {
+  width: 10rem;
+  height: 10rem;
+}
+
 .spinner-20-rem {
   width: 20rem;
   height: 20rem;
+}
+
+.chart-workout-volume__chart-spinner {
+  margin: auto;
 }
 
 .behind-app {
@@ -2835,6 +2844,15 @@ body {
 .home-page__workout-name:active {
   background-color: #4BDE94;
   color: #fff;
+}
+.home-page__workout-name--disabled {
+  background-color: #dde0de;
+  color: #2d302e;
+  cursor: not-allowed;
+}
+.home-page__workout-name--disabled:hover, .home-page__workout-name--disabled:active {
+  background-color: #dde0de !important;
+  color: #2d302e !important;
 }
 
 .run-workout-page {
