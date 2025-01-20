@@ -82,6 +82,15 @@
                 color: $color-primary;
             }
         }
+
+        &--disabled {
+            cursor: not-allowed;
+
+            &,
+            &:hover {
+                color: $color-grey-dark-2 !important;
+            }
+        }
     }
 
     &__name {
@@ -120,6 +129,17 @@
 
         &:active {
             background-color: $color-primary-dark;
+        }
+
+        &--disabled {
+            cursor: not-allowed;
+
+            &,
+            &:hover,
+            &:active {
+                color: $color-grey-dark-2;
+                background-color: $color-grey-light-3;
+            }
         }
     }
 }

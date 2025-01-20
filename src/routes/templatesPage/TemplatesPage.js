@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ import {
     selectCommonExercises,
 } from "../../features/exercises/exercisesSlice";
 import {
+    selectWorkoutsLoading,
     createWorkout,
     setLastWorkout,
     setLastNWorkouts,
@@ -29,6 +30,8 @@ import {
     getAllUserCreatedTemplates,
     selectUserTemplates,
     selectCommonTemplates,
+    selectActiveTemplate,
+    selectTemplatesLoading,
     deleteTemplateFromUser,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
@@ -46,6 +49,10 @@ export default function TemplatesPage() {
     const user = useSelector(selectUser);
     const userTemplates = useSelector(selectUserTemplates);
     const commonTemplates = useSelector(selectCommonTemplates);
+    const workoutsLoading = useSelector(selectWorkoutsLoading);
+    const templatesLoading = useSelector(selectTemplatesLoading);
+    const activeTemplate = useSelector(selectActiveTemplate);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -76,6 +83,9 @@ export default function TemplatesPage() {
 
     // state for available templates
     const [availableTemplates, setAvailableTemplates] = useState([]);
+
+    // state for template presenters
+    const [templatesPresenters, setTemplatesPresenters] = useState([]);
 
     // state for available exercises
     const userExercises = useSelector(selectUserExercises);
@@ -118,6 +128,51 @@ export default function TemplatesPage() {
         }
 
     }, [userTemplates, commonTemplates, searchTemplateTerm]);
+
+    useEffect(() => {
+        setTemplatesPresenters(
+            availableTemplates.map((template) => {
+                // Individual TemplatePresenter is loading if state is loading
+                // AND is the active template
+                let templateIsActiveTemplate;
+                if (!activeTemplate.id) {
+                    templateIsActiveTemplate = false;
+                }
+
+                templateIsActiveTemplate = template.id === activeTemplate.id;
+
+                const templatePresenterIsLoading = (workoutsLoading || templatesLoading) && templateIsActiveTemplate;
+                const disableTemplateActions = workoutsLoading || templatesLoading;
+
+
+                return (
+                    <TemplatePresenter
+                        key={template.id}
+                        id={template.id}
+                        name={template.name}
+                        description={template.description}
+                        isCommonTemplate={template.isCommon}
+                        isLoading={templatePresenterIsLoading}
+                        disableActions={disableTemplateActions}
+                        onMouseEnter={handleMouseEntersTemplate(template.id)}
+                        onMouseLeave={handleMouseLeavesTemplate}
+                        onClickEdit={handleClickShowPopupEdit(template.id)}
+                        onClickDelete={handleClickShowDeletePopup(template.id)}
+                        // I'm not using availableTemplates because it may be filtered
+                        onClickStart={
+                            handleStartWorkout(user)(template.id)
+                                ([...userTemplates, ...commonTemplates])
+                                (dispatch)
+                                (createWorkout)
+                                (setLastWorkout)
+                                (setLastNWorkouts)
+                                (navigate)
+                        }
+                    />
+                );
+            })
+        );
+    }, [availableTemplates, activeTemplate, workoutsLoading, templatesLoading]);
 
     // Compute available exercises
     useEffect(() => {
@@ -357,29 +412,7 @@ export default function TemplatesPage() {
 
                     <div className="presenter-grid presenter-grid--templates">
                         {
-                            availableTemplates.map((template) => (
-                                <TemplatePresenter
-                                    key={template.id}
-                                    id={template.id}
-                                    name={template.name}
-                                    description={template.description}
-                                    isCommonTemplate={template.isCommon}
-                                    onMouseEnter={handleMouseEntersTemplate(template.id)}
-                                    onMouseLeave={handleMouseLeavesTemplate}
-                                    onClickEdit={handleClickShowPopupEdit(template.id)}
-                                    onClickDelete={handleClickShowDeletePopup(template.id)}
-                                    // I'm not using availableTemplates because it may be filtered
-                                    onClickStart={
-                                        handleStartWorkout(user)(template.id)
-                                            ([...userTemplates, ...commonTemplates])
-                                            (dispatch)
-                                            (createWorkout)
-                                            (setLastWorkout)
-                                            (setLastNWorkouts)
-                                            (navigate)
-                                    }
-                                />
-                            ))
+                            templatesPresenters
                         }
                     </div>
                 </section>

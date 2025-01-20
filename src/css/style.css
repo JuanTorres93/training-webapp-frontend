@@ -1914,6 +1914,12 @@ body {
 .template-presenter__icon-box--edit:hover {
   color: #2FCA82;
 }
+.template-presenter__icon-box--disabled {
+  cursor: not-allowed;
+}
+.template-presenter__icon-box--disabled, .template-presenter__icon-box--disabled:hover {
+  color: #858886 !important;
+}
 .template-presenter__name {
   font-size: 2rem;
   font-weight: 600;
@@ -1946,6 +1952,13 @@ body {
 }
 .template-presenter__launch-template:active {
   background-color: #03B670;
+}
+.template-presenter__launch-template--disabled {
+  cursor: not-allowed;
+}
+.template-presenter__launch-template--disabled, .template-presenter__launch-template--disabled:hover, .template-presenter__launch-template--disabled:active {
+  color: #858886;
+  background-color: #f1f4f2;
 }
 
 .template-presenter--no-actions .template-presenter__actions-box {
