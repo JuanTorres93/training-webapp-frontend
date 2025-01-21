@@ -44,6 +44,11 @@
         color: $color-grey-dark-3;
 
         transition: all .2s;
+
+        &--disabled {
+            filter: grayscale(1);
+            color: white !important;
+        }
     }
 
     &__info-box {
@@ -79,6 +84,10 @@
         border-radius: 1rem;
 
         justify-self: stretch;
+
+        &--disabled {
+            filter: grayscale(1);
+        }
     }
 
     &__input {
@@ -86,6 +95,12 @@
 
         &::placeholder {
             color: $color-grey-dark-1;
+        }
+
+        &--disabled {
+            cursor: not-allowed;
+            background-color: $color-grey-light-2;
+            color: $color-grey-dark-2;
         }
     }
 

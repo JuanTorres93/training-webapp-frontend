@@ -53,7 +53,8 @@ const ChartWorkoutVolume = ({
             };
 
             const totalVolume = dataPoint.sets.reduce((totalVolume, set) => {
-                return totalVolume + set.reps * set.weight;
+                const weight = set.weight > 0 ? set.weight : 1;
+                return totalVolume + set.reps * weight;
             }, 0);
 
             processedPoint.y = totalVolume;

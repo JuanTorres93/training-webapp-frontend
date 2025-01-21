@@ -11,13 +11,8 @@ import {
 import { calculateTicks } from "../../utils/charts";
 import { selectUser } from "../../features/user/userSlice";
 import {
-    // previous RunWorkoutPage.js
     selectLastWorkout,
     finishWorkout,
-    // previous StartWorkoutPage.js
-    // createWorkout, // already used in TemplatePage.js
-    // setLastWorkout, // already used in TemplatePage.js
-    // setLastNWorkouts, // already used in TemplatePage.js
     selectLastNWorkouts,
     selectWorkoutsLoading,
     updateActiveWorkoutExercise,
@@ -38,10 +33,13 @@ export default function RunWorkoutPageV2() {
     const lastWorkout = useSelector(selectLastWorkout);
     const lastNWorkouts = useSelector(selectLastNWorkouts);
     const activeTemplate = useSelector(selectActiveTemplate);
+    const workoutsLoading = useSelector(selectWorkoutsLoading);
 
     // I'm using this instead of the selector of activeWorkout beacause
     // it throws an error of max depth for preventing infinite loops
     const [startDate, setStartDate] = useState(new Date());
+
+    const [exerciseCompleters, setExerciseCompleters] = useState([]);
 
     useEffect(() => {
         if (!user) {
@@ -69,8 +67,6 @@ export default function RunWorkoutPageV2() {
 
     useEffect(calculateTicks(weightGraphContainerRef, setTicksCountYAxis, setTicksCountXAxis), []);
 
-    let exerciseCompleters = [];
-
     const generateClearActiveWorkoutExercisesDispatch = () => {
         return () => {
             dispatch(clearActiveWorkoutExercises());
@@ -89,104 +85,122 @@ export default function RunWorkoutPageV2() {
         };
     }
 
-    // If last workout does not exist
-    if (Object.keys(lastWorkout).length === 0 || !lastWorkout.exercises) {
-        // If there is an active template with exercises
-        if (!(Object.keys(activeTemplate).length === 0) && activeTemplate.exercises.length > 0) {
-            exerciseCompleters = activeTemplate.exercises.map((exercise, index) => {
-                const rows = Array.from({ length: exercise.sets }, (_, i) => ({
-                    setNumber: i + 1,
-                    previousWeight: 0,
-                    previousReps: 0,
-                }));
+    useEffect(() => {
+        // If last workout does not exist
+        if (Object.keys(lastWorkout).length === 0 || !lastWorkout.exercises) {
+            // If there is an active template with exercises
+            if (!(Object.keys(activeTemplate).length === 0) && activeTemplate.exercises.length > 0) {
+                setExerciseCompleters(
+                    activeTemplate.exercises.map((exercise, index) => {
+                        const rows = Array.from({ length: exercise.sets }, (_, i) => ({
+                            setNumber: i + 1,
+                            previousWeight: 0,
+                            previousReps: 0,
+                        }));
 
-                return (
-                    <ExerciseCompleterV2
-                        key={exercise.id}
-                        previousData={[]}
-                        workoutStartDate={startDate}
-                        ticksCountYAxis={ticksCountYAxis}
-                        exerciseName={exercise.name}
-                        rowsInfo={rows}
-                        dispatchGenerator={generateDispatchForUpdatingWorkout(exercise.id, index + 1)}
-                        clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
-                        isFirstRender={index === 0}
-                    />
+                        return (
+                            <ExerciseCompleterV2
+                                key={exercise.id}
+                                previousData={[]}
+                                workoutStartDate={startDate}
+                                ticksCountYAxis={ticksCountYAxis}
+                                exerciseName={exercise.name}
+                                rowsInfo={rows}
+                                dispatchGenerator={generateDispatchForUpdatingWorkout(exercise.id, index + 1)}
+                                clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
+                                isFirstRender={index === 0}
+                                isLoading={workoutsLoading}
+                            />
+                        );
+                    })
                 );
-            });
-        }
-    }
-    // If last workout DOES exist
-    else {
-        const groupedExercises = lastWorkout.exercises.reduce((acc, exercise) => {
-            if (!acc[exercise.order]) {
-                acc[exercise.order] = [];
             }
+        }
+        // If last workout DOES exist
+        else {
+            const groupedExercises = lastWorkout.exercises.reduce((acc, exercise) => {
+                if (!acc[exercise.order]) {
+                    acc[exercise.order] = [];
+                }
 
-            acc[exercise.order].push(exercise);
+                acc[exercise.order].push(exercise);
 
-            return acc;
-        }, {});
+                return acc;
+            }, {});
+
+            setExerciseCompleters(
+                Object.keys(groupedExercises).map((exerciseOrder) => {
+                    const setExerciseInfo = groupedExercises[exerciseOrder];
+
+                    // Inputs
+                    const rows = setExerciseInfo.map((set) => ({
+                        setNumber: set.set,
+                        previousWeight: set.weight,
+                        previousReps: set.reps,
+                    }));
+
+                    // Chart
+                    const previousData = lastNWorkouts.map(workout => {
+                        const data = {};
+
+                        data.datetime = new Date(workout.startDate);
+
+                        const previousExercises = workout.exercises.filter((exercise) => {
+                            return exercise.id === setExerciseInfo[0].id;
+                        });
+
+                        const sets = previousExercises.map((exercise) => {
+                            return {
+                                set: exercise.set,
+                                weight: exercise.weight,
+                                reps: exercise.reps,
+                            }
+                        });
+
+                        data.sets = sets;
+
+                        return data;
+                    });
 
 
-        exerciseCompleters = Object.keys(groupedExercises).map((exerciseOrder) => {
-            const setExerciseInfo = groupedExercises[exerciseOrder];
+                    // Order previousData by datetime
+                    previousData.sort((a, b) => {
+                        return a.datetime - b.datetime;
+                    });
 
-            // Inputs
-            const rows = setExerciseInfo.map((set) => ({
-                setNumber: set.set,
-                previousWeight: set.weight,
-                previousReps: set.reps,
-            }));
-
-            // Chart
-            const previousData = lastNWorkouts.map(workout => {
-                const data = {};
-
-                data.datetime = new Date(workout.startDate);
-
-                const previousExercises = workout.exercises.filter((exercise) => {
-                    return exercise.id === setExerciseInfo[0].id;
-                });
-
-                const sets = previousExercises.map((exercise) => {
-                    return {
-                        set: exercise.set,
-                        weight: exercise.weight,
-                        reps: exercise.reps,
-                    }
-                });
-
-                data.sets = sets;
-
-                return data;
-            });
-
-
-            // Order previousData by datetime
-            previousData.sort((a, b) => {
-                return a.datetime - b.datetime;
-            });
-
-            return (
-                <ExerciseCompleterV2
-                    key={setExerciseInfo[0].id}
-                    previousData={previousData}
-                    ticksCountYAxis={ticksCountYAxis}
-                    workoutStartDate={startDate}
-                    exerciseName={setExerciseInfo[0].name}
-                    rowsInfo={rows}
-                    dispatchGenerator={generateDispatchForUpdatingWorkout(setExerciseInfo[0].id, setExerciseInfo[0].order)}
-                    clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
-                    isFirstRender={setExerciseInfo[0].order === 1}
-                />
+                    return (
+                        <ExerciseCompleterV2
+                            key={setExerciseInfo[0].id}
+                            previousData={previousData}
+                            ticksCountYAxis={ticksCountYAxis}
+                            workoutStartDate={startDate}
+                            exerciseName={setExerciseInfo[0].name}
+                            rowsInfo={rows}
+                            dispatchGenerator={generateDispatchForUpdatingWorkout(setExerciseInfo[0].id, setExerciseInfo[0].order)}
+                            clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
+                            isFirstRender={setExerciseInfo[0].order === 1}
+                            isLoading={workoutsLoading}
+                        />
+                    );
+                })
             );
-        });
-    }
+
+        }
+    }, [lastWorkout, activeTemplate, startDate, ticksCountYAxis, lastNWorkouts, workoutsLoading]);
 
     const handleFinishWorkout = () => {
-        dispatch(finishWorkout());
-        navigate("/app");
+        // If last workout does not exist
+        if (Object.keys(lastWorkout).length === 0 || !lastWorkout.exercises) {
+            // Wait a bit in runWorkoutPage to minimize the time
+            // of getting the last workout in the dashboard
+            dispatch(finishWorkout()).then(() => {
+                navigate("/app");
+            });
+        } else {
+            // OTherwise go inmmediately, since there will be a loading animation
+            dispatch(finishWorkout());
+            navigate("/app");
+        }
     };
 
     return (
@@ -204,11 +218,15 @@ export default function RunWorkoutPageV2() {
 
                     {/* FINISH BUTTON */}
                     <button
-                        className="plain-btn run-workout-page__finish-button"
-                        onClick={handleFinishWorkout}
+                        className={`
+                            plain-btn run-workout-page__finish-button
+                            ${workoutsLoading ? "run-workout-page__finish-button--disabled" : ""}
+                            `}
+                        onClick={workoutsLoading ? null : handleFinishWorkout}
+                        disabled={workoutsLoading}
                     >
                         {/* TODO translate */}
-                        Finish
+                        {workoutsLoading ? <div className="spinner-5-rem"></div> : "Finish"}
                     </button>
                 </section>
             </main>

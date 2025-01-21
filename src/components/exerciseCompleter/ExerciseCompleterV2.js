@@ -9,6 +9,7 @@ const ExerciseCompleterV2 = ({
     exerciseName,
     workoutStartDate,
     rowsInfo = [],
+    isLoading = false,
     dispatchGenerator = (setNumber, weight, reps) => { },
     // Empty the exercises of the active workout
     clearExercisesDispatchGenerator = () => { },
@@ -143,19 +144,37 @@ const ExerciseCompleterV2 = ({
         // TODO TRANSLATE
         <div className="exercise-completer">
             <div className="exercise-completer__exercise-title-box">
-                <h3 className="exercise-completer__exercise-title">
+                {/* Exercise title */}
+                <h3
+                    className={`
+                        exercise-completer__exercise-title
+                        ${isLoading ? 'exercise-completer__exercise-title--disabled' : ''}
+                        `}
+                >
                     {exerciseName}
                 </h3>
             </div>
             <div className="exercise-completer__info-box">
                 {/* Column titles */}
-                <div className="exercise-completer__title">
+                <div className={`
+                    exercise-completer__title
+                    ${isLoading ? 'exercise-completer__title--disabled' : ''}
+                    `}
+                >
                     Set
                 </div>
-                <div className="exercise-completer__title">
+                <div className={`
+                    exercise-completer__title
+                    ${isLoading ? 'exercise-completer__title--disabled' : ''}
+                    `}
+                >
                     Weight
                 </div>
-                <div className="exercise-completer__title">
+                <div className={`
+                    exercise-completer__title
+                    ${isLoading ? 'exercise-completer__title--disabled' : ''}
+                    `}
+                >
                     reps
                 </div>
 
@@ -169,18 +188,26 @@ const ExerciseCompleterV2 = ({
                                 </div>
                                 <div className="exercise-completer__weight">
                                     <input
-                                        className="base-input-text integer-input exercise-completer__input"
+                                        className={`
+                                            base-input-text integer-input exercise-completer__input
+                                            ${isLoading ? 'exercise-completer__input--disabled' : ''}
+                                            `}
                                         type="number"
                                         name="weight"
+                                        disabled={isLoading}
                                         onChange={handleInputChange('weight')(rowInfo.setNumber)}
                                         placeholder={rowInfo.previousWeight ? new String(rowInfo.previousWeight) : 'Weight'}
                                     />
                                 </div>
                                 <div className="exercise-completer__reps">
                                     <input
-                                        className="base-input-text integer-input exercise-completer__input"
+                                        className={`
+                                            base-input-text integer-input exercise-completer__input
+                                            ${isLoading ? 'exercise-completer__input--disabled' : ''}
+                                            `}
                                         type="number"
                                         name="reps"
+                                        disabled={isLoading}
                                         onChange={handleInputChange('reps')(rowInfo.setNumber)}
                                         placeholder={rowInfo.previousReps ? new String(rowInfo.previousReps) : 'Reps'}
                                     />
@@ -197,6 +224,7 @@ const ExerciseCompleterV2 = ({
                     realTimeData={realTimeData}
                     isSmall={true}
                     valuesInYAxis={ticksCountYAxis}
+                    isLoading={isLoading}
                 />
             </div>
         </div>

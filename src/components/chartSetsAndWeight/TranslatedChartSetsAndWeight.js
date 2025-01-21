@@ -6,6 +6,7 @@ const TranslatedChartSetsAndWeight = ({
     realTimeData,
     isSmall,
     valuesInYAxis,
+    isLoading,
 }) => {
     const { t } = useTranslation();
     const weightText = t("tooltip-weight");
@@ -21,6 +22,7 @@ const TranslatedChartSetsAndWeight = ({
             dayText={dayText}
             isSmall={isSmall}
             valuesInYAxis={valuesInYAxis}
+            isLoading={isLoading}
         />
     );
 };

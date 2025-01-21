@@ -12,6 +12,7 @@ const ChartSetsAndWeight = ({
     repsText = "Reps",
     dayText = "Day",
     isSmall = false,
+    isLoading = false,
 }) => {
     // data and realTimeData come in this format (an array of objects ORDERED BY DATE):
     // data = [
@@ -35,8 +36,11 @@ const ChartSetsAndWeight = ({
     //         ],
     //     },
     // ];
-    const colorWeight = "#ea704e";
-    const colorCurrent = "#00c3d0";
+
+    const colorWeight = !isLoading ? "#ea704e" : "#919191";
+    const colorCurrent = !isLoading ? "#00c3d0" : "#9b9b9b";
+    const mainColor = !isLoading ? "#2FCA82" : "#a4a4a4";
+
 
     const [lastIndex, setLastIndex] = useState(0);
 
@@ -222,9 +226,8 @@ const ChartSetsAndWeight = ({
             margin={chartMargin}
             padding={0.3}
             innerPadding={10}
-            // colors="#2FCA82"
             colors={({ indexValue }) => {
-                return indexValue === lastIndex ? colorCurrent : '#2FCA82';
+                return indexValue === lastIndex ? colorCurrent : mainColor;
             }}
             enableGridY={!isSmall}
             // Show value in bars

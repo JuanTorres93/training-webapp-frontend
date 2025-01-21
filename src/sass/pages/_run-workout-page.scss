@@ -34,5 +34,18 @@
         &:active {
             background-color: $color-primary-light;
         }
+
+        &--disabled {
+            cursor: not-allowed;
+
+            &,
+            &:hover,
+            &:active {
+                background-color: $color-grey-light-2 !important;
+                color: $color-grey-dark-2 !important;
+            }
+
+            ;
+        }
     }
 }

@@ -2279,6 +2279,10 @@ body {
   color: #575a58;
   transition: all 0.2s;
 }
+.exercise-completer__exercise-title--disabled {
+  filter: grayscale(1);
+  color: white !important;
+}
 .exercise-completer__info-box {
   grid-column: info-start/info-end;
   grid-row: info-start/info-end;
@@ -2308,11 +2312,19 @@ body {
   border-radius: 1rem;
   justify-self: stretch;
 }
+.exercise-completer__title--disabled {
+  filter: grayscale(1);
+}
 .exercise-completer__input {
   width: 90%;
 }
 .exercise-completer__input::placeholder {
   color: #AAADAB;
+}
+.exercise-completer__input--disabled {
+  cursor: not-allowed;
+  background-color: #dde0de;
+  color: #858886;
 }
 .exercise-completer__weight, .exercise-completer__reps {
   display: flex;
@@ -2897,6 +2909,13 @@ body {
 }
 .run-workout-page__finish-button:active {
   background-color: #4BDE94;
+}
+.run-workout-page__finish-button--disabled {
+  cursor: not-allowed;
+}
+.run-workout-page__finish-button--disabled, .run-workout-page__finish-button--disabled:hover, .run-workout-page__finish-button--disabled:active {
+  background-color: #dde0de !important;
+  color: #858886 !important;
 }
 
 /*# sourceMappingURL=style.css.map */
