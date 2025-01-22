@@ -398,6 +398,7 @@ export default function TemplatesPage() {
                         handleCancel={() => hidePopup(setShowDeletePopup)}
                         handleOption={generateDeleteTemplateDispatch}
                         subtitle={templateIdToDelete ? availableTemplates.find(template => template.id === templateIdToDelete).name : ''}
+                        isLoading={templatesLoading || workoutsLoading}
                     />
 
                     <TranslatedPopupNameAndDescription

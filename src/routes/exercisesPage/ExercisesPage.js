@@ -19,11 +19,13 @@ import {
     selectCommonExercises,
     selectUserExercises,
     deleteExercise,
+    selectExercisesLoading,
 } from "../../features/exercises/exercisesSlice";
 
 import {
     getAllUserCreatedTemplates,
     getUserRecentWorkouts,
+    selectTemplatesLoading,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
 import {
@@ -39,6 +41,9 @@ export default function ExercisesPage() {
 
     const userExercises = useSelector(selectUserExercises);
     const commonExercises = useSelector(selectCommonExercises);
+    const exercisesLoading = useSelector(selectExercisesLoading);
+
+    const templatesLoading = useSelector(selectTemplatesLoading);
 
     const [availableExercises, setAvailableExercises] = useState([]);
     const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
@@ -186,6 +191,7 @@ export default function ExercisesPage() {
                         handleCancel={() => hidePopup(setShowDeletePopup)}
                         handleOption={generateDeleteExerciseDispatch}
                         subtitle={exerciseIdToDelete ? availableExercises.find(exercise => exercise.id === exerciseIdToDelete).name : ''}
+                        isLoading={exercisesLoading || templatesLoading}
                     />
 
                     <TranslatedSearchBar

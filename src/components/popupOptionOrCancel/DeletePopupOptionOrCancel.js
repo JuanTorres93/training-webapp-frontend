@@ -8,6 +8,7 @@ const DeletePopupOptionOrCancel = ({
     subtitle = "Choose an option or cancel",
     handleOption = () => { },
     handleCancel = () => { },
+    isLoading = false,
 }) => {
     const { t } = useTranslation();
     const deleteText = t("delete-text");
@@ -24,6 +25,7 @@ const DeletePopupOptionOrCancel = ({
             cancel={cancelText}
             handleOption={handleOption}
             handleCancel={handleCancel}
+            isLoading={isLoading}
         />
     );
 };

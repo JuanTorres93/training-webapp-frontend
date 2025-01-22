@@ -102,6 +102,18 @@
             background-color: $color-grey-light-3;
         }
 
+        &--disabled {
+            cursor: not-allowed;
+
+            &,
+            &:hover,
+            &:active {
+                background-color: $color-grey-light-3 !important;
+                color: $color-grey-dark-2 !important;
+                border-color: $color-grey-light-3 !important;
+            }
+        }
+
         &--positive {
             background-color: $color-primary;
             color: $color-white;
@@ -129,6 +141,22 @@
                 background-color: $color-red-light;
             }
         }
+
+        &--delete,
+        &--positive {
+            &.popup-option-or-cancel__button--disabled {
+                // Disabled state for delete and positive buttons
+                // is a bit different from the default disabled state
+
+                &,
+                &:hover,
+                &:active {
+                    background-color: $color-grey-light-2 !important;
+                    color: $color-grey-dark-3 !important;
+                }
+            }
+        }
+
     }
 
 }

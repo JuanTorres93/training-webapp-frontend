@@ -2439,6 +2439,14 @@ body {
 .popup-option-or-cancel__button:active {
   background-color: #f1f4f2;
 }
+.popup-option-or-cancel__button--disabled {
+  cursor: not-allowed;
+}
+.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--disabled:active {
+  background-color: #f1f4f2 !important;
+  color: #858886 !important;
+  border-color: #f1f4f2 !important;
+}
 .popup-option-or-cancel__button--positive {
   background-color: #2FCA82;
   color: #fff;
@@ -2460,6 +2468,10 @@ body {
 }
 .popup-option-or-cancel__button--delete:active {
   background-color: #f58b6d;
+}
+.popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:active, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:active {
+  background-color: #dde0de !important;
+  color: #575a58 !important;
 }
 
 @keyframes spin {

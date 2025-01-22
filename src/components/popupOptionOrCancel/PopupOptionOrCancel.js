@@ -11,6 +11,7 @@ const PopupOptionOrCancel = ({
     cancel = "Cancel",
     handleOption = () => { },
     handleCancel = () => { },
+    isLoading = false,
 }) => {
     const getAndExecuteOptionDispatch = () => {
         const optionDispatch = handleOption();
@@ -35,17 +36,24 @@ const PopupOptionOrCancel = ({
 
                 <div className="popup-option-or-cancel__buttons-box">
                     <div
-                        className="popup-option-or-cancel__button"
-                        onClick={handleCancel}
+                        className={`
+                            popup-option-or-cancel__button
+                            ${isLoading ? 'popup-option-or-cancel__button--disabled' : ''}
+                            `}
+                        onClick={isLoading ? () => { } : handleCancel}
                     >
                         {cancel}
                     </div>
 
                     <div
-                        className={`popup-option-or-cancel__button popup-option-or-cancel__button--${type}`}
-                        onClick={getAndExecuteOptionDispatch}
+                        className={`
+                            popup-option-or-cancel__button 
+                            popup-option-or-cancel__button--${type}
+                            ${isLoading ? 'popup-option-or-cancel__button--disabled' : ''}
+                            `}
+                        onClick={isLoading ? () => { } : getAndExecuteOptionDispatch}
                     >
-                        {option}
+                        {isLoading ? <div className="spinner-2p2-rem"></div> : option}
                     </div>
                 </div>
             </div>
