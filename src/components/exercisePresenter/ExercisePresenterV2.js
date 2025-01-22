@@ -6,6 +6,7 @@ const ExercisePresenterV2 = ({
     description,
     isCommon = false,
     placeholderSets = "Sets",
+    isDisabled = false,
     orderInTemplate = null, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
     exercisesInTemplate = [], // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
     exercisesInTemplateSetter = () => { }, // IMPORTANT: Use only with the extra class .exercise-presenter--creating-template
@@ -15,6 +16,12 @@ const ExercisePresenterV2 = ({
     onClickRemoveFromTemplate = () => { },
 }) => {
     const [numberOfSets, setNumberOfSets] = useState(1);
+    const [actionsEnabled, setActionsEnabled] = useState(true);
+
+    useEffect(() => {
+        const disabled = isCommon || isDisabled;
+        setActionsEnabled(!disabled);
+    }, [isDisabled, isCommon]);
 
     const updateSetsInTemplate = (newSets) => {
         if (orderInTemplate !== null) {
@@ -45,7 +52,11 @@ const ExercisePresenterV2 = ({
     }, [orderInTemplate]);
 
     return (
-        <div className={`exercise-presenter ${isCommon ? 'exercise-presenter--no-actions' : ''} ${extraClasses}`}>
+        <div className={`
+            exercise-presenter 
+            ${isCommon ? 'exercise-presenter--no-actions' : ''} 
+            ${isDisabled ? 'exercise-presenter--disabled' : ''}
+            ${extraClasses}`}>
             {orderInTemplate !== null && (
                 <div className="exercise-presenter__order-box">
                     <span className="exercise-presenter__order">
@@ -61,22 +72,21 @@ const ExercisePresenterV2 = ({
                 <p className="exercise-presenter__description">
                     {description}
                 </p>
-
-                {/* TODO add stats or something? */}
-                {/* <div className="exercise-presenter__extra-info-box">
-                    STATS?
-                </div> */}
             </div>
 
             {orderInTemplate !== null && (
                 <div className="exercise-presenter__sets-box">
                     {/* TODO validate only integers */}
                     <input
-                        className="base-input-text integer-input"
+                        className={`
+                            base-input-text integer-input
+                            ${!actionsEnabled ? 'exercise-presenter__sets-input--disabled' : ''}
+                            `}
                         onChange={handleSetsChange}
                         value={numberOfSets}
                         type="number"
                         placeholder={placeholderSets}
+                        disabled={!actionsEnabled}
                         max={99}
                         min={1}
                     />
@@ -85,25 +95,40 @@ const ExercisePresenterV2 = ({
 
             <div className="exercise-presenter__actions-box">
                 <figure
-                    className="exercise-presenter__icon-box exercise-presenter__icon-box--delete"
-                    enabled={isCommon ? 'false' : 'true'}
-                    onClick={onClickDelete}
+                    className={`
+                        exercise-presenter__icon-box 
+                        exercise-presenter__icon-box--delete
+                        ${!actionsEnabled ? 'exercise-presenter__icon-box--disabled' : ''}
+                        `}
+                    // enabled={isCommon ? 'false' : 'true'}
+                    disabled={!actionsEnabled}
+                    onClick={actionsEnabled ? onClickDelete : () => { }}
                 >
                     <ion-icon name="trash-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
                 <figure
-                    className="exercise-presenter__icon-box exercise-presenter__icon-box--remove-from-template"
-                    onClick={onClickRemoveFromTemplate}
-                    enabled={isCommon ? 'false' : 'true'}
+                    className={`
+                        exercise-presenter__icon-box 
+                        exercise-presenter__icon-box--remove-from-template
+                        ${!actionsEnabled ? 'exercise-presenter__icon-box--disabled' : ''}
+                        `}
+                    onClick={actionsEnabled ? onClickRemoveFromTemplate : () => { }}
+                    // enabled={isCommon ? 'false' : 'true'}
+                    disabled={!actionsEnabled}
                 >
                     <ion-icon name="remove-circle-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>
 
                 <figure
-                    className="exercise-presenter__icon-box exercise-presenter__icon-box--edit"
-                    enabled={isCommon ? 'false' : 'true'}
-                    onClick={onClickEdit}
+                    className={`
+                        exercise-presenter__icon-box 
+                        exercise-presenter__icon-box--edit
+                        ${!actionsEnabled ? 'exercise-presenter__icon-box--disabled' : ''}
+                        `}
+                    // enabled={isCommon ? 'false' : 'true'}
+                    disabled={!actionsEnabled}
+                    onClick={actionsEnabled ? onClickEdit : () => { }}
                 >
                     <ion-icon name="create-outline" className="exercise-presenter__icon"></ion-icon>
                 </figure>

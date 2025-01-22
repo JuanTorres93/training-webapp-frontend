@@ -6,7 +6,8 @@ const ButtonIconAndText = ({
     text,
     onClick = () => { },
     extraClasses = "",
-    disabled = false
+    disabled = false,
+    isLoading = false,
 }) => {
     return (
         <button
@@ -14,10 +15,15 @@ const ButtonIconAndText = ({
             className={`plain-btn button-icon-and-text ${disabled ? 'button-icon-and-text--disabled' : ''} ${extraClasses}`}
             disabled={disabled}
         >
-            <figure className="button-icon-and-text__ion-icon-box">
-                {ionIcon}
-            </figure>
-            <span className="button-icon-and-text__text">{text}</span>
+            {isLoading && <div className="spinner-5-rem"></div>}
+            {!isLoading && (
+                <React.Fragment>
+                    <figure className="button-icon-and-text__ion-icon-box">
+                        {ionIcon}
+                    </figure>
+                    <span className="button-icon-and-text__text">{text}</span>
+                </React.Fragment>
+            )}
         </button>
     );
 }

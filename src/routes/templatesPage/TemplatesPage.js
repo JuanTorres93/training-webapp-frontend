@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -61,6 +61,11 @@ export default function TemplatesPage() {
             navigate("/login");
         }
     }, [user]);
+
+    // templates stops loading when finish creating new one and then starts loading
+    // again to include its exercises. During that time the interface blinks.
+    // This state is to avoid that blinking
+    const [waitForTemplatesToLoadAgain, setWaitForTemplatesToLoadAgain] = useState(false);
 
     // State for preview popup
     const [popupRowPosition, setPopupRowPosition] = useState({ x: 0, y: 0 });
@@ -297,6 +302,7 @@ export default function TemplatesPage() {
             // Dispatch the action to create the template. Handle any errors and clean form if success
             // Return as promise to be able to wait for it and do a clean up
             return new Promise((resolve, reject) => {
+                setWaitForTemplatesToLoadAgain(true);
                 dispatch(createWorkoutTemplate(createTemplateBodyRequest))
                     .then((action) => {
                         const newTemplate = action.payload;
@@ -328,12 +334,14 @@ export default function TemplatesPage() {
                                         msg: 'Template created successfully',
                                     });
                                 });
+                                setWaitForTemplatesToLoadAgain(false);
                             })
                             .catch((error) => {
                                 reject({
                                     msg: 'Error adding exercises to template',
                                     error,
                                 });
+                                setWaitForTemplatesToLoadAgain(false);
                             });
 
                     })
@@ -342,6 +350,7 @@ export default function TemplatesPage() {
                             msg: 'Error creating template',
                             error,
                         });
+                        setWaitForTemplatesToLoadAgain(false);
                     });
             });
         }
@@ -371,6 +380,7 @@ export default function TemplatesPage() {
                         <TranslatedTemplateCreator
                             exercisesData={availableExercises}
                             newTemplateDispatchGenerator={createDispatchNewTemplate}
+                            isLoading={templatesLoading || waitForTemplatesToLoadAgain}
                         />
                     </div>
 

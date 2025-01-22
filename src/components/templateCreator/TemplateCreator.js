@@ -14,6 +14,7 @@ const TemplateCreator = ({
     createTemplateText,
     placeholderSets,
     exercisesData,
+    isLoading = false,
     newTemplateDispatchGenerator = () => {
         return (templateName, templateDescription, exercisesInTemplate) => { return new Promise((resolve, reject) => { }) }
     },
@@ -59,13 +60,13 @@ const TemplateCreator = ({
 
     useEffect(() => {
         // TODO add condition to check valid sets for every exercise
-        if (newTemplateName.trim() === '' || newTemplateExercises.length === 0) {
+        if (newTemplateName.trim() === '' || newTemplateExercises.length === 0 || isLoading) {
             setConfirmButtonEnabled(false);
             return;
         }
 
         setConfirmButtonEnabled(true);
-    }, [newTemplateName, newTemplateDescription, newTemplateExercises]);
+    }, [newTemplateName, newTemplateDescription, newTemplateExercises, isLoading]);
 
     const selectExerciseForNewTemplate = (exerciseId) => {
         const exercise = availableExercises.find(exercise => exercise.id === exerciseId);
@@ -124,8 +125,11 @@ const TemplateCreator = ({
                 {
                     shownExercises.map((exercise) => (
                         <div
-                            className="template-creator__available-exercise-wrapper"
-                            onClick={() => selectExerciseForNewTemplate(exercise.id)}
+                            className={`
+                                template-creator__available-exercise-wrapper
+                                ${isLoading ? 'template-creator__available-exercise-wrapper--disabled' : ''}
+                                `}
+                            onClick={isLoading ? () => { } : () => selectExerciseForNewTemplate(exercise.id)}
                             key={exercise.id}
                         >
                             <ExercisePresenterV2
@@ -133,6 +137,7 @@ const TemplateCreator = ({
                                 id={exercise.id}
                                 name={exercise.name}
                                 description={exercise.description}
+                                isDisabled={isLoading}
                             />
                         </div>
                     ))
@@ -142,11 +147,15 @@ const TemplateCreator = ({
                 <label htmlFor="name" className="template-creator__label">{nameLabel}</label>
                 <input
                     id="name"
-                    className="base-input-text template-creator__input"
+                    className={`
+                        base-input-text template-creator__input
+                        ${isLoading ? 'template-creator__input--disabled' : ''}
+                        `}
                     onChange={(event) => setNewTemplateName(event.target.value)}
                     value={newTemplateName}
                     type="text"
                     placeholder={nameLabel}
+                    disabled={isLoading}
                     maxLength={40}
                 />
             </div>
@@ -155,10 +164,14 @@ const TemplateCreator = ({
                 <label htmlFor="description" className="template-creator__label">{descriptionLabel}</label>
                 <textarea
                     id="description"
-                    className="base-input-text template-creator__input"
+                    className={`
+                        base-input-text template-creator__input
+                        ${isLoading ? 'template-creator__input--disabled' : ''}
+                        `}
                     onChange={(event) => setNewTemplateDescription(event.target.value)}
                     value={newTemplateDescription}
                     placeholder={descriptionLabel}
+                    disabled={isLoading}
                     maxLength={500}
                 >
 
@@ -169,8 +182,9 @@ const TemplateCreator = ({
                 ionIcon={<ion-icon name="checkmark-outline"></ion-icon>}
                 text={createTemplateText}
                 extraClasses="template-creator__confirm-button"
-                onClick={createNewTemplate}
+                onClick={confirmButtonEnabled ? createNewTemplate : () => { }}
                 disabled={!confirmButtonEnabled}
+                isLoading={isLoading}
             />
 
             <div className="template-creator__separator template-creator__separator--used-exercises separator-text-between-lines">{usedExercisesText}</div>
@@ -189,6 +203,7 @@ const TemplateCreator = ({
                             description={exercise.description}
                             placeholderSets={placeholderSets}
                             onClickRemoveFromTemplate={() => { removeExerciseFromNewTemplate(exercise.id) }}
+                            isDisabled={isLoading}
                         />
                     ))
                 }

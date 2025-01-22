@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 const TranslatedTemplateCreator = ({
     exercisesData,
     newTemplateDispatchGenerator,
+    isLoading,
 }) => {
     const { t } = useTranslation();
     const nameLabel = t("template-creator-name-label");
@@ -24,6 +25,7 @@ const TranslatedTemplateCreator = ({
             placeholderSets={placeholderSets}
             exercisesData={exercisesData}
             newTemplateDispatchGenerator={newTemplateDispatchGenerator}
+            isLoading={isLoading}
         />
     );
 };

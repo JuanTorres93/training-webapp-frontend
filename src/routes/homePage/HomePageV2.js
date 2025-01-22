@@ -311,7 +311,7 @@ export default function HomePageV2() {
                                 disabled={weightIsLoading || (todaysWeight.trim() === '')}
                             >
                                 {!weightIsLoading && t('home-page-submit-weight')}
-                                {weightIsLoading && <div className="spinner-5-rem"></div>}
+                                {weightIsLoading && <div className="spinner-3-rem"></div>}
                             </button>
                         </form>
                     </div>

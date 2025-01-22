@@ -226,7 +226,7 @@ export default function RunWorkoutPageV2() {
                         disabled={workoutsLoading}
                     >
                         {/* TODO translate */}
-                        {workoutsLoading ? <div className="spinner-5-rem"></div> : "Finish"}
+                        {workoutsLoading ? <div className="spinner-3-rem"></div> : "Finish"}
                     </button>
                 </section>
             </main>

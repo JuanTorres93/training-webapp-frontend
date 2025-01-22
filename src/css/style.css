@@ -1680,6 +1680,12 @@ body {
   border-color: #2FCA82;
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.05);
 }
+.exercise-presenter--disabled {
+  cursor: not-allowed;
+}
+.exercise-presenter--disabled, .exercise-presenter--disabled:hover {
+  border-color: #858886 !important;
+}
 .exercise-presenter__info-box {
   grid-column: order-start/actions-start;
   grid-row: presenter-top/presenter-bottom;
@@ -1728,6 +1734,12 @@ body {
 .exercise-presenter__icon-box--remove-from-template:hover {
   color: #ea704e;
 }
+.exercise-presenter__icon-box--disabled {
+  cursor: not-allowed;
+}
+.exercise-presenter__icon-box--disabled, .exercise-presenter__icon-box--disabled:hover, .exercise-presenter__icon-box--disabled:active {
+  color: #858886 !important;
+}
 .exercise-presenter__sets-box {
   display: flex;
   align-items: center;
@@ -1772,6 +1784,11 @@ body {
 }
 .exercise-presenter--creating-template .exercise-presenter__actions-box {
   justify-content: center;
+}
+.exercise-presenter--creating-template .exercise-presenter__sets-input--disabled {
+  background-color: #dde0de;
+  color: #3c3f3d;
+  cursor: not-allowed;
 }
 
 .popup-name-desc {
@@ -2154,6 +2171,11 @@ body {
 .template-creator__input:hover {
   border-color: #4BDE94;
 }
+.template-creator__input--disabled {
+  cursor: not-allowed;
+  background-color: #dde0de !important;
+  border-color: #dde0de !important;
+}
 .template-creator__label {
   font-weight: 400;
   margin-bottom: 0.5rem;
@@ -2175,6 +2197,9 @@ body {
   grid-column: create-button-start/create-button-end;
   grid-row: name-start/description-end;
 }
+.template-creator__available-exercise-wrapper--disabled > * {
+  cursor: not-allowed !important;
+}
 
 .button-icon-and-text {
   display: flex;
@@ -2195,12 +2220,11 @@ body {
   background-color: #03B670;
 }
 .button-icon-and-text--disabled {
-  background-color: #c3c6c4;
-  color: #f1f4f2;
   cursor: not-allowed;
 }
-.button-icon-and-text--disabled:hover {
-  background-color: #c3c6c4;
+.button-icon-and-text--disabled, .button-icon-and-text--disabled:hover, .button-icon-and-text--disabled:active {
+  background-color: #dde0de;
+  color: #AAADAB;
 }
 .button-icon-and-text__ion-icon-box {
   display: flex;
@@ -2446,7 +2470,7 @@ body {
     transform: rotate(360deg);
   }
 }
-.spinner-base, .spinner-20-rem, .spinner-10-rem, .spinner-5-rem, .spinner-2p2-rem {
+.spinner-base, .spinner-20-rem, .spinner-10-rem, .spinner-5-rem, .spinner-3-rem, .spinner-2p2-rem {
   display: inline-block;
   border: 4px solid;
   border-color: #ccc transparent transparent transparent;
@@ -2459,9 +2483,14 @@ body {
   height: 2.2rem;
 }
 
-.spinner-5-rem {
+.spinner-3-rem {
   width: 3rem;
   height: 3rem;
+}
+
+.spinner-5-rem {
+  width: 5rem;
+  height: 5rem;
 }
 
 .spinner-10-rem {
