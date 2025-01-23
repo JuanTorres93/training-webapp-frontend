@@ -34,9 +34,15 @@ export let currentLanguage = i18n.language;
 
 export const changeLanguage = () => {
     if (i18n.language === "en") {
+        // For keeping track in this file
+        currentLanguage = "es";
+        // For keeping track in the rest of the app
         store.dispatch(setLanguage("es"));
         return i18n.changeLanguage("es");
     } else {
+        // For keeping track in this file
+        currentLanguage = "en";
+        // For keeping track in the rest of the app
         store.dispatch(setLanguage("en"));
         return i18n.changeLanguage("en");
     }
