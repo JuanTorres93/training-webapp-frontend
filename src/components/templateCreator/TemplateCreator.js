@@ -69,6 +69,8 @@ const TemplateCreator = ({
     }, [newTemplateName, newTemplateDescription, newTemplateExercises, isLoading]);
 
     const selectExerciseForNewTemplate = (exerciseId) => {
+        // NOTE: Here can be problems if exercises are selected and meanwhile
+        // the translation is changed. 
         const exercise = availableExercises.find(exercise => exercise.id === exerciseId);
 
         if (!exercise) {

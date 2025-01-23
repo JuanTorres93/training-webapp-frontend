@@ -1,5 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
+// Import store for being able to dispatch actions without being
+// in a React component
+import { store } from './index';
+import { setLanguage } from './features/language/languageSlice';
+
 import translationEn from './locales/en/translation.json';
 import translationEs from './locales/es/translation.json';
 
@@ -28,14 +34,34 @@ export let currentLanguage = i18n.language;
 
 export const changeLanguage = () => {
     if (i18n.language === "en") {
-        currentLanguage = "es";
+        store.dispatch(setLanguage("es"));
         return i18n.changeLanguage("es");
     } else {
-        currentLanguage = "en";
+        store.dispatch(setLanguage("en"));
         return i18n.changeLanguage("en");
     }
 };
 
+export const processCommonResourcesFromDb = (resources) => {
+    // Ensure the input is always treated as an array
+    const resourceArray = Array.isArray(resources) ? resources : [resources];
+
+    // Common keys to process
+    const keysToProcess = ["name", "description"];
+
+    return resourceArray.map(resource => {
+        const mutResource = { ...resource };
+        const keysInResource = Object.keys(resource);
+        const commonKeys = keysInResource.filter(key => keysToProcess.includes(key));
+
+        commonKeys.forEach(key => {
+            const textLanguages = mutResource[key].split("%$");
+            mutResource[key] = currentLanguage === "es" ? textLanguages[1] : textLanguages[0];
+        });
+
+        return mutResource;
+    });
+};
 
 
 export default i18n;

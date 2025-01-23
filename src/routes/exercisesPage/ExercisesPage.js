@@ -28,19 +28,26 @@ import {
     selectTemplatesLoading,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
+
 import {
     positionPopup,
     closePopupOnClickOutside,
     hidePopup,
 } from "../../utils/popups";
 
+import { processCommonResourcesFromDb } from "../../i18n";
+
 export default function ExercisesPage() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const currentLanguage = useSelector(selectCurrentLanguage);
     const userExercises = useSelector(selectUserExercises);
-    const commonExercises = useSelector(selectCommonExercises);
+    const rawCommonExercises = useSelector(selectCommonExercises);
+    // const commonExercises = useSelector(selectCommonExercises);
+    const [commonExercises, setCommonExercises] = useState(processCommonResourcesFromDb(rawCommonExercises));
     const exercisesLoading = useSelector(selectExercisesLoading);
 
     const templatesLoading = useSelector(selectTemplatesLoading);
@@ -65,6 +72,11 @@ export default function ExercisesPage() {
             navigate("/login");
         }
     }, [user]);
+
+
+    useEffect(() => {
+        setCommonExercises(processCommonResourcesFromDb(rawCommonExercises));
+    }, [rawCommonExercises, currentLanguage]);
 
     useEffect(() => {
         // Fuse config

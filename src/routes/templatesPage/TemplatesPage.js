@@ -34,6 +34,7 @@ import {
     selectTemplatesLoading,
     deleteTemplateFromUser,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
 
 // TODO refactor and include in slice for exercises?
 import { addExerciseToTemplate as addExerciseToTemplateInDb } from "../../serverAPI/workoutsTemplates";
@@ -45,6 +46,8 @@ import {
 } from "../../utils/popups";
 import { handleStartWorkout } from "../utils";
 
+import { processCommonResourcesFromDb } from "../../i18n";
+
 export default function TemplatesPage() {
     const user = useSelector(selectUser);
     const userTemplates = useSelector(selectUserTemplates);
@@ -52,6 +55,7 @@ export default function TemplatesPage() {
     const workoutsLoading = useSelector(selectWorkoutsLoading);
     const templatesLoading = useSelector(selectTemplatesLoading);
     const activeTemplate = useSelector(selectActiveTemplate);
+    const currentLanguage = useSelector(selectCurrentLanguage);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -94,7 +98,8 @@ export default function TemplatesPage() {
 
     // state for available exercises
     const userExercises = useSelector(selectUserExercises);
-    const commonExercises = useSelector(selectCommonExercises);
+    const rawCommonExercises = useSelector(selectCommonExercises);
+    const [commonExercises, setCommonExercises] = useState(processCommonResourcesFromDb(rawCommonExercises));
 
     const [availableExercises, setAvailableExercises] = useState([]);
 
@@ -104,6 +109,10 @@ export default function TemplatesPage() {
 
     // Translation access
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setCommonExercises(processCommonResourcesFromDb(rawCommonExercises));
+    }, [rawCommonExercises, currentLanguage]);
 
     useEffect(() => {
         // Fuse config

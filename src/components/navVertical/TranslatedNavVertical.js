@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { currentLanguage, changeLanguage } from "../../i18n";
+import { changeLanguage } from "../../i18n";
 import { logoutUser, selectUser } from "../../features/user/userSlice";
 
 import { selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { selectActiveWorkout } from "../../features/workouts/workoutSlice";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
 
 export default function TranslatedNavVertical() {
     const dispatch = useDispatch();
@@ -19,7 +20,9 @@ export default function TranslatedNavVertical() {
     const user = useSelector(selectUser);
     const activeTemplate = useSelector(selectActiveTemplate);
     const activeWorkout = useSelector(selectActiveWorkout);
-    const [navItems, setNavItems] = useState([
+    const currentLanguage = useSelector(selectCurrentLanguage);
+
+    const rawNavItems = [
         {
             icon: <ion-icon name="apps-outline"></ion-icon>,
             text: t("nav-app-dashboard"),
@@ -36,7 +39,10 @@ export default function TranslatedNavVertical() {
             text: t("nav-app-exercises"),
             path: "/app/exercises",
         },
-    ]);
+
+    ];
+
+    const [navItems, setNavItems] = useState(rawNavItems);
 
     const cbHandleLogout = () => {
         dispatch(logoutUser()).then(() => {
@@ -47,7 +53,6 @@ export default function TranslatedNavVertical() {
     useEffect(() => {
         const activeTemplateExists = Object.keys(activeTemplate).length > 0;
         const activeWorkoutExists = Object.keys(activeWorkout).length > 0;
-
 
         // check index of contains runWorkout in navItems
         const runWorkoutIndex = navItems.findIndex((item) => item.text === t("nav-app-current-workout"));
@@ -65,7 +70,7 @@ export default function TranslatedNavVertical() {
 
             // If runWorkout is already in navItems, update it
             if (runWorkoutIndex !== -1) {
-                const newNavItems = [...navItems];
+                const newNavItems = [...rawNavItems];
 
                 newNavItems[runWorkoutIndex] = workoutNavItem;
 
@@ -73,21 +78,19 @@ export default function TranslatedNavVertical() {
             }
             // If runWorkout is not in navItems, add it
             else {
-                const newNavItems = [...navItems];
+                const newNavItems = [...rawNavItems];
 
                 setNavItems([...newNavItems, workoutNavItem]);
             }
         }
         // If there is no active workout, remove the runWorkout item from the nav
-        else if (runWorkoutIndex !== -1) {
-            const newNavItems = [...navItems];
-
-            newNavItems.splice(runWorkoutIndex, 1);
+        else if (runWorkoutIndex === -1) {
+            const newNavItems = [...rawNavItems];
 
             setNavItems(newNavItems);
         }
 
-    }, [activeTemplate, activeWorkout, user]);
+    }, [activeTemplate, activeWorkout, user, currentLanguage]);
 
     const logoutItem = {
         icon: <ion-icon name="log-out-outline"></ion-icon>,

@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import NavHorizontal from "./Nav";
 
-import { currentLanguage, changeLanguage } from "../../i18n";
+import { changeLanguage } from "../../i18n";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
 
 const TranslatedNavHorizontal = ({
     currentLocation,    // current path to determine if logo should be a link or a scroll link
@@ -10,6 +12,7 @@ const TranslatedNavHorizontal = ({
     userIsLoggedIn = false,
 }) => {
     const { t } = useTranslation();
+    const currentLanguage = useSelector(selectCurrentLanguage);
 
     let navItems;
 
