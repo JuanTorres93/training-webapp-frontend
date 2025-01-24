@@ -32,6 +32,8 @@ import {
 
 import { handleStartWorkout } from "../utils";
 
+import { processCommonStringFromDb } from "../../i18n";
+
 import { calculateTicks } from "../../utils/charts";
 
 export default function HomePageV2() {
@@ -149,6 +151,8 @@ export default function HomePageV2() {
             const workoutId = previousWorkouts[0].id ? previousWorkouts[0].id : workoutName;
             const templateId = previousWorkouts[0].template_id;
 
+            const isCommonTemplate = commonTemplates.find((template) => template.id === templateId);
+
             // workout is an array of objects
             const setsData = previousWorkouts.map((workout) => {
                 const datetime = new Date(workout.startDate);
@@ -191,7 +195,7 @@ export default function HomePageV2() {
                         }
                         disabled={!buttonIsEnabled}
                     >
-                        {workoutName}
+                        {isCommonTemplate ? processCommonStringFromDb(workoutName) : workoutName}
                     </span>
                     <TranslatedChartWorkoutVolume
                         data={setsData}

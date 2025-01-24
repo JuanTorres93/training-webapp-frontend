@@ -69,5 +69,14 @@ export const processCommonResourcesFromDb = (resources) => {
     });
 };
 
+export const processCommonStringFromDb = (text) => {
+    if (typeof text !== 'string') {
+        throw new Error('Input must be a string');
+    }
+
+    const textLanguages = text.split("%$");
+    return currentLanguage === "es" ? textLanguages[1] : textLanguages[0];
+};
+
 
 export default i18n;

@@ -46,12 +46,13 @@ import {
 } from "../../utils/popups";
 import { handleStartWorkout } from "../utils";
 
-import { processCommonResourcesFromDb } from "../../i18n";
+import { processCommonResourcesFromDb, processCommonStringFromDb } from "../../i18n";
 
 export default function TemplatesPage() {
     const user = useSelector(selectUser);
     const userTemplates = useSelector(selectUserTemplates);
-    const commonTemplates = useSelector(selectCommonTemplates);
+    const rawCommonTemplates = useSelector(selectCommonTemplates);
+    const [commonTemplates, setCommonTemplates] = useState(processCommonResourcesFromDb(rawCommonTemplates));
     const workoutsLoading = useSelector(selectWorkoutsLoading);
     const templatesLoading = useSelector(selectTemplatesLoading);
     const activeTemplate = useSelector(selectActiveTemplate);
@@ -113,6 +114,10 @@ export default function TemplatesPage() {
     useEffect(() => {
         setCommonExercises(processCommonResourcesFromDb(rawCommonExercises));
     }, [rawCommonExercises, currentLanguage]);
+
+    useEffect(() => {
+        setCommonTemplates(processCommonResourcesFromDb(rawCommonTemplates));
+    }, [rawCommonTemplates, currentLanguage]);
 
     useEffect(() => {
         // Fuse config
@@ -203,11 +208,13 @@ export default function TemplatesPage() {
     const handleMouseEntersTemplate = templateId => (event) => {
         // Get template exercises
         const template = availableTemplates.find(t => t.id === templateId);
+
         const templateExercises = template.exercises.map((exercise, index) => ({
             exerciseOrder: exercise.order,
-            exerciseName: exercise.name,
+            exerciseName: processCommonStringFromDb(exercise.name),
             numberOfSets: exercise.sets,
         }));
+
         setPopupRows(templateExercises);
 
         // Position popup
