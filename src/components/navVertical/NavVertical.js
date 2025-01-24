@@ -6,6 +6,7 @@ const NavVertical = ({
     currentLanguage,
     cbChangeLanguage = () => { },
     cbHandleLogout = () => { },
+    isLoading = false,
 }) => {
 
     return (
@@ -15,12 +16,17 @@ const NavVertical = ({
                 {
                     items.map((item, index) => {
                         return (
-                            <li key={index} className="nav-vertical__item">
+                            <li key={index} className={`
+                            nav-vertical__item
+                            ${isLoading ? "nav-vertical__item--disabled" : ""}
+                            `}>
                                 <NavLink
                                     // end is used to make the link active only when the path is an exact match
                                     end
-                                    to={item.path}
-                                    className={({ isActive }) => isActive ? "nav-vertical__link nav-vertical__link--active" : "nav-vertical__link"}
+                                    to={isLoading ? "#" : item.path}
+                                    className={({ isActive }) => isActive ?
+                                        `nav-vertical__link nav-vertical__link--active` :
+                                        `nav-vertical__link`}
                                 >
                                     <figure key={index} className="nav-vertical__icon-box">
                                         {item.icon}
@@ -31,10 +37,14 @@ const NavVertical = ({
                         )
                     })
                 }
-                <li className="nav-vertical__item nav-vertical__item--logout">
+                <li className={`
+                    nav-vertical__item 
+                    nav-vertical__item--logout
+                    ${isLoading ? "nav-vertical__item--disabled" : ""}
+                    `}>
                     <button
                         className="nav-vertical__link plain-btn"
-                        onClick={cbHandleLogout}
+                        onClick={isLoading ? () => { } : cbHandleLogout}
                     >
                         <figure className="nav-vertical__icon-box">
                             {logoutItem.icon}
@@ -45,8 +55,12 @@ const NavVertical = ({
             </ul>
 
             <button
-                className="plain-btn"
-                onClick={cbChangeLanguage}
+                className={`
+                    plain-btn 
+                    nav-vertical__change-language-btn
+                    ${isLoading ? "nav-vertical__change-language-btn--disabled" : ""}
+                    `}
+                onClick={isLoading ? () => { } : cbChangeLanguage}
             >
                 <span>{currentLanguage}</span>
             </button>

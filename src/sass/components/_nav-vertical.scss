@@ -43,6 +43,21 @@
                 width: 100%;
             }
         }
+
+        &--disabled {
+
+            &>* {
+                cursor: not-allowed !important;
+                color: $color-grey-light-1 !important;
+            }
+
+            &>*:active,
+            &>*:link,
+            &>*:visited,
+            &>*::after {
+                background-color: transparent !important;
+            }
+        }
     }
 
     &__link {
@@ -134,6 +149,13 @@
 
         &:active {
             color: $color-grey-light-3;
+        }
+    }
+
+    &__change-language-btn {
+        &--disabled {
+            cursor: not-allowed !important;
+            color: $color-grey-light-1 !important;
         }
     }
 }

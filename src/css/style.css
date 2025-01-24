@@ -434,6 +434,13 @@ body {
 .nav-vertical__item--logout button {
   width: 100%;
 }
+.nav-vertical__item--disabled > * {
+  cursor: not-allowed !important;
+  color: #c3c6c4 !important;
+}
+.nav-vertical__item--disabled > *:active, .nav-vertical__item--disabled > *:link, .nav-vertical__item--disabled > *:visited, .nav-vertical__item--disabled > *::after {
+  background-color: transparent !important;
+}
 .nav-vertical__link, .nav-vertical__link:link, .nav-vertical__link:visited {
   position: relative;
   z-index: 2;
@@ -496,6 +503,10 @@ body {
 }
 .nav-vertical > button:active {
   color: #f1f4f2;
+}
+.nav-vertical__change-language-btn--disabled {
+  cursor: not-allowed !important;
+  color: #c3c6c4 !important;
 }
 
 .feature__card {

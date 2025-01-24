@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { changeLanguage } from "../../i18n";
-import { logoutUser, selectUser } from "../../features/user/userSlice";
+import { logoutUser, selectUser, selectUserIsLogingOut } from "../../features/user/userSlice";
 
 import { selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { selectActiveWorkout } from "../../features/workouts/workoutSlice";
@@ -21,6 +21,7 @@ export default function TranslatedNavVertical() {
     const activeTemplate = useSelector(selectActiveTemplate);
     const activeWorkout = useSelector(selectActiveWorkout);
     const currentLanguage = useSelector(selectCurrentLanguage);
+    const isLogingOut = useSelector(selectUserIsLogingOut);
 
     const rawNavItems = [
         {
@@ -94,7 +95,7 @@ export default function TranslatedNavVertical() {
 
     const logoutItem = {
         icon: <ion-icon name="log-out-outline"></ion-icon>,
-        text: t("nav-app-logout"),
+        text: isLogingOut ? <div className="spinner-2p2-rem"></div> : t("nav-app-logout"),
     };
 
     return (
@@ -104,6 +105,7 @@ export default function TranslatedNavVertical() {
             currentLanguage={currentLanguage}
             cbChangeLanguage={changeLanguage}
             cbHandleLogout={cbHandleLogout}
+            isLoading={isLogingOut}
         />
     );
 }

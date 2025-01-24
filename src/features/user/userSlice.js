@@ -114,6 +114,7 @@ const userSlice = createSlice({
         [sliceName]: null,
         isLoading: [],
         hasError: false,
+        isLogingOut: false,
     },
     reducers: {},
     extraReducers: builder => {
@@ -171,15 +172,18 @@ const userSlice = createSlice({
         // logout user
         builder.addCase(logoutUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
+            state.isLogingOut = true;
             state.hasError = false;
         })
         builder.addCase(logoutUser.fulfilled, (state, action) => {
             state[sliceName] = null;
             state.isLoading.pop();
+            state.isLogingOut = false
             state.hasError = false;
         })
         builder.addCase(logoutUser.rejected, (state, action) => {
             state.isLoading.pop();
+            state.isLogingOut = false;
             state.hasError = true;
         })
     },
@@ -189,6 +193,7 @@ const userSlice = createSlice({
 export const selectUser = state => state[sliceName][sliceName];
 export const selectUserIsLoading = state => state[sliceName].isLoading.length > 0;
 export const selectUserHasError = state => state[sliceName].hasError;
+export const selectUserIsLogingOut = state => state[sliceName].isLogingOut;
 
 // Export actions
 export const { setUser } = userSlice.actions;
