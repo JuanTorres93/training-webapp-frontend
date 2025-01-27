@@ -1,3 +1,5 @@
+@use "../abstracts/" as *;
+
 // Define animation
 @keyframes spin {
     0% {
@@ -15,7 +17,13 @@
     border-color: #ccc transparent transparent transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+
+    &--grey-dark-1 {
+        border-color: $color-grey-dark-1 transparent transparent transparent;
+    }
 }
+
+
 
 .spinner-2p2-rem {
     @extend .spinner-base;

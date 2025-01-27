@@ -1854,6 +1854,10 @@ body {
 .popup-name-desc__icon-box--accept:hover {
   color: #2FCA82;
 }
+.popup-name-desc__icon-box--disabled {
+  cursor: not-allowed !important;
+  color: #858886 !important;
+}
 .popup-name-desc__input-box {
   display: flex;
   flex-direction: column;
@@ -1880,6 +1884,10 @@ body {
 }
 .popup-name-desc__input:hover {
   border-color: #4BDE94;
+}
+.popup-name-desc__input--disabled {
+  cursor: not-allowed !important;
+  border-color: transparent !important;
 }
 .popup-name-desc__label {
   font-weight: 400;
@@ -2499,6 +2507,9 @@ body {
   border-color: #ccc transparent transparent transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+.spinner-base--grey-dark-1 {
+  border-color: #AAADAB transparent transparent transparent;
 }
 
 .spinner-2p2-rem {

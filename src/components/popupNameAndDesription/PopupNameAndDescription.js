@@ -4,6 +4,7 @@ const PopupNameAndDescription = ({
     visibility,
     nameLabel,
     descriptionLabel,
+    isLoading,
     arrowClassModifier = 'top-left',
     topPx = 0,
     leftPx = 0,
@@ -46,9 +47,14 @@ const PopupNameAndDescription = ({
                     <label htmlFor="name" className="popup-name-desc__label">{nameLabel}</label>
                     <input
                         id="name"
-                        className="base-input-text popup-name-desc__input"
+                        className={`
+                            base-input-text 
+                            popup-name-desc__input
+                            ${isLoading ? 'popup-name-desc__input--disabled' : ''}
+                            `}
                         type="text"
                         onChange={(event) => setName(event.target.value)}
+                        disabled={isLoading}
                         value={name}
                         placeholder={nameLabel}
                         maxLength={40}
@@ -59,8 +65,13 @@ const PopupNameAndDescription = ({
                     <label htmlFor="description" className="popup-name-desc__label">{descriptionLabel}</label>
                     <textarea
                         id="description"
-                        className="base-input-text popup-name-desc__input"
+                        className={`
+                            base-input-text 
+                            popup-name-desc__input
+                            ${isLoading ? 'popup-name-desc__input--disabled' : ''}
+                            `}
                         onChange={(event) => setDescription(event.target.value)}
+                        disabled={isLoading}
                         value={description}
                         placeholder={descriptionLabel}
                         maxLength={500}
@@ -72,17 +83,25 @@ const PopupNameAndDescription = ({
 
             <div className="popup-name-desc__icons-area">
                 <figure
-                    className="popup-name-desc__icon-box popup-name-desc__icon-box--reject"
-                    onClick={onClose}
+                    className={`
+                        popup-name-desc__icon-box 
+                        popup-name-desc__icon-box--reject
+                        ${isLoading ? 'popup-name-desc__icon-box--disabled' : ''}
+                        `}
+                    onClick={isLoading ? () => { } : onClose}
                 >
                     <ion-icon name="close-outline"></ion-icon>
                 </figure>
 
                 <figure
-                    className="popup-name-desc__icon-box popup-name-desc__icon-box--accept"
-                    onClick={executeOnAccept}
+                    className={`
+                        popup-name-desc__icon-box 
+                        popup-name-desc__icon-box--accept
+                        ${isLoading ? 'popup-name-desc__icon-box--disabled' : ''}
+                        `}
+                    onClick={isLoading ? () => { } : executeOnAccept}
                 >
-                    <ion-icon name="checkmark-outline"></ion-icon>
+                    {isLoading ? <div style={{ pointerEvents: 'none' }} className="spinner-2p2-rem spinner-base--grey-dark-1"></div> : <ion-icon name="checkmark-outline"></ion-icon>}
                 </figure>
             </div>
         </div>

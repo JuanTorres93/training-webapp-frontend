@@ -424,6 +424,7 @@ export default function TemplatesPage() {
                         topPx={popupEditPosition.y}
                         onClose={() => hidePopup(setShowPopupEdit)}
                         acceptDispatchGenerator={handleEditTemplate}
+                        isLoading={templatesLoading || workoutsLoading || waitForTemplatesToLoadAgain}
                     />
 
                     <TranslatedSearchBar

@@ -196,6 +196,7 @@ export default function ExercisesPage() {
                         topPx={popupPosition.y}
                         onClose={() => hidePopup(setShowNameDescPopup)}
                         acceptDispatchGenerator={generateAcceptPopupDispatch}
+                        isLoading={exercisesLoading || templatesLoading}
                     />
 
                     <DeletePopupOptionOrCancel

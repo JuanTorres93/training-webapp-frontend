@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const TranslatedPopupNameAndDescription = ({
     visibility,
+    isLoading,
     arrowClassModifier = 'top-left',
     topPx = 0,
     leftPx = 0,
@@ -22,6 +23,7 @@ const TranslatedPopupNameAndDescription = ({
             leftPx={leftPx}
             onClose={onClose}
             acceptDispatchGenerator={acceptDispatchGenerator}
+            isLoading={isLoading}
         />
     );
 }

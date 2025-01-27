@@ -10,6 +10,7 @@ import {
 
 import { calculateTicks } from "../../utils/charts";
 import { selectUser } from "../../features/user/userSlice";
+import { selectCommonExercises } from "../../features/exercises/exercisesSlice";
 import {
     selectLastWorkout,
     finishWorkout,
@@ -22,6 +23,8 @@ import {
     selectActiveTemplate,
     setActiveTemplate,
 } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
+import { processCommonStringFromDb } from "../../i18n";
 
 export default function RunWorkoutPageV2() {
     const navigate = useNavigate();
@@ -34,6 +37,8 @@ export default function RunWorkoutPageV2() {
     const lastNWorkouts = useSelector(selectLastNWorkouts);
     const activeTemplate = useSelector(selectActiveTemplate);
     const workoutsLoading = useSelector(selectWorkoutsLoading);
+    const commonExercises = useSelector(selectCommonExercises);
+    const currentLanguage = useSelector(selectCurrentLanguage);
 
     // I'm using this instead of the selector of activeWorkout beacause
     // it throws an error of max depth for preventing infinite loops
@@ -92,6 +97,12 @@ export default function RunWorkoutPageV2() {
             if (!(Object.keys(activeTemplate).length === 0) && activeTemplate.exercises.length > 0) {
                 setExerciseCompleters(
                     activeTemplate.exercises.map((exercise, index) => {
+                        const exerciseIsCommon = commonExercises.some((commonExercise) => {
+                            return commonExercise.id === exercise.id;
+                        });
+
+                        const exerciseName = exerciseIsCommon ? processCommonStringFromDb(exercise.name) : exercise.name;
+
                         const rows = Array.from({ length: exercise.sets }, (_, i) => ({
                             setNumber: i + 1,
                             previousWeight: 0,
@@ -104,7 +115,7 @@ export default function RunWorkoutPageV2() {
                                 previousData={[]}
                                 workoutStartDate={startDate}
                                 ticksCountYAxis={ticksCountYAxis}
-                                exerciseName={exercise.name}
+                                exerciseName={exerciseName}
                                 rowsInfo={rows}
                                 dispatchGenerator={generateDispatchForUpdatingWorkout(exercise.id, index + 1)}
                                 clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
@@ -131,6 +142,13 @@ export default function RunWorkoutPageV2() {
             setExerciseCompleters(
                 Object.keys(groupedExercises).map((exerciseOrder) => {
                     const setExerciseInfo = groupedExercises[exerciseOrder];
+
+                    const exerciseId = setExerciseInfo[0].id;
+                    const exerciseIsCommon = commonExercises.some((commonExercise) => {
+                        return commonExercise.id === exerciseId;
+                    });
+
+                    const exerciseName = exerciseIsCommon ? processCommonStringFromDb(setExerciseInfo[0].name) : setExerciseInfo[0].name;
 
                     // Inputs
                     const rows = setExerciseInfo.map((set) => ({
@@ -174,7 +192,7 @@ export default function RunWorkoutPageV2() {
                             previousData={previousData}
                             ticksCountYAxis={ticksCountYAxis}
                             workoutStartDate={startDate}
-                            exerciseName={setExerciseInfo[0].name}
+                            exerciseName={exerciseName}
                             rowsInfo={rows}
                             dispatchGenerator={generateDispatchForUpdatingWorkout(setExerciseInfo[0].id, setExerciseInfo[0].order)}
                             clearExercisesDispatchGenerator={generateClearActiveWorkoutExercisesDispatch}
@@ -186,7 +204,7 @@ export default function RunWorkoutPageV2() {
             );
 
         }
-    }, [lastWorkout, activeTemplate, startDate, ticksCountYAxis, lastNWorkouts, workoutsLoading]);
+    }, [lastWorkout, activeTemplate, startDate, ticksCountYAxis, lastNWorkouts, workoutsLoading, currentLanguage]);
 
     const handleFinishWorkout = () => {
         // If last workout does not exist
