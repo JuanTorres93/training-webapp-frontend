@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 
 // custom imports
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { LoginObserverProvider } from './LoginObserverContext';
 // Translation import
 import './i18n';
 
@@ -96,7 +97,6 @@ const router = createBrowserRouter([
     element: <TemplatesPage />
   },
   {
-    // TODO add a /:workoutId at the end of the path?
     path: "/app/runWorkout/:templateId/:workoutId",
     element: <RunWorkoutPageV2 />
   },
@@ -152,12 +152,14 @@ root.render(
     {/* Wrapper for redux's store configuration */}
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
-        {/* TODO Uncomment for stripe integration */}
-        {/* <Elements stripe={stripePromise}> */}
-        <RouterProvider router={router} />
-        {/* TODO Uncomment for stripe integration */}
-        {/* </Elements> */}
+        <LoginObserverProvider >
+          {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
+          {/* TODO Uncomment for stripe integration */}
+          {/* <Elements stripe={stripePromise}> */}
+          <RouterProvider router={router} />
+          {/* TODO Uncomment for stripe integration */}
+          {/* </Elements> */}
+        </LoginObserverProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>
