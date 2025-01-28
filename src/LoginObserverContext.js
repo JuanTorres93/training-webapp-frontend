@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logoutUser, selectUser } from "./features/user/userSlice";
 
-// Crear el contexto
-const LoginObserverContext = createContext();
+// Create the context
+export const LoginObserverContext = createContext();
 
 export const LoginObserverProvider = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  // DOC Can be added useStates to more complex contexts
   const [sessionExpiresAt, setSessionExpiresAt] = useState(null);
+  const [showPopupExtendSession, setShowPopupExtendSession] = useState(false);
+  const [showPopupSessionExpired, setShowPopupSessionExpired] = useState(false);
 
   // Effect to set the expiration date when user is loaded
   useEffect(() => {
@@ -60,8 +61,7 @@ export const LoginObserverProvider = ({ children }) => {
       const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
 
       if (expiryDateMinusMargin <= currentTime) {
-        // TODO State to show the dialog
-        // setIsConfirmOpen(true);
+        setShowPopupExtendSession(true);
         clearInterval(sessionAboutToExpireInterval);
       }
     }, frequencyInMs);
@@ -70,11 +70,9 @@ export const LoginObserverProvider = ({ children }) => {
       const currentTime = new Date().toISOString();
 
       if (sessionExpiresAt <= currentTime) {
-        // TODO State to show the dialog
-        // setIsAlertOpen(true);
+        setShowPopupSessionExpired(true);
         // Close confirm dialog if open
-        // TODO State to show the dialog
-        // setIsConfirmOpen(false);
+        setShowPopupExtendSession(false);
         dispatch(logoutUser());
         clearInterval(sessionExpiredInterval);
       }
@@ -102,7 +100,10 @@ export const LoginObserverProvider = ({ children }) => {
   // DOC Data can be written to be available in the app
   // useStates values can be used
   const value = {
-    test: "test",
+    showPopupExtendSession,
+    setShowPopupExtendSession,
+    showPopupSessionExpired,
+    setShowPopupSessionExpired,
   };
 
   return (

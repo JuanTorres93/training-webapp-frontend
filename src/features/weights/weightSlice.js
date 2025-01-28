@@ -55,7 +55,7 @@ const slice = createSlice({
     name: sliceName,
     initialState: {
         [sliceName]: {
-            current: null,
+            current: {},
             history: [],
         },
         isLoading: [],
@@ -69,7 +69,11 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(addCurrentDayWeight.fulfilled, (state, action) => {
-            state[sliceName].current = action.payload.value;
+            const today = new Date().toISOString().split('T')[0];
+            state[sliceName].current = {
+                date: today,
+                value: action.payload.value,
+            };
             state[sliceName].history.push(action.payload);
             state.isLoading.pop();
             state.hasError = false;
@@ -85,7 +89,11 @@ const slice = createSlice({
             state.hasError = false;
         })
         builder.addCase(updateCurrentDayWeight.fulfilled, (state, action) => {
-            state[sliceName].current = action.payload.value;
+            const today = new Date().toISOString().split('T')[0];
+            state[sliceName].current = {
+                date: today,
+                value: action.payload.value,
+            };
             // update weight in history
             const index = state[sliceName].history.findIndex(
                 entry => entry.date === action.payload.date
@@ -116,7 +124,7 @@ const slice = createSlice({
                 const currentDate = new Date().toISOString().split('T')[0];
 
                 if (formattedLastEntryDate === currentDate) {
-                    state[sliceName].current = lastEntry.value;
+                    state[sliceName].current.value = lastEntry.value;
                 }
             }
 

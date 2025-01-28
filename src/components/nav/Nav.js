@@ -73,7 +73,7 @@ const NavHorizontal = ({
                 }
 
                 {userIsLoggedIn &&
-                    <Link to="/app" className="nav-horizontal__action-link nav-horizontal__action-link--cta nav-horizontal__action-link--app">
+                    <Link to="/app/home" className="nav-horizontal__action-link nav-horizontal__action-link--cta nav-horizontal__action-link--app">
                         app
                     </Link>
                 }

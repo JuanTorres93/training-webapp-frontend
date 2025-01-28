@@ -78,27 +78,33 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
-    element: <HomePageV2 />
-  },
-  {
-    path: "/app/home",
-    element: <HomePageV2 />
-  },
-  {
-    path: "/app/dashboard",
-    element: <HomePageV2 />
-  },
-  {
-    path: "/app/exercises",
-    element: <ExercisesPage />
-  },
-  {
-    path: "/app/templates",
-    element: <TemplatesPage />
-  },
-  {
-    path: "/app/runWorkout/:templateId/:workoutId",
-    element: <RunWorkoutPageV2 />
+    errorElement: <DefaultErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePageV2 />
+      },
+      {
+        path: "/app/home",
+        element: <HomePageV2 />
+      },
+      {
+        path: "/app/dashboard",
+        element: <HomePageV2 />
+      },
+      {
+        path: "/app/exercises",
+        element: <ExercisesPage />
+      },
+      {
+        path: "/app/templates",
+        element: <TemplatesPage />
+      },
+      {
+        path: "/app/runWorkout/:templateId/:workoutId",
+        element: <RunWorkoutPageV2 />
+      },
+    ]
   },
   {
     path: "/old",

@@ -111,5 +111,8 @@
     "delete-text": "Borrar",
     "cancel-text": "Cancelar",
     "delete-popup-title": "¿Estás seguro de que quieres borrar esto?",
-    "extra-volume": "Volumen"
+    "extra-volume": "Volumen",
+    "extend-text": "Extender",
+    "extend-session-popup-title": "Tu sesión está a punto de expirar",
+    "extend-session-popup-subtitle": "¿Quieres extenderla?"
 }

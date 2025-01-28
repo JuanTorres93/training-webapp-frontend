@@ -38,7 +38,7 @@ const LoginPage = () => {
     useEffect(() => {
         // If user exists, then redirect to the app
         if (user) {
-            navigate('/app');
+            navigate('/app/home');
         }
     }, [user, navigate]);
 

@@ -21,7 +21,7 @@ export default function RegisterPage() {
 
     useEffect(() => {
         if (user) {
-            navigate("/app");
+            navigate("/app/home");
         }
     }, [user]);
 

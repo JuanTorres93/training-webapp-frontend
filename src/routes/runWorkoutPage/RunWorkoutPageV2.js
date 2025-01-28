@@ -8,6 +8,8 @@ import {
     useParams,
 } from "react-router-dom";
 
+import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel copy";
+
 import { calculateTicks } from "../../utils/charts";
 import { selectUser } from "../../features/user/userSlice";
 import { selectCommonExercises } from "../../features/exercises/exercisesSlice";
@@ -212,12 +214,12 @@ export default function RunWorkoutPageV2() {
             // Wait a bit in runWorkoutPage to minimize the time
             // of getting the last workout in the dashboard
             dispatch(finishWorkout()).then(() => {
-                navigate("/app");
+                navigate("/app/home");
             });
         } else {
             // OTherwise go inmmediately, since there will be a loading animation
             dispatch(finishWorkout());
-            navigate("/app");
+            navigate("/app/home");
         }
     };
 
@@ -231,6 +233,7 @@ export default function RunWorkoutPageV2() {
                     className="run-workout-page"
                     ref={weightGraphContainerRef}
                 >
+                    <ExtendSessionOptionOrCancel />
                     {/* Render exercise completers */}
                     {exerciseCompleters}
 

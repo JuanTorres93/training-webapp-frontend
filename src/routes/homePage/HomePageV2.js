@@ -36,6 +36,8 @@ import { processCommonStringFromDb } from "../../i18n";
 
 import { calculateTicks } from "../../utils/charts";
 
+import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel copy";
+
 export default function HomePageV2() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
@@ -81,7 +83,7 @@ export default function HomePageV2() {
             dispatch(loginUser({
                 userIdOAuth: userId,
             })).then(() => {
-                navigate("/app");
+                navigate("/app/home");
             });
         }
     }, [user]);
@@ -123,7 +125,9 @@ export default function HomePageV2() {
     const handleTodaysWeightSubmit = (e) => {
         e.preventDefault();
 
-        if (!currentWeight) {
+        const today = new Date().toISOString().split('T')[0];
+
+        if (!currentWeight || currentWeight.date !== today) {
             return dispatch(addCurrentDayWeight({
                 userId: user.id,
                 weight: todaysWeight,
@@ -211,6 +215,7 @@ export default function HomePageV2() {
         <div className="behind-app">
             <main className="app-layout">
                 <TranslatedNavVertical />
+                <ExtendSessionOptionOrCancel />
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">
@@ -293,11 +298,13 @@ export default function HomePageV2() {
 
                             <div className="home-page__weight-text-box">
                                 {
-                                    currentWeight &&
+                                    // If there is a weight for today, show it
+                                    currentWeight && currentWeight.date === new Date().toISOString().split('T')[0]
+                                    &&
                                     <p className="home-page__weight-text">
                                         {t('home-page-last-weight')}
                                         <span className="home-page__current-weight">
-                                            {currentWeight}
+                                            {currentWeight.value}
                                         </span>
                                     </p>
                                 }

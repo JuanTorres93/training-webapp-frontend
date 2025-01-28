@@ -27,7 +27,7 @@ export default function TranslatedNavVertical() {
         {
             icon: <ion-icon name="apps-outline"></ion-icon>,
             text: t("nav-app-dashboard"),
-            path: "/app",
+            path: "/app/home",
         },
         {
             icon: <ion-icon name="bookmark-outline"></ion-icon>,
