@@ -2420,6 +2420,9 @@ body {
 .popup-option-or-cancel__icon-box--delete {
   color: #ea704e;
 }
+.popup-option-or-cancel__icon-box--warning {
+  color: #F78E2C;
+}
 .popup-option-or-cancel__text-box {
   display: flex;
   flex-direction: column;
@@ -2488,7 +2491,18 @@ body {
 .popup-option-or-cancel__button--delete:active {
   background-color: #f58b6d;
 }
-.popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:active, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:active {
+.popup-option-or-cancel__button--warning {
+  background-color: #F78E2C;
+  color: #fff;
+  border: none;
+}
+.popup-option-or-cancel__button--warning:hover {
+  background-color: #f08822;
+}
+.popup-option-or-cancel__button--warning:active {
+  background-color: #ffa45b;
+}
+.popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--delete.popup-option-or-cancel__button--disabled:active, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--positive.popup-option-or-cancel__button--disabled:active, .popup-option-or-cancel__button--warning.popup-option-or-cancel__button--disabled, .popup-option-or-cancel__button--warning.popup-option-or-cancel__button--disabled:hover, .popup-option-or-cancel__button--warning.popup-option-or-cancel__button--disabled:active {
   background-color: #dde0de !important;
   color: #575a58 !important;
 }

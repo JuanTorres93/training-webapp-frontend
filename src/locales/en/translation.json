@@ -114,5 +114,8 @@
     "extra-volume": "Volume",
     "extend-text": "Extend",
     "extend-session-popup-title": "Your session is about to expire",
-    "extend-session-popup-subtitle": "Do you want to extend it?"
+    "extend-session-popup-subtitle": "Do you want to extend it?",
+    "session-expired-button-text": "OK",
+    "session-expired-popup-title": "Your session has expired",
+    "session-expired-popup-subtitle": "Please log in again"
 }

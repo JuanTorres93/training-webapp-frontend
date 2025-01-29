@@ -4,6 +4,7 @@ import NicheSection from "../../components/nicheSection/NicheSection";
 import BenefitsSection from "../../components/benefitsSection/BenefitsSection";
 import FeatureSection from "../../components/featureSection/FeatureSection";
 import TestimonialsSection from "../../components/testimonialsSection/TestimonialsSection";
+import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
@@ -176,6 +177,8 @@ export default function LandingPage() {
                 currentLocation={location.pathname}
                 userIsLoggedIn={user ? true : false}
             />
+
+            <ExpiredSessionOptionOrCancel />
 
             <HeroSection />
 

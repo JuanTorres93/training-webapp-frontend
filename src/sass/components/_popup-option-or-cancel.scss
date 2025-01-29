@@ -54,6 +54,10 @@
         &--delete {
             color: $color-red;
         }
+
+        &--warning {
+            color: $color-secondary;
+        }
     }
 
     &__text-box {
@@ -142,8 +146,23 @@
             }
         }
 
+        &--warning {
+            background-color: $color-secondary;
+            color: $color-white;
+            border: none;
+
+            &:hover {
+                background-color: $color-secondary-dark;
+            }
+
+            &:active {
+                background-color: $color-secondary-light;
+            }
+        }
+
         &--delete,
-        &--positive {
+        &--positive,
+        &--warning {
             &.popup-option-or-cancel__button--disabled {
                 // Disabled state for delete and positive buttons
                 // is a bit different from the default disabled state

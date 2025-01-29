@@ -3,7 +3,7 @@ import React from "react";
 const PopupOptionOrCancel = ({
     // visibility can be "visible" or "hidden"
     visibility = 'hidden',
-    // type can be "positive" or "delete"
+    // type can be "positive", "delete" or "warning"
     type = "delete",
     title = "Option or Cancel",
     subtitle = "Choose an option or cancel",
@@ -26,7 +26,9 @@ const PopupOptionOrCancel = ({
                 <figure className={`popup-option-or-cancel__icon-box popup-option-or-cancel__icon-box--${type}`}>
                     {type === "positive" ?
                         <ion-icon name="checkmark-circle-outline"></ion-icon> :
-                        <ion-icon name="trash-outline"></ion-icon>}
+                        type === "warning" ?
+                            <ion-icon name="alert-circle-outline"></ion-icon> :
+                            <ion-icon name="trash-outline"></ion-icon>}
                 </figure>
 
                 <div className="popup-option-or-cancel__text-box">

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import TranslatedNavHorizontal from '../../components/nav/TranslatedNav';
 import LoginFormV2 from '../../components/loginForm/LoginFormV2';
+import ExpiredSessionOptionOrCancel from '../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel';
 import Alert from '../../components/modals/alert/Alert'
 import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 
@@ -60,6 +61,7 @@ const LoginPage = () => {
                     currentLocation={location.pathname}
                     isInLandingPage={false}
                 />
+                <ExpiredSessionOptionOrCancel />
 
                 <LoginFormV2
                     formTitle={t('login-form-title')}

@@ -1,5 +1,6 @@
 import RegisterFormV2 from "../../components/registerForm/RegisterFormV2";
 import TranslatedNavHorizontal from "../../components/nav/TranslatedNav";
+import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -35,6 +36,8 @@ export default function RegisterPage() {
                 currentLocation={location.pathname}
                 isInLandingPage={false}
             />
+
+            <ExpiredSessionOptionOrCancel />
 
             <RegisterFormV2
                 formTitle={t('register-form-title')}
