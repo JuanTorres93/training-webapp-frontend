@@ -1,0 +1,116 @@
+@use "../abstracts/" as *;
+
+.flash-message {
+  // Center at the bottom of the screen
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  display: grid;
+  grid-template-columns: [line-start] 1rem [line-end icon-start] 5rem [icon-end content-start] auto [content-end close-start] min-content [close-end];
+  grid-gap: 1.5rem;
+
+  background-color: $color-grey-light-3;
+  border-radius: .5rem;
+
+  overflow: hidden;
+
+  transition: all .3s;
+
+  &--hidden {
+    transform: translateX(-50%) translateY(100%);
+  }
+
+  &__line-box {
+    grid-column: line-start / line-end;
+  }
+
+  &__line {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to right bottom, $color-grey-dark-3, $color-grey-dark-2);
+
+    &--success {
+      background-image: linear-gradient(to right bottom, $color-primary-dark, $color-primary-light);
+    }
+
+    &--error {
+      background-image: linear-gradient(to right bottom, $color-red-dark, $color-red-light);
+    }
+  }
+
+  &__icon-box {
+    grid-column: icon-start / icon-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+
+    &>* {
+      height: 100%;
+      width: 100%;
+      color: $color-grey-dark-2;
+    }
+
+    &--success>* {
+      color: $color-primary;
+    }
+
+    &--error>* {
+      color: $color-red;
+    }
+  }
+
+  &__content-box {
+    grid-column: content-start / content-end;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    padding-right: 4rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $color-grey-dark-5;
+    margin-bottom: .5rem;
+  }
+
+  &__description {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $color-grey-dark-3;
+  }
+
+  &__close-box {
+    grid-column: close-start / close-end;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-left: 1px solid $color-grey-light-2;
+    padding: 0 2rem;
+
+    height: 100%;
+    width: 100%;
+    color: $color-grey-dark-2;
+    cursor: pointer;
+
+    font-size: 1.3rem;
+    text-transform: uppercase;
+
+    transition: all .3s;
+
+    &:hover {
+      background-color: $color-grey-light-2;
+    }
+
+    &:active {
+      background-color: $color-grey-light-1;
+    }
+  }
+
+}

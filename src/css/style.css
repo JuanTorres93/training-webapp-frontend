@@ -2555,6 +2555,95 @@ body {
   margin: auto;
 }
 
+.flash-message {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: [line-start] 1rem [line-end icon-start] 5rem [icon-end content-start] auto [content-end close-start] min-content [close-end];
+  grid-gap: 1.5rem;
+  background-color: #f1f4f2;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.flash-message--hidden {
+  transform: translateX(-50%) translateY(100%);
+}
+.flash-message__line-box {
+  grid-column: line-start/line-end;
+}
+.flash-message__line {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to right bottom, #575a58, #858886);
+}
+.flash-message__line--success {
+  background-image: linear-gradient(to right bottom, #03B670, #4BDE94);
+}
+.flash-message__line--error {
+  background-image: linear-gradient(to right bottom, #cd4925, #f58b6d);
+}
+.flash-message__icon-box {
+  grid-column: icon-start/icon-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+.flash-message__icon-box > * {
+  height: 100%;
+  width: 100%;
+  color: #858886;
+}
+.flash-message__icon-box--success > * {
+  color: #2FCA82;
+}
+.flash-message__icon-box--error > * {
+  color: #ea704e;
+}
+.flash-message__content-box {
+  grid-column: content-start/content-end;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  padding-right: 4rem;
+}
+.flash-message__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2d302e;
+  margin-bottom: 0.5rem;
+}
+.flash-message__description {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #575a58;
+}
+.flash-message__close-box {
+  grid-column: close-start/close-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #dde0de;
+  padding: 0 2rem;
+  height: 100%;
+  width: 100%;
+  color: #858886;
+  cursor: pointer;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.flash-message__close-box:hover {
+  background-color: #dde0de;
+}
+.flash-message__close-box:active {
+  background-color: #c3c6c4;
+}
+
 .behind-app {
   position: fixed;
   top: 0;

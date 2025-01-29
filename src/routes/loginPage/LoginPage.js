@@ -12,6 +12,8 @@ import ExpiredSessionOptionOrCancel from '../../components/popupOptionOrCancel/E
 import Alert from '../../components/modals/alert/Alert'
 import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
 
+import FlashMessage from '../../components/flashMessage/FlashMessage';
+
 const LoginPage = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const location = useLocation();
@@ -79,7 +81,6 @@ const LoginPage = () => {
                 />
             </section>
 
-
             <Alert
                 isOpen={isAlertOpen}
                 onRequestClose={() => {
@@ -87,6 +88,13 @@ const LoginPage = () => {
                     navigate('/login')
                 }}
                 message='Login failed.'
+            />
+
+            <FlashMessage
+                // TODO ADD REAL CONDITION BASED N REDUX ERROR STATES
+                isVisible={true}
+                title='Logging in'
+                description='Please wait while we log you in.'
             />
         </>
     )
