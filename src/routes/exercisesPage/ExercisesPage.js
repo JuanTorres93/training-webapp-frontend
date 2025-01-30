@@ -10,8 +10,6 @@ import TranslatedButtonNew from "../../components/ButtonNew/TranslatedButtonNew"
 import ExercisePresenterV2 from "../../components/exercisePresenter/ExercisePresenterV2";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 import DeletePopupOptionOrCancel from "../../components/popupOptionOrCancel/DeletePopupOptionOrCancel";
-import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel";
-import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import { selectUser } from "../../features/user/userSlice";
 import {
@@ -191,8 +189,6 @@ export default function ExercisesPage() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="exercises-page">
-                    <ExtendSessionOptionOrCancel />
-                    <ExpiredSessionOptionOrCancel />
                     <TranslatedPopupNameAndDescription
                         arrowClassModifier={arrowClassModifier}
                         visibility={showNameDescPopup ? 'visible' : 'hidden'}

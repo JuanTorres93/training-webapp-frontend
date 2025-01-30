@@ -12,8 +12,6 @@ import PopupRows from "../../components/popupRows/PopupRows";
 import TranslatedPopupNameAndDescription from "../../components/popupNameAndDesription/TranslatedPopupNameAndDescription";
 import TranslatedTemplateCreator from "../../components/templateCreator/TranslatedTemplateCreator";
 import DeletePopupOptionOrCancel from "../../components/popupOptionOrCancel/DeletePopupOptionOrCancel";
-import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel";
-import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import { selectUser } from "../../features/user/userSlice";
 import {
@@ -401,9 +399,6 @@ export default function TemplatesPage() {
                             isLoading={templatesLoading || waitForTemplatesToLoadAgain}
                         />
                     </div>
-
-                    <ExtendSessionOptionOrCancel />
-                    <ExpiredSessionOptionOrCancel />
 
                     <PopupRows
                         visibility={showPopupRow ? 'visible' : 'hidden'}

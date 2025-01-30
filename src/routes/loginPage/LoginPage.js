@@ -10,9 +10,11 @@ import TranslatedNavHorizontal from '../../components/nav/TranslatedNav';
 import LoginFormV2 from '../../components/loginForm/LoginFormV2';
 import ExpiredSessionOptionOrCancel from '../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel';
 import Alert from '../../components/modals/alert/Alert'
-import { loginUser, selectUser, selectUserIsLoading } from '../../features/user/userSlice';
-
-import FlashMessage from '../../components/flashMessage/FlashMessage';
+import {
+    loginUser,
+    selectUser,
+    selectUserIsLoading,
+} from '../../features/user/userSlice';
 
 const LoginPage = () => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -88,13 +90,6 @@ const LoginPage = () => {
                     navigate('/login')
                 }}
                 message='Login failed.'
-            />
-
-            <FlashMessage
-                // TODO ADD REAL CONDITION BASED N REDUX ERROR STATES
-                isVisible={true}
-                title='Logging in'
-                description='Please wait while we log you in.'
             />
         </>
     )

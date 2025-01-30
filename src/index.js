@@ -32,6 +32,7 @@ import TemplatesPage from './routes/templatesPage/TemplatesPage';
 import LandingPage from './routes/landingPage/LandingPage';
 import NavBar from './components/navbar/NavBar';
 import RunWorkoutPageV2 from './routes/runWorkoutPage/RunWorkoutPageV2';
+import GlobalUserMessagesManager from './components/globalUserMessagesManager/globalUserMessagesManager';
 
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
@@ -63,17 +64,17 @@ export const { store, persistor, resetApp } = setupStore({});
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: <GlobalUserMessagesManager><LandingPage /></GlobalUserMessagesManager>,
     errorElement: <DefaultErrorPage />
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <GlobalUserMessagesManager><RegisterPage /></GlobalUserMessagesManager>,
     errorElement: <DefaultErrorPage />
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <GlobalUserMessagesManager><LoginPage /></GlobalUserMessagesManager>,
     errorElement: <DefaultErrorPage />
   },
   {
@@ -82,27 +83,27 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePageV2 />
+        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
       },
       {
         path: "/app/home",
-        element: <HomePageV2 />
+        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
       },
       {
         path: "/app/dashboard",
-        element: <HomePageV2 />
+        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
       },
       {
         path: "/app/exercises",
-        element: <ExercisesPage />
+        element: <GlobalUserMessagesManager><ExercisesPage /></GlobalUserMessagesManager>
       },
       {
         path: "/app/templates",
-        element: <TemplatesPage />
+        element: <GlobalUserMessagesManager><TemplatesPage /></GlobalUserMessagesManager>
       },
       {
         path: "/app/runWorkout/:templateId/:workoutId",
-        element: <RunWorkoutPageV2 />
+        element: <GlobalUserMessagesManager><RunWorkoutPageV2 /></GlobalUserMessagesManager>
       },
     ]
   },

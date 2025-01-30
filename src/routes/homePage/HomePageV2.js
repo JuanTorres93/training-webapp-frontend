@@ -36,9 +36,6 @@ import { processCommonStringFromDb } from "../../i18n";
 
 import { calculateTicks } from "../../utils/charts";
 
-import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel";
-import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
-
 export default function HomePageV2() {
     const user = useSelector(selectUser);
     const navigate = useNavigate();
@@ -216,8 +213,6 @@ export default function HomePageV2() {
         <div className="behind-app">
             <main className="app-layout">
                 <TranslatedNavVertical />
-                <ExtendSessionOptionOrCancel />
-                <ExpiredSessionOptionOrCancel />
                 <section className="home-page">
                     <div className="home-page__recent-workouts-box home-page__dashboard-box">
                         <h3 className="home-page__dashboard-box-title">

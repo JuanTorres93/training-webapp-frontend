@@ -145,6 +145,7 @@ const slice = createSlice({
 export const selectCurrentWeight = state => state[sliceName][sliceName].current;
 export const selectWeightHistory = state => state[sliceName][sliceName].history;
 export const selectWeightIsLoading = state => state[sliceName].isLoading.length > 0;
+export const selectWeightHasError = state => state[sliceName].hasError;
 
 // Export reducer
 export default slice.reducer;

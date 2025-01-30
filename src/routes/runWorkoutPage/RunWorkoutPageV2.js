@@ -8,9 +8,6 @@ import {
     useParams,
 } from "react-router-dom";
 
-import ExtendSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExtendSessionPopupOptionOrCancel";
-import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
-
 import { calculateTicks } from "../../utils/charts";
 import { selectUser } from "../../features/user/userSlice";
 import { selectCommonExercises } from "../../features/exercises/exercisesSlice";
@@ -234,9 +231,6 @@ export default function RunWorkoutPageV2() {
                     className="run-workout-page"
                     ref={weightGraphContainerRef}
                 >
-                    <ExtendSessionOptionOrCancel />
-                    <ExpiredSessionOptionOrCancel />
-
                     {exerciseCompleters}
 
                     {/* FINISH BUTTON */}
