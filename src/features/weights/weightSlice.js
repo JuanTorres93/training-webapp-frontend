@@ -124,7 +124,10 @@ const slice = createSlice({
                 const currentDate = new Date().toISOString().split('T')[0];
 
                 if (formattedLastEntryDate === currentDate) {
-                    state[sliceName].current.value = lastEntry.value;
+                    state[sliceName].current = {
+                        date: currentDate,
+                        value: lastEntry.value,
+                    };
                 }
             }
 
