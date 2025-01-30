@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { initialErrorState, createNewError } from "../slicesUtils";
 
 import * as api from '../../serverAPI/weights';
 
@@ -59,14 +60,14 @@ const slice = createSlice({
             history: [],
         },
         isLoading: [],
-        hasError: false,
+        error: initialErrorState,
     },
     reducers: {},
     extraReducers: builder => {
         // Add weight
         builder.addCase(addCurrentDayWeight.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(addCurrentDayWeight.fulfilled, (state, action) => {
             const today = new Date().toISOString().split('T')[0];
@@ -76,17 +77,17 @@ const slice = createSlice({
             };
             state[sliceName].history.push(action.payload);
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(addCurrentDayWeight.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Unknown error');
         })
 
         // Update weight
         builder.addCase(updateCurrentDayWeight.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateCurrentDayWeight.fulfilled, (state, action) => {
             const today = new Date().toISOString().split('T')[0];
@@ -100,17 +101,17 @@ const slice = createSlice({
             );
             state[sliceName].history[index] = action.payload;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateCurrentDayWeight.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Unknown error');
         })
 
         // Fetch weight history
         builder.addCase(fetchWeightHistory.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(fetchWeightHistory.fulfilled, (state, action) => {
             state[sliceName].history = action.payload;
@@ -132,11 +133,11 @@ const slice = createSlice({
             }
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(fetchWeightHistory.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Unknown error');
         })
     },
 });
@@ -145,7 +146,7 @@ const slice = createSlice({
 export const selectCurrentWeight = state => state[sliceName][sliceName].current;
 export const selectWeightHistory = state => state[sliceName][sliceName].history;
 export const selectWeightIsLoading = state => state[sliceName].isLoading.length > 0;
-export const selectWeightHasError = state => state[sliceName].hasError;
+export const selectWeightError = state => state[sliceName].error;
 
 // Export reducer
 export default slice.reducer;

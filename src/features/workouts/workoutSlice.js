@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import { initialErrorState, createNewError } from "../slicesUtils";
+
 import {
     createWorkout as createWorkoutInDb,
     getLastWorkoutFromTemplate,
@@ -136,7 +139,7 @@ const slice = createSlice({
             lastNWorkouts: [], // For showing progress
         },
         isLoading: [],
-        hasError: false,
+        error: initialErrorState,
     },
     reducers: {
         updateActiveWorkoutExercise: (state, action) => {
@@ -199,22 +202,22 @@ const slice = createSlice({
         // Create workout template
         builder.addCase(createWorkout.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createWorkout.fulfilled, (state, action) => {
             state[sliceName].activeWorkout = action.payload;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createWorkout.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error creating workout');
         })
 
         // Delete workout
         builder.addCase(deleteWorkout.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteWorkout.fulfilled, (state, action) => {
             // remove workout from lastNWorkouts
@@ -232,17 +235,17 @@ const slice = createSlice({
             }
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteWorkout.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error deleting workout');
         })
 
         // Delete exercise from workout
         builder.addCase(deleteExerciseFromWorkout.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExerciseFromWorkout.fulfilled, (state, action) => {
             // exercises is a list of objects with the properties 
@@ -283,56 +286,56 @@ const slice = createSlice({
             });
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExerciseFromWorkout.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error deleting exercise from workout');
         })
 
         // Set last workout from template
         builder.addCase(setLastWorkout.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(setLastWorkout.fulfilled, (state, action) => {
             state[sliceName].lastWorkout = action.payload;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(setLastWorkout.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error setting last workout');
         })
 
         // Set last N workouts from template
         builder.addCase(setLastNWorkouts.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(setLastNWorkouts.fulfilled, (state, action) => {
             state[sliceName].lastNWorkouts = action.payload;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(setLastNWorkouts.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error setting last N workouts');
         })
 
         // Finish workout
         builder.addCase(finishWorkout.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(finishWorkout.fulfilled, (state, action) => {
             state[sliceName].activeWorkout = {};
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(finishWorkout.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error finishing workout');
         })
     },
 });
@@ -340,7 +343,7 @@ const slice = createSlice({
 // Export selectors
 export const selectActiveWorkout = state => state[sliceName][sliceName].activeWorkout;
 export const selectWorkoutsLoading = state => state[sliceName].isLoading.length > 0;
-export const selectWorkoutsError = state => state[sliceName].hasError;
+export const selectWorkoutsError = state => state[sliceName].error;
 
 export const selectLastWorkout = state => state[sliceName][sliceName].lastWorkout;
 export const selectLastNWorkouts = state => state[sliceName][sliceName].lastNWorkouts;

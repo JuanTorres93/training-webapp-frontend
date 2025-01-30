@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { initialErrorState, createNewError } from "../slicesUtils";
 
 import { register, selectUserById } from "../../serverAPI/users";
 import { login, extendSession } from "../../serverAPI/login";
@@ -115,7 +116,7 @@ const userSlice = createSlice({
     initialState: {
         [sliceName]: null,
         isLoading: [],
-        error: { hasError: false, message: "" }, // Stores both error flag and message
+        error: initialErrorState, // Stores both error flag and message
         isLogingOut: false,
     },
     reducers: {},
@@ -123,23 +124,23 @@ const userSlice = createSlice({
         // login user
         builder.addCase(loginUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             const user = action.payload;
             state[sliceName] = user;
             state.isLoading.pop();
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(loginUser.rejected, (state, action) => {
             state.isLoading.pop();
-            state.error = { hasError: true, message: action.error?.message || "Login failed" };
+            state.error = createNewError(action.error?.message || "Login failed");
         })
 
         // Extend user session
         builder.addCase(extendUserSession.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(extendUserSession.fulfilled, (state, action) => {
             const expirationDate = action.payload.expirationDate;
@@ -148,45 +149,45 @@ const userSlice = createSlice({
             if (state[sliceName]) state[sliceName].expirationDate = expirationDate;
 
             state.isLoading.pop();
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(extendUserSession.rejected, (state, action) => {
             state.isLoading.pop();
-            state.error = { hasError: true, message: action.error?.message || "Session extension failed" };
+            state.error = createNewError(action.error?.message || "Session extension failed");
         })
 
         // register user
         builder.addCase(registerUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(registerUser.fulfilled, (state, action) => {
             const user = action.payload;
             state[sliceName] = user;
             state.isLoading.pop();
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(registerUser.rejected, (state, action) => {
             state.isLoading.pop();
-            state.error = { hasError: true, message: action.error?.message || "Registration failed" };
+            state.error = createNewError(action.error?.message || "Registration failed");
         })
 
         // logout user
         builder.addCase(logoutUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
             state.isLogingOut = true;
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(logoutUser.fulfilled, (state, action) => {
             state[sliceName] = null;
             state.isLoading.pop();
             state.isLogingOut = false
-            state.error = { hasError: false, message: "" };
+            state.error = initialErrorState;
         })
         builder.addCase(logoutUser.rejected, (state, action) => {
             state.isLoading.pop();
             state.isLogingOut = false;
-            state.error = { hasError: true, message: action.error?.message || "Logout failed" };
+            state.error = createNewError(action.error?.message || "Logout failed");
         })
     },
 });

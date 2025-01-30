@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllExercisesFromUser } from "../../serverAPI/exercises";
 
+import { initialErrorState, createNewError } from "../slicesUtils";
 import {
     createExercise as createExerciseInDb,
     updateExercise as updateExerciseInDb,
@@ -93,13 +94,13 @@ const exercisesSlice = createSlice({
             commonExercises: [],
         },
         isLoading: [],
-        hasError: false,
+        error: initialErrorState, // Stores both error flag and message
     },
     extraReducers: builder => {
         // Get exercises
         builder.addCase(getExercisesFromUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getExercisesFromUser.fulfilled, (state, action) => {
             let userExercises = action.payload;
@@ -110,17 +111,17 @@ const exercisesSlice = createSlice({
             state[sliceName].userCreatedExercises = userExercises;
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getExercisesFromUser.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error?.message || "Fetching exercises failed");
         })
 
         // Get common exercises
         builder.addCase(getCommonExercises.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getCommonExercises.fulfilled, (state, action) => {
             let commonExercises = action.payload.map(exercise => {
@@ -135,17 +136,17 @@ const exercisesSlice = createSlice({
 
             state[sliceName].commonExercises = commonExercises;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getCommonExercises.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error?.message || "Fetching common exercises failed");
         })
 
         // Create exercise
         builder.addCase(createExercise.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createExercise.fulfilled, (state, action) => {
             let newExercise = action.payload;
@@ -155,34 +156,34 @@ const exercisesSlice = createSlice({
             };
             state[sliceName].userCreatedExercises.push(newExercise);
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createExercise.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error?.message || "Creating exercise failed");
         })
 
         // update exercise
         builder.addCase(updateExercise.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateExercise.fulfilled, (state, action) => {
             let updatedExercise = action.payload;
             let index = state[sliceName].userCreatedExercises.findIndex(exercise => exercise.id === updatedExercise.id);
             state[sliceName].userCreatedExercises[index] = updatedExercise;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateExercise.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error?.message || "Updating exercise failed");
         })
 
         // Delete exercise
         builder.addCase(deleteExercise.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExercise.fulfilled, (state, action) => {
             let deletedExercise = action.payload;
@@ -190,11 +191,11 @@ const exercisesSlice = createSlice({
                 exercise => exercise.id !== deletedExercise.id
             );
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExercise.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error?.message || "Deleting exercise failed");
         })
     },
 });
@@ -203,10 +204,9 @@ const exercisesSlice = createSlice({
 export const selectUserExercises = state => state[sliceName][sliceName].userCreatedExercises;
 export const selectCommonExercises = state => state[sliceName][sliceName].commonExercises;
 export const selectExercisesLoading = state => state[sliceName].isLoading.length > 0;
-export const selectExercisesError = state => state[sliceName].hasError;
+export const selectExercisesError = state => state[sliceName].error;
 
 export const selectExercisesInNewTemplate = state => state[sliceName][sliceName].exercisesInNewTemplate;
-
 
 // Export reducer
 export default exercisesSlice.reducer;

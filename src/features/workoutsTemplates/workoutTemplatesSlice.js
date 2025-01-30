@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { initialErrorState, createNewError } from "../slicesUtils";
 import { getTemplateInfo } from "../../serverAPI/workoutsTemplates";
 import {
     createTemplate,
@@ -14,7 +15,7 @@ import {
     getWorkoutsIdsAssociatedWithTemplateAndUser,
     getLastNWorkoutsFromTemplate,
 } from "../../serverAPI/workouts";
-import { deleteWorkout, deleteExerciseFromWorkout } from "../workouts/workoutSlice";
+import { deleteExerciseFromWorkout } from "../workouts/workoutSlice";
 
 export const sliceName = 'workoutTemplates';
 const LOADING_FLAG = true;
@@ -253,7 +254,7 @@ const slice = createSlice({
             activeTemplate: {},
         },
         isLoading: [],
-        hasError: false,
+        error: initialErrorState,
     },
     reducers: {
         setActiveTemplate: (state, action) => {
@@ -275,37 +276,37 @@ const slice = createSlice({
         // Create workout template
         builder.addCase(createWorkoutTemplate.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createWorkoutTemplate.fulfilled, (state, action) => {
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(createWorkoutTemplate.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error creating template');
         })
 
         // Get all user created templates
         builder.addCase(getAllUserCreatedTemplates.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getAllUserCreatedTemplates.fulfilled, (state, action) => {
             let templates = action.payload;
             state[sliceName].userCreatedTemplates = templates;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getAllUserCreatedTemplates.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error getting templates');
         })
 
         // Get common templates
         builder.addCase(getCommonTemplatesForUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getCommonTemplatesForUser.fulfilled, (state, action) => {
             const templates = action.payload.map(template => {
@@ -316,32 +317,32 @@ const slice = createSlice({
             });
             state[sliceName].commonTemplates = templates;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getCommonTemplatesForUser.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error getting common templates');
         })
 
         // Get user recent workouts
         builder.addCase(getUserRecentWorkouts.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getUserRecentWorkouts.fulfilled, (state, action) => {
             state[sliceName].recentWorkouts = action.payload;
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(getUserRecentWorkouts.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error getting recent workouts');
         })
 
         // Update workout template
         builder.addCase(updateWorkoutTemplate.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateWorkoutTemplate.fulfilled, (state, action) => {
             const updatedTemplate = action.payload;
@@ -355,17 +356,17 @@ const slice = createSlice({
             state[sliceName].userCreatedTemplates[index] = updatedTemplate;
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateWorkoutTemplate.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error updating template');
         })
 
         // Delete template
         builder.addCase(deleteTemplateFromUser.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteTemplateFromUser.fulfilled, (state, action) => {
             // action payload is an object. Remove it from the userCreatedTemplates array
@@ -382,17 +383,17 @@ const slice = createSlice({
             });
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteTemplateFromUser.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error deleting template');
         })
 
         // Delete exercise from template
         builder.addCase(deleteExerciseFromTemplate.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExerciseFromTemplate.fulfilled, (state, action) => {
             // action payload is an object with the properties workoutTemplateId, exerciseId, exerciseOrder, exerciseSets
@@ -415,17 +416,17 @@ const slice = createSlice({
             }
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(deleteExerciseFromTemplate.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error deleting exercise from template');
         })
 
         // Update exercise from template
         builder.addCase(updateExerciseFromTemplate.pending, (state, action) => {
             state.isLoading.push(LOADING_FLAG);
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateExerciseFromTemplate.fulfilled, (state, action) => {
             const { body, response } = action.payload;
@@ -454,11 +455,11 @@ const slice = createSlice({
             }
 
             state.isLoading.pop();
-            state.hasError = false;
+            state.error = initialErrorState;
         })
         builder.addCase(updateExerciseFromTemplate.rejected, (state, action) => {
             state.isLoading.pop();
-            state.hasError = true;
+            state.error = createNewError(action.error.message || 'Error updating exercise from template');
         })
     },
 });
@@ -468,7 +469,7 @@ export const selectUserTemplates = state => state[sliceName][sliceName].userCrea
 export const selectCommonTemplates = state => state[sliceName][sliceName].commonTemplates;
 export const selectActiveTemplate = state => state[sliceName][sliceName].activeTemplate;
 export const selectTemplatesLoading = state => state[sliceName].isLoading.length > 0;
-export const selectTemplatesError = state => state[sliceName].hasError;
+export const selectTemplatesError = state => state[sliceName].error;
 export const selectRecentWorkouts = state => state[sliceName][sliceName].recentWorkouts;
 
 // Export actions
