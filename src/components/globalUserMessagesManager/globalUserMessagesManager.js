@@ -21,27 +21,36 @@ const GlobalUserMessagesManager = ({ children }) => {
 
   const [errorMessages, setErrorMessages] = useState([]);
 
-  // TODO poner algún timer al tiempo de visualización del error,
-  // tal vez modificar su visibility a hidden en vez de eliminarlo directamente
-  // Y cuando estén todos ocultos, entonces eliminarlos del array.
-  // Esto quizá prevenga el parpadear de los mensajes de error cuando se 
-  // elimina uno
+  const createError = (error) => {
+    // Random id to make a key for React
+    const id = Math.random().toString(36).substr(2, 9);
+
+    // Timer for the error message to disappear
+    setTimeout(() => {
+      setErrorMessages(errorMessages.filter(error => error.id !== id));
+    }, 5000);
+
+    return {
+      ...error,
+      id
+    };
+  };
 
   useEffect(() => {
     if (exercisesError.hasError) {
-      setErrorMessages([...errorMessages, exercisesError]);
+      setErrorMessages([...errorMessages, createError(exercisesError)]);
     }
     if (userError.hasError) {
-      setErrorMessages([...errorMessages, userError]);
+      setErrorMessages([...errorMessages, createError(userError)]);
     }
     if (weightError.hasError) {
-      setErrorMessages([...errorMessages, weightError]);
+      setErrorMessages([...errorMessages, createError(weightError)]);
     }
     if (workoutsError.hasError) {
-      setErrorMessages([...errorMessages, workoutsError]);
+      setErrorMessages([...errorMessages, createError(workoutsError)]);
     }
     if (templatesError.hasError) {
-      setErrorMessages([...errorMessages, templatesError]);
+      setErrorMessages([...errorMessages, createError(templatesError)]);
     }
 
   }, [exercisesError, userError, weightError, workoutsError, templatesError]);
@@ -76,7 +85,7 @@ const GlobalUserMessagesManager = ({ children }) => {
           errorMessages.map((error, index) => {
             return (
               <ErrorFlashMessage
-                key={index}
+                key={error.id}
                 isVisible={error.hasError}
                 description={error.message}
                 onClose={onClose(error)}

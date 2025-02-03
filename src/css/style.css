@@ -2652,6 +2652,8 @@ body {
   background-color: transparent;
   padding: 2rem;
   max-height: 50vh;
+  display: flex;
+  flex-direction: column;
 }
 .global-user-msg-manager__flash-msg-box > *:not(:last-child) {
   margin-bottom: 1rem;
