@@ -3,6 +3,7 @@ import FlashMessage from "./FlashMessage";
 const ErrorFlashMessage = ({
     isVisible,
     description,
+    onClose,
 }) => {
     return (
         <FlashMessage
@@ -10,6 +11,7 @@ const ErrorFlashMessage = ({
             title={'Error'}
             description={description}
             type={'error'}
+            onClose={onClose}
         />
     );
 };

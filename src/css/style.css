@@ -2556,21 +2556,20 @@ body {
 }
 
 .flash-message {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
   display: grid;
   grid-template-columns: [line-start] 1rem [line-end icon-start] 5rem [icon-end content-start] auto [content-end close-start] min-content [close-end];
   grid-gap: 1.5rem;
   background-color: #f1f4f2;
   border-radius: 0.5rem;
+  box-shadow: 0.2rem 1rem 2rem rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  opacity: 1;
+  visibility: visible;
   transition: all 0.3s;
 }
 .flash-message--hidden {
-  transform: translateX(-50%) translateY(100%);
+  opacity: 0;
+  visibility: hidden;
 }
 .flash-message__line-box {
   grid-column: line-start/line-end;
@@ -2642,6 +2641,20 @@ body {
 }
 .flash-message__close-box:active {
   background-color: #c3c6c4;
+}
+
+.global-user-msg-manager__flash-msg-box {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: transparent;
+  padding: 2rem;
+  max-height: 50vh;
+}
+.global-user-msg-manager__flash-msg-box > *:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .behind-app {

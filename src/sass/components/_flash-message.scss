@@ -1,26 +1,23 @@
 @use "../abstracts/" as *;
 
 .flash-message {
-  // Center at the bottom of the screen
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-
   display: grid;
   grid-template-columns: [line-start] 1rem [line-end icon-start] 5rem [icon-end content-start] auto [content-end close-start] min-content [close-end];
   grid-gap: 1.5rem;
 
   background-color: $color-grey-light-3;
   border-radius: .5rem;
+  box-shadow: 0.2rem 1rem 2rem rgba($color-black, .1);
 
   overflow: hidden;
 
+  opacity: 1;
+  visibility: visible;
   transition: all .3s;
 
   &--hidden {
-    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+    visibility: hidden;
   }
 
   &__line-box {

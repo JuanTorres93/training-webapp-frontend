@@ -3,6 +3,7 @@ const FlashMessage = ({
     title,
     description,
     type = 'error', // neutral, success, error
+    onClose = () => { },
 }) => {
     return (
         <div className={`
@@ -41,7 +42,10 @@ const FlashMessage = ({
                 </span>
             </div>
 
-            <div className="flash-message__close-box">
+            <div
+                className="flash-message__close-box"
+                onClick={onClose}
+            >
                 {/* TODO TRADUCIR */}
                 Close
             </div>

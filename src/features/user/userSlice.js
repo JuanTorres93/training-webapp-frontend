@@ -25,16 +25,21 @@ export const loginUser = createAsyncThunk(
         let userId = null;
         let user = null;
 
-        // LocalStrategy login
-        if (arg.username && arg.password) {
-            const response = await login(arg.username, arg.password);
-            user = response.user;
-            userId = response.user.id;
-        }
-        // OAuth login
-        else if (arg.userIdOAuth) {
-            userId = arg.userIdOAuth;
-            user = await selectUserById(userId);
+        try {
+            // LocalStrategy login
+            if (arg.username && arg.password) {
+                const response = await login(arg.username, arg.password);
+                user = response.user;
+                userId = response.user.id;
+            }
+            // OAuth login
+            else if (arg.userIdOAuth) {
+                userId = arg.userIdOAuth;
+                user = await selectUserById(userId);
+            }
+        } catch (error) {
+            const statusCode = error.response.status;
+            return thunkAPI.rejectWithValue({ statusCode });
         }
 
         // Get user's templates
@@ -66,7 +71,12 @@ export const extendUserSession = createAsyncThunk(
     `${sliceName}/extendUserSession`,
     async (arg, thunkAPI) => {
         // Error is handled from redux state when promise is rejected
-        const response = await extendSession();
+        let response;
+        try {
+            response = await extendSession();
+        } catch (error) {
+            return thunkAPI.rejectWithValue({ statusCode: error.response.status });
+        }
 
         return response;
     }
@@ -89,14 +99,23 @@ export const registerUser = createAsyncThunk(
     `${sliceName}/registerUser`,
     async (arg, thunkAPI) => {
         // arg = { username, email, password, oauth_registration, is_premium, is_early_adopter }
-        const response = await register(
-            arg.username,
-            arg.email,
-            arg.password,
-            arg.oauth_registration,
-            arg.is_premium,
-            arg.is_early_adopter,
-        );
+        let response;
+        try {
+            response = await register(
+                arg.username,
+                arg.email,
+                arg.password,
+                arg.oauth_registration,
+                arg.is_premium,
+                arg.is_early_adopter,
+            );
+        } catch (error) {
+            const response = error.response;
+            return thunkAPI.rejectWithValue({
+                statusCode: response.status,
+                response: response.data,
+            });
+        }
 
         if (response.id) {
             // Get exercises from user
@@ -133,8 +152,15 @@ const userSlice = createSlice({
             state.error = initialErrorState;
         })
         builder.addCase(loginUser.rejected, (state, action) => {
+            const { statusCode } = action.payload;
+
+            // TODO TRANSLATE
+            const errorMsg = statusCode === 401 ?
+                "Invalid credentials" :
+                "Login failed";
+
             state.isLoading.pop();
-            state.error = createNewError(action.error?.message || "Login failed");
+            state.error = createNewError(errorMsg);
         })
 
         // Extend user session
@@ -152,8 +178,12 @@ const userSlice = createSlice({
             state.error = initialErrorState;
         })
         builder.addCase(extendUserSession.rejected, (state, action) => {
+            const { statusCode } = action.payload;
+            const errorMsg = statusCode === 400 ?
+                "Session could not be extended" :
+                "Session extension failed";
             state.isLoading.pop();
-            state.error = createNewError(action.error?.message || "Session extension failed");
+            state.error = createNewError(errorMsg);
         })
 
         // register user
@@ -168,8 +198,22 @@ const userSlice = createSlice({
             state.error = initialErrorState;
         })
         builder.addCase(registerUser.rejected, (state, action) => {
+            const { statusCode, response } = action.payload;
+            let errorMsg = "Registration failed";
+
+            if (statusCode === 409) {
+                const resMsg = response.msg;
+
+                // Check if email is contained in lowercase resMsg
+                if (resMsg.toLowerCase().includes("email")) {
+                    errorMsg = "Email already in use";
+                } else {
+                    errorMsg = "Username already in use";
+                }
+            }
+
             state.isLoading.pop();
-            state.error = createNewError(action.error?.message || "Registration failed");
+            state.error = createNewError(errorMsg);
         })
 
         // logout user
