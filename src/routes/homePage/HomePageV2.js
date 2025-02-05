@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect, useRef, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartWorkoutVolume from "../../components/chartWorkoutVolume/TranslatedChartWorkoutVolume";

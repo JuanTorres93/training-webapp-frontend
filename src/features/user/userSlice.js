@@ -14,6 +14,7 @@ import { fetchWeightHistory } from "../weights/weightSlice";
 
 import { resetApp } from "../../index";
 
+
 export const sliceName = 'user';
 const LOADING_FLAG = true;
 
@@ -179,6 +180,7 @@ const userSlice = createSlice({
         })
         builder.addCase(extendUserSession.rejected, (state, action) => {
             const { statusCode } = action.payload;
+            // TODO TRANSLATE
             const errorMsg = statusCode === 400 ?
                 "Session could not be extended" :
                 "Session extension failed";
@@ -199,6 +201,8 @@ const userSlice = createSlice({
         })
         builder.addCase(registerUser.rejected, (state, action) => {
             const { statusCode, response } = action.payload;
+
+            // TODO TRANSLATE
             let errorMsg = "Registration failed";
 
             if (statusCode === 409) {
