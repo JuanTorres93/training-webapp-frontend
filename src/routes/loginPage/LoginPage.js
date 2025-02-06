@@ -60,7 +60,10 @@ const LoginPage = () => {
 
     return (
         <>
-            <section className="login-page">
+            <section
+                data-testid="login-page"
+                className="login-page"
+            >
                 <TranslatedNavHorizontal
                     currentLocation={location.pathname}
                     isInLandingPage={false}

@@ -1,10 +1,12 @@
 // Application entry point
 // Default create-react-app --template redux imports
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { setupStore } from './app/store';
+import { store, persistor } from './app/store';
+
 import reportWebVitals from './reportWebVitals';
 
 // custom imports
@@ -25,18 +27,18 @@ import './css/style.css'
 //import {
 //  Elements,   // Wrapper component to include stripe components for processing payments
 //} from '@stripe/react-stripe-js';
-import HomePage from './routes/homePage/HomePage';
+// import HomePage from './routes/homePage/HomePage';
 import HomePageV2 from './routes/homePage/HomePageV2';
 import ExercisesPage from './routes/exercisesPage/ExercisesPage';
 import TemplatesPage from './routes/templatesPage/TemplatesPage';
 import LandingPage from './routes/landingPage/LandingPage';
-import NavBar from './components/navbar/NavBar';
+// import NavBar from './components/navbar/NavBar';
 import RunWorkoutPageV2 from './routes/runWorkoutPage/RunWorkoutPageV2';
 import GlobalUserMessagesManager from './components/globalUserMessagesManager/globalUserMessagesManager';
 
 import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
 import CreateExercisePage from './routes/createExercise/CreateExercisePage';
-import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
+// import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
 import StartWorkoutPage from './routes/startWorkoutPage/StartWorkoutPage';
 import RunWorkoutPage from './routes/runWorkoutPage/RunWorkoutPage';
 import GenericChild from './routes/GenericChild';
@@ -44,14 +46,18 @@ import DefaultErrorPage from './routes/DefaultErrorPage';
 import RegisterPage from './routes/registerPage/RegisterPage';
 import LoginPage from './routes/loginPage/LoginPage';
 
-// TODO DELETE IN PRODUCTION
-import ComponentDesign from './routes/ComponentDesign';
+if (process.env.REACT_APP_NODE_ENV === 'test') {
+  // Jest does not provide a root element, so we need to create it
+  const root = document.createElement('div');
+  root.setAttribute('id', 'root');
+  document.body.appendChild(root);
+}
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 // Redux store configuration
-export const { store, persistor, resetApp } = setupStore({});
+// export const { store, persistor, resetApp } = setupStore({});
 
 // Stripe config
 // TODO use an environment variable in real projects
@@ -109,31 +115,26 @@ const router = createBrowserRouter([
   },
   {
     path: "/old",
-    element: <NavBar />,
+    // element: <NavBar />,
     errorElement: <DefaultErrorPage />,
     children: [
       { index: true, element: <HomePageV2 /> },
-      {
-        path: "home",
-        element: <HomePage />
-      },
-      {
-        path: "dashboard",
-        element: <HomePage />
-      },
-      {
-        // TODO delete all this path in PRODUCTION
-        path: "componentDesign",
-        element: <ComponentDesign />
-      },
+      // {
+      // path: "home",
+      // element: <HomePage />
+      // },
+      // {
+      // path: "dashboard",
+      // element: <HomePage />
+      // },
       {
         path: "createTemplate",
         element: <CreateTemplatePage />
       },
-      {
-        path: "selectTemplate",
-        element: <SelectTemplatePage />
-      },
+      // {
+      //   path: "selectTemplate",
+      //   element: <SelectTemplatePage />
+      // },
       {
         path: "createExercise",
         element: <CreateExercisePage />

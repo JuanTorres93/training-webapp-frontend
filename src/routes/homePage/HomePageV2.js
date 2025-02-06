@@ -1,5 +1,5 @@
-import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect, useRef } from "react";
+import { jwtDecode } from "jwt-decode";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartWorkoutVolume from "../../components/chartWorkoutVolume/TranslatedChartWorkoutVolume";
@@ -214,7 +214,10 @@ export default function HomePageV2() {
             <main className="app-layout">
                 <TranslatedNavVertical />
                 <section className="home-page">
-                    <div className="home-page__recent-workouts-box home-page__dashboard-box">
+                    <div
+                        data-testid="recent-workouts-box"
+                        className="home-page__recent-workouts-box home-page__dashboard-box"
+                    >
                         <h3 className="home-page__dashboard-box-title">
                             {t('home-page-recent-workouts')}
                         </h3>

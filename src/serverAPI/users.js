@@ -37,6 +37,7 @@ export async function selectUserById(userId) {
     const response = await apiClient.get(usersEndPoint + `/${userId}`, {
         withCredentials: true,
     });
+
     try {
         return response.data;
     } catch (error) {

@@ -80,3 +80,7 @@ export const setupStore = preloadedState => {
 
   return { store, persistor, resetApp };
 };
+
+// Create and export store here due to circular dependencies
+// when testing
+export const { store, persistor, resetApp } = setupStore({});

@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 
 // Import store for being able to dispatch actions without being
 // in a React component
-import { store } from './index';
+import { store } from './app/store';
 import { setLanguage } from './features/language/languageSlice';
 
 import translationEn from './locales/en/translation.json';

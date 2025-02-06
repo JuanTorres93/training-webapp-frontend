@@ -12,7 +12,7 @@ import {
 } from "../workoutsTemplates/workoutTemplatesSlice";
 import { fetchWeightHistory } from "../weights/weightSlice";
 
-import { resetApp } from "../../index";
+import { resetApp } from "../../app/store";
 
 
 export const sliceName = 'user';
@@ -112,6 +112,7 @@ export const registerUser = createAsyncThunk(
             );
         } catch (error) {
             const response = error.response;
+
             return thunkAPI.rejectWithValue({
                 statusCode: response.status,
                 response: response.data,
