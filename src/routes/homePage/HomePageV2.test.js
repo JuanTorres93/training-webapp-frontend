@@ -1,5 +1,11 @@
 import React from "react";
-import { screen, waitFor } from "@testing-library/react";
+import {
+  screen,
+  waitFor,
+  cleanup,
+  act,
+  fireEvent,
+} from "@testing-library/react";
 
 import { renderWithProviders } from "../../utils/testUtils";
 import { setupStore } from "../../app/store";
@@ -10,7 +16,9 @@ import {
   logoutUser,
   loginUser,
 } from "../../features/user/userSlice";
-import { userRegistrationData } from "../routeTestingUtils";
+import { setRecentWorkoutsTestOnly } from "../../features/workoutsTemplates/workoutTemplatesSlice";
+
+import { userRegistrationData, recentWorkouts } from "../routeTestingUtils";
 
 const mockNavigate = jest.fn();
 
@@ -19,68 +27,88 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 
+// TODO TESTEAR ESTA PÁGINA CUANDO ESTÉN TODAS YA HECHAS
+
 describe('HomePageV2', () => {
   describe('Recent workouts', () => {
-    describe('User is NOT logged in', () => {
-      let store;
-
-      beforeAll(async () => {
-        const root = document.createElement('div');
-        root.setAttribute('id', 'root');
-        document.body.appendChild(root);
-
-        store = setupStore().store;
-        await store.dispatch(logoutUser());
-
-        try {
-          await store.dispatch(registerUser(userRegistrationData));
-        } catch (error) {
-          console.log('User already registered');
-        }
-
-        renderWithProviders(<HomePageV2 />, {
-          routes: ['/app/home', '/login'],
-          store,
-        });
-      });
-
-      it('redirects to login page', async () => {
-        expect(mockNavigate).toHaveBeenCalledWith('/login');
-      });
-
-    })
-
     describe('User IS logged in', () => {
       let store;
 
       beforeAll(async () => {
-        const root = document.createElement('div');
-        root.setAttribute('id', 'root');
-        document.body.appendChild(root);
-
         store = setupStore().store;
+
+        await store.dispatch(registerUser(userRegistrationData));
+        await store.dispatch(logoutUser());
         await store.dispatch(loginUser({
           username: userRegistrationData.username,
           password: userRegistrationData.password,
         }));
-        // TODO DELETE THESE DEBUG LOGS
-        console.log('store.getState()');
-        console.log(store.getState());
+      });
+
+      beforeEach(async () => {
+        // Jest and/or React Testing Library cleanup the component after EACH test
+        // so we need to use the beforEach hook to render the component again
 
         renderWithProviders(<HomePageV2 />, {
-          routes: ['/app/home', '/login'],
+          routes: ['/app/home'],
           store,
         });
       });
+
 
       it('Does NOT redirect to login page', async () => {
         expect(mockNavigate).not.toHaveBeenCalled();
       });
 
-      it('Shows recent workouts section', async () => {
-        expect(screen.getByTestId('recent-workouts-box')).toBeInTheDocument();
+      describe('Recent workouts section', () => {
+        // BELOW store DOES NOT HAVE recentWorkouts
+        it('Shows recent workouts section', async () => {
+          await waitFor(() => {
+            expect(screen.getByTestId('recent-workouts-box')).toBeInTheDocument();
+          });
+        });
+
+        it('Shows "No recent workouts" message when there aren\' any of them', async () => {
+          await waitFor(() => {
+            expect(screen.getByTestId('no-recent-workouts')).toBeInTheDocument();
+          });
+        });
       });
+
+      describe('Weight chart section', () => {
+        it('Shows weight chart section', async () => {
+          await waitFor(() => {
+            expect(screen.getByTestId('weight-progress-box')).toBeInTheDocument();
+          });
+        });
+      });
+
     })
 
+    describe('User is NOT logged in', () => {
+      let store;
+
+      beforeEach(async () => {
+        // Jest and/or React Testing Library cleanup the component after EACH test
+        // so we need to use the beforEach hook to render the component again
+        store = setupStore().store;
+        await store.dispatch(logoutUser());
+
+
+        renderWithProviders(<HomePageV2 />, {
+          routes: ['/app/home', '/login'],
+          store,
+        });
+
+      });
+
+      afterAll(() => {
+        cleanup();
+      });
+
+      it('redirects to login page', async () => {
+        expect(mockNavigate).toHaveBeenCalledWith('/login');
+      });
+    })
   })
 })

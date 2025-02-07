@@ -4,7 +4,7 @@ import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/E
 
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {

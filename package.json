@@ -38,7 +38,7 @@
     "start": "npm-run-all --parallel start:react watch:sass",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "docker-test": "jest --watchAll --runInBand --verbose #MUST BE RUN WITH DOCKER COMPOSE. LAUNCH ONLY docker-compose run --build --rm frontend-test",
+    "docker-test": "jest --watchAll --runInBand --verbose #MUST BE RUN WITH DOCKER COMPOSE IMPORTANT: Can be usefull to include the flag --no-cache to force rebuilding of images. LAUNCH ONLY: docker-compose build backend-test-for-frontend frontend-test && docker-compose run --rm frontend-test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

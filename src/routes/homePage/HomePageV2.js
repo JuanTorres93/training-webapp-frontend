@@ -226,7 +226,7 @@ export default function HomePageV2() {
                             // If there are no recent workouts and they are not loading, show a message
                             !templatesAndWorkoutsLoading && recentWorkouts.length === 0 &&
                             // TODO style this p tag
-                            <p>
+                            <p data-testid="no-recent-workouts">
                                 {t('home-page-no-recent-workouts')}
                             </p>
                         }
@@ -250,6 +250,7 @@ export default function HomePageV2() {
                     </div>
                     <div
                         ref={weightGraphContainerRef}
+                        data-testid="weight-progress-box"
                         className="home-page__weight-progress-box home-page__dashboard-box"
                     >
                         <h3 className="home-page__dashboard-box-title">

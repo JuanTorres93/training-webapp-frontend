@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
@@ -68,6 +68,7 @@ const RegisterFormV2 = ({
                             onChange={(e) => setUsername(e.target.value)}
                             value={username}
                             id="username"
+                            data-testid="username"
                             type="text"
                             placeholder={formUsernameLabel}
                             // Max value defined in DB
@@ -84,6 +85,7 @@ const RegisterFormV2 = ({
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             id="email"
+                            data-testid="email"
                             type="email"
                             placeholder={formEmailLabel}
                             // Max value defined in DB
@@ -100,6 +102,7 @@ const RegisterFormV2 = ({
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                             id="password"
+                            data-testid="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
                             // TODO add strong password validation
@@ -129,6 +132,7 @@ const RegisterFormV2 = ({
                             onChange={(e) => setTerms(e.target.checked)}
                             value={terms}
                             id="terms"
+                            data-testid="terms"
                             className={`register-form__checkbox ${isLoading ? 'register-form__checkbox--disabled' : ''}`}
                             disabled={isLoading}
                             required
@@ -139,6 +143,7 @@ const RegisterFormV2 = ({
                     {/* Register button */}
                     <button
                         type="submit"
+                        data-testid="register-button"
                         className={`plain-btn register-form__submit-button ${isLoading ? 'register-form__submit-button--disabled' : ''}`}
                         disabled={isLoading}
                     >

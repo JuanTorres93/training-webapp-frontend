@@ -1,3 +1,5 @@
+import React from 'react';
+
 const OAuthLoginV2 = ({ logo, platformName, callbackURL, isEnabled = true }) => {
     return (
         <a
