@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,7 +14,11 @@ import {
     selectUserIsLoading,
 } from '../../features/user/userSlice';
 
-const LoginPage = () => {
+const LoginPage = ({
+    // mock functions for testing
+    mockLoginAction,
+    mockDispatch,
+}) => {
     const [isAlertOpen, setIsAlertOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
@@ -47,15 +49,13 @@ const LoginPage = () => {
         }
     }, [user, navigate]);
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-
-        // find email and password by keys in e
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        // TODO this will be just email. Right now auth requires username.
-        dispatch(loginUser({ username: email, password }));
+    const handleLogin = () => {
+        const loginAction = mockLoginAction || loginUser;
+        const dispatchFunction = mockDispatch || dispatch;
+        return (email, password) => {
+            // TODO this will be just email. Right now auth requires username.
+            dispatchFunction(loginAction({ username: email, password }));
+        };
     }
 
     return (

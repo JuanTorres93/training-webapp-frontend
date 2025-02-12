@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import OAuthLoginV2 from '../oauthLogin/OAuthLoginV2';
@@ -16,14 +16,22 @@ const LoginFormV2 = ({
     formForgotPasswordText,
     formDonotHaveAccountText,
     formCreateAccountText,
-    handleSubmit = () => { },
+    handleSubmit = () => { }, // Expect to return a function when executed with email and password as arguments
     isLoading = false,
 }) => {
     const [showPass, setShowPass] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const toggleShowPass = () => {
         setShowPass(!showPass);
     }
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const dispatchLogin = handleSubmit();
+        dispatchLogin(email, password);
+    };
 
     return (
         <div className="login-form">
@@ -48,12 +56,12 @@ const LoginFormV2 = ({
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}
-                    <OAuthLoginV2 className="login-form__oauth-button"
+                    {/* <OAuthLoginV2 className="login-form__oauth-button"
                         logo="/images/oauthLogos/linkedin-logo.svg"
                         platformName="LinkedIn"
                         callbackURL="https://linkedin.com"
                         isEnabled={!isLoading}
-                    />
+                    /> */}
                 </div>
 
                 {/* email login */}
@@ -61,19 +69,23 @@ const LoginFormV2 = ({
                     <div className=" separator-text-between-lines ">{formOrloginWithText}</div>
                 </div>
 
-                <form className="login-form__form" onSubmit={handleSubmit}>
-
+                <form className="login-form__form" onSubmit={handleLogin}>
                     <div className="login-form__input-box">
+                        {/* IMPORTANT: This is actually the USERNAME, not the email */}
                         <figure className="login-form__input-icon-box">
-                            <ion-icon name="mail-outline" class="login-form__input-icon"></ion-icon>
+                            {/* <ion-icon name="mail-outline" class="login-form__input-icon"></ion-icon> */}
+                            {/* Icon for username */}
+                            <ion-icon name="person-outline" class="login-form__input-icon"></ion-icon>
                         </figure>
                         <input
+                            // IMPORTANT: This is actually the USERNAME, not the email
                             className={`base-input-text login-form__input ${isLoading ? 'login-form__input--disabled' : ''}`}
+                            data-testid="email"
                             id="email"
                             type="text"
-                            // TODO DESCOMENTAR Y BORRAR ARRIBA
-                            // type="email"
                             placeholder={formEmailLabel}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             // Max value defined in DB
                             maxLength="70"
                             disabled={isLoading}
@@ -88,9 +100,12 @@ const LoginFormV2 = ({
                         </figure>
                         <input
                             className={`base-input-text login-form__input ${isLoading ? 'login-form__input--disabled' : ''}`}
+                            data-testid="password"
                             id="password"
                             type={showPass ? 'text' : 'password'}
                             placeholder={formPasswordLabel}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                         <label htmlFor="password" className="login-form__label login-form__label--input-text">{formPasswordLabel}</label>
@@ -127,6 +142,7 @@ const LoginFormV2 = ({
 
                     {/* Login button */}
                     <button
+                        data-testid="login-button"
                         type="submit"
                         className={`plain-btn login-form__submit-button ${isLoading ? 'login-form__submit-button--disabled' : ''}`}
                         disabled={isLoading}

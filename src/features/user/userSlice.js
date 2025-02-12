@@ -140,7 +140,11 @@ const userSlice = createSlice({
         error: initialErrorState, // Stores both error flag and message
         isLogingOut: false,
     },
-    reducers: {},
+    reducers: {
+        resetError: state => {
+            state.error = initialErrorState;
+        }
+    },
     extraReducers: builder => {
         // login user
         builder.addCase(loginUser.pending, (state, action) => {
@@ -211,11 +215,18 @@ const userSlice = createSlice({
 
                 // Check if email is contained in lowercase resMsg
                 if (resMsg.toLowerCase().includes("email")) {
+                    // TODO TRANSLATE
                     errorMsg = "Email already in use";
                 } else {
+                    // TODO TRANSLATE
                     errorMsg = "Username already in use";
                 }
-            }
+            } else if (statusCode === 400) {
+                const errorMsgs = response.errors.map(err => err.msg);
+                // TODO TRANSLATE
+                errorMsg = errorMsgs[0];
+            };
+
 
             state.isLoading.pop();
             state.error = createNewError(errorMsg);
@@ -248,6 +259,7 @@ export const selectUserError = state => state[sliceName].error;
 export const selectUserIsLogingOut = state => state[sliceName].isLogingOut;
 
 // Export actions
+export const { resetError } = userSlice.actions;
 // TODO BORRAR. ESTO ES DE HACE MUCHO TIEMPO. CUANDO USABA EL ROOT COMPONENT
 export const { setUser } = userSlice.actions;
 

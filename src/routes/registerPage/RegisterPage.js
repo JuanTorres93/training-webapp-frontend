@@ -13,7 +13,11 @@ import {
     selectUserIsLoading,
 } from "../../features/user/userSlice";
 
-export default function RegisterPage() {
+export default function RegisterPage({
+    // These props are for testing purposes
+    mockDispatchFunction = null,
+    mockRegisterAction = null,
+}) {
     const user = useSelector(selectUser);
     const userIsLoading = useSelector(selectUserIsLoading);
     const navigate = useNavigate();
@@ -49,8 +53,8 @@ export default function RegisterPage() {
                 formTermsLabel={t('register-form-terms-label')}
                 formSubmitButtonText={t('register-form-submit-button')}
                 formOrRegisterWithText={t('register-form-or-register-with-text')}
-                dispatchFunction={dispatch}
-                registerAction={registerUser}
+                dispatchFunction={mockDispatchFunction || dispatch}
+                registerAction={mockRegisterAction || registerUser}
                 isLoading={userIsLoading}
             />
             {/* <RegisterForm /> */}

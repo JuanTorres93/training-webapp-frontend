@@ -163,12 +163,12 @@ const RegisterFormV2 = ({
                     />
 
                     {/* TODO add callback URL to server endpoint for linkedIn login */}
-                    <OAuthLoginV2 className="register-form__oauth-button"
+                    {/* <OAuthLoginV2 className="register-form__oauth-button"
                         logo="/images/oauthLogos/linkedin-logo.svg"
                         platformName="LinkedIn"
                         callbackURL="https://linkedin.com"
                         isEnabled={!isLoading}
-                    />
+                    /> */}
                 </div>
             </div>
         </div>
