@@ -4,10 +4,12 @@ import React from "react";
 export default function ButtonNew({
     buttonText,
     extraClasses = "",
+    dataTestId = "",
     onClick = () => { },
 }) {
     return (
         <button
+            data-testid={dataTestId ? dataTestId : undefined}
             onClick={onClick}
             className={`button-new plain-btn ${extraClasses}`}
         >

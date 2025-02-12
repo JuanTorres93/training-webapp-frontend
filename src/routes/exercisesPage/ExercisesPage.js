@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fuse from "fuse.js";
 
 import { useNavigate } from "react-router-dom";
@@ -208,10 +208,12 @@ export default function ExercisesPage() {
                     />
 
                     <TranslatedSearchBar
+                        dataTestId="search-bar"
                         extraClasses="exercises-page__search-bar"
                         parentSearchSetterFunction={setSearchTerm}
                     />
                     <TranslatedButtonNew
+                        dataTestId="button-new"
                         extraClasses="exercises-page__button-new"
                         onClick={handleClickShowNameDescPopup(buttonNewCaller)(null)}
                     />

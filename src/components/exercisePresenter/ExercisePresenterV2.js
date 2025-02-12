@@ -95,6 +95,7 @@ const ExercisePresenterV2 = ({
 
             <div className="exercise-presenter__actions-box">
                 <figure
+                    data-testid="delete-exercise"
                     className={`
                         exercise-presenter__icon-box 
                         exercise-presenter__icon-box--delete

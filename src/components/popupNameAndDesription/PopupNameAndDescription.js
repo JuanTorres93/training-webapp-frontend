@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const PopupNameAndDescription = ({
     visibility,
@@ -46,6 +46,7 @@ const PopupNameAndDescription = ({
                 <div className="popup-name-desc__input-box">
                     <label htmlFor="name" className="popup-name-desc__label">{nameLabel}</label>
                     <input
+                        data-testid="name"
                         id="name"
                         className={`
                             base-input-text 
@@ -64,6 +65,7 @@ const PopupNameAndDescription = ({
                 <div className="popup-name-desc__input-box">
                     <label htmlFor="description" className="popup-name-desc__label">{descriptionLabel}</label>
                     <textarea
+                        data-testid="description"
                         id="description"
                         className={`
                             base-input-text 
@@ -83,6 +85,7 @@ const PopupNameAndDescription = ({
 
             <div className="popup-name-desc__icons-area">
                 <figure
+                    data-testid="close-popup"
                     className={`
                         popup-name-desc__icon-box 
                         popup-name-desc__icon-box--reject
@@ -94,6 +97,7 @@ const PopupNameAndDescription = ({
                 </figure>
 
                 <figure
+                    data-testid="accept-popup"
                     className={`
                         popup-name-desc__icon-box 
                         popup-name-desc__icon-box--accept

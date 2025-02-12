@@ -48,6 +48,7 @@ const PopupOptionOrCancel = ({
                     </div>
 
                     <div
+                        data-testid="accept-option"
                         className={`
                             popup-option-or-cancel__button 
                             popup-option-or-cancel__button--${type}

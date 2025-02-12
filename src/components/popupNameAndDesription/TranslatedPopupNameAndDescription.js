@@ -1,3 +1,4 @@
+import React from "react";
 import PopupNameAndDescription from "./PopupNameAndDescription";
 
 import { useTranslation } from "react-i18next";

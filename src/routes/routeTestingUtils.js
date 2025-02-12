@@ -6,3 +6,8 @@ export const userRegistrationData = {
   is_premium: false,
   is_early_adopter: false,
 }
+
+export const newExerciseData = {
+  name: 'Test exercise name',
+  description: 'Test exercise description',
+}

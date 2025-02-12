@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export default function SearchBar({
     placeholder,
     extraClasses = "",
+    dataTestId = "",
     parentSearchSetterFunction,
 }) {
     const [searchValue, setSearchValue] = useState('');
@@ -34,6 +35,7 @@ export default function SearchBar({
 
             <div className="search-bar__input-box">
                 <input
+                    data-testid={dataTestId ? dataTestId : undefined}
                     className="base-input-text search-bar__input"
                     onChange={handleChange}
                     value={searchValue}
