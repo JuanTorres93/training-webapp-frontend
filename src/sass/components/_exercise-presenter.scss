@@ -176,6 +176,12 @@
             justify-content: center;
         }
 
+        &__sets-label {
+            font-size: 1.6rem;
+            color: $color-grey-dark-4;
+            margin-right: 2rem;
+        }
+
         &__sets-input {
             &--disabled {
                 background-color: $color-grey-light-2;

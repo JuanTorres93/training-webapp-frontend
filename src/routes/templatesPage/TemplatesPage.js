@@ -351,6 +351,7 @@ export default function TemplatesPage() {
                                     });
                                 });
                                 setWaitForTemplatesToLoadAgain(false);
+                                setShowPopupNewTemplate(false)
                             })
                             .catch((error) => {
                                 reject({
