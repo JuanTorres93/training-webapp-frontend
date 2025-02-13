@@ -1,3 +1,4 @@
+import React from "react";
 import TemplateCreator from "./TemplateCreator";
 
 import { useTranslation } from "react-i18next";

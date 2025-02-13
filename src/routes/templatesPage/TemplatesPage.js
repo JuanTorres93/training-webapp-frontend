@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
@@ -429,11 +429,13 @@ export default function TemplatesPage() {
                     />
 
                     <TranslatedSearchBar
+                        dataTestId="search-bar-templates"
                         extraClasses="templates-page__search-bar"
                         parentSearchSetterFunction={setSearchTemplateTerm}
                     />
 
                     <ButtonNew
+                        dataTestId="button-new-template"
                         buttonText={t("button-new-template")}
                         extraClasses="templates-page__button-new"
                         onClick={handleClickShowPopupNewTemplate}
