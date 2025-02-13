@@ -218,7 +218,10 @@ export default function ExercisesPage() {
                         onClick={handleClickShowNameDescPopup(buttonNewCaller)(null)}
                     />
 
-                    <div className="presenter-grid presenter-grid--exercises">
+                    <div
+                        data-testid="exercises-container"
+                        className="presenter-grid presenter-grid--exercises"
+                    >
                         {
                             availableExercises.map((exercise) => {
                                 return (

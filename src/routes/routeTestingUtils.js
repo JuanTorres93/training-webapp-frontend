@@ -8,6 +8,6 @@ export const userRegistrationData = {
 }
 
 export const newExerciseData = {
-  name: 'Test exercise name',
-  description: 'Test exercise description',
+  name: 'testName',
+  description: 'testDesc',
 }

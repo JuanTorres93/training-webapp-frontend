@@ -122,6 +122,7 @@ const ExercisePresenterV2 = ({
                 </figure>
 
                 <figure
+                    data-testid="edit-exercise"
                     className={`
                         exercise-presenter__icon-box 
                         exercise-presenter__icon-box--edit
