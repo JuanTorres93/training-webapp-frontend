@@ -374,7 +374,9 @@ const slice = createSlice({
 
             // Remove template from user created templates
             state[sliceName].userCreatedTemplates = state[sliceName].userCreatedTemplates.filter(
-                template => template.id !== templateId
+                template => {
+                    return template.id !== templateId
+                }
             );
 
             // Remove it from recent workouts
