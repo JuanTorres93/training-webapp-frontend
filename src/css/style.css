@@ -1796,6 +1796,11 @@ body {
 .exercise-presenter--creating-template .exercise-presenter__actions-box {
   justify-content: center;
 }
+.exercise-presenter--creating-template .exercise-presenter__sets-label {
+  font-size: 1.6rem;
+  color: #3c3f3d;
+  margin-right: 2rem;
+}
 .exercise-presenter--creating-template .exercise-presenter__sets-input--disabled {
   background-color: #dde0de;
   color: #3c3f3d;

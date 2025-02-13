@@ -77,6 +77,9 @@ const ExercisePresenterV2 = ({
             {orderInTemplate !== null && (
                 <div className="exercise-presenter__sets-box">
                     {/* TODO validate only integers */}
+                    <span className="exercise-presenter__sets-label">
+                        {placeholderSets}
+                    </span>
                     <input
                         className={`
                             base-input-text integer-input
