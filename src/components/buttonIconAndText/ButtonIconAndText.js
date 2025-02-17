@@ -6,11 +6,13 @@ const ButtonIconAndText = ({
     text,
     onClick = () => { },
     extraClasses = "",
+    dataTestId = "",
     disabled = false,
     isLoading = false,
 }) => {
     return (
         <button
+            data-testid={dataTestId ? dataTestId : null}
             onClick={onClick}
             className={`plain-btn button-icon-and-text ${disabled ? 'button-icon-and-text--disabled' : ''} ${extraClasses}`}
             disabled={disabled}

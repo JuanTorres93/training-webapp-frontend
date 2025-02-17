@@ -48,7 +48,9 @@ import { handleStartWorkout } from "../utils";
 
 import { processCommonResourcesFromDb, processCommonStringFromDb } from "../../i18n";
 
-export default function TemplatesPage() {
+export default function TemplatesPage({
+    mockCreateWorkoutTemplate = null,
+}) {
     const user = useSelector(selectUser);
     const userTemplates = useSelector(selectUserTemplates);
     const rawCommonTemplates = useSelector(selectCommonTemplates);
@@ -314,12 +316,14 @@ export default function TemplatesPage() {
                 description: templateDescription ? templateDescription : '',
             };
 
+            const createNewTemplateAction = mockCreateWorkoutTemplate ? mockCreateWorkoutTemplate : createWorkoutTemplate;
+
             // Create the template in the backend
             // Dispatch the action to create the template. Handle any errors and clean form if success
             // Return as promise to be able to wait for it and do a clean up
             return new Promise((resolve, reject) => {
                 setWaitForTemplatesToLoadAgain(true);
-                dispatch(createWorkoutTemplate(createTemplateBodyRequest))
+                dispatch(createNewTemplateAction(createTemplateBodyRequest))
                     .then((action) => {
                         const newTemplate = action.payload;
                         const promises = [];

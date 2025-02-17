@@ -47,6 +47,7 @@ const TemplatePresenter = ({
 
             <div className="template-presenter__actions-box">
                 <div
+                    data-testid="delete-template"
                     className={`
                         template-presenter__icon-box 
                         template-presenter__icon-box--delete
@@ -66,6 +67,7 @@ const TemplatePresenter = ({
                 </div> */}
 
                 <div
+                    data-testid="edit-template"
                     className={`
                         template-presenter__icon-box 
                         template-presenter__icon-box--edit
@@ -80,6 +82,7 @@ const TemplatePresenter = ({
 
             <div className="template-presenter__start-box">
                 <button
+                    data-testid="launch-template"
                     className={`
                         plain-btn template-presenter__launch-template
                         ${!isLaunchEnabled ? 'template-presenter__launch-template--disabled' : ''}

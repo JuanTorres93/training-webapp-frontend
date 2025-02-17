@@ -148,6 +148,7 @@ const TemplateCreator = ({
             <div className="template-creator__input-box template-creator__input-box--name">
                 <label htmlFor="name" className="template-creator__label">{nameLabel}</label>
                 <input
+                    data-testid="new-template-name"
                     id="name"
                     className={`
                         base-input-text template-creator__input
@@ -165,6 +166,7 @@ const TemplateCreator = ({
             <div className="template-creator__input-box template-creator__input-box--description">
                 <label htmlFor="description" className="template-creator__label">{descriptionLabel}</label>
                 <textarea
+                    data-testid="new-template-description"
                     id="description"
                     className={`
                         base-input-text template-creator__input
@@ -181,6 +183,7 @@ const TemplateCreator = ({
             </div>
 
             <ButtonIconAndText
+                dataTestId="create-template-button"
                 ionIcon={<ion-icon name="checkmark-outline"></ion-icon>}
                 text={createTemplateText}
                 extraClasses="template-creator__confirm-button"

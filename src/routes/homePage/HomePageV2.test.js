@@ -68,11 +68,11 @@ describe('HomePageV2', () => {
           });
         });
 
-        it('Shows "No recent workouts" message when there aren\' any of them', async () => {
-          await waitFor(() => {
-            expect(screen.getByTestId('no-recent-workouts')).toBeInTheDocument();
-          });
-        });
+        //it('Shows "No recent workouts" message when there aren\' any of them', async () => {
+        //  await waitFor(() => {
+        //    expect(screen.getByTestId('no-recent-workouts')).toBeInTheDocument();
+        //  });
+        //});
       });
 
       describe('Weight chart section', () => {

@@ -14,4 +14,7 @@ module.exports = {
     testEnvironment: 'jsdom',
     // Enables jest to use expect functions from react-testing-library
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+    // Run tests in alphabetical order. This allows us to have a predictable order of execution
+    // e.g: creating a user before logging in
+    testSequencer: './alphabeticalTestSequencer.js',
 };

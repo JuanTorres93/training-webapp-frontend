@@ -11,3 +11,8 @@ export const newExerciseData = {
   name: 'testName',
   description: 'testDesc',
 }
+
+export const newTemplateData = {
+  name: 'testTemplateName',
+  description: 'testTemplateDesc',
+}

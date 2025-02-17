@@ -119,6 +119,11 @@ describe('ExercisesPage', () => {
     });
 
     it('creates a new exercise', async () => {
+      await waitFor(() => {
+        expect(store.getState().exercises.isLoading.length).toEqual(0);
+        expect(store.getState().workoutTemplates.isLoading.length).toEqual(0);
+      });
+
       const buttonNew = screen.getByTestId(BUTTON_NEW_TEST_ID);
 
       await act(async () => {
@@ -180,6 +185,11 @@ describe('ExercisesPage', () => {
     });
 
     it('creates exercise with empty description', async () => {
+      await waitFor(() => {
+        expect(store.getState().exercises.isLoading.length).toEqual(0);
+        expect(store.getState().workoutTemplates.isLoading.length).toEqual(0);
+      });
+
       const buttonNew = screen.getByTestId(BUTTON_NEW_TEST_ID);
 
       await act(async () => {
@@ -326,6 +336,8 @@ describe('ExercisesPage', () => {
       // Give it time to load the user
       await waitFor(() => {
         expect(store.getState().user.isLoading.length).toEqual(0);
+        expect(store.getState().exercises.isLoading.length).toEqual(0);
+        expect(store.getState().workoutTemplates.isLoading.length).toEqual(0);
       });
 
       const buttonNew = screen.getByTestId(BUTTON_NEW_TEST_ID);

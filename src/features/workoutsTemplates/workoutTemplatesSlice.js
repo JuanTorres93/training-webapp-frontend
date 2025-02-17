@@ -379,9 +379,9 @@ const slice = createSlice({
                 }
             );
 
-            // Remove it from recent workouts
+            // Remove it from recent workouts if it is there
             state[sliceName].recentWorkouts = state[sliceName].recentWorkouts.filter(template => {
-                return template[0].template_id !== templateId;
+                return template[0] && template[0].template_id !== templateId;
             });
 
             state.isLoading.pop();
