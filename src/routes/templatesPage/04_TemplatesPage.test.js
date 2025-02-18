@@ -62,6 +62,9 @@ describe('04_TemplatesPage', () => {
 
   afterAll(async () => {
     cleanup();
+    await act(async () => {
+      await store.dispatch(resetError());
+    });
 
     await store.dispatch(logoutUser());
     // wait 2 seconds for the logout to complete
