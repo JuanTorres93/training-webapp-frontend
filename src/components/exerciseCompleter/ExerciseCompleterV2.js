@@ -188,6 +188,7 @@ const ExerciseCompleterV2 = ({
                                 </div>
                                 <div className="exercise-completer__weight">
                                     <input
+                                        data-testid={`weight-input`}
                                         className={`
                                             base-input-text integer-input exercise-completer__input
                                             ${isLoading ? 'exercise-completer__input--disabled' : ''}
@@ -201,6 +202,7 @@ const ExerciseCompleterV2 = ({
                                 </div>
                                 <div className="exercise-completer__reps">
                                     <input
+                                        data-testid={`reps-input`}
                                         className={`
                                             base-input-text integer-input exercise-completer__input
                                             ${isLoading ? 'exercise-completer__input--disabled' : ''}

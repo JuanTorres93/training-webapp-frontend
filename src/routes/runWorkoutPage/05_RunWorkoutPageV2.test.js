@@ -23,6 +23,7 @@ import {
   createWorkout,
   setLastWorkout,
   setLastNWorkouts,
+  deleteWorkout,
 } from "../../features/workouts/workoutSlice";
 
 import { handleStartWorkout } from "../../routes/utils";
@@ -34,6 +35,10 @@ import {
 } from "../routeTestingUtils";
 
 import { processCommonStringFromDb } from "../../i18n";
+
+const WEIGHT_INPUT_TEST_ID = "weight-input";
+const REPS_INPUT_TEST_ID = "reps-input";
+const FINISH_WORKOUT_BUTTON_TEST_ID = "finish-workout-button";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -176,6 +181,88 @@ describe('05_RunWorkoutPage', () => {
           // check  that all set elements are in the correct container
           expect(setElement).toBeInTheDocument();
         }
+      });
+    });
+
+    it('Finishes the workout', async () => {
+      const finishWorkoutButton = screen.getByTestId(FINISH_WORKOUT_BUTTON_TEST_ID);
+      const weightInputs = screen.getAllByTestId(WEIGHT_INPUT_TEST_ID);
+      const repsInputs = screen.getAllByTestId(REPS_INPUT_TEST_ID);
+
+      await act(async () => {
+        // Fill weight inputs with 1 and reps inputs with 2
+        weightInputs.forEach((weightInput, index) => {
+          fireEvent.change(weightInput, { target: { value: 1 } });
+          fireEvent.change(repsInputs[index], { target: { value: 2 } });
+        });
+      });
+
+      const activeWorkout = store.getState().workout.workout.activeWorkout;
+
+      await act(async () => {
+        fireEvent.click(finishWorkoutButton);
+      });
+
+      let recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+      expect(recentWorkouts[0].length).toStrictEqual(0);
+
+      // Wait for the workout to finish
+      await waitFor(() => {
+        expect(store.getState().workout.isLoading.length).toEqual(0);
+        expect(store.getState().workoutTemplates.isLoading.length).toEqual(0);
+        expect(store.getState().exercises.isLoading.length).toEqual(0);
+      });
+
+      // Expect the workout to be in the recent workouts
+      recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+      expect(recentWorkouts[0].length).toStrictEqual(1);
+
+      // Remove workout for test repeatability
+      await act(async () => {
+        await store.dispatch(deleteWorkout({ workoutId }));
+      });
+
+      // TODO Expect most recent workout to be the same as created in this test
+      recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+
+      // TODO DELETE THESE DEBUG LOGS
+      console.log('activeWorkout');
+      console.log(activeWorkout);
+
+      const unwindedActiveWorkoutExercises = activeWorkout.exercises.map(exercise => {
+        const unwindedExercise = exercise.sets.map(set => {
+          return {
+            id: exercise.id,
+            order: exercise.order,
+            set: set.setNumber,
+            weight: set.weight,
+            reps: set.reps,
+          }
+        });
+        return unwindedExercise;
+      })
+
+      const unwindedActiveWorkout = {
+        id: activeWorkout.id,
+        template_id: activeWorkout.template_id,
+        description: activeWorkout.description,
+        name: activeWorkout.name,
+        exercises: unwindedActiveWorkoutExercises.flat(),
+      };
+
+      const workoutInThisTest = recentWorkouts[0][0];
+
+      expect(unwindedActiveWorkout.id).toStrictEqual(workoutInThisTest.id);
+      expect(unwindedActiveWorkout.template_id).toStrictEqual(workoutInThisTest.template_id);
+      expect(unwindedActiveWorkout.description).toStrictEqual(workoutInThisTest.description);
+      expect(unwindedActiveWorkout.name).toStrictEqual(workoutInThisTest.name);
+
+      workoutInThisTest.exercises.forEach((exercise, index) => {
+        const filteredExercise = { ...exercise };
+        delete filteredExercise.name;
+        delete filteredExercise.time_in_seconds;
+
+        expect(unwindedActiveWorkout.exercises[index]).toStrictEqual(filteredExercise);
       });
     });
   })

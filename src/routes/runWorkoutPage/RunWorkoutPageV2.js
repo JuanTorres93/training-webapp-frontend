@@ -235,6 +235,7 @@ export default function RunWorkoutPageV2() {
 
                     {/* FINISH BUTTON */}
                     <button
+                        data-testid="finish-workout-button"
                         className={`
                             plain-btn run-workout-page__finish-button
                             ${workoutsLoading ? "run-workout-page__finish-button--disabled" : ""}
