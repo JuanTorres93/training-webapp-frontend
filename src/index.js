@@ -1,26 +1,25 @@
 // Application entry point
 // Default create-react-app --template redux imports
 
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './app/store';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./app/store";
 
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 
 // custom imports
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { LoginObserverProvider } from './LoginObserverContext';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { LoginObserverProvider } from "./LoginObserverContext";
 // Translation import
-import './i18n';
-
+import "./i18n";
 
 // Link css files
 // import '@atlaskit/css-reset'
-import './variables.css'
+import "./variables.css";
 // import './index.css'
-import './css/style.css'
+import "./css/style.css";
 
 // TODO Uncomment for stripe integration
 // import { loadStripe } from "@stripe/stripe-js";
@@ -28,32 +27,33 @@ import './css/style.css'
 //  Elements,   // Wrapper component to include stripe components for processing payments
 //} from '@stripe/react-stripe-js';
 // import HomePage from './routes/homePage/HomePage';
-import HomePageV2 from './routes/homePage/HomePageV2';
-import ExercisesPage from './routes/exercisesPage/ExercisesPage';
-import TemplatesPage from './routes/templatesPage/TemplatesPage';
-import LandingPage from './routes/landingPage/LandingPage';
+import HomePageV2 from "./routes/homePage/HomePageV2";
+import ExercisesPage from "./routes/exercisesPage/ExercisesPage";
+import TemplatesPage from "./routes/templatesPage/TemplatesPage";
+import LandingPage from "./routes/landingPage/LandingPage";
 // import NavBar from './components/navbar/NavBar';
-import RunWorkoutPageV2 from './routes/runWorkoutPage/RunWorkoutPageV2';
-import GlobalUserMessagesManager from './components/globalUserMessagesManager/globalUserMessagesManager';
+import RunWorkoutPageV2 from "./routes/runWorkoutPage/RunWorkoutPageV2";
+import GlobalUserMessagesManager from "./components/globalUserMessagesManager/globalUserMessagesManager";
 
-import CreateTemplatePage from './routes/createTemplate/CreateTemplatePage';
-import CreateExercisePage from './routes/createExercise/CreateExercisePage';
+import CreateTemplatePage from "./routes/createTemplate/CreateTemplatePage";
+import CreateExercisePage from "./routes/createExercise/CreateExercisePage";
 // import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
-import StartWorkoutPage from './routes/startWorkoutPage/StartWorkoutPage';
-import RunWorkoutPage from './routes/runWorkoutPage/RunWorkoutPage';
-import GenericChild from './routes/GenericChild';
-import DefaultErrorPage from './routes/DefaultErrorPage';
-import RegisterPage from './routes/registerPage/RegisterPage';
-import LoginPage from './routes/loginPage/LoginPage';
+import StartWorkoutPage from "./routes/startWorkoutPage/StartWorkoutPage";
+import RunWorkoutPage from "./routes/runWorkoutPage/RunWorkoutPage";
+import GenericChild from "./routes/GenericChild";
+import DefaultErrorPage from "./routes/DefaultErrorPage";
+import RegisterPage from "./routes/registerPage/RegisterPage";
+import LoginPage from "./routes/loginPage/LoginPage";
+import SubscriptionsPage from "./routes/subscriptionsPage/SubscriptionsPage";
 
-if (process.env.REACT_APP_NODE_ENV === 'test') {
+if (process.env.REACT_APP_NODE_ENV === "test") {
   // Jest does not provide a root element, so we need to create it
-  const root = document.createElement('div');
-  root.setAttribute('id', 'root');
+  const root = document.createElement("div");
+  root.setAttribute("id", "root");
   document.body.appendChild(root);
 }
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 const root = createRoot(container);
 
 // Redux store configuration
@@ -70,18 +70,30 @@ const root = createRoot(container);
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <GlobalUserMessagesManager><LandingPage /></GlobalUserMessagesManager>,
-    errorElement: <DefaultErrorPage />
+    element: (
+      <GlobalUserMessagesManager>
+        <LandingPage />
+      </GlobalUserMessagesManager>
+    ),
+    errorElement: <DefaultErrorPage />,
   },
   {
     path: "/register",
-    element: <GlobalUserMessagesManager><RegisterPage /></GlobalUserMessagesManager>,
-    errorElement: <DefaultErrorPage />
+    element: (
+      <GlobalUserMessagesManager>
+        <RegisterPage />
+      </GlobalUserMessagesManager>
+    ),
+    errorElement: <DefaultErrorPage />,
   },
   {
     path: "/login",
-    element: <GlobalUserMessagesManager><LoginPage /></GlobalUserMessagesManager>,
-    errorElement: <DefaultErrorPage />
+    element: (
+      <GlobalUserMessagesManager>
+        <LoginPage />
+      </GlobalUserMessagesManager>
+    ),
+    errorElement: <DefaultErrorPage />,
   },
   {
     path: "/app",
@@ -89,29 +101,61 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <HomePageV2 />
+          </GlobalUserMessagesManager>
+        ),
       },
       {
         path: "/app/home",
-        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <HomePageV2 />
+          </GlobalUserMessagesManager>
+        ),
       },
       {
         path: "/app/dashboard",
-        element: <GlobalUserMessagesManager><HomePageV2 /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <HomePageV2 />
+          </GlobalUserMessagesManager>
+        ),
       },
       {
         path: "/app/exercises",
-        element: <GlobalUserMessagesManager><ExercisesPage /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <ExercisesPage />
+          </GlobalUserMessagesManager>
+        ),
       },
       {
         path: "/app/templates",
-        element: <GlobalUserMessagesManager><TemplatesPage /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <TemplatesPage />
+          </GlobalUserMessagesManager>
+        ),
       },
       {
         path: "/app/runWorkout/:templateId/:workoutId",
-        element: <GlobalUserMessagesManager><RunWorkoutPageV2 /></GlobalUserMessagesManager>
+        element: (
+          <GlobalUserMessagesManager>
+            <RunWorkoutPageV2 />
+          </GlobalUserMessagesManager>
+        ),
       },
-    ]
+      {
+        path: "/app/subscriptions",
+        element: (
+          <GlobalUserMessagesManager>
+            <SubscriptionsPage />
+          </GlobalUserMessagesManager>
+        ),
+      },
+    ],
   },
   {
     path: "/old",
@@ -129,7 +173,7 @@ const router = createBrowserRouter([
       // },
       {
         path: "createTemplate",
-        element: <CreateTemplatePage />
+        element: <CreateTemplatePage />,
       },
       // {
       //   path: "selectTemplate",
@@ -137,19 +181,19 @@ const router = createBrowserRouter([
       // },
       {
         path: "createExercise",
-        element: <CreateExercisePage />
+        element: <CreateExercisePage />,
       },
       {
         path: "startWorkout/template/:templateId",
-        element: <StartWorkoutPage />
+        element: <StartWorkoutPage />,
       },
       {
         path: "runWorkout/:workoutId",
-        element: <RunWorkoutPage />
+        element: <RunWorkoutPage />,
       },
       {
         path: "generic-child",
-        element: <GenericChild />
+        element: <GenericChild />,
       },
     ],
   },
@@ -160,7 +204,7 @@ root.render(
     {/* Wrapper for redux's store configuration */}
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <LoginObserverProvider >
+        <LoginObserverProvider>
           {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
           {/* TODO Uncomment for stripe integration */}
           {/* <Elements stripe={stripePromise}> */}

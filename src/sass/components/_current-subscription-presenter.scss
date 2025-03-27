@@ -1,0 +1,88 @@
+@use "../abstracts" as *;
+
+.current-subscription-presenter {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-grey-light-2;
+  border-radius: 1rem;
+  opacity: 0.8;
+  padding: 2rem 4rem;
+
+  &__upper-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  &__lower-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__cancel-btn {
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: $color-red;
+
+    &:hover {
+      background-color: $color-red-dark;
+    }
+
+    &:active {
+      background-color: $color-red-light;
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-grey-dark-5;
+  }
+
+  &__info-container {
+    display: grid;
+    grid-column-gap: 3rem;
+    grid-row-gap: 0.7rem;
+    grid-template-columns: [icon-start]min-content [icon-end info-start] 1fr [info-end];
+    grid-template-rows: [top]1fr [mid] 1fr [bottom];
+
+    background-color: $color-grey-light-3;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+  }
+
+  &__icon-box {
+    grid-column: icon-start / icon-end;
+    grid-row: top / bottom;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: $color-grey-light-3;
+    border-radius: 100%;
+
+    & > * {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__info-title {
+    grid-column: info-start / info-end;
+    grid-row: top / mid;
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: $color-grey-dark-5;
+  }
+  &__info-value {
+    grid-column: info-start / info-end;
+    grid-row: mid / bottom;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-grey-dark-4;
+  }
+}
