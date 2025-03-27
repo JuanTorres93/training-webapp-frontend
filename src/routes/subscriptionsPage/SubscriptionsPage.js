@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { processCommonStringFromDb } from "../../i18n";
 
-import CurrentSubscriptionPresenter from "../../components/currentSubscriptionPresenter/CurrentSubscriptionPresenter";
+import TranslatedCurrentSubscriptionPresenter from "../../components/currentSubscriptionPresenter/TranslatedCurrentSubscriptionPresenter";
 import SubscriptionPresenter from "../../components/subscriptionPresenter/SubscriptionPresenter";
 
 export default function SubscriptionsPage() {
@@ -18,7 +18,7 @@ export default function SubscriptionsPage() {
         <TranslatedNavVertical />
         {/* TODO Crear sass subscriptions-page */}
         <section className="subscriptions-page">
-          <CurrentSubscriptionPresenter />
+          <TranslatedCurrentSubscriptionPresenter />
           <SubscriptionPresenter />
         </section>
       </main>

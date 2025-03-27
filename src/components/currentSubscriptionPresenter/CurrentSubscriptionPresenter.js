@@ -3,9 +3,12 @@ import React from "react";
 export default function CurrentSubscriptionPresenter({
   subscriptionText = "Subscription",
   cancelText = "Cancel",
+  costText = "Cost",
+  shortMonthText = "mo",
   currentPlant = "Free",
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
+  renewalDateText = "Renewal Date",
 }) {
   return (
     <div className="current-subscription-presenter">
@@ -40,10 +43,10 @@ export default function CurrentSubscriptionPresenter({
             <ion-icon name="wallet-outline"></ion-icon>
           </figure>
           <span className="current-subscription-presenter__info-title">
-            Cost
+            {costText}
           </span>
           <span className="current-subscription-presenter__info-value">
-            {costInEur} €/mo
+            {costInEur} €/{shortMonthText}
           </span>
         </div>
 
@@ -52,7 +55,7 @@ export default function CurrentSubscriptionPresenter({
             <ion-icon name="calendar-outline"></ion-icon>
           </figure>
           <span className="current-subscription-presenter__info-title">
-            Renewal Date
+            {renewalDateText}
           </span>
           <span className="current-subscription-presenter__info-value">
             {renewalDate.toLocaleDateString()}
