@@ -8,6 +8,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
   currentPlant = "Free", // TODO: Translate in DB
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
+  extraClasses = "",
 }) {
   const { t } = useTranslation();
   const cancelText = t("cancel-text");
@@ -26,6 +27,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
       costText={costText}
       shortMonthText={shortMonthText}
       renewalDateText={renewalDateText}
+      extraClasses={extraClasses}
     />
   );
 }

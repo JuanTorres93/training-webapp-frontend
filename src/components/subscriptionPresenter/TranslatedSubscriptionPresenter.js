@@ -8,6 +8,7 @@ import { getCheckoutSession } from "../../serverAPI/payments";
 export default function TranslatedSubscriptionPresenter({
   subscriptionName = "Subscription name", // TODO translate from DB
   costInEur = 20,
+  extraClasses = "",
 }) {
   const { t } = useTranslation();
   const monthText = t("month-text");
@@ -28,6 +29,7 @@ export default function TranslatedSubscriptionPresenter({
       subscribeText={subscribeText}
       featuresText={featuresText}
       getCheckoutSessionOnClick={getCheckoutSessionOnClick}
+      extraClasses={extraClasses}
     />
   );
 }

@@ -9,9 +9,10 @@ export default function CurrentSubscriptionPresenter({
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
   renewalDateText = "Renewal Date",
+  extraClasses = "",
 }) {
   return (
-    <div className="current-subscription-presenter">
+    <div className={`current-subscription-presenter ${extraClasses}`}>
       <div className="current-subscription-presenter__upper-row">
         <span className="current-subscription-presenter__title">
           {subscriptionText}

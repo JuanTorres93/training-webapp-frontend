@@ -8,6 +8,7 @@ export default function SubscriptionPresenter({
   monthText = "month",
   subscribeText = "Subscribe",
   featuresText = "All features included",
+  extraClasses = "",
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +27,7 @@ export default function SubscriptionPresenter({
   };
 
   return (
-    <div className="subscription-presenter">
+    <div className={`subscription-presenter ${extraClasses}`}>
       <div className="subscription-presenter__title-box">
         <span className="subscription-presenter__title">
           {subscriptionName}

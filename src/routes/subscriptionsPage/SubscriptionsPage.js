@@ -16,10 +16,9 @@ export default function SubscriptionsPage() {
     <div className="behind-app">
       <main className="app-layout">
         <TranslatedNavVertical />
-        {/* TODO Crear sass subscriptions-page */}
         <section className="subscriptions-page">
-          <TranslatedCurrentSubscriptionPresenter />
-          <TranslatedSubscriptionPresenter />
+          <TranslatedCurrentSubscriptionPresenter extraClasses="subscriptions-page__current-subscription-presenter" />
+          <TranslatedSubscriptionPresenter extraClasses="subscriptions-page__subscription-presenter" />
         </section>
       </main>
     </div>
