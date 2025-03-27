@@ -118,8 +118,11 @@
   "session-expired-button-text": "Vale",
   "session-expired-popup-title": "Tu sesión ha expirado",
   "session-expired-popup-subtitle": "Por favor, inicia sesión de nuevo",
+  "subscribe-text": "Suscríbete",
   "subscription-text": "Suscripción",
+  "subscription-features-text": "Todas las características incluídas",
   "cost-text": "Coste",
   "short-month-text": "mes",
-  "renewal-date-text": "Fecha de renovación"
+  "renewal-date-text": "Fecha de renovación",
+  "month-text": "mes"
 }

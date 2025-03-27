@@ -118,8 +118,11 @@
   "session-expired-button-text": "OK",
   "session-expired-popup-title": "Your session has expired",
   "session-expired-popup-subtitle": "Please log in again",
+  "subscribe-text": "Subscribe",
   "subscription-text": "Subscription",
+  "subscription-features-text": "All features included",
   "cost-text": "Cost",
   "short-month-text": "mo",
-  "renewal-date-text": "Renewal date"
+  "renewal-date-text": "Renewal date",
+  "month-text": "month"
 }
