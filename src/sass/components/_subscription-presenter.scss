@@ -69,12 +69,24 @@
     text-align: center;
     margin: 1rem 0;
 
+    transition: 0.2s all ease;
+
     &:hover {
       background-color: $color-secondary-dark;
     }
 
     &:active {
       background-color: $color-secondary-light;
+    }
+
+    &--disabled {
+      transition: 0.2s all ease;
+      &,
+      &:hover,
+      &:active {
+        background-color: $color-grey-dark-2;
+      }
+      cursor: not-allowed;
     }
   }
 

@@ -2520,7 +2520,7 @@ body {
     transform: rotate(360deg);
   }
 }
-.spinner-base, .spinner-20-rem, .spinner-10-rem, .spinner-5-rem, .spinner-3-rem, .spinner-2p2-rem {
+.spinner-base, .spinner-20-rem, .spinner-10-rem, .spinner-5-rem, .spinner-3-rem, .spinner-2p2-rem, .spinner-1p3-rem {
   display: inline-block;
   border: 4px solid;
   border-color: #ccc transparent transparent transparent;
@@ -2529,6 +2529,11 @@ body {
 }
 .spinner-base--grey-dark-1 {
   border-color: #AAADAB transparent transparent transparent;
+}
+
+.spinner-1p3-rem {
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 .spinner-2p2-rem {
@@ -2792,12 +2797,20 @@ body {
   font-weight: 600;
   text-align: center;
   margin: 1rem 0;
+  transition: 0.2s all ease;
 }
 .subscription-presenter__checkout-btn:hover {
   background-color: #f08822;
 }
 .subscription-presenter__checkout-btn:active {
   background-color: #ffa45b;
+}
+.subscription-presenter__checkout-btn--disabled {
+  transition: 0.2s all ease;
+  cursor: not-allowed;
+}
+.subscription-presenter__checkout-btn--disabled, .subscription-presenter__checkout-btn--disabled:hover, .subscription-presenter__checkout-btn--disabled:active {
+  background-color: #858886;
 }
 .subscription-presenter__features-box {
   font-size: 1.3rem;

@@ -2,55 +2,59 @@
 
 // Define animation
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner-base {
-    display: inline-block;
-    border: 4px solid;
-    border-color: #ccc transparent transparent transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  display: inline-block;
+  border: 4px solid;
+  border-color: #ccc transparent transparent transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 
-    &--grey-dark-1 {
-        border-color: $color-grey-dark-1 transparent transparent transparent;
-    }
+  &--grey-dark-1 {
+    border-color: $color-grey-dark-1 transparent transparent transparent;
+  }
 }
 
-
+.spinner-1p3-rem {
+  @extend .spinner-base;
+  width: 1.3rem;
+  height: 1.3rem;
+}
 
 .spinner-2p2-rem {
-    @extend .spinner-base;
-    width: 2.2rem;
-    height: 2.2rem;
+  @extend .spinner-base;
+  width: 2.2rem;
+  height: 2.2rem;
 }
 
 .spinner-3-rem {
-    @extend .spinner-base;
-    width: 3rem;
-    height: 3rem;
+  @extend .spinner-base;
+  width: 3rem;
+  height: 3rem;
 }
 
 .spinner-5-rem {
-    @extend .spinner-base;
-    width: 5rem;
-    height: 5rem;
+  @extend .spinner-base;
+  width: 5rem;
+  height: 5rem;
 }
 
 .spinner-10-rem {
-    @extend .spinner-base;
-    width: 10rem;
-    height: 10rem;
+  @extend .spinner-base;
+  width: 10rem;
+  height: 10rem;
 }
 
 .spinner-20-rem {
-    @extend .spinner-base;
-    width: 20rem;
-    height: 20rem;
+  @extend .spinner-base;
+  width: 20rem;
+  height: 20rem;
 }
