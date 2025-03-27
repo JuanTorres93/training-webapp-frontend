@@ -2670,23 +2670,25 @@ body {
 }
 
 .current-subscription-presenter {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 3rem;
   background-color: #dde0de;
   border-radius: 1rem;
   opacity: 0.8;
   padding: 3rem 4rem;
 }
 .current-subscription-presenter__upper-row {
+  grid-column: 1/-1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
 }
 .current-subscription-presenter__lower-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 3rem;
 }
 .current-subscription-presenter__cancel-btn {
   padding: 1rem 2rem;
@@ -2748,7 +2750,7 @@ body {
 
 .subscription-presenter {
   display: grid;
-  grid-template-columns: 30rem;
+  grid-template-columns: minmax(min-content, 30rem);
   grid-template-rows: [title-start] 5rem [title-end info-start] 1fr [info-end];
   background-color: #dde0de;
   opacity: 0.8;
@@ -3269,9 +3271,11 @@ body {
 }
 .subscriptions-page__current-subscription-presenter {
   grid-column: 1/-1;
+  justify-self: center;
 }
 .subscriptions-page__subscription-presenter {
   grid-column: 2/span 1;
+  justify-self: center;
 }
 
 /*# sourceMappingURL=style.css.map */

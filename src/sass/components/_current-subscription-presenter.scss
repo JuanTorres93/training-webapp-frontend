@@ -1,23 +1,30 @@
 @use "../abstracts" as *;
 
 .current-subscription-presenter {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 3rem;
+
   background-color: $color-grey-light-2;
   border-radius: 1rem;
   opacity: 0.8;
   padding: 3rem 4rem;
 
+  // max-width: 100rem;
+
   &__upper-row {
+    grid-column: 1 / -1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
   }
   &__lower-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    grid-column: 1 / -1;
+
+    display: grid;
+    // TODO hacer autorows autofit
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 3rem;
   }
 
   &__cancel-btn {

@@ -2,8 +2,7 @@
 
 .subscription-presenter {
   display: grid;
-  // TODO hacer responsive
-  grid-template-columns: 30rem;
+  grid-template-columns: minmax(min-content, 30rem);
   grid-template-rows: [title-start] 5rem [title-end info-start] 1fr [info-end];
 
   background-color: $color-grey-light-2;
