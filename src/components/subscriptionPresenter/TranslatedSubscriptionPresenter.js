@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import SubscriptionPresenter from "./SubscriptionPresenter";
 import { getCheckoutSession } from "../../serverAPI/payments";
 
+// TODO add featuresText as a prop
 export default function TranslatedSubscriptionPresenter({
   subscriptionName = "Subscription name", // TODO translate from DB
   costInEur = 20,
