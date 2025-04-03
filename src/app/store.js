@@ -33,6 +33,9 @@ import languageReducer, {
 import subscriptionReducer, {
   sliceName as subscriptionName,
 } from "../features/subscriptions/subscriptionsSlice";
+import paymentReducer, {
+  sliceName as paymentName,
+} from "../features/payments/paymentsSlice";
 
 // Action for restarting the state
 const RESET_STATE = "RESET_STATE";
@@ -49,6 +52,7 @@ const appReducer = combineReducers({
   [weightName]: weightReducer,
   [languageName]: languageReducer,
   [subscriptionName]: subscriptionReducer,
+  [paymentName]: paymentReducer,
 });
 
 // Modify rootReducer to handle state reset

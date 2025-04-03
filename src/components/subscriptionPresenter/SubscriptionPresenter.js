@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { getCheckoutSession } from "../../serverAPI/payments";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
 
 export default function SubscriptionPresenter({
   subscriptionName = "Subscription name",
@@ -8,14 +10,19 @@ export default function SubscriptionPresenter({
   monthText = "month",
   subscribeText = "Subscribe",
   featuresText = "All features included",
+  subscriptionId = "",
   extraClasses = "",
 }) {
+  const currentLanguage = useSelector(selectCurrentLanguage);
   const [loading, setLoading] = useState(false);
 
   const getCheckoutSessionOnClick = async () => {
     setLoading(true);
     try {
-      const response = await getCheckoutSession();
+      const response = await getCheckoutSession(
+        subscriptionId,
+        currentLanguage
+      );
 
       window.location = await response.session.url;
     } catch (error) {

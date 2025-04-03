@@ -7,8 +7,9 @@ import { getCheckoutSession } from "../../serverAPI/payments";
 
 // TODO add featuresText as a prop
 export default function TranslatedSubscriptionPresenter({
-  subscriptionName = "Subscription name", // TODO translate from DB
+  subscriptionName = "Subscription name",
   costInEur = 20,
+  subscriptionId = "",
   extraClasses = "",
 }) {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ export default function TranslatedSubscriptionPresenter({
       monthText={monthText}
       subscribeText={subscribeText}
       featuresText={featuresText}
+      subscriptionId={subscriptionId}
       getCheckoutSessionOnClick={getCheckoutSessionOnClick}
       extraClasses={extraClasses}
     />

@@ -18,6 +18,7 @@ import {
   getAllSubscriptions,
   getCurrentSubscription,
 } from "../subscriptions/subscriptionsSlice";
+import { getLastPayment } from "../payments/paymentsSlice";
 
 import { resetApp } from "../../app/store";
 
@@ -52,6 +53,9 @@ export const loginUser = createAsyncThunk(
     // Get subscriptions
     thunkAPI.dispatch(getAllSubscriptions());
     thunkAPI.dispatch(getCurrentSubscription({ userId }));
+
+    // Get last payment
+    thunkAPI.dispatch(getLastPayment());
 
     // Get user's templates
     await thunkAPI.dispatch(

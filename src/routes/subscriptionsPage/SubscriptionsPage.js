@@ -16,11 +16,13 @@ import {
   selectActiveSubscription,
 } from "../../features/subscriptions/subscriptionsSlice";
 import { selectCurrentLanguage } from "../../features/language/languageSlice";
+import { selectLastPayment } from "../../features/payments/paymentsSlice";
 
 export default function SubscriptionsPage() {
   const subscriptions = useSelector(selectSubscriptions);
   const currentLanguage = useSelector(selectCurrentLanguage);
   const activeSubscription = useSelector(selectActiveSubscription);
+  const lastPayment = useSelector(selectLastPayment);
 
   const [subscriptionPresenters, setSubscriptionPresenters] = useState([]);
   const [currentSubscription, setCurrentSubscription] = useState(null);
@@ -33,11 +35,11 @@ export default function SubscriptionsPage() {
         );
 
         return (
-          // TODO FIX subscription page in Stripe to match subscription details
           <TranslatedSubscriptionPresenter
             key={index}
             subscriptionName={processCommonStringFromDb(subscription.name)}
             costInEur={priceInEur}
+            subscriptionId={subscription.id}
             extraClasses="subscriptions-page__subscription-presenter"
           />
         );
@@ -49,15 +51,21 @@ export default function SubscriptionsPage() {
       const currentCostInEur = (
         activeSubscription.base_price_in_eur_cents / 100
       ).toFixed(2);
-      // TODO manage renewal date in DB
-      // const currentRenewalDate = new Date(
-      //   activeSubscription.current_period_end * 1000
-      // );
+
+      let renewalDate;
+      try {
+        renewalDate = new Date(lastPayment.next_payment_date);
+      } catch (error) {
+        // renewalDate = null;
+        // TODO better process this case
+        renewalDate = new Date();
+      }
+
       return (
         <TranslatedCurrentSubscriptionPresenter
           currentPlant={currentPlan}
           costInEur={currentCostInEur}
-          renewalDate={new Date("2025-04-26")}
+          renewalDate={renewalDate}
           extraClasses="subscriptions-page__current-subscription-presenter"
         />
       );
