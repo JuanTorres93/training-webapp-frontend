@@ -11,6 +11,7 @@ export default function SubscriptionPresenter({
   subscribeText = "Subscribe",
   featuresText = "All features included",
   subscriptionId = "",
+  isActiveSubscription = false,
   extraClasses = "",
 }) {
   const currentLanguage = useSelector(selectCurrentLanguage);
@@ -51,9 +52,15 @@ export default function SubscriptionPresenter({
 
         <button
           className={`plain-btn subscription-presenter__checkout-btn ${
-            loading ? "subscription-presenter__checkout-btn--disabled" : ""
+            loading || isActiveSubscription
+              ? "subscription-presenter__checkout-btn--disabled"
+              : ""
           }`}
-          onClick={loading ? undefined : getCheckoutSessionOnClick}
+          onClick={
+            loading || isActiveSubscription
+              ? undefined
+              : getCheckoutSessionOnClick
+          }
         >
           {loading ? <div className="spinner-1p3-rem"></div> : subscribeText}
         </button>

@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef, use } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 
-import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import { processCommonStringFromDb } from "../../i18n";
 
@@ -18,14 +16,25 @@ import {
 import { selectCurrentLanguage } from "../../features/language/languageSlice";
 import { selectLastPayment } from "../../features/payments/paymentsSlice";
 
+import { getCurrentSubscription } from "../../features/subscriptions/subscriptionsSlice";
+import { getLastPayment } from "../../features/payments/paymentsSlice";
+
 export default function SubscriptionsPage() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const subscriptions = useSelector(selectSubscriptions);
   const currentLanguage = useSelector(selectCurrentLanguage);
   const activeSubscription = useSelector(selectActiveSubscription);
   const lastPayment = useSelector(selectLastPayment);
 
   const [subscriptionPresenters, setSubscriptionPresenters] = useState([]);
-  const [currentSubscription, setCurrentSubscription] = useState(null);
+  const [currentSubscriptionPresenter, setCurrentSubscriptionPresenter] =
+    useState(null);
+
+  useEffect(() => {
+    dispatch(getCurrentSubscription({ userId: user.id }));
+    dispatch(getLastPayment());
+  }, []);
 
   useEffect(() => {
     setSubscriptionPresenters(
@@ -34,19 +43,22 @@ export default function SubscriptionsPage() {
           2
         );
 
+        const isActiveSubscription = subscription.id === activeSubscription.id;
+
         return (
           <TranslatedSubscriptionPresenter
             key={index}
             subscriptionName={processCommonStringFromDb(subscription.name)}
             costInEur={priceInEur}
             subscriptionId={subscription.id}
+            isActiveSubscription={isActiveSubscription}
             extraClasses="subscriptions-page__subscription-presenter"
           />
         );
       })
     );
 
-    setCurrentSubscription(() => {
+    setCurrentSubscriptionPresenter(() => {
       const currentPlan = processCommonStringFromDb(activeSubscription.name);
       const currentCostInEur = (
         activeSubscription.base_price_in_eur_cents / 100
@@ -70,14 +82,14 @@ export default function SubscriptionsPage() {
         />
       );
     });
-  }, [currentLanguage]);
+  }, [currentLanguage, lastPayment, subscriptions, activeSubscription]);
 
   return (
     <div className="behind-app">
       <main className="app-layout">
         <TranslatedNavVertical />
         <section className="subscriptions-page">
-          {currentSubscription}
+          {currentSubscriptionPresenter}
           {subscriptionPresenters}
         </section>
       </main>

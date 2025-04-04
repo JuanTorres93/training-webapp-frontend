@@ -11,11 +11,16 @@ export default function TranslatedSubscriptionPresenter({
   costInEur = 20,
   subscriptionId = "",
   extraClasses = "",
+  isActiveSubscription = false,
 }) {
   const { t } = useTranslation();
   const monthText = t("month-text");
-  const subscribeText = t("subscribe-text");
+  let subscribeText = t("subscribe-text");
   const featuresText = t("subscription-features-text");
+
+  if (isActiveSubscription) {
+    subscribeText = t("already-subscribed-text");
+  }
 
   const getCheckoutSessionOnClick = async () => {
     const response = await getCheckoutSession();
@@ -32,6 +37,7 @@ export default function TranslatedSubscriptionPresenter({
       featuresText={featuresText}
       subscriptionId={subscriptionId}
       getCheckoutSessionOnClick={getCheckoutSessionOnClick}
+      isActiveSubscription={isActiveSubscription}
       extraClasses={extraClasses}
     />
   );

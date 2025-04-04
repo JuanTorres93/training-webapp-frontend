@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import CurrentSubscriptionPresenter from "./CurrentSubscriptionPresenter";
 
 export default function TranslatedCurrentSubscriptionPresenter({
-  currentPlant = "Free", // TODO: Translate in DB
+  currentPlant = "Free",
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
   extraClasses = "",

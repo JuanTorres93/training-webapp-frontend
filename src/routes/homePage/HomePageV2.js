@@ -29,6 +29,8 @@ import {
   addCurrentDayWeight,
   updateCurrentDayWeight,
 } from "../../features/weights/weightSlice";
+import { getLastPayment } from "../../features/payments/paymentsSlice";
+import { getCurrentSubscription } from "../../features/subscriptions/subscriptionsSlice";
 
 import { handleStartWorkout } from "../utils";
 
@@ -64,14 +66,29 @@ export default function HomePageV2() {
   }, [templatesLoading, workoutsLoading]);
 
   useEffect(() => {
+    // TODO IMPORTANT FIX: ESTO ES UNA VULNERABILIDAD!!!!
+    // SE PUEDE LOGGEAR ALGUIEN SIMPLEMENTE CON LA ID DE OTRO USUARIO
+    // Mirar una mejor forma de hacerlo.
     const searchParams = new URLSearchParams(location.search);
 
     const token = searchParams.get("token");
 
     let userId = null;
     if (token) {
-      const data = jwtDecode(token);
-      userId = data.userId;
+      try {
+        const data = jwtDecode(token);
+        userId = data.userId;
+
+        // TODO DELETE THESE DEBUG LOGS
+        console.log("token");
+        console.log(token);
+
+        // TODO DELETE THESE DEBUG LOGS
+        console.log("userId");
+        console.log(userId);
+      } catch (error) {
+        console.log("Error decoding token");
+      }
     }
 
     if (!user && !userId) {
@@ -86,6 +103,25 @@ export default function HomePageV2() {
       ).then(() => {
         navigate("/app/home");
       });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+
+    const createdSubscription = searchParams.get("createdSubscription");
+
+    if (createdSubscription && user) {
+      try {
+        setTimeout(() => {
+          dispatch(getCurrentSubscription({ userId: user.id }));
+          dispatch(getLastPayment());
+        }, 5000);
+
+        navigate("/app/home");
+      } catch (error) {
+        console.log("Error decoding token");
+      }
     }
   }, [user]);
 
