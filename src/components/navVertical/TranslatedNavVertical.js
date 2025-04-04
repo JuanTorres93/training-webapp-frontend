@@ -15,6 +15,9 @@ import {
 import { selectActiveTemplate } from "../../features/workoutsTemplates/workoutTemplatesSlice";
 import { selectActiveWorkout } from "../../features/workouts/workoutSlice";
 import { selectCurrentLanguage } from "../../features/language/languageSlice";
+import { selectLastPayment } from "../../features/payments/paymentsSlice";
+
+import lastPaymentExpired from "../../utils/checkLastPayment";
 
 export default function TranslatedNavVertical() {
   const dispatch = useDispatch();
@@ -26,6 +29,9 @@ export default function TranslatedNavVertical() {
   const activeWorkout = useSelector(selectActiveWorkout);
   const currentLanguage = useSelector(selectCurrentLanguage);
   const isLogingOut = useSelector(selectUserIsLogingOut);
+  const lastPayment = useSelector(selectLastPayment);
+
+  const [disabledItems, setDisabledItems] = useState(false);
 
   const rawNavItems = [
     {
@@ -58,6 +64,12 @@ export default function TranslatedNavVertical() {
       navigate("/");
     });
   };
+
+  useEffect(() => {
+    // Check if the last payment is expired
+    const isExpired = lastPaymentExpired(lastPayment);
+    setDisabledItems(isExpired || isLogingOut);
+  }, [lastPayment, isLogingOut]);
 
   useEffect(() => {
     const activeTemplateExists = Object.keys(activeTemplate).length > 0;
@@ -118,6 +130,7 @@ export default function TranslatedNavVertical() {
       cbChangeLanguage={changeLanguage}
       cbHandleLogout={cbHandleLogout}
       isLoading={isLogingOut}
+      isDisabled={disabledItems}
     />
   );
 }

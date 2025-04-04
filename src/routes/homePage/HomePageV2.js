@@ -29,8 +29,11 @@ import {
   addCurrentDayWeight,
   updateCurrentDayWeight,
 } from "../../features/weights/weightSlice";
+import { selectLastPayment } from "../../features/payments/paymentsSlice";
+
 import { getLastPayment } from "../../features/payments/paymentsSlice";
 import { getCurrentSubscription } from "../../features/subscriptions/subscriptionsSlice";
+import lastPaymentExpired from "../../utils/checkLastPayment";
 
 import { handleStartWorkout } from "../utils";
 
@@ -43,6 +46,8 @@ export default function HomePageV2() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const lastPayment = useSelector(selectLastPayment);
 
   const recentWorkouts = useSelector(selectRecentWorkouts);
   const workoutsLoading = useSelector(selectWorkoutsLoading);
@@ -107,6 +112,18 @@ export default function HomePageV2() {
   }, [user]);
 
   useEffect(() => {
+    // Let some time to process that subscription has been created
+    // and unlock the app
+    const searchParams = new URLSearchParams(location.search);
+
+    const createdSubscription = searchParams.get("createdSubscription");
+
+    if (createdSubscription && user) return;
+
+    lastPaymentExpired(lastPayment, navigate);
+  }, [lastPayment, user]);
+
+  useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
 
     const createdSubscription = searchParams.get("createdSubscription");
@@ -120,7 +137,7 @@ export default function HomePageV2() {
 
         navigate("/app/home");
       } catch (error) {
-        console.log("Error decoding token");
+        console.log("Error updating subscription and payment");
       }
     }
   }, [user]);

@@ -19,6 +19,8 @@ import { selectLastPayment } from "../../features/payments/paymentsSlice";
 import { getCurrentSubscription } from "../../features/subscriptions/subscriptionsSlice";
 import { getLastPayment } from "../../features/payments/paymentsSlice";
 
+import lastPaymentExpired from "../../utils/checkLastPayment";
+
 export default function SubscriptionsPage() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -30,6 +32,17 @@ export default function SubscriptionsPage() {
   const [subscriptionPresenters, setSubscriptionPresenters] = useState([]);
   const [currentSubscriptionPresenter, setCurrentSubscriptionPresenter] =
     useState(null);
+
+  // timeout to check if the last payment is expired
+  setTimeout(() => {
+    if (lastPayment && lastPayment.next_payment_date) {
+      const isExpired = lastPaymentExpired(lastPayment.next_payment_date);
+      if (isExpired) {
+        dispatch(getCurrentSubscription({ userId: user.id }));
+        dispatch(getLastPayment());
+      }
+    }
+  }, 10000);
 
   useEffect(() => {
     dispatch(getCurrentSubscription({ userId: user.id }));
