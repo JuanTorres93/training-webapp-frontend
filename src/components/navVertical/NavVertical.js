@@ -5,6 +5,7 @@ const NavVertical = ({
   items, // array of objects with icon, text and path
   logoutItem,
   currentLanguage,
+  username = "username",
   cbChangeLanguage = () => {},
   cbHandleLogout = () => {},
   isLoading = false,
@@ -12,7 +13,8 @@ const NavVertical = ({
 }) => {
   return (
     <nav className="nav-vertical">
-      {/* TODO include trackoverload full logo? */}
+      {/* TODO STYLE */}
+      {username}
       <ul className="nav-vertical__list">
         {items.map((item, index) => {
           return (
@@ -59,7 +61,6 @@ const NavVertical = ({
           </button>
         </li>
       </ul>
-
       <button
         className={`
                     plain-btn 

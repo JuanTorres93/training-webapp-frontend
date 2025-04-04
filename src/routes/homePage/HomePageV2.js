@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { jwtDecode } from "jwt-decode";
+import CryptoJS from "crypto-js";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 import TranslatedLineGraph from "../../components/lineGraph/TranslatedLineGraph";
 import TranslatedChartWorkoutVolume from "../../components/chartWorkoutVolume/TranslatedChartWorkoutVolume";
@@ -71,9 +72,6 @@ export default function HomePageV2() {
   }, [templatesLoading, workoutsLoading]);
 
   useEffect(() => {
-    // TODO IMPORTANT FIX: ESTO ES UNA VULNERABILIDAD!!!!
-    // SE PUEDE LOGGEAR ALGUIEN SIMPLEMENTE CON LA ID DE OTRO USUARIO
-    // Mirar una mejor forma de hacerlo.
     const searchParams = new URLSearchParams(location.search);
 
     const token = searchParams.get("token");
@@ -82,15 +80,13 @@ export default function HomePageV2() {
     if (token) {
       try {
         const data = jwtDecode(token);
-        userId = data.userId;
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log("token");
-        console.log(token);
-
-        // TODO DELETE THESE DEBUG LOGS
-        console.log("userId");
-        console.log(userId);
+        const encryptedUserId = data.userId;
+        // Decrypt userId
+        var bytes = CryptoJS.AES.decrypt(
+          encryptedUserId,
+          process.env.REACT_APP_JWT_SECRET
+        );
+        userId = bytes.toString(CryptoJS.enc.Utf8);
       } catch (error) {
         console.log("Error decoding token");
       }

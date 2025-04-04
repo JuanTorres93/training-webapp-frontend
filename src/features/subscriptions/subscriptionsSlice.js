@@ -47,7 +47,10 @@ const slice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(getAllSubscriptions.fulfilled, (state, action) => {
-      const subscriptions = action.payload.filter((s) => s.type !== "FREE");
+      // Filter out free and free_trial subscriptions
+      const subscriptions = action.payload.filter(
+        (s) => !["FREE", "FREE_TRIAL"].includes(s.type)
+      );
       state[sliceName].subscriptions = subscriptions;
       state.isLoading.pop();
       state.error = initialErrorState;

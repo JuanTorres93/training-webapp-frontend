@@ -124,6 +124,7 @@ export default function TranslatedNavVertical() {
 
   return (
     <NavVertical
+      username={user ? user.username : null}
       items={navItems}
       logoutItem={logoutItem}
       currentLanguage={currentLanguage}
