@@ -31,6 +31,16 @@ export const getLastPayment = createAsyncThunk(
   }
 );
 
+export const cancelSubscription = createAsyncThunk(
+  `${sliceName}/cancelSubscription`,
+  async (arg, thunkAPI) => {
+    // Error is handled from redux state when promise is rejected
+    const response = await api.cancelSubscription();
+
+    return response;
+  }
+);
+
 const slice = createSlice({
   name: sliceName,
   initialState: {
@@ -68,6 +78,20 @@ const slice = createSlice({
       state.payments.lastPayment = action.payload;
     });
     builder.addCase(getLastPayment.rejected, (state, action) => {
+      state.isLoading.pop();
+      state.error = createNewError(action.error.message || "Unknown error");
+    });
+
+    // Cancel subscription
+    builder.addCase(cancelSubscription.pending, (state, action) => {
+      state.isLoading.push(LOADING_FLAG);
+      state.error = initialErrorState;
+    });
+    builder.addCase(cancelSubscription.fulfilled, (state, action) => {
+      state.isLoading.pop();
+      state.error = initialErrorState;
+    });
+    builder.addCase(cancelSubscription.rejected, (state, action) => {
       state.isLoading.pop();
       state.error = createNewError(action.error.message || "Unknown error");
     });

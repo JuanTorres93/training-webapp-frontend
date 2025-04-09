@@ -1,8 +1,9 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import CurrentSubscriptionPresenter from "./CurrentSubscriptionPresenter";
+import { cancelSubscription } from "../../features/payments/paymentsSlice";
 
 export default function TranslatedCurrentSubscriptionPresenter({
   currentPlant = "Free",
@@ -17,6 +18,12 @@ export default function TranslatedCurrentSubscriptionPresenter({
   const shortMonthText = t("short-month-text");
   const renewalDateText = t("renewal-date-text");
 
+  const dispatch = useDispatch();
+
+  const handleCancelSubscription = () => {
+    dispatch(cancelSubscription());
+  };
+
   return (
     <CurrentSubscriptionPresenter
       subscriptionText={subscriptionText}
@@ -28,6 +35,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
       shortMonthText={shortMonthText}
       renewalDateText={renewalDateText}
       extraClasses={extraClasses}
+      cancelSubscription={handleCancelSubscription}
     />
   );
 }

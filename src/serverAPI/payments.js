@@ -30,3 +30,15 @@ export async function getLastPayment() {
     return response;
   }
 }
+
+export async function cancelSubscription() {
+  const response = await apiClient.get(baseEndpoint + "/cancel-subscription", {
+    withCredentials: true,
+  });
+
+  try {
+    return response.data;
+  } catch (error) {
+    return response;
+  }
+}

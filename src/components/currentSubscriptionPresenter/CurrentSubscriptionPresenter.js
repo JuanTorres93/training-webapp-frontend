@@ -10,7 +10,9 @@ export default function CurrentSubscriptionPresenter({
   renewalDate = new Date("2025-04-26"),
   renewalDateText = "Renewal Date",
   extraClasses = "",
+  cancelSubscription = () => {},
 }) {
+  // TODO habilitar y desabilitar botón de cancelar
   return (
     <div className={`current-subscription-presenter ${extraClasses}`}>
       <div className="current-subscription-presenter__upper-row">
@@ -19,6 +21,7 @@ export default function CurrentSubscriptionPresenter({
         </span>
 
         <button
+          onClick={cancelSubscription}
           className="plain-btn 
           current-subscription-presenter__cancel-btn"
         >
