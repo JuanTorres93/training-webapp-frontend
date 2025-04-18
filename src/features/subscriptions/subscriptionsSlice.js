@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { initialErrorState, createNewError } from "../slicesUtils";
 
-// TODO modificar a subscriptions
 import * as api from "../../serverAPI/subscriptions";
 
 export const sliceName = "subscriptions";

@@ -12,6 +12,7 @@ import reportWebVitals from "./reportWebVitals";
 // custom imports
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginObserverProvider } from "./LoginObserverContext";
+import { SubscriptionObserverProvider } from "./SubscriptionObserverContext";
 // Translation import
 import "./i18n";
 
@@ -205,12 +206,14 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <LoginObserverProvider>
-          {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
-          {/* TODO Uncomment for stripe integration */}
-          {/* <Elements stripe={stripePromise}> */}
-          <RouterProvider router={router} />
-          {/* TODO Uncomment for stripe integration */}
-          {/* </Elements> */}
+          <SubscriptionObserverProvider>
+            {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
+            {/* TODO Uncomment for stripe integration */}
+            {/* <Elements stripe={stripePromise}> */}
+            <RouterProvider router={router} />
+            {/* TODO Uncomment for stripe integration */}
+            {/* </Elements> */}
+          </SubscriptionObserverProvider>
         </LoginObserverProvider>
       </PersistGate>
     </Provider>
