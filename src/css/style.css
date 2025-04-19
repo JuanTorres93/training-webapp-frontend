@@ -2747,6 +2747,9 @@ body {
   font-weight: 700;
   color: #3c3f3d;
 }
+.current-subscription-presenter__info-value--expired-date {
+  color: #ea704e;
+}
 
 .subscription-presenter {
   display: grid;

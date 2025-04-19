@@ -12,6 +12,14 @@ export default function CurrentSubscriptionPresenter({
   extraClasses = "",
   cancelSubscription = () => {},
 }) {
+  const subscriptionExpired = new Date() > renewalDate;
+  const isFreePlan =
+    currentPlant.toLowerCase().includes("free") ||
+    currentPlant.toLowerCase().includes("grat");
+
+  // Show cancel button if subscription is active or is free subscription
+  const hideCancelButton = subscriptionExpired || isFreePlan;
+
   // TODO habilitar y desabilitar botón de cancelar
   return (
     <div className={`current-subscription-presenter ${extraClasses}`}>
@@ -20,13 +28,15 @@ export default function CurrentSubscriptionPresenter({
           {subscriptionText}
         </span>
 
-        <button
-          onClick={cancelSubscription}
-          className="plain-btn 
+        {!hideCancelButton && (
+          <button
+            onClick={cancelSubscription}
+            className="plain-btn 
           current-subscription-presenter__cancel-btn"
-        >
-          {cancelText}
-        </button>
+          >
+            {cancelText}
+          </button>
+        )}
       </div>
 
       <div className="current-subscription-presenter__lower-row">
@@ -61,8 +71,21 @@ export default function CurrentSubscriptionPresenter({
           <span className="current-subscription-presenter__info-title">
             {renewalDateText}
           </span>
-          <span className="current-subscription-presenter__info-value">
-            {renewalDate.toLocaleDateString()}
+          <span
+            className={`
+            current-subscription-presenter__info-value
+            ${
+              subscriptionExpired
+                ? "current-subscription-presenter__info-value--expired-date"
+                : ""
+            }
+            `}
+          >
+            {renewalDate.toLocaleDateString(undefined, {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
           </span>
         </div>
       </div>

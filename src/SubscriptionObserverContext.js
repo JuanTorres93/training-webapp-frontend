@@ -13,6 +13,7 @@ export const SubscriptionObserverProvider = ({ children }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
+  // Check last payment and current subscription every 5 minutes
   setInterval(() => {
     if (user) {
       dispatch(getCurrentSubscription({ userId: user.id }));
