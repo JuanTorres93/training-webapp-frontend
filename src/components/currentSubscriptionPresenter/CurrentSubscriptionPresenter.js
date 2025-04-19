@@ -9,6 +9,8 @@ export default function CurrentSubscriptionPresenter({
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
   renewalDateText = "Renewal Date",
+  markedForCancel = false,
+  cancelledText = "Cancelled",
   extraClasses = "",
   cancelSubscription = () => {},
 }) {
@@ -18,9 +20,9 @@ export default function CurrentSubscriptionPresenter({
     currentPlant.toLowerCase().includes("grat");
 
   // Show cancel button if subscription is active or is free subscription
-  const hideCancelButton = subscriptionExpired || isFreePlan;
+  // TODO add condition for already cancelled subscription
+  const hideCancelButton = isFreePlan || markedForCancel;
 
-  // TODO habilitar y desabilitar botón de cancelar
   return (
     <div className={`current-subscription-presenter ${extraClasses}`}>
       <div className="current-subscription-presenter__upper-row">
@@ -36,6 +38,12 @@ export default function CurrentSubscriptionPresenter({
           >
             {cancelText}
           </button>
+        )}
+
+        {markedForCancel && (
+          <span className="current-subscription-presenter__cancelled-text">
+            {cancelledText}
+          </span>
         )}
       </div>
 

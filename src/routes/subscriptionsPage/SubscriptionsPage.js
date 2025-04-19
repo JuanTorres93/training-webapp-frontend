@@ -91,6 +91,7 @@ export default function SubscriptionsPage() {
           currentPlant={currentPlan}
           costInEur={currentCostInEur}
           renewalDate={renewalDate}
+          markedForCancel={lastPayment.marked_for_cancel}
           extraClasses="subscriptions-page__current-subscription-presenter"
         />
       );

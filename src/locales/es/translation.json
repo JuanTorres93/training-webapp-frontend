@@ -125,5 +125,6 @@
   "cost-text": "Coste",
   "short-month-text": "mes",
   "renewal-date-text": "Fecha de renovación",
-  "month-text": "mes"
+  "month-text": "mes",
+  "cancelled-subscription": "Suscripción cancelada"
 }

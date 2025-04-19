@@ -9,6 +9,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
   currentPlant = "Free",
   costInEur = 20,
   renewalDate = new Date("2025-04-26"),
+  markedForCancel = false,
   extraClasses = "",
 }) {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
   const costText = t("cost-text");
   const shortMonthText = t("short-month-text");
   const renewalDateText = t("renewal-date-text");
+  const cancelledText = t("cancelled-subscription");
 
   const dispatch = useDispatch();
 
@@ -34,6 +36,8 @@ export default function TranslatedCurrentSubscriptionPresenter({
       costText={costText}
       shortMonthText={shortMonthText}
       renewalDateText={renewalDateText}
+      markedForCancel={markedForCancel}
+      cancelledText={cancelledText}
       extraClasses={extraClasses}
       cancelSubscription={handleCancelSubscription}
     />
