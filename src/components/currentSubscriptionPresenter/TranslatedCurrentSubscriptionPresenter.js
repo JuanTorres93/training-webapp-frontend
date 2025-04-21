@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import CurrentSubscriptionPresenter from "./CurrentSubscriptionPresenter";
-import { cancelSubscription } from "../../features/payments/paymentsSlice";
+import {
+  cancelSubscription,
+  resumeSubscription,
+} from "../../features/payments/paymentsSlice";
+import { getLastPayment } from "../../features/payments/paymentsSlice";
 
 export default function TranslatedCurrentSubscriptionPresenter({
   currentPlant = "Free",
@@ -12,6 +16,7 @@ export default function TranslatedCurrentSubscriptionPresenter({
   markedForCancel = false,
   extraClasses = "",
 }) {
+  const [loadingSubscription, setLoadingSubscription] = useState(false);
   const { t } = useTranslation();
   const cancelText = t("cancel-text");
   const subscriptionText = t("subscription-text");
@@ -22,8 +27,38 @@ export default function TranslatedCurrentSubscriptionPresenter({
 
   const dispatch = useDispatch();
 
-  const handleCancelSubscription = () => {
-    dispatch(cancelSubscription());
+  const handleCancelSubscription = async () => {
+    try {
+      setLoadingSubscription(true);
+      await dispatch(cancelSubscription());
+
+      // Get info about the last payment to show the correct info
+      setTimeout(() => {
+        dispatch(getLastPayment()).then(() => {
+          setLoadingSubscription(false);
+        });
+      }, 7000);
+    } catch (error) {
+      console.log(error);
+      setLoadingSubscription(false);
+    }
+  };
+
+  const handleResumeSubscription = async () => {
+    try {
+      setLoadingSubscription(true);
+      await dispatch(resumeSubscription());
+
+      // Get info about the last payment to show the correct info
+      setTimeout(() => {
+        dispatch(getLastPayment()).then(() => {
+          setLoadingSubscription(false);
+        });
+      }, 7000);
+    } catch (error) {
+      console.log(error);
+      setLoadingSubscription(false);
+    }
   };
 
   return (
@@ -39,7 +74,9 @@ export default function TranslatedCurrentSubscriptionPresenter({
       markedForCancel={markedForCancel}
       cancelledText={cancelledText}
       extraClasses={extraClasses}
+      isLoadingSubscription={loadingSubscription}
       cancelSubscription={handleCancelSubscription}
+      resumeSubscription={handleResumeSubscription}
     />
   );
 }

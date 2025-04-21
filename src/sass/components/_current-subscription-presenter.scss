@@ -39,6 +39,46 @@
     &:active {
       background-color: $color-red-light;
     }
+
+    &--disabled {
+      background-color: $color-grey-light-3;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $color-grey-light-3;
+      }
+
+      &:active {
+        background-color: $color-grey-light-3;
+      }
+    }
+  }
+
+  &__resume-btn {
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background-color: $color-secondary;
+
+    &:hover {
+      background-color: $color-secondary-dark;
+    }
+
+    &:active {
+      background-color: $color-secondary-light;
+    }
+
+    &--disabled {
+      background-color: $color-grey-light-3;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $color-grey-light-3;
+      }
+
+      &:active {
+        background-color: $color-grey-light-3;
+      }
+    }
   }
 
   &__title {

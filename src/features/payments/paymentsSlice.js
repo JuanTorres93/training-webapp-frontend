@@ -41,6 +41,16 @@ export const cancelSubscription = createAsyncThunk(
   }
 );
 
+export const resumeSubscription = createAsyncThunk(
+  `${sliceName}/resumeSubscription`,
+  async (arg, thunkAPI) => {
+    // Error is handled from redux state when promise is rejected
+    const response = await api.resumeSubscription();
+
+    return response;
+  }
+);
+
 const slice = createSlice({
   name: sliceName,
   initialState: {
@@ -92,6 +102,20 @@ const slice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(cancelSubscription.rejected, (state, action) => {
+      state.isLoading.pop();
+      state.error = createNewError(action.error.message || "Unknown error");
+    });
+
+    // Resume subscription
+    builder.addCase(resumeSubscription.pending, (state, action) => {
+      state.isLoading.push(LOADING_FLAG);
+      state.error = initialErrorState;
+    });
+    builder.addCase(resumeSubscription.fulfilled, (state, action) => {
+      state.isLoading.pop();
+      state.error = initialErrorState;
+    });
+    builder.addCase(resumeSubscription.rejected, (state, action) => {
       state.isLoading.pop();
       state.error = createNewError(action.error.message || "Unknown error");
     });

@@ -42,3 +42,15 @@ export async function cancelSubscription() {
     return response;
   }
 }
+
+export async function resumeSubscription() {
+  const response = await apiClient.get(baseEndpoint + "/resume-subscription", {
+    withCredentials: true,
+  });
+
+  try {
+    return response.data;
+  } catch (error) {
+    return response;
+  }
+}

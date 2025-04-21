@@ -11,9 +11,13 @@ export default function CurrentSubscriptionPresenter({
   renewalDateText = "Renewal Date",
   markedForCancel = false,
   cancelledText = "Cancelled",
+  isLoadingSubscription = false,
+  resumeText = "Resume",
   extraClasses = "",
   cancelSubscription = () => {},
+  resumeSubscription = () => {},
 }) {
+  // TODO IMPORTANT expired condition should be  currentPlant.toLowerCase() === "expired"?
   const subscriptionExpired = new Date() > renewalDate;
   const isFreePlan =
     currentPlant.toLowerCase().includes("free") ||
@@ -32,11 +36,20 @@ export default function CurrentSubscriptionPresenter({
 
         {!hideCancelButton && (
           <button
-            onClick={cancelSubscription}
-            className="plain-btn 
-          current-subscription-presenter__cancel-btn"
+            onClick={isLoadingSubscription ? null : cancelSubscription}
+            className={`plain-btn 
+          current-subscription-presenter__cancel-btn
+          ${
+            isLoadingSubscription
+              ? "current-subscription-presenter__cancel-btn--disabled"
+              : ""
+          }`}
           >
-            {cancelText}
+            {isLoadingSubscription ? (
+              <div className="spinner-1p3-rem"></div>
+            ) : (
+              cancelText
+            )}
           </button>
         )}
 
@@ -44,6 +57,26 @@ export default function CurrentSubscriptionPresenter({
           <span className="current-subscription-presenter__cancelled-text">
             {cancelledText}
           </span>
+        )}
+
+        {markedForCancel && !subscriptionExpired && (
+          <button
+            className={`plain-btn 
+          current-subscription-presenter__resume-btn
+          ${
+            isLoadingSubscription
+              ? "current-subscription-presenter__resume-btn--disabled"
+              : ""
+          }
+          `}
+            onClick={isLoadingSubscription ? null : resumeSubscription}
+          >
+            {isLoadingSubscription ? (
+              <div className="spinner-1p3-rem"></div>
+            ) : (
+              resumeText
+            )}
+          </button>
         )}
       </div>
 

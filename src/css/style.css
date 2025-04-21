@@ -2701,6 +2701,37 @@ body {
 .current-subscription-presenter__cancel-btn:active {
   background-color: #f58b6d;
 }
+.current-subscription-presenter__cancel-btn--disabled {
+  background-color: #f1f4f2;
+  cursor: not-allowed;
+}
+.current-subscription-presenter__cancel-btn--disabled:hover {
+  background-color: #f1f4f2;
+}
+.current-subscription-presenter__cancel-btn--disabled:active {
+  background-color: #f1f4f2;
+}
+.current-subscription-presenter__resume-btn {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  background-color: #F78E2C;
+}
+.current-subscription-presenter__resume-btn:hover {
+  background-color: #f08822;
+}
+.current-subscription-presenter__resume-btn:active {
+  background-color: #ffa45b;
+}
+.current-subscription-presenter__resume-btn--disabled {
+  background-color: #f1f4f2;
+  cursor: not-allowed;
+}
+.current-subscription-presenter__resume-btn--disabled:hover {
+  background-color: #f1f4f2;
+}
+.current-subscription-presenter__resume-btn--disabled:active {
+  background-color: #f1f4f2;
+}
 .current-subscription-presenter__title {
   font-size: 2rem;
   font-weight: 700;
