@@ -7,7 +7,7 @@ export default function CurrentSubscriptionPresenter({
   shortMonthText = "mo",
   currentPlant = "Free",
   costInEur = 20,
-  renewalDate = new Date("2025-04-26"),
+  renewalDate,
   renewalDateText = "Renewal Date",
   markedForCancel = false,
   cancelledText = "Cancelled",
@@ -17,15 +17,12 @@ export default function CurrentSubscriptionPresenter({
   cancelSubscription = () => {},
   resumeSubscription = () => {},
 }) {
-  // TODO IMPORTANT expired condition should be  currentPlant.toLowerCase() === "expired"?
-  const subscriptionExpired = new Date() > renewalDate;
+  const subscriptionExpired = currentPlant.toLowerCase().includes("expir");
   const isFreePlan =
     currentPlant.toLowerCase().includes("free") ||
     currentPlant.toLowerCase().includes("grat");
 
-  // Show cancel button if subscription is active or is free subscription
-  // TODO add condition for already cancelled subscription
-  const hideCancelButton = isFreePlan || markedForCancel;
+  const hideCancelButton = isFreePlan || markedForCancel || subscriptionExpired;
 
   return (
     <div className={`current-subscription-presenter ${extraClasses}`}>
@@ -116,17 +113,19 @@ export default function CurrentSubscriptionPresenter({
             className={`
             current-subscription-presenter__info-value
             ${
-              subscriptionExpired
+              subscriptionExpired && renewalDate
                 ? "current-subscription-presenter__info-value--expired-date"
                 : ""
             }
             `}
           >
-            {renewalDate.toLocaleDateString(undefined, {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
+            {renewalDate
+              ? renewalDate.toLocaleDateString(undefined, {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })
+              : "---"}
           </span>
         </div>
       </div>

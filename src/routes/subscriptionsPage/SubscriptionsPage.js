@@ -77,14 +77,9 @@ export default function SubscriptionsPage() {
         activeSubscription.base_price_in_eur_cents / 100
       ).toFixed(2);
 
-      let renewalDate;
-      try {
-        renewalDate = new Date(lastPayment.next_payment_date);
-      } catch (error) {
-        // renewalDate = null;
-        // TODO better process this case
-        renewalDate = new Date();
-      }
+      const renewalDate = lastPayment.next_payment_date
+        ? new Date(lastPayment.next_payment_date)
+        : null;
 
       return (
         <TranslatedCurrentSubscriptionPresenter
