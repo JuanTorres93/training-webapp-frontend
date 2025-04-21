@@ -1,101 +1,111 @@
 @use "../abstracts" as *;
+@use "../base" as *;
 
 .hero {
-    // Position set for including z-index for shadows beteween sections
-    position: relative;
-    z-index: 10;
+  // Position set for including z-index for shadows beteween sections
+  position: relative;
+  z-index: 10;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-row: hero-start / hero-end;
+
+  // height: 80vh;
+  $gradient-opacity: 0.7;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, $gradient-opacity),
+      rgba($color-primary-dark, $gradient-opacity)
+    ),
+    url("../../public/images/hero-large.jpg");
+  background-size: cover;
+  background-position: center;
+
+  @include landing-page-line-between-sections;
+
+  &__box {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: min-content;
+    backface-visibility: hidden;
+  }
 
-    grid-row: hero-start / hero-end;
+  &__text {
+    color: $color-white;
+    text-transform: uppercase;
+    text-align: center;
 
-    // height: 80vh;
-    $gradient-opacity: .7;
-    background-image: linear-gradient(to right bottom,
-            rgba($color-primary-light, $gradient-opacity),
-            rgba($color-primary-dark, $gradient-opacity)),
-        url('../../public/images/hero-large.jpg');
-    background-size: cover;
-    background-position: center;
+    &--big {
+      display: inline-block;
+      font-size: 9rem;
+      font-weight: 200;
+      letter-spacing: 3.5rem;
+      margin-left: 2rem;
+      margin-bottom: 2rem;
+      animation: fade-in 1.5s ease-out;
 
-    @include landing-page-line-between-sections;
-
-    &__box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: min-content;
-        backface-visibility: hidden;
+      @media only screen and (max-width: $bp-landing-smallest) {
+        letter-spacing: 0rem;
+      }
     }
 
-    &__text {
-        color: $color-white;
-        text-transform: uppercase;
-        text-align: center;
+    $small-animation: fade-in 1.5s ease-out 1s;
 
-        &--big {
-            display: inline-block;
-            font-size: 9rem;
-            font-weight: 200;
-            letter-spacing: 3.5rem;
-            margin-left: 2rem;
-            margin-bottom: 2rem;
-            animation: fade-in 1.5s ease-out;
-        }
+    &--small {
+      display: inline-block;
+      font-size: 4.6rem;
+      font-weight: 300;
+      letter-spacing: 1.1rem;
+      animation: $small-animation;
+      animation-fill-mode: backwards;
 
-        $small-animation: fade-in 1.5s ease-out 1s;
-
-        &--small {
-            display: inline-block;
-            font-size: 4.6rem;
-            font-weight: 300;
-            letter-spacing: 1.1rem;
-            animation: $small-animation;
-            animation-fill-mode: backwards;
-        }
-
-        &--accent {
-            color: $color-secondary;
-            font-weight: 300;
-            animation: $small-animation, change-to-secondary-color 1s ease-out 1.5s;
-            animation-fill-mode: backwards;
-        }
+      @media only screen and (max-width: $bp-landing-smallest) {
+        letter-spacing: 0rem;
+      }
     }
 
-    &__button {
-
-        &,
-        &:link,
-        &:visited {
-            padding: 2rem 6rem;
-            font-family: inherit;
-            font-size: 1.6rem;
-            background-color: $color-secondary;
-            color: $color-white;
-            font-weight: 600;
-            border-radius: 5rem;
-            border: none;
-            margin-top: 11rem;
-            cursor: pointer;
-            box-shadow: 0 1rem 2rem rgba($color-black, .2);
-            transition: all .2s ease-out;
-            text-decoration: none;
-
-            animation: fade-in .5s ease-out 2s;
-            animation-fill-mode: backwards;
-        }
-
-        &:hover {
-            transform: translateY(-.4rem) scale(1.01);
-            box-shadow: 0 2rem 4rem rgba($color-black, .4);
-        }
-
-        &:active {
-            transform: translateY(-.2rem) scale(1);
-            box-shadow: 0 1.5rem 3rem rgba($color-black, .3);
-        }
+    &--accent {
+      color: $color-secondary;
+      font-weight: 300;
+      animation: $small-animation, change-to-secondary-color 1s ease-out 1.5s;
+      animation-fill-mode: backwards;
     }
+  }
+
+  &__button {
+    &,
+    &:link,
+    &:visited {
+      padding: 2rem 6rem;
+      font-family: inherit;
+      font-size: 1.6rem;
+      background-color: $color-secondary;
+      color: $color-white;
+      font-weight: 600;
+      border-radius: 5rem;
+      border: none;
+      margin-top: 11rem;
+      cursor: pointer;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+      transition: all 0.2s ease-out;
+      text-decoration: none;
+
+      animation: fade-in 0.5s ease-out 2s;
+      animation-fill-mode: backwards;
+    }
+
+    &:hover {
+      transform: translateY(-0.4rem) scale(1.01);
+      box-shadow: 0 2rem 4rem rgba($color-black, 0.4);
+    }
+
+    &:active {
+      transform: translateY(-0.2rem) scale(1);
+      box-shadow: 0 1.5rem 3rem rgba($color-black, 0.3);
+    }
+  }
 }

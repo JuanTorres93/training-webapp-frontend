@@ -6,14 +6,19 @@
   margin: 0;
   padding: 0;
   /* 
-  Inherit box-sizing from parent, which will the the value
-  defined in the body element
-  */
+    Inherit box-sizing from parent, which will the the value
+    defined in the body element
+    */
   box-sizing: inherit;
 }
 
 html {
   font-size: 62.5%;
+}
+@media only screen and (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -245,6 +250,11 @@ body {
   margin-bottom: 2rem;
   animation: fade-in 1.5s ease-out;
 }
+@media only screen and (max-width: 36.875em) {
+  .hero__text--big {
+    letter-spacing: 0rem;
+  }
+}
 .hero__text--small {
   display: inline-block;
   font-size: 4.6rem;
@@ -252,6 +262,11 @@ body {
   letter-spacing: 1.1rem;
   animation: fade-in 1.5s ease-out 1s;
   animation-fill-mode: backwards;
+}
+@media only screen and (max-width: 36.875em) {
+  .hero__text--small {
+    letter-spacing: 0rem;
+  }
 }
 .hero__text--accent {
   color: #F78E2C;
@@ -321,6 +336,11 @@ body {
 .nav-horizontal__item {
   display: inline-block;
   margin: 0 1.5rem;
+}
+@media only screen and (max-width: 44.25em) {
+  .nav-horizontal__item {
+    display: none;
+  }
 }
 .nav-horizontal__link, .nav-horizontal__link:link, .nav-horizontal__link:visited {
   user-select: none;
@@ -2886,6 +2906,7 @@ body {
 
 .landing {
   display: grid;
+  grid-template-columns: 100vw;
   grid-template-rows: [nav-start] 7rem [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 }
 
@@ -2910,6 +2931,16 @@ body {
   grid-column: 1/-1;
   justify-self: center;
   align-self: end;
+}
+@media only screen and (max-width: 56.25em) {
+  .niche-section {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  }
+}
+@media only screen and (max-width: 36.875em) {
+  .niche-section {
+    padding: 20rem 0rem;
+  }
 }
 
 .benefits {
@@ -2936,6 +2967,16 @@ body {
   justify-self: center;
   align-self: end;
 }
+@media only screen and (max-width: 56.25em) {
+  .benefits {
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  }
+}
+@media only screen and (max-width: 36.875em) {
+  .benefits {
+    padding: 20rem 10rem 22.5rem 0rem;
+  }
+}
 
 .features {
   position: relative;
@@ -2960,6 +3001,11 @@ body {
   justify-self: center;
   align-self: end;
 }
+@media only screen and (max-width: 36.875em) {
+  .features {
+    padding: 25rem 0rem 20rem 0rem;
+  }
+}
 
 .testimonials-section {
   position: relative;
@@ -2980,6 +3026,16 @@ body {
   grid-column: 1/-1;
   justify-self: center;
   align-self: end;
+}
+@media only screen and (max-width: 56.25em) {
+  .testimonials-section {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  }
+}
+@media only screen and (max-width: 36.875em) {
+  .testimonials-section {
+    padding: 20rem 0rem;
+  }
 }
 
 .register-page {

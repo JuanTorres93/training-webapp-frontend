@@ -1,140 +1,140 @@
 @use "../abstracts" as *;
 
 .niche-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  // background-color: rgba($color-white, .8);
+  background-color: rgba($color-white, 0.95);
+  border-radius: 0.3rem;
+  box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+  padding: 6rem 4rem;
+
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+
+  &__title {
+    margin-bottom: 4rem;
+  }
+
+  &__list {
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: start;
+    justify-content: space-around;
+  }
 
-    // background-color: rgba($color-white, .8);
-    background-color: rgba($color-white, .95);
-    border-radius: .3rem;
-    box-shadow: 0 1rem 2rem rgba($color-black, .15);
-    padding: 6rem 4rem;
+  &__item {
+    // Refernce for showing the explanation
+    position: relative;
 
     width: 100%;
-    max-width: 80rem;
-    margin: 0 auto;
+  }
 
-    &__title {
-        margin-bottom: 4rem;
+  &__item:not(:hover) {
+    animation: light-up-and-down-movement 2.5s ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  &__item:hover &__explanation {
+    visibility: visible;
+
+    opacity: 1;
+  }
+
+  &__item:hover &__reason-text {
+    cursor: pointer;
+    animation: turn-text-color-to-secondary-gradient 0.3s ease-in;
+    animation-fill-mode: both;
+    transform: translateY(-1px);
+
+    text-shadow: 0 0.2rem 0.5rem rgba($color-black, 0.1);
+
+    &:active {
+      transform: translateY(0);
+      text-shadow: 0 0.1rem 0.25rem rgba($color-black, 0.05);
+    }
+  }
+
+  &__reason {
+    display: flex;
+    align-items: center;
+  }
+
+  &__reason-text {
+    &,
+    &:link,
+    &:visited {
+      text-decoration: none;
+      font-size: 2rem;
+      letter-spacing: 0.05rem;
+      color: $color-grey-dark-5;
+      transition: all 0.2s;
+    }
+  }
+
+  &__icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+
+    & > * {
+      font-size: 3.5rem;
+      --ionicon-stroke-width: 48px;
     }
 
-    &__list {
-        flex: 1;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+    &--green {
+      color: $color-primary;
     }
 
-    &__item {
-        // Refernce for showing the explanation
-        position: relative;
+    &--red {
+      color: $color-red;
+    }
+  }
 
-        width: 100%;
+  &__explanation {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out 0.05s;
+
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    width: 90%;
+    transform: translate(80%, -10%);
+
+    background-image: linear-gradient(
+      to right bottom,
+      rgba($color-grey-light-3, 0.9),
+      rgba($color-white, 0.9)
+    );
+    border-radius: 0.5rem;
+    border: 2px solid $color-primary-dark;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+
+    font-size: 1.7rem;
+    line-height: 1.6;
+    font-weight: 400;
+    color: $color-grey-dark-5;
+    text-align: center;
+    padding: 3rem 10%;
+
+    &--left {
+      left: 0;
+      right: auto;
+      transform: translate(-100%, -10%);
     }
 
-    &__item:not(:hover) {
-        animation: light-up-and-down-movement 2.5s ease-in-out;
-        animation-iteration-count: infinite;
+    &--right {
+      left: auto;
+      right: 0;
+      transform: translate(80%, -10%);
     }
-
-    &__item:hover &__explanation {
-        visibility: visible;
-
-        opacity: 1;
-    }
-
-    &__item:hover &__reason-text {
-        cursor: pointer;
-        animation: turn-text-color-to-secondary-gradient .3s ease-in;
-        animation-fill-mode: both;
-        transform: translateY(-1px);
-
-        text-shadow: 0 .2rem .5rem rgba($color-black, .1);
-
-        &:active {
-            transform: translateY(0);
-            text-shadow: 0 .1rem .25rem rgba($color-black, .05);
-        }
-    }
-
-    &__reason {
-        display: flex;
-        align-items: center;
-    }
-
-    &__reason-text {
-
-        &,
-        &:link,
-        &:visited {
-            text-decoration: none;
-            font-size: 2.0rem;
-            letter-spacing: .05rem;
-            color: $color-grey-dark-5;
-            transition: all .2s;
-        }
-    }
-
-    &__icon-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 2rem;
-
-        &>* {
-            font-size: 3.5rem;
-            --ionicon-stroke-width: 48px;
-        }
-
-        &--green {
-            color: $color-primary;
-        }
-
-        &--red {
-            color: $color-red;
-        }
-    }
-
-    &__explanation {
-        opacity: 0;
-        visibility: hidden;
-        transition: all .3s ease-in-out .05s;
-
-        position: absolute;
-        z-index: 100;
-        top: 0;
-        right: 0;
-        width: 90%;
-        transform: translate(80%, -10%);
-
-        background-image: linear-gradient(to right bottom,
-                rgba($color-grey-light-3, .9),
-                rgba($color-white, .9));
-        border-radius: .5rem;
-        border: 2px solid $color-primary-dark;
-        box-shadow: 0 1rem 2rem rgba($color-black, .15);
-
-        font-size: 1.7rem;
-        line-height: 1.6;
-        font-weight: 400;
-        color: $color-grey-dark-5;
-        text-align: center;
-        padding: 3rem 10%;
-
-        &--left {
-            left: 0;
-            right: auto;
-            transform: translate(-100%, -10%);
-        }
-
-        &--right {
-            left: auto;
-            right: 0;
-            transform: translate(80%, -10%);
-        }
-    }
-
+  }
 }

@@ -1,154 +1,190 @@
 @use "../abstracts" as *;
+@use "../base" as *;
 
 $space-to-next-section: 30rem;
 
 .landing {
-    display: grid;
-    grid-template-rows: [nav-start] $landing-nav-height [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(min-content, 60vh) [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows:
+    [nav-start] $landing-nav-height [nav-end hero-start] 90vh [hero-end niche-start] min-content [niche-end benefits-start] minmax(
+      min-content,
+      60vh
+    )
+    [benefits-end features-start] min-content [features-end testimonials-start] min-content [testimonials-end];
 }
 
 .niche-section {
-    // Position set for including z-index for shadows beteween sections
-    position: relative;
-    z-index: 8;
+  // Position set for including z-index for shadows beteween sections
+  position: relative;
+  z-index: 8;
 
-    grid-row: niche-start / niche-end;
+  grid-row: niche-start / niche-end;
 
-    background-image: linear-gradient(to bottom,
-            $color-grey-light-2 0%,
-            $color-grey-light-3 80%,
-            $color-grey-light-2 100%,
-        );
-    padding: 20rem 10rem;
-    // For spacing between sections
-    padding-bottom: $space-to-next-section;
+  background-image: linear-gradient(
+    to bottom,
+    $color-grey-light-2 0%,
+    $color-grey-light-3 80%,
+    $color-grey-light-2 100%
+  );
+  padding: 20rem 10rem;
+  // For spacing between sections
+  padding-bottom: $space-to-next-section;
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
-    grid-template-rows: [heading-start] 6rem [heading-end];
-    grid-auto-rows: minmax(min-content, 45vh);
-    grid-column-gap: 15rem;
-    grid-row-gap: 8rem;
-    justify-items: stretch;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70rem, 1fr));
+  grid-template-rows: [heading-start] 6rem [heading-end];
+  grid-auto-rows: minmax(min-content, 45vh);
+  grid-column-gap: 15rem;
+  grid-row-gap: 8rem;
+  justify-items: stretch;
+  align-items: stretch;
 
+  &__heading {
+    grid-row: heading-start / heading-end;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+  }
 
+  @media only screen and (max-width: $bp-landing-small) {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  }
 
-    &__heading {
-        grid-row: heading-start / heading-end;
-        grid-column: 1 / -1;
-        justify-self: center;
-        align-self: end;
-    }
+  @media only screen and (max-width: $bp-landing-smallest) {
+    padding: 20rem 0rem;
+  }
 }
 
 .benefits {
-    // Position set for including z-index for shadows beteween sections
-    position: relative;
-    z-index: 9;
+  // Position set for including z-index for shadows beteween sections
+  position: relative;
+  z-index: 9;
 
-    display: grid;
+  display: grid;
 
-    align-content: center;
-    justify-content: center;
+  align-content: center;
+  justify-content: center;
 
-    align-items: stretch;
+  align-items: stretch;
 
-    // Grid items span outside of their cells, so
-    // different paddings for right and left
-    padding: 20rem 20rem 22.5rem 14rem;
+  // Grid items span outside of their cells, so
+  // different paddings for right and left
+  padding: 20rem 20rem 22.5rem 14rem;
 
-    // For spacing between sections
-    padding-bottom: $space-to-next-section;
+  // For spacing between sections
+  padding-bottom: $space-to-next-section;
 
-    grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
-    grid-template-rows: [heading-start] 6rem [heading-end];
-    grid-auto-rows: minmax(min-content, 35vh);
+  grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
+  grid-template-rows: [heading-start] 6rem [heading-end];
+  grid-auto-rows: minmax(min-content, 35vh);
 
-    grid-column-gap: 0rem;
-    grid-row-gap: 9rem;
+  grid-column-gap: 0rem;
+  grid-row-gap: 9rem;
 
-    background-color: $color-grey-light-2;
+  background-color: $color-grey-light-2;
 
-    background-image: linear-gradient(to bottom,
-            $color-grey-light-2 0%,
-            $color-grey-light-2 80%,
-            $color-grey-light-3 100%,
-        );
+  background-image: linear-gradient(
+    to bottom,
+    $color-grey-light-2 0%,
+    $color-grey-light-2 80%,
+    $color-grey-light-3 100%
+  );
 
-    grid-row: benefits-start / benefits-end;
+  grid-row: benefits-start / benefits-end;
 
-    &__heading {
-        grid-row: heading-start / heading-end;
-        grid-column: 1 / -1;
-        justify-self: center;
-        align-self: end;
-    }
+  &__heading {
+    grid-row: heading-start / heading-end;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+  }
+
+  @media only screen and (max-width: $bp-landing-small) {
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  }
+
+  @media only screen and (max-width: $bp-landing-smallest) {
+    padding: 20rem 10rem 22.5rem 0rem;
+  }
 }
 
 .features {
-    // Position set for including z-index for shadows beteween sections
-    position: relative;
-    z-index: 7;
+  // Position set for including z-index for shadows beteween sections
+  position: relative;
+  z-index: 7;
 
-    display: grid;
-    justify-items: center;
-    padding: 20rem 12rem;
+  display: grid;
+  justify-items: center;
+  padding: 20rem 12rem;
 
-    // For spacing between sections
-    padding-bottom: $space-to-next-section;
+  // For spacing between sections
+  padding-bottom: $space-to-next-section;
 
-    grid-row: features-start / features-end;
+  grid-row: features-start / features-end;
 
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-    grid-template-rows: [heading-start] 6rem [heading-end];
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-template-rows: [heading-start] 6rem [heading-end];
 
-    grid-auto-rows: minmax(min-content, 30vh);
+  grid-auto-rows: minmax(min-content, 30vh);
 
-    grid-gap: 2rem;
-    grid-row-gap: 6rem;
+  grid-gap: 2rem;
+  grid-row-gap: 6rem;
 
-    color: $color-grey-dark-3;
-    background-color: $color-grey-light-3;
+  color: $color-grey-dark-3;
+  background-color: $color-grey-light-3;
 
-    background-image: linear-gradient(to bottom,
-            $color-grey-light-3 0%,
-            $color-grey-light-3 70%,
-            $color-grey-light-2 100%,
-        );
+  background-image: linear-gradient(
+    to bottom,
+    $color-grey-light-3 0%,
+    $color-grey-light-3 70%,
+    $color-grey-light-2 100%
+  );
 
-    &__heading {
-        grid-row: heading-start / heading-end;
-        grid-column: 1 / -1;
-        justify-self: center;
-        align-self: end;
-    }
+  &__heading {
+    grid-row: heading-start / heading-end;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+  }
+
+  @media only screen and (max-width: $bp-landing-smallest) {
+    padding: 25rem 0rem 20rem 0rem;
+  }
 }
 
 .testimonials-section {
-    // Position set for including z-index for shadows beteween sections
-    position: relative;
-    z-index: 6;
+  // Position set for including z-index for shadows beteween sections
+  position: relative;
+  z-index: 6;
 
-    grid-row: testimonials-start / testimonials-end;
+  grid-row: testimonials-start / testimonials-end;
 
-    // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
-    padding: 20rem 10rem;
+  // background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+  padding: 20rem 10rem;
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(65rem, 1fr));
-    grid-template-rows: [heading-start] 6rem [heading-end];
-    grid-column-gap: 8rem;
-    grid-row-gap: 8rem;
-    justify-items: center;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(65rem, 1fr));
+  grid-template-rows: [heading-start] 6rem [heading-end];
+  grid-column-gap: 8rem;
+  grid-row-gap: 8rem;
+  justify-items: center;
+  align-items: stretch;
 
-    background-color: $color-grey-light-2;
+  background-color: $color-grey-light-2;
 
-    &__heading {
-        grid-row: heading-start / heading-end;
-        grid-column: 1 / -1;
-        justify-self: center;
-        align-self: end;
-    }
+  &__heading {
+    grid-row: heading-start / heading-end;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+  }
+
+  @media only screen and (max-width: $bp-landing-small) {
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  }
+
+  @media only screen and (max-width: $bp-landing-smallest) {
+    padding: 20rem 0rem;
+  }
 }

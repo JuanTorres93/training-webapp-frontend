@@ -1,149 +1,156 @@
 @use "../abstracts" as *;
+@use "../base" as *;
 
 .nav-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+
+  grid-row: nav-start / nav-end;
+  grid-column: 1 / -1;
+
+  color: $color-grey-dark-3;
+
+  $nav-background-color: rgba($color-white, 0.98);
+  background-color: $nav-background-color;
+  @include landing-page-line-between-sections;
+
+  $margin-sides: 2rem;
+
+  &__logo-box {
+    width: 4rem;
+    height: 4rem;
+    margin-left: $margin-sides;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+    will-change: transform;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__logo {
+    width: 100%;
+  }
+
+  &__list {
+    margin: 0 auto;
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+    margin: 0 1.5rem;
+
+    @media only screen and (max-width: $bp-landing-navbar) {
+      display: none;
+    }
+  }
+
+  &__link {
+    &,
+    &:link,
+    &:visited {
+      user-select: none;
+      border-radius: 0.3rem;
+      font-size: 1.6rem;
+      color: $color-grey-dark-3;
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 0.7rem 1.5rem;
+      display: inline-block;
+      transition: all 0.2s ease-out;
+    }
+
+    &:hover,
+    &:active {
+      background-image: linear-gradient(
+        120deg,
+        $color-primary-light,
+        $color-primary-dark
+      );
+      color: $color-white;
+      transform: translateY(-0.2rem);
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  &__actions-box {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 0;
+    font-size: 1.5rem;
+    margin-right: $margin-sides;
 
-    position: sticky;
+    span {
+      padding: 0 auto;
+    }
+
+    button {
+      // To make the flag as background
+      position: relative;
+      text-transform: uppercase;
+      width: 3.5rem;
+      height: 3.5rem;
+      text-align: center;
+      padding: 0;
+      background-color: rgba($nav-background-color, 0.7);
+
+      &:active {
+        background-color: rgba($nav-background-color, 0.7) !important;
+        transform: none;
+      }
+    }
+  }
+
+  &__action-link {
+    display: inline-block;
+    color: $color-grey-dark-4;
+    text-decoration: none;
+    font-size: 1.7rem;
+    font-weight: 500;
+
+    padding: 1rem 2rem;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+
+    &:active {
+      transform: translateY(0.1rem);
+    }
+
+    &--cta {
+      border: 2px solid $color-secondary;
+      border-radius: 6px;
+
+      &:hover {
+        color: $color-secondary-dark;
+        text-shadow: 0 0.5rem 1rem rgba($color-black, 0.1);
+      }
+    }
+
+    &--app {
+      margin-left: 3rem;
+    }
+  }
+
+  &__flag-icon {
+    position: absolute;
     top: 0;
-    z-index: 9999;
-
-    grid-row: nav-start / nav-end;
-    grid-column: 1 / -1;
-
-    color: $color-grey-dark-3;
-
-    $nav-background-color: rgba($color-white, .98);
-    background-color: $nav-background-color;
-    @include landing-page-line-between-sections;
-
-    $margin-sides: 2rem;
-
-
-    &__logo-box {
-        width: 4rem;
-        height: 4rem;
-        margin-left: $margin-sides;
-        transition: all .2s ease-out;
-        cursor: pointer;
-        will-change: transform;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
-
-    &__logo {
-        width: 100%;
-    }
-
-    &__list {
-        margin: 0 auto;
-        list-style: none;
-    }
-
-    &__item {
-        display: inline-block;
-        margin: 0 1.5rem;
-    }
-
-    &__link {
-
-        &,
-        &:link,
-        &:visited {
-            user-select: none;
-            border-radius: .3rem;
-            font-size: 1.6rem;
-            color: $color-grey-dark-3;
-            text-decoration: none;
-            text-transform: uppercase;
-            padding: .7rem 1.5rem;
-            display: inline-block;
-            transition: all .2s ease-out;
-        }
-
-        &:hover,
-        &:active {
-            background-image: linear-gradient(120deg, $color-primary-light, $color-primary-dark);
-            color: $color-white;
-            transform: translateY(-.2rem);
-            box-shadow: 0 1rem 2rem rgba($color-black, .2);
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-            cursor: pointer;
-        }
-    }
-
-    &__actions-box {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 1.5rem;
-        margin-right: $margin-sides;
-
-        span {
-            padding: 0 auto;
-        }
-
-        button {
-            // To make the flag as background
-            position: relative;
-            text-transform: uppercase;
-            width: 3.5rem;
-            height: 3.5rem;
-            text-align: center;
-            padding: 0;
-            background-color: rgba($nav-background-color, .7);
-
-            &:active {
-                background-color: rgba($nav-background-color, .7) !important;
-                transform: none;
-            }
-        }
-    }
-
-    &__action-link {
-        display: inline-block;
-        color: $color-grey-dark-4;
-        text-decoration: none;
-        font-size: 1.7rem;
-        font-weight: 500;
-
-        padding: 1rem 2rem;
-        transition: all .2s ease-out;
-
-        &:hover {
-            color: $color-primary-dark;
-        }
-
-        &:active {
-            transform: translateY(.1rem);
-        }
-
-        &--cta {
-            border: 2px solid $color-secondary;
-            border-radius: 6px;
-
-            &:hover {
-                color: $color-secondary-dark;
-                text-shadow: 0 .5rem 1rem rgba($color-black, .1);
-            }
-        }
-
-        &--app {
-            margin-left: 3rem;
-        }
-    }
-
-    &__flag-icon {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
 }
