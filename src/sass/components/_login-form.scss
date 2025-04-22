@@ -1,326 +1,333 @@
 @use "../abstracts/" as *;
-
+@use "../base/" as *;
 
 .login-form {
-    grid-column: center-start / center-end;
-    max-width: 136.5rem;
-    max-height: 88rem;
-    justify-self: center;
+  grid-column: center-start / center-end;
+  max-width: 136.5rem;
+  max-height: 88rem;
+  justify-self: center;
+
+  display: flex;
+  padding: 4rem;
+  background-color: $color-grey-light-2;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  backface-visibility: hidden;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+  &__image-box {
+    flex: 0 0 50%;
+    overflow: hidden;
+    border-radius: inherit;
+
+    @media only screen and (max-width: $bp-landing-smallest) {
+      display: none;
+    }
+  }
+
+  &__image {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__form-box {
+    flex: 1;
+    padding: 6rem 1rem;
+    padding-right: 6rem;
 
     display: flex;
-    padding: 4rem;
-    background-color: $color-grey-light-2;
-    border-radius: 2rem;
-    font-size: 1.6rem;
-    backface-visibility: hidden;
-    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
 
-    &__image-box {
-        flex: 0 0 50%;
-        overflow: hidden;
-        border-radius: inherit;
+    @media only screen and (max-width: $bp-landing-smallest) {
+      padding-right: 0rem;
+      padding: 6rem 2rem;
+    }
+  }
+
+  &__title-box {
+    margin-bottom: 4rem;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__input-box {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
     }
 
-    &__image {
-        max-width: 100%;
+    &--remember {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-top: 1rem;
+    }
+
+    .show-pass-box,
+    .login-form__input-icon-box {
+      position: absolute;
+      right: 1.5rem;
+      top: 0.1rem;
+      transform: translateY(60%);
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+
+      // .show-pass-icon--opened and --closed
+      // it seems that ion-icon component does not allow to use
+      // more than one class in the same element, so to DRY the code
+      // I'm using the all children selector
+      & > * {
+        width: 100%;
         height: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    &__form-box {
-        flex: 1;
-        padding: 6rem 1rem;
-        padding-right: 6rem;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
-    }
-
-    &__title-box {
-        margin-bottom: 4rem;
-    }
-
-    &__title {
-        font-size: 4rem;
-        font-weight: 400;
-        margin-bottom: 1rem;
-    }
-
-    &__form {
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    &__input-box {
-        position: relative;
-
-        &:not(:last-child) {
-            margin-bottom: 2rem;
-        }
-
-        &--remember {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-top: 1rem;
-        }
-
-        .show-pass-box,
-        .login-form__input-icon-box {
-            position: absolute;
-            right: 1.5rem;
-            top: .1rem;
-            transform: translateY(60%);
-            width: 2rem;
-            height: 2rem;
-            cursor: pointer;
-
-            // .show-pass-icon--opened and --closed
-            // it seems that ion-icon component does not allow to use
-            // more than one class in the same element, so to DRY the code
-            // I'm using the all children selector
-            &>* {
-                width: 100%;
-                height: 100%;
-                color: $color-grey-dark-5;
-                transition: all 0.2s;
-
-                &:hover {
-                    color: $color-grey-dark-3;
-                }
-            }
-        }
-    }
-
-    &__input-icon-box {
-        left: 1.5rem;
-    }
-
-    &__input {
-        border: 1px solid transparent;
-        width: 100%;
-        padding-left: 4.5rem;
-
-        &::placeholder {
-            transition: opacity 0.1s ease-out;
-            color: currentColor;
-        }
-
-        &:hover {
-            border-color: $color-primary-light;
-        }
-
-        &:focus {
-            border-color: $color-primary-dark;
-
-            &:invalid {
-                border-color: $color-red;
-            }
-
-            &::placeholder {
-                color: transparent;
-            }
-        }
-
-        &--disabled {
-            cursor: not-allowed;
-            background-color: $color-grey-light-2;
-            border-color: $color-grey-dark-3;
-            color: $color-grey-dark-3;
-
-            // Overwrite background color on autofill
-            &:-webkit-autofill,
-            &:-webkit-autofill:hover,
-            &:-webkit-autofill:focus {
-                -webkit-box-shadow: 0 0 0px 1000px $color-grey-light-2 inset;
-            }
-
-            &:hover {
-                border-color: $color-grey-dark-3;
-            }
-
-        }
-    }
-
-    &__input:focus+&__label--input-text,
-    &__input:not(:placeholder-shown)+&__label--input-text {
-        transform: translateY(4rem);
-
-        visibility: visible;
-        opacity: 1;
-    }
-
-    &__label {
-        font-size: 1.4rem;
-        font-family: inherit;
-        font-weight: 400;
-        color: $color-grey-dark-3;
-
-        &--input-text {
-            position: absolute;
-            top: 1.3rem;
-            left: 3.8rem;
-
-            visibility: hidden;
-            opacity: 0;
-
-            transition: all 0.1s ease-out;
-        }
-
-        &--remember {
-            display: flex;
-            align-items: center;
-            margin-left: 0rem;
-            cursor: pointer;
-            align-self: start;
-            order: -1;
-        }
-    }
-
-    &__submit-button {
-        font-size: inherit;
-        background-image: linear-gradient(to right,
-                $color-primary,
-                $color-primary );
-        text-align: center;
-        padding: 2rem 0;
-        border-radius: 1rem;
-        font-weight: 500;
-        color: $color-grey-dark-5 ;
-
-        transition: all 0.2s ease-out;
-
-        &:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 .5rem 1rem rgba($color-black, 0.1);
-            background-image: linear-gradient(to right,
-                    $color-primary 0%,
-                    $color-primary-light 100%);
-        }
-
-        &:active {
-            transform: translateY(0);
-            box-shadow: 0 .25rem .5rem rgba($color-black, 0.05);
-        }
-
-        &--disabled {
-            $backgroundImage: linear-gradient(to right,
-                    $color-grey-dark-2,
-                    $color-grey-light-1);
-            background-image: $backgroundImage;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-
-            &:hover {
-                background-image: $backgroundImage;
-                transform: none;
-                box-shadow: none;
-            }
-
-            &:active {
-                background-image: $backgroundImage;
-                transform: none;
-                box-shadow: none;
-            }
-        }
-    }
-
-    &__oauth-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-
-        // Target button, class given to the component does not seem to work
-        &>* {
-            &:hover {
-                border-color: $color-primary !important;
-            }
-
-            &:active {
-                border-color: $color-primary-dark !important;
-            }
-        }
-    }
-
-
-    &__checkbox {
-        // Opacity 0 instead of display none or visibility hidden to
-        // be able to be notified by the form validation
-        opacity: 0;
-
-        &:hover+.label-checkbox::before {
-            border-color: $color-primary-light;
-        }
-
-        &:checked+.label-checkbox::before {
-            background-color: $color-primary;
-            border-color: $color-primary;
-            content: "\2713";
-            font-size: 2rem;
-            color: $color-white;
-        }
-
-        &--disabled {
-
-            &+.label-checkbox::before,
-            &+.label-checkbox::after {
-                cursor: not-allowed;
-                background-color: $color-grey-light-2 !important;
-                border-color: $color-grey-dark-3 !important;
-            }
-        }
-    }
-
-    &__forgot {
-        font-size: 1.4rem;
-        color: $color-primary-dark;
-        font-weight: 600;
-        text-align: right;
-        cursor: pointer;
-
-        &:hover {
-            color: $color-primary-light;
-        }
-
-        &--disabled {
-            color: $color-grey-dark-2 !important;
-            cursor: not-allowed;
-        }
-    }
-
-    &__create-account {
-        font-size: 1.4rem;
-        margin-top: 4.5rem;
-        text-align: center;
         color: $color-grey-dark-5;
-    }
-
-    &__create-account-link {
-
-        &,
-        &:link,
-        &:visited {
-            text-decoration: none;
-            color: $color-primary-dark;
-            font-weight: 600;
-        }
+        transition: all 0.2s;
 
         &:hover {
-            color: $color-primary-light;
+          color: $color-grey-dark-3;
         }
-
-        &--disabled {
-            color: $color-grey-dark-2 !important;
-            cursor: not-allowed;
-        }
+      }
     }
+  }
+
+  &__input-icon-box {
+    left: 1.5rem;
+  }
+
+  &__input {
+    border: 1px solid transparent;
+    width: 100%;
+    padding-left: 4.5rem;
+
+    &::placeholder {
+      transition: opacity 0.1s ease-out;
+      color: currentColor;
+    }
+
+    &:hover {
+      border-color: $color-primary-light;
+    }
+
+    &:focus {
+      border-color: $color-primary-dark;
+
+      &:invalid {
+        border-color: $color-red;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      background-color: $color-grey-light-2;
+      border-color: $color-grey-dark-3;
+      color: $color-grey-dark-3;
+
+      // Overwrite background color on autofill
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px $color-grey-light-2 inset;
+      }
+
+      &:hover {
+        border-color: $color-grey-dark-3;
+      }
+    }
+  }
+
+  &__input:focus + &__label--input-text,
+  &__input:not(:placeholder-shown) + &__label--input-text {
+    transform: translateY(4rem);
+
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__label {
+    font-size: 1.4rem;
+    font-family: inherit;
+    font-weight: 400;
+    color: $color-grey-dark-3;
+
+    &--input-text {
+      position: absolute;
+      top: 1.3rem;
+      left: 3.8rem;
+
+      visibility: hidden;
+      opacity: 0;
+
+      transition: all 0.1s ease-out;
+    }
+
+    &--remember {
+      display: flex;
+      align-items: center;
+      margin-left: 0rem;
+      cursor: pointer;
+      align-self: start;
+      order: -1;
+    }
+  }
+
+  &__submit-button {
+    font-size: inherit;
+    background-image: linear-gradient(to right, $color-primary, $color-primary);
+    text-align: center;
+    padding: 2rem 0;
+    border-radius: 1rem;
+    font-weight: 500;
+    color: $color-grey-dark-5;
+
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.1);
+      background-image: linear-gradient(
+        to right,
+        $color-primary 0%,
+        $color-primary-light 100%
+      );
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.25rem 0.5rem rgba($color-black, 0.05);
+    }
+
+    &--disabled {
+      $backgroundImage: linear-gradient(
+        to right,
+        $color-grey-dark-2,
+        $color-grey-light-1
+      );
+      background-image: $backgroundImage;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+
+      &:hover {
+        background-image: $backgroundImage;
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background-image: $backgroundImage;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__oauth-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    // Target button, class given to the component does not seem to work
+    & > * {
+      &:hover {
+        border-color: $color-primary !important;
+      }
+
+      &:active {
+        border-color: $color-primary-dark !important;
+      }
+    }
+  }
+
+  &__checkbox {
+    // Opacity 0 instead of display none or visibility hidden to
+    // be able to be notified by the form validation
+    opacity: 0;
+
+    &:hover + .label-checkbox::before {
+      border-color: $color-primary-light;
+    }
+
+    &:checked + .label-checkbox::before {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      content: "\2713";
+      font-size: 2rem;
+      color: $color-white;
+    }
+
+    &--disabled {
+      & + .label-checkbox::before,
+      & + .label-checkbox::after {
+        cursor: not-allowed;
+        background-color: $color-grey-light-2 !important;
+        border-color: $color-grey-dark-3 !important;
+      }
+    }
+  }
+
+  &__forgot {
+    font-size: 1.4rem;
+    color: $color-primary-dark;
+    font-weight: 600;
+    text-align: right;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary-light;
+    }
+
+    &--disabled {
+      color: $color-grey-dark-2 !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &__create-account {
+    font-size: 1.4rem;
+    margin-top: 4.5rem;
+    text-align: center;
+    color: $color-grey-dark-5;
+  }
+
+  &__create-account-link {
+    &,
+    &:link,
+    &:visited {
+      text-decoration: none;
+      color: $color-primary-dark;
+      font-weight: 600;
+    }
+
+    &:hover {
+      color: $color-primary-light;
+    }
+
+    &--disabled {
+      color: $color-grey-dark-2 !important;
+      cursor: not-allowed;
+    }
+  }
 }

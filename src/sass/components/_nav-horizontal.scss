@@ -122,6 +122,12 @@
     padding: 1rem 2rem;
     transition: all 0.2s ease-out;
 
+    &--login {
+      @media only screen and (max-width: $bp-landing-smallest) {
+        text-align: right;
+      }
+    }
+
     &:hover {
       color: $color-primary-dark;
     }
