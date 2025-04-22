@@ -35,7 +35,7 @@
     height: 100vh;
     margin: 0;
     // Navbar on the top
-    grid-template-rows: [nav-start] 5.2vh [nav-end page-top] 92vh [page-bottom];
+    grid-template-rows: [nav-start] 4.3vh [nav-end page-top] 95.3vh [page-bottom];
     grid-template-columns: [page-start] 1fr [page-end];
   }
 }
