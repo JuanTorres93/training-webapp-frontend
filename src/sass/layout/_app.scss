@@ -1,30 +1,41 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .behind-app {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: -100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
 
-    background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+  background-image: linear-gradient(
+    to right bottom,
+    $color-primary-light,
+    $color-primary-dark
+  );
 }
 
 .app-layout {
-    // TODO CAMBIAR SI ES NECESARIO
-    height: 90vh;
+  height: 90vh;
 
-    margin: 6rem 7rem;
-    background-color: $color-grey-light-3;
-    border-radius: 5px;
-    overflow: hidden;
+  margin: 6rem 7rem;
+  background-color: $color-grey-light-3;
+  border-radius: 5px;
+  overflow: hidden;
 
-    display: grid;
-    grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
-    grid-template-rows: [page-top] 90vh [page-bottom];
-    grid-gap: 3rem;
+  display: grid;
+  grid-template-columns: [nav-start] 20rem [nav-end page-start] 1fr [page-end];
+  grid-template-rows: [page-top] 90vh [page-bottom];
+  grid-gap: 3rem;
 
-    box-shadow: 0 2rem 6rem rgba($color-black, 0.2);
+  box-shadow: 0 2rem 6rem rgba($color-black, 0.2);
 
+  @media only screen and (max-width: $bp-largest) {
+    height: 100vh;
+    margin: 0;
+    // Navbar on the top
+    grid-template-rows: [nav-start] 5.2vh [nav-end page-top] 92vh [page-bottom];
+    grid-template-columns: [page-start] 1fr [page-end];
+  }
 }

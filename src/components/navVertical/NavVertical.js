@@ -13,9 +13,8 @@ const NavVertical = ({
 }) => {
   return (
     <nav className="nav-vertical">
-      {/* TODO STYLE */}
-      {username}
       <ul className="nav-vertical__list">
+        <div className="nav-vertical__username">{username}</div>
         {items.map((item, index) => {
           return (
             <li
@@ -38,7 +37,7 @@ const NavVertical = ({
                 <figure key={index} className="nav-vertical__icon-box">
                   {item.icon}
                 </figure>
-                {item.text}
+                <span className="nav-vertical__text-box">{item.text}</span>
               </NavLink>
             </li>
           );
@@ -57,7 +56,7 @@ const NavVertical = ({
             <figure className="nav-vertical__icon-box">
               {logoutItem.icon}
             </figure>
-            {logoutItem.text}
+            <span className="nav-vertical__text-box">{logoutItem.text}</span>
           </button>
         </li>
       </ul>

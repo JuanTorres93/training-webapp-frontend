@@ -5,6 +5,8 @@ $bp-landing-small: 56.25em; // 900px, 900/16 = 56.25em
 $bp-landing-navbar: 51.5em; // 824px, 824/16 = 51.5em
 $bp-landing-smallest: 37.5em; // 600px, 600/16 = 37.5em
 
+$bp-largest: 81.25em; //1300px, 1300/16 = 81.25em
+$bp-large: 39em; // 624px, 624/16 = 39em
 $bp-smallest: 20em; // 320px, 320/16 = 20em
 /* Basix reset */
 *,
@@ -24,7 +26,7 @@ html {
   // This defines what 1 rem is
   font-size: 62.5%; // 1rem = 10px, 10/16 = 50%
 
-  @media only screen and (max-width: $bp-landing-small) {
+  @media only screen and (max-width: $bp-largest) {
     // 1rem = 8px
     font-size: 50%;
   }
