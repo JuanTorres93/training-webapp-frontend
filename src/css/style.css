@@ -3237,8 +3237,9 @@ body {
   padding-right: 3rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows: [recent-workouts-start] 548px [recent-workouts-end weight-progress-start weight-input-start] repeat(2, 1fr) [weight-progress-end weight-input-end];
   grid-gap: 4rem;
+  overflow-y: scroll;
 }
 @media screen and (max-width: 81.25em) {
   .home-page {
@@ -3249,35 +3250,35 @@ body {
 }
 @media screen and (max-width: 45.125em) {
   .home-page {
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-rows: [recent-workouts-start] 548px [recent-workouts-end weight-progress-start] minmax(370px, 1fr) [weight-progress-end weight-input-start] 1fr [weight-input-end];
   }
 }
 .home-page__recent-workouts-box {
   grid-column: 1/-1;
-  grid-row: 1/-5;
+  grid-row: recent-workouts-start/recent-workouts-end;
   display: grid;
   grid-template-columns: 15% 85%;
   grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
   grid-gap: 2rem;
+  min-height: 548px;
 }
 @media screen and (max-width: 45.125em) {
   .home-page__recent-workouts-box {
-    grid-row: 1/7;
+    min-height: 438px;
   }
 }
 .home-page__weight-progress-box {
-  grid-row: -5/-1;
+  grid-row: weight-progress-start/weight-progress-end;
   grid-column: 1/-4;
   display: flex;
 }
 @media screen and (max-width: 45.125em) {
   .home-page__weight-progress-box {
-    grid-row: -10/-5;
     grid-column: 1/-1;
   }
 }
 .home-page__weight-input-box {
-  grid-row: -5/-1;
+  grid-row: weight-input-start/weight-input-end;
   grid-column: -4/-1;
 }
 @media screen and (max-width: 45.125em) {
@@ -3287,11 +3288,11 @@ body {
 }
 .home-page__recent-spinner {
   grid-column: 1/-1;
-  grid-row: 1/-5;
+  grid-row: recent-workouts-start/recent-workouts-end;
   margin: auto;
 }
 .home-page__weight-spinner {
-  grid-row: -5/-1;
+  grid-row: weight-progress-start/weight-progress-end;
   grid-column: 1/-4;
   margin: auto !important;
   text-align: center;

@@ -10,8 +10,15 @@
 
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows:
+    [recent-workouts-start]
+    548px
+    [recent-workouts-end weight-progress-start weight-input-start]
+    repeat(2, 1fr)
+    [weight-progress-end weight-input-end];
   grid-gap: 4rem;
+
+  overflow-y: scroll;
 
   @media screen and (max-width: $bp-largest) {
     padding-right: 0;
@@ -19,39 +26,49 @@
     padding-bottom: 2rem;
   }
   @media screen and (max-width: $bp-large) {
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-rows:
+      [recent-workouts-start]
+      548px // To prevent charts from "spilling" over the box
+      [recent-workouts-end weight-progress-start]
+      minmax(370px, 1fr) // To prevent charts from "spilling" over the box
+      [weight-progress-end weight-input-start]
+      1fr
+      [weight-input-end];
   }
 
   // Layout
 
   &__recent-workouts-box {
     grid-column: 1 / -1;
-    grid-row: 1 / -5;
+    grid-row: recent-workouts-start / recent-workouts-end;
 
     display: grid;
     grid-template-columns: 15% 85%;
     grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
     grid-gap: 2rem;
 
+    // This prevents charts from "spilling" over the box
+    min-height: 548px;
+
     @media screen and (max-width: $bp-large) {
-      grid-row: 1 / 7;
+      // This prevents charts from "spilling" over the box
+      min-height: 438px;
     }
   }
 
   &__weight-progress-box {
-    grid-row: -5 / -1;
+    grid-row: weight-progress-start / weight-progress-end;
     grid-column: 1 / -4;
 
     display: flex;
 
     @media screen and (max-width: $bp-large) {
-      grid-row: -10 / -5;
       grid-column: 1 / -1;
     }
   }
 
   &__weight-input-box {
-    grid-row: -5 / -1;
+    grid-row: weight-input-start / weight-input-end;
     grid-column: -4 / -1;
 
     @media screen and (max-width: $bp-large) {
@@ -61,12 +78,12 @@
 
   &__recent-spinner {
     grid-column: 1 / -1;
-    grid-row: 1 / -5;
+    grid-row: recent-workouts-start / recent-workouts-end;
     margin: auto;
   }
 
   &__weight-spinner {
-    grid-row: -5 / -1;
+    grid-row: weight-progress-start / weight-progress-end;
     grid-column: 1 / -4;
     margin: auto !important;
     text-align: center;
