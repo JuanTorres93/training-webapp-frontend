@@ -1,96 +1,99 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .templates-page {
-    grid-column: page-start / page-end;
-    grid-row: page-top / page-bottom;
+  grid-column: page-start / page-end;
+  grid-row: page-top / page-bottom;
 
-    padding: 4rem 0;
-    padding-right: 3rem;
+  padding: 4rem 0;
+  padding-right: 3rem;
 
-    display: grid;
-    grid-template-columns: [search-start] 1fr [search-end order-by-start] 10% [order-by-end];
-    grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
-    grid-row-gap: 3rem;
+  display: grid;
+  grid-template-columns: [search-start] 1fr [search-end order-by-start] 10% [order-by-end];
+  grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
+  grid-row-gap: 3rem;
 
+  @media screen and (max-width: $bp-largest) {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 
+  &__new-template-popup {
+    position: fixed;
+    z-index: 8000;
+    top: 0;
+    left: 0;
 
-    &__new-template-popup {
-        position: fixed;
-        z-index: 8000;
-        top: 0;
-        left: 0;
+    border-radius: 1rem;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    backdrop-filter: blur(1rem) brightness(80%);
 
-        border-radius: 1rem;
-        box-shadow: 0 2rem 4rem rgba($color-black, .2);
-        backdrop-filter: blur(1rem) brightness(80%);
+    width: 95%;
+    height: 95%;
+    // TODO Change color?
+    background-color: rgba($color-white, 0.7);
 
-        width: 95%;
-        height: 95%;
-        // TODO Change color?
-        background-color: rgba($color-white, .7);
+    // If modified, do it also in its modifier classes below
+    transform: translate(2.5%, 2.5%);
 
-        // If modified, do it also in its modifier classes below
-        transform: translate(2.5%, 2.5%);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
 
-        opacity: 1;
-        visibility: visible;
-        transition: transform .2s ease, opacity .2s ease, visibility .2s ease;
-
-        &--shrunk {
-            transform: translate(2.5%, 2.5%) scale(.8);
-        }
-
-        &--real-size {
-            transform: translate(2.5%, 2.5%) scale(1);
-        }
-
-        &--hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+    &--shrunk {
+      transform: translate(2.5%, 2.5%) scale(0.8);
     }
 
-    &__close-new-template-icon-box {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-
-        width: 3rem;
-        height: 3rem;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        &>* {
-            width: 100%;
-            height: 100%;
-
-            &:hover {
-                color: $color-red;
-            }
-        }
-
+    &--real-size {
+      transform: translate(2.5%, 2.5%) scale(1);
     }
+
+    &--hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &__close-new-template-icon-box {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    width: 3rem;
+    height: 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    & > * {
+      width: 100%;
+      height: 100%;
+
+      &:hover {
+        color: $color-red;
+      }
+    }
+  }
 }
 
 .templates-page__button-new {
-    grid-column: search-start / ordery-by-end;
-    grid-row: new-start / new-end;
+  grid-column: search-start / ordery-by-end;
+  grid-row: new-start / new-end;
 }
 
 .templates-page__search-bar {
-    grid-column: search-start / ordery-by-end;
-    grid-row: search-start / search-end;
-    align-self: center;
-    justify-self: center;
+  grid-column: search-start / ordery-by-end;
+  grid-row: search-start / search-end;
+  align-self: center;
+  justify-self: center;
 
-    width: 70%;
-    max-width: 80%;
+  width: 70%;
+  max-width: 80%;
 }
 
 .presenter-grid--templates {
-    grid-column: search-start / ordery-by-end;
-    grid-row: content-start / content-end;
+  grid-column: search-start / ordery-by-end;
+  grid-row: content-start / content-end;
 }

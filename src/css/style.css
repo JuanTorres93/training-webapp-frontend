@@ -3166,6 +3166,12 @@ body {
   grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
   grid-row-gap: 3rem;
 }
+@media screen and (max-width: 81.25em) {
+  .templates-page {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
+}
 .templates-page__new-template-popup {
   position: fixed;
   z-index: 8000;
