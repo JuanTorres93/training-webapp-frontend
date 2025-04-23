@@ -14,7 +14,7 @@
     [recent-workouts-start]
     548px
     [recent-workouts-end weight-progress-start weight-input-start]
-    repeat(2, 1fr)
+    minmax(370px, 1fr) // To prevent charts from "spilling" over the box
     [weight-progress-end weight-input-end];
   grid-gap: 4rem;
 
@@ -22,8 +22,8 @@
 
   @media screen and (max-width: $bp-largest) {
     padding-right: 0;
-    padding: 2rem 2rem;
-    padding-bottom: 2rem;
+    padding: 3.7rem 2rem;
+    margin-bottom: 2rem;
   }
   @media screen and (max-width: $bp-large) {
     grid-template-rows:

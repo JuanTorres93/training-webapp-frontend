@@ -3237,15 +3237,15 @@ body {
   padding-right: 3rem;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: [recent-workouts-start] 548px [recent-workouts-end weight-progress-start weight-input-start] repeat(2, 1fr) [weight-progress-end weight-input-end];
+  grid-template-rows: [recent-workouts-start] 548px [recent-workouts-end weight-progress-start weight-input-start] minmax(370px, 1fr) [weight-progress-end weight-input-end];
   grid-gap: 4rem;
   overflow-y: scroll;
 }
 @media screen and (max-width: 81.25em) {
   .home-page {
     padding-right: 0;
-    padding: 2rem 2rem;
-    padding-bottom: 2rem;
+    padding: 3.7rem 2rem;
+    margin-bottom: 2rem;
   }
 }
 @media screen and (max-width: 45.125em) {
