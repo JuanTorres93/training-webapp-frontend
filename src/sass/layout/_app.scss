@@ -37,5 +37,7 @@
     // Navbar on the top
     grid-template-rows: [nav-start] 4.3vh [nav-end page-top] 95.3vh [page-bottom];
     grid-template-columns: [page-start] 1fr [page-end];
+
+    border-radius: 0;
   }
 }

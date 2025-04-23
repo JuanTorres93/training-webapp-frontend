@@ -460,6 +460,7 @@ body {
 @media only screen and (max-width: 81.25em) {
   .nav-vertical__item {
     width: auto;
+    height: 100%;
   }
 }
 .nav-vertical__item:first-child {
@@ -2960,6 +2961,7 @@ body {
     margin: 0;
     grid-template-rows: [nav-start] 4.3vh [nav-end page-top] 95.3vh [page-bottom];
     grid-template-columns: [page-start] 1fr [page-end];
+    border-radius: 0;
   }
 }
 
@@ -3238,6 +3240,18 @@ body {
   grid-template-rows: repeat(10, 1fr);
   grid-gap: 4rem;
 }
+@media screen and (max-width: 81.25em) {
+  .home-page {
+    padding-right: 0;
+    padding: 2rem 2rem;
+    padding-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 39em) {
+  .home-page {
+    grid-template-rows: repeat(15, 1fr);
+  }
+}
 .home-page__recent-workouts-box {
   grid-column: 1/-1;
   grid-row: 1/-5;
@@ -3246,14 +3260,30 @@ body {
   grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
   grid-gap: 2rem;
 }
+@media screen and (max-width: 39em) {
+  .home-page__recent-workouts-box {
+    grid-row: 1/7;
+  }
+}
 .home-page__weight-progress-box {
   grid-row: -5/-1;
   grid-column: 1/-4;
   display: flex;
 }
+@media screen and (max-width: 39em) {
+  .home-page__weight-progress-box {
+    grid-row: -10/-5;
+    grid-column: 1/-1;
+  }
+}
 .home-page__weight-input-box {
   grid-row: -5/-1;
   grid-column: -4/-1;
+}
+@media screen and (max-width: 39em) {
+  .home-page__weight-input-box {
+    grid-column: 1/-1;
+  }
 }
 .home-page__recent-spinner {
   grid-column: 1/-1;
@@ -3305,7 +3335,15 @@ body {
   margin-bottom: 3rem;
   width: 100%;
 }
+@media screen and (max-width: 39em) {
+  .home-page__weight-input {
+    margin: 0;
+  }
+}
 .home-page__weight-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #03B670;
   align-self: stretch;
   color: #fff;
@@ -3315,6 +3353,14 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   margin-bottom: 3rem;
+}
+@media screen and (max-width: 39em) {
+  .home-page__weight-button {
+    padding: 2rem 20%;
+    margin: 0;
+    max-width: 4rem;
+    align-self: center;
+  }
 }
 .home-page__weight-button:hover {
   background-color: #2FCA82;

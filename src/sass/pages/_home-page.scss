@@ -1,187 +1,223 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .home-page {
-    grid-column: page-start / page-end;
-    grid-row: page-top / page-bottom;
+  grid-column: page-start / page-end;
+  grid-row: page-top / page-bottom;
 
-    padding: 4rem 0;
-    padding-right: 3rem;
+  padding: 4rem 0;
+  padding-right: 3rem;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-gap: 4rem;
+
+  @media screen and (max-width: $bp-largest) {
+    padding-right: 0;
+    padding: 2rem 2rem;
+    padding-bottom: 2rem;
+  }
+  @media screen and (max-width: $bp-large) {
+    grid-template-rows: repeat(15, 1fr);
+  }
+
+  // Layout
+
+  &__recent-workouts-box {
+    grid-column: 1 / -1;
+    grid-row: 1 / -5;
 
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    grid-gap: 4rem;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
+    grid-gap: 2rem;
 
-    // Layout
+    @media screen and (max-width: $bp-large) {
+      grid-row: 1 / 7;
+    }
+  }
 
-    &__recent-workouts-box {
-        grid-column: 1 / -1;
-        grid-row: 1 / -5;
+  &__weight-progress-box {
+    grid-row: -5 / -1;
+    grid-column: 1 / -4;
 
-        display: grid;
-        grid-template-columns: 15% 85%;
-        grid-template-rows: repeat(auto-fit, minmax(8rem, 1fr));
-        grid-gap: 2rem;
+    display: flex;
+
+    @media screen and (max-width: $bp-large) {
+      grid-row: -10 / -5;
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__weight-input-box {
+    grid-row: -5 / -1;
+    grid-column: -4 / -1;
+
+    @media screen and (max-width: $bp-large) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__recent-spinner {
+    grid-column: 1 / -1;
+    grid-row: 1 / -5;
+    margin: auto;
+  }
+
+  &__weight-spinner {
+    grid-row: -5 / -1;
+    grid-column: 1 / -4;
+    margin: auto !important;
+    text-align: center;
+  }
+
+  // Styling
+
+  &__dashboard-box {
+    position: relative;
+    background-color: rgba($color-white, 0.5);
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.05);
+    border: 2px solid transparent;
+
+    transition: all 0.2s;
+
+    &:hover {
+      border-color: $color-primary-dark;
+    }
+  }
+
+  &__dashboard-box-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: $color-grey-light-3;
+    padding: 1rem 2rem;
+    background-color: $color-primary-dark;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 2rem rgba($color-black, 0.1);
+    text-align: center;
+    text-transform: uppercase;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__weight-input-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+    height: 100%;
+  }
+
+  &__weight-input {
+    margin-bottom: 3rem;
+    width: 100%;
+    @media screen and (max-width: $bp-large) {
+      margin: 0;
+    }
+  }
+
+  &__weight-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-primary-dark;
+    align-self: stretch;
+    color: $color-white;
+    padding: 4rem 40%;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 3rem;
+
+    @media screen and (max-width: $bp-large) {
+      padding: 2rem 20%;
+      margin: 0;
+      max-width: 4rem;
+      align-self: center;
     }
 
-    &__weight-progress-box {
-        grid-row: -5 / -1;
-        grid-column: 1 / -4;
-
-        display: flex;
+    &:hover {
+      background-color: $color-primary;
     }
 
-    &__weight-input-box {
-        grid-row: -5 / -1;
-        grid-column: -4 / -1;
+    &:active {
+      background-color: $color-primary-dark;
     }
 
-    &__recent-spinner {
-        grid-column: 1 / -1;
-        grid-row: 1 / -5;
-        margin: auto;
+    &--disabled {
+      background-color: $color-grey-light-2 !important;
+      cursor: not-allowed;
+
+      &:hover,
+      &:active {
+        background-color: $color-grey-light-2 !important;
+      }
+    }
+  }
+
+  &__weight-text-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+
+  &__weight-text {
+    text-align: center;
+  }
+
+  &__current-weight {
+    font-weight: 600;
+    color: $color-primary-dark;
+
+    &::before {
+      content: " ";
+    }
+  }
+
+  &__workout-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $color-grey-dark-5;
+    border-radius: 1rem;
+    user-select: none;
+    cursor: pointer;
+    padding: 2rem;
+    text-align: center;
+    background-color: $color-grey-light-2;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-primary-dark;
+      color: $color-white;
     }
 
-    &__weight-spinner {
-        grid-row: -5 / -1;
-        grid-column: 1 / -4;
-        margin: auto !important;
-        text-align: center;
+    &:active {
+      background-color: $color-primary-light;
+      color: $color-white;
     }
 
-    // Styling
+    &--disabled {
+      background-color: $color-grey-light-2;
+      color: $color-grey-dark-5;
+      cursor: not-allowed;
 
-    &__dashboard-box {
-        position: relative;
-        background-color: rgba($color-white, .5);
-        border-radius: 1rem;
-        padding: 3rem;
-        box-shadow: 0 1rem 2rem rgba($color-black, 0.05);
-        border: 2px solid transparent;
-
-        transition: all .2s;
-
-        &:hover {
-            border-color: $color-primary-dark;
-        }
+      &:hover,
+      &:active {
+        background-color: $color-grey-light-2 !important;
+        color: $color-grey-dark-5 !important;
+      }
     }
-
-    &__dashboard-box-title {
-        font-size: 2rem;
-        font-weight: 400;
-        color: $color-grey-light-3;
-        padding: 1rem 2rem;
-        background-color: $color-primary-dark;
-        border-radius: 1rem;
-        box-shadow: 0 .5rem 2rem rgba($color-black, 0.1);
-        text-align: center;
-        text-transform: uppercase;
-
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    &__weight-input-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 3rem;
-        height: 100%;
-    }
-
-    &__weight-input {
-        margin-bottom: 3rem;
-        width: 100%;
-    }
-
-    &__weight-button {
-        background-color: $color-primary-dark;
-        align-self: stretch;
-        color: $color-white;
-        padding: 4rem 40%;
-        border-radius: 1rem;
-        border: none;
-        cursor: pointer;
-        transition: all .2s;
-        margin-bottom: 3rem;
-
-        &:hover {
-            background-color: $color-primary;
-        }
-
-        &:active {
-            background-color: $color-primary-dark;
-        }
-
-        &--disabled {
-            background-color: $color-grey-light-2 !important;
-            cursor: not-allowed;
-
-            &:hover,
-            &:active {
-                background-color: $color-grey-light-2 !important;
-            }
-        }
-    }
-
-    &__weight-text-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-    }
-
-    &__weight-text {
-        text-align: center;
-    }
-
-    &__current-weight {
-        font-weight: 600;
-        color: $color-primary-dark;
-
-        &::before {
-            content: " ";
-        }
-    }
-
-    &__workout-name {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        font-weight: 400;
-        color: $color-grey-dark-5;
-        border-radius: 1rem;
-        user-select: none;
-        cursor: pointer;
-        padding: 2rem;
-        text-align: center;
-        background-color: $color-grey-light-2;
-        transition: all .2s;
-
-        &:hover {
-            background-color: $color-primary-dark;
-            color: $color-white;
-        }
-
-        &:active {
-            background-color: $color-primary-light;
-            color: $color-white;
-        }
-
-        &--disabled {
-            background-color: $color-grey-light-2;
-            color: $color-grey-dark-5;
-            cursor: not-allowed;
-
-            &:hover,
-            &:active {
-                background-color: $color-grey-light-2 !important;
-                color: $color-grey-dark-5 !important;
-            }
-        }
-    }
+  }
 }
