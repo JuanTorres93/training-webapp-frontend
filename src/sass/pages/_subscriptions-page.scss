@@ -1,4 +1,5 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .subscriptions-page {
   grid-column: page-start / page-end;
@@ -12,6 +13,11 @@
   grid-auto-rows: min-content;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 6rem;
+
+  @media screen and (max-width: $bp-largest) {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 
   &__current-subscription-presenter {
     grid-column: 1 / -1;

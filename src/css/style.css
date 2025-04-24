@@ -2843,6 +2843,11 @@ body {
   opacity: 0.8;
   padding: 3rem 4rem;
 }
+@media screen and (max-width: 45.125em) {
+  .current-subscription-presenter {
+    grid-template-columns: max-content;
+  }
+}
 .current-subscription-presenter__upper-row {
   grid-column: 1/-1;
   display: flex;
@@ -2855,10 +2860,23 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 3rem;
 }
+@media screen and (max-width: 45.125em) {
+  .current-subscription-presenter__lower-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-row-gap: 2rem;
+  }
+}
 .current-subscription-presenter__cancel-btn {
   padding: 1rem 2rem;
   border-radius: 1rem;
   background-color: #ea704e;
+}
+@media screen and (max-width: 45.125em) {
+  .current-subscription-presenter__cancel-btn {
+    padding: 1rem 2rem;
+    margin-left: 4rem;
+  }
 }
 .current-subscription-presenter__cancel-btn:hover {
   background-color: #cd4925;
@@ -3220,6 +3238,12 @@ body {
   grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
   grid-row-gap: 3rem;
 }
+@media screen and (max-width: 81.25em) {
+  .exercises-page {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
+}
 
 .exercises-page__button-new {
   grid-column: search-start/ordery-by-end;
@@ -3574,6 +3598,12 @@ body {
   grid-auto-rows: min-content;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 6rem;
+}
+@media screen and (max-width: 81.25em) {
+  .subscriptions-page {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 }
 .subscriptions-page__current-subscription-presenter {
   grid-column: 1/-1;

@@ -1,34 +1,40 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .exercises-page {
-    grid-column: page-start / page-end;
-    grid-row: page-top / page-bottom;
+  grid-column: page-start / page-end;
+  grid-row: page-top / page-bottom;
 
-    padding: 4rem 0;
-    padding-right: 3rem;
+  padding: 4rem 0;
+  padding-right: 3rem;
 
-    display: grid;
-    grid-template-columns: [search-start] 1fr [search-end order-by-start] 10% [order-by-end];
-    grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
-    grid-row-gap: 3rem;
+  display: grid;
+  grid-template-columns: [search-start] 1fr [search-end order-by-start] 10% [order-by-end];
+  grid-template-rows: [search-start] 1fr [search-end new-start] 1fr [new-end content-start] 80% [content-end];
+  grid-row-gap: 3rem;
+
+  @media screen and (max-width: $bp-largest) {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 }
 
 .exercises-page__button-new {
-    grid-column: search-start / ordery-by-end;
-    grid-row: new-start / new-end;
+  grid-column: search-start / ordery-by-end;
+  grid-row: new-start / new-end;
 }
 
 .exercises-page__search-bar {
-    grid-column: search-start / ordery-by-end;
-    grid-row: search-start / search-end;
-    align-self: center;
-    justify-self: center;
+  grid-column: search-start / ordery-by-end;
+  grid-row: search-start / search-end;
+  align-self: center;
+  justify-self: center;
 
-    width: 70%;
-    max-width: 80%;
+  width: 70%;
+  max-width: 80%;
 }
 
 .presenter-grid--exercises {
-    grid-column: search-start / ordery-by-end;
-    grid-row: content-start / content-end;
+  grid-column: search-start / ordery-by-end;
+  grid-row: content-start / content-end;
 }

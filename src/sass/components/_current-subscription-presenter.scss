@@ -1,4 +1,5 @@
 @use "../abstracts" as *;
+@use "../base/" as *;
 
 .current-subscription-presenter {
   display: grid;
@@ -12,6 +13,10 @@
 
   // max-width: 100rem;
 
+  @media screen and (max-width: $bp-large) {
+    grid-template-columns: max-content;
+  }
+
   &__upper-row {
     grid-column: 1 / -1;
     display: flex;
@@ -22,15 +27,26 @@
     grid-column: 1 / -1;
 
     display: grid;
-    // TODO hacer autorows autofit
     grid-template-columns: repeat(3, 1fr);
+
     grid-column-gap: 3rem;
+
+    @media screen and (max-width: $bp-large) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      grid-row-gap: 2rem;
+    }
   }
 
   &__cancel-btn {
     padding: 1rem 2rem;
     border-radius: 1rem;
     background-color: $color-red;
+
+    @media screen and (max-width: $bp-large) {
+      padding: 1rem 2rem;
+      margin-left: 4rem;
+    }
 
     &:hover {
       background-color: $color-red-dark;
