@@ -30,7 +30,6 @@
 
     width: 95%;
     height: 95%;
-    // TODO Change color?
     background-color: rgba($color-white, 0.7);
 
     // If modified, do it also in its modifier classes below
@@ -40,12 +39,21 @@
     visibility: visible;
     transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
 
+    @media screen and (max-width: $bp-largest) {
+      width: 100%;
+      height: 100%;
+    }
+
     &--shrunk {
       transform: translate(2.5%, 2.5%) scale(0.8);
     }
 
     &--real-size {
       transform: translate(2.5%, 2.5%) scale(1);
+
+      @media screen and (max-width: $bp-largest) {
+        transform: translate(0, 0) scale(1);
+      }
     }
 
     &--hidden {

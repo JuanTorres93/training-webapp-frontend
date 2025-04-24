@@ -1,134 +1,177 @@
 @use "../abstracts/" as *;
+@use "../base/" as *;
 
 .template-creator {
+  display: grid;
+
+  padding: 4rem;
+
+  grid-template-columns:
+    [exercises-start]
+    1fr
+    [exercises-end templates-start input-start]
+    0.7fr
+    [input-end create-button-start]
+    0.3fr
+    [create-button-end templates-end];
+  grid-template-rows:
+    [name-start]
+    min-content
+    [name-end description-start]
+    min-content
+    [description-end spacing-start]
+    6rem
+    [spacing-end presenter-start]
+    1fr
+    [presenter-end];
+  grid-row-gap: 2rem;
+  grid-column-gap: 8rem;
+  max-height: 100%;
+
+  @media only screen and (max-width: $bp-large) {
+    grid-column-gap: 3rem;
+  }
+
+  &__exercise-search-bar {
+    grid-row: name-start / name-end;
+    align-self: end;
+    justify-self: center;
+  }
+
+  &__exercise-button-new {
+    grid-row: description-start / description-end;
+    padding: 1.3rem;
+    align-self: start;
+    margin-top: 2.5rem;
+  }
+
+  &__available-exercises-box {
+    grid-column: exercises-start / exercises-end;
+    grid-row: presenter-start / presenter-end;
+
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 2rem;
 
-    padding: 4rem;
+    overflow-y: scroll;
 
-    grid-template-columns: [exercises-start] 1fr [exercises-end templates-start input-start] .7fr [input-end create-button-start] .3fr [create-button-end templates-end];
-    grid-template-rows: [name-start] min-content [name-end description-start] min-content [description-end spacing-start] 6rem [spacing-end presenter-start] 1fr [presenter-end];
-    grid-row-gap: 2rem;
-    grid-column-gap: 8rem;
-    max-height: 100%;
+    @media only screen and (max-width: $bp-small) {
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    }
+  }
 
-    &__exercise-search-bar {
+  &__used-exercises-box {
+    grid-column: templates-start / templates-end;
+    grid-row: presenter-start / presenter-end;
+
+    display: grid;
+    grid-template-rows: min-content;
+    grid-auto-rows: min-content;
+    grid-gap: 2rem;
+
+    overflow-y: scroll;
+
+    @media only screen and (max-width: $bp-small) {
+      width: 100%;
+    }
+  }
+
+  &__input-box {
+    display: flex;
+    flex-direction: column;
+
+    &--name {
+      grid-row: name-start / name-end;
+      grid-column: templates-start / input-end;
+
+      @media only screen and (max-width: $bp-large) {
         grid-row: name-start / name-end;
-        align-self: end;
-        justify-self: center;
-    }
-
-    &__exercise-button-new {
-        grid-row: description-start / description-end;
-        padding: 1.3rem;
-        align-self: start;
-        margin-top: 2.5rem;
-    }
-
-    &__available-exercises-box {
-        grid-column: exercises-start / exercises-end;
-        grid-row: presenter-start / presenter-end;
-
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-        grid-gap: 2rem;
-
-        overflow-y: scroll;
-    }
-
-    &__used-exercises-box {
         grid-column: templates-start / templates-end;
-        grid-row: presenter-start / presenter-end;
-
-        display: grid;
-        grid-template-rows: min-content;
-        grid-auto-rows: min-content;
-        grid-gap: 2rem;
-
-        overflow-y: scroll;
+      }
     }
 
-    &__input-box {
-        display: flex;
-        flex-direction: column;
+    &--description {
+      grid-row: description-start / description-end;
+      grid-column: templates-start / input-end;
 
-        &--name {
-            grid-row: name-start / name-end;
-            grid-column: templates-start / input-end;
-        }
+      @media only screen and (max-width: $bp-large) {
+        grid-row: description-start / description-end;
+        grid-column: templates-start / templates-end;
+      }
+    }
+  }
 
-        &--description {
-            grid-row: description-start / description-end;
-            grid-column: templates-start / input-end;
-        }
+  &__input-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__input {
+    max-width: 30rem;
+    min-width: 100%;
+    max-height: 20rem;
+    min-height: 4.2rem;
+
+    color: $color-grey-dark-4;
+    border: 2px solid transparent;
+
+    transition: all 0.2s;
+
+    &:focus,
+    &:active {
+      border-color: $color-primary;
     }
 
-    &__input-area {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+    &:hover {
+      border-color: $color-primary-light;
     }
 
-    &__input {
-        max-width: 30rem;
-        min-width: 100%;
-        max-height: 20rem;
-        min-height: 4.2rem;
+    &--disabled {
+      cursor: not-allowed;
+      background-color: $color-grey-light-2 !important;
+      border-color: $color-grey-light-2 !important;
+    }
+  }
 
-        color: $color-grey-dark-4;
-        border: 2px solid transparent;
+  &__label {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
 
-        transition: all 0.2s;
+  &__separator {
+    align-self: center;
+    justify-self: center;
+    width: 60%;
 
-        &:focus,
-        &:active {
-            border-color: $color-primary;
-        }
-
-        &:hover {
-            border-color: $color-primary-light;
-        }
-
-        &--disabled {
-            cursor: not-allowed;
-            background-color: $color-grey-light-2 !important;
-            border-color: $color-grey-light-2 !important;
-        }
+    &--available-exercises {
+      grid-row: spacing-start / spacing-end;
+      grid-column: exercises-start / exercises-end;
     }
 
-    &__label {
-        font-weight: 400;
-        margin-bottom: .5rem;
+    &--used-exercises {
+      grid-row: spacing-start / spacing-end;
+      grid-column: templates-start / templates-end;
     }
+  }
 
-    &__separator {
-        align-self: center;
-        justify-self: center;
-        width: 60%;
+  &__confirm-button {
+    grid-column: create-button-start / create-button-end;
+    grid-row: name-start / description-end;
 
-        &--available-exercises {
-            grid-row: spacing-start / spacing-end;
-            grid-column: exercises-start / exercises-end;
-        }
-
-        &--used-exercises {
-            grid-row: spacing-start / spacing-end;
-            grid-column: templates-start / templates-end;
-        }
+    @media only screen and (max-width: $bp-large) {
+      grid-column: exercises-start / exercises-end;
+      grid-row: description-start / description-end;
     }
+  }
 
-    &__confirm-button {
-        grid-column: create-button-start / create-button-end;
-        grid-row: name-start / description-end;
+  &__available-exercise-wrapper {
+    &--disabled {
+      & > * {
+        cursor: not-allowed !important;
+      }
     }
+  }
 
-    &__available-exercise-wrapper {
-        &--disabled {
-            &>* {
-                cursor: not-allowed !important;
-            }
-        }
-    }
-
-
-    // TODO ADD CLASS FOR CONFIRM BUTTON
+  // TODO ADD CLASS FOR CONFIRM BUTTON
 }
