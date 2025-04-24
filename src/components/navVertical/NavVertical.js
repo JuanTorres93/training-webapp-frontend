@@ -14,7 +14,15 @@ const NavVertical = ({
   return (
     <nav className="nav-vertical">
       <ul className="nav-vertical__list">
-        <div className="nav-vertical__username">{username}</div>
+        <div className="nav-vertical__user-box">
+          <figure className="nav-vertical__user-icon-box">
+            <ion-icon
+              name="person-circle-outline"
+              className="nav-vertical__username-icon"
+            ></ion-icon>
+          </figure>
+          <span className="nav-vertical__username">{username}</span>
+        </div>
         {items.map((item, index) => {
           return (
             <li
@@ -60,8 +68,9 @@ const NavVertical = ({
           </button>
         </li>
       </ul>
-      <button
-        className={`
+      {process.env.REACT_APP_NODE_ENV !== "production" && (
+        <button
+          className={`
                     plain-btn 
                     nav-vertical__change-language-btn
                     ${
@@ -70,10 +79,11 @@ const NavVertical = ({
                         : ""
                     }
                     `}
-        onClick={isLoading ? () => {} : cbChangeLanguage}
-      >
-        <span>{currentLanguage}</span>
-      </button>
+          onClick={isLoading ? () => {} : cbChangeLanguage}
+        >
+          <span>{currentLanguage}</span>
+        </button>
+      )}
     </nav>
   );
 };
