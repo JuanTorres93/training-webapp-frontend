@@ -1,4 +1,10 @@
 @charset "UTF-8";
+:root {
+  --bp-largest: 1300;
+  --bp-large: 722;
+  --bp-small: 495;
+}
+
 /* Basix reset */
 *,
 *::after,
@@ -1956,6 +1962,11 @@ body {
   visibility: visible;
   transition: border 0.2s ease, opacity 0.1s ease, visibility 0.1s ease;
 }
+@media only screen and (max-width: 30.9375em) {
+  .popup-name-desc {
+    grid-column-gap: 2rem;
+  }
+}
 .popup-name-desc--hidden {
   opacity: 0;
   visibility: hidden;
@@ -2568,7 +2579,7 @@ body {
   display: grid;
   grid-template-rows: repeat(3, min-content);
   grid-gap: 2rem;
-  transform: translate(-20%, -50%);
+  transform: translate(-50%, -70%);
   background-color: #fff;
   padding: 2rem 3rem;
   border-radius: 1rem;
