@@ -51,8 +51,7 @@ export default function TranslatedNavVertical() {
     },
     {
       icon: <ion-icon name="card-outline"></ion-icon>,
-      // TODO translate
-      text: "Subscription",
+      text: t("subscription-text"),
       path: "/app/subscriptions",
     },
   ];

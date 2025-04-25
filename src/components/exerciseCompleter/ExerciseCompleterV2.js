@@ -152,7 +152,6 @@ const ExerciseCompleterV2 = ({
   }, [rowsInfo]);
 
   return (
-    // TODO TRANSLATE
     <div className="exercise-completer">
       <div className="exercise-completer__exercise-title-box">
         {/* Exercise title */}

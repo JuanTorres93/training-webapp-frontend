@@ -44,7 +44,6 @@ const LoginFormV2 = ({
         {/* OAuth logins */}
 
         <div className="login-form__oauth-box">
-          {/* TODO add callback URL to server endpoint for google login */}
           <OAuthLoginV2
             className="login-form__oauth-button"
             logo="/images/oauthLogos/google-logo.svg"
