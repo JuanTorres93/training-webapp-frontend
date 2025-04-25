@@ -30,7 +30,7 @@ const PopupNameAndDescription = ({
   };
 
   return (
-    // TODO parametrize max lengths
+    // TODO later? parametrize max lengths
     <div
       className={`
                 popup-name-desc

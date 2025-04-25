@@ -38,7 +38,7 @@ const ChartWorkoutVolume = ({
     return date.toLocaleDateString("default", {
       month: "short",
       day: "numeric",
-      // TODO remove or format label to show below the month and day
+      // TODO later? remove or format label to show below the month and day
       hour: "2-digit",
       minute: "2-digit",
     });

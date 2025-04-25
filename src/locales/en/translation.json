@@ -126,5 +126,6 @@
   "short-month-text": "mo",
   "renewal-date-text": "Renewal date",
   "month-text": "month",
-  "cancelled-subscription": "Cancelled subscription"
+  "cancelled-subscription": "Cancelled subscription",
+  "finish-text": "Finish"
 }
