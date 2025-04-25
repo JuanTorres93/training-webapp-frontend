@@ -1,51 +1,55 @@
 @use "../abstracts/" as *;
+@use "../base/" as *;
 
 .run-workout-page {
-    display: grid;
+  display: grid;
 
-    grid-template-columns: 100%;
-    grid-template-rows: min-content;
-    grid-auto-rows: min-content;
-    grid-gap: 6rem;
+  grid-template-columns: 100%;
+  grid-template-rows: min-content;
+  grid-auto-rows: min-content;
+  grid-gap: 6rem;
 
-    padding: 3rem 0;
-    padding-top: 6rem;
-    padding-right: 3rem;
+  padding: 3rem 0;
+  padding-top: 6rem;
+  padding-right: 3rem;
 
-    overflow-y: scroll;
+  overflow-y: scroll;
 
-    &__finish-button {
-        justify-self: center;
-        align-self: center;
-        padding: 3rem 6rem;
-        font-size: 2.2rem;
-        font-weight: 500;
-        border-radius: 1rem;
-        background-color: $color-primary;
-        color: $color-grey-light-3;
-        border: none;
-        cursor: pointer;
-        transition: all .2s;
+  @media screen and (max-width: $bp-largest) {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 
-        &:hover {
-            background-color: $color-primary-dark;
-        }
+  &__finish-button {
+    justify-self: center;
+    align-self: center;
+    padding: 3rem 6rem;
+    font-size: 2.2rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    background-color: $color-primary;
+    color: $color-grey-light-3;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
 
-        &:active {
-            background-color: $color-primary-light;
-        }
-
-        &--disabled {
-            cursor: not-allowed;
-
-            &,
-            &:hover,
-            &:active {
-                background-color: $color-grey-light-2 !important;
-                color: $color-grey-dark-2 !important;
-            }
-
-            ;
-        }
+    &:hover {
+      background-color: $color-primary-dark;
     }
+
+    &:active {
+      background-color: $color-primary-light;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+
+      &,
+      &:hover,
+      &:active {
+        background-color: $color-grey-light-2 !important;
+        color: $color-grey-dark-2 !important;
+      }
+    }
+  }
 }

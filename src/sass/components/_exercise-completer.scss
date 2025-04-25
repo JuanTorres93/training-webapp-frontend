@@ -1,113 +1,164 @@
 @use "../abstracts/" as *;
+@use "../base/" as *;
 
 .exercise-completer {
+  display: grid;
+
+  grid-template-columns:
+    [info-start]
+    1fr
+    [info-end chart-start]
+    // 1fr
+    minmax(auto, 65%)
+    [chart-end];
+
+  grid-template-rows:
+    [exercise-title-start]
+    0.1rem
+    [exercise-title-end info-start]
+    1fr
+    [info-end];
+
+  grid-gap: 2rem;
+
+  padding: 2rem;
+  background-color: rgba($color-white, 0.7);
+  border-radius: 1rem;
+
+  font-size: 1.6rem;
+  border: 1px solid transparent;
+
+  transition: all 0.2s;
+
+  @media only screen and (max-width: $bp-large) {
+    grid-template-columns:
+      [info-start chart-start]
+      //   1fr
+      // minmax(auto, 1fr)
+      minmax(auto, 100%)
+      [info-end chart-end];
+
+    grid-template-rows:
+      [exercise-title-start]
+      0.1rem
+      [exercise-title-end info-start]
+      1fr
+      [info-end chart-start]
+      1fr // TODO probably add a min-height or max-height to the chart
+      [chart-end];
+
+    grid-gap: 4rem;
+  }
+
+  &:hover {
+    border-color: $color-primary;
+  }
+
+  &:hover &__exercise-title {
+    background-color: $color-primary;
+    color: $color-grey-light-3;
+  }
+
+  &__exercise-title-box {
+    grid-column: 1 / -1;
+    grid-row: exercise-title-start / exercise-title-end;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__exercise-title {
+    transform: translateY(-50%);
+    font-size: 2rem;
+    font-weight: 500;
+    background-color: $color-grey-dark-1;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    color: $color-grey-dark-3;
+
+    transition: all 0.2s;
+
+    &--disabled {
+      filter: grayscale(1);
+      color: white !important;
+    }
+  }
+
+  &__info-box {
+    grid-column: info-start / info-end;
+    grid-row: info-start / info-end;
+
     display: grid;
+    grid-template-columns:
+      [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(
+        9rem,
+        1fr
+      )
+      [reps-end];
+    grid-auto-rows: min-content;
+    grid-gap: 1rem;
+    align-items: center;
+    justify-items: center;
+  }
 
-    grid-template-columns: [info-start] 1fr [info-end chart-start] 65% [chart-end];
-    grid-template-rows: [exercise-title-start] .1rem [exercise-title-end info-start] 1fr [info-end];
-    grid-gap: 2rem;
+  &__chart-box {
+    grid-column: chart-start / chart-end;
+    grid-row: info-start / info-end;
+    align-self: end;
+    height: 95%;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: rgba($color-grey-light-2, 0.4);
 
-    padding: 2rem;
-    background-color: rgba($color-white, .7);
+    @media only screen and (max-width: $bp-large) {
+      grid-row: chart-start / chart-end;
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+
+    padding: 1rem 0;
+    background-color: $color-primary-dark;
+    color: $color-grey-light-3;
     border-radius: 1rem;
 
-    font-size: 1.6rem;
-    border: 1px solid transparent;
+    justify-self: stretch;
 
-    transition: all .2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    &:hover {
-        border-color: $color-primary;
+    &--disabled {
+      filter: grayscale(1);
+    }
+  }
+
+  &__input {
+    width: 90%;
+
+    &::placeholder {
+      color: $color-grey-dark-1;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    &:hover &__exercise-title {
-        background-color: $color-primary;
-        color: $color-grey-light-3;
+    &--disabled {
+      cursor: not-allowed;
+      background-color: $color-grey-light-2;
+      color: $color-grey-dark-2;
     }
+  }
 
-    &__exercise-title-box {
-        grid-column: 1 / -1;
-        grid-row: exercise-title-start / exercise-title-end;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &__exercise-title {
-        transform: translateY(-50%);
-        font-size: 2rem;
-        font-weight: 500;
-        background-color: $color-grey-dark-1;
-        padding: 1rem 2rem;
-        border-radius: 1rem;
-        color: $color-grey-dark-3;
-
-        transition: all .2s;
-
-        &--disabled {
-            filter: grayscale(1);
-            color: white !important;
-        }
-    }
-
-    &__info-box {
-        grid-column: info-start / info-end;
-        grid-row: info-start / info-end;
-
-        display: grid;
-        grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(9rem, 20%) [reps-end];
-        grid-auto-rows: min-content;
-        grid-gap: 1rem;
-        align-items: center;
-        justify-items: center;
-    }
-
-    &__chart-box {
-        grid-column: chart-start / chart-end;
-        grid-row: info-start / info-end;
-        align-self: end;
-        height: 95%;
-        width: 100%;
-        border-radius: 1rem;
-        background-color: rgba($color-grey-light-2, .4);
-    }
-
-    &__title {
-        font-size: 2rem;
-        font-weight: 500;
-        text-align: center;
-
-        padding: 1rem 0;
-        background-color: $color-primary-dark;
-        color: $color-grey-light-3;
-        border-radius: 1rem;
-
-        justify-self: stretch;
-
-        &--disabled {
-            filter: grayscale(1);
-        }
-    }
-
-    &__input {
-        width: 90%;
-
-        &::placeholder {
-            color: $color-grey-dark-1;
-        }
-
-        &--disabled {
-            cursor: not-allowed;
-            background-color: $color-grey-light-2;
-            color: $color-grey-dark-2;
-        }
-    }
-
-    &__weight,
-    &__reps {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  &__weight,
+  &__reps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

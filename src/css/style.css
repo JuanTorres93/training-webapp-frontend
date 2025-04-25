@@ -2469,7 +2469,7 @@ body {
 
 .exercise-completer {
   display: grid;
-  grid-template-columns: [info-start] 1fr [info-end chart-start] 65% [chart-end];
+  grid-template-columns: [info-start] 1fr [info-end chart-start] minmax(auto, 65%) [chart-end];
   grid-template-rows: [exercise-title-start] 0.1rem [exercise-title-end info-start] 1fr [info-end];
   grid-gap: 2rem;
   padding: 2rem;
@@ -2478,6 +2478,13 @@ body {
   font-size: 1.6rem;
   border: 1px solid transparent;
   transition: all 0.2s;
+}
+@media only screen and (max-width: 45.125em) {
+  .exercise-completer {
+    grid-template-columns: [info-start chart-start] minmax(auto, 100%) [info-end chart-end];
+    grid-template-rows: [exercise-title-start] 0.1rem [exercise-title-end info-start] 1fr [info-end chart-start] 1fr [chart-end];
+    grid-gap: 4rem;
+  }
 }
 .exercise-completer:hover {
   border-color: #2FCA82;
@@ -2511,7 +2518,7 @@ body {
   grid-column: info-start/info-end;
   grid-row: info-start/info-end;
   display: grid;
-  grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(9rem, 20%) [reps-end];
+  grid-template-columns: [sets-start] 18% [sets-end weight-start] 1fr [weight-end reps-start] minmax(9rem, 1fr) [reps-end];
   grid-auto-rows: min-content;
   grid-gap: 1rem;
   align-items: center;
@@ -2526,6 +2533,11 @@ body {
   border-radius: 1rem;
   background-color: rgba(221, 224, 222, 0.4);
 }
+@media only screen and (max-width: 45.125em) {
+  .exercise-completer__chart-box {
+    grid-row: chart-start/chart-end;
+  }
+}
 .exercise-completer__title {
   font-size: 2rem;
   font-weight: 500;
@@ -2535,6 +2547,9 @@ body {
   color: #f1f4f2;
   border-radius: 1rem;
   justify-self: stretch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .exercise-completer__title--disabled {
   filter: grayscale(1);
@@ -2544,6 +2559,9 @@ body {
 }
 .exercise-completer__input::placeholder {
   color: #AAADAB;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .exercise-completer__input--disabled {
   cursor: not-allowed;
@@ -3571,6 +3589,12 @@ body {
   padding-top: 6rem;
   padding-right: 3rem;
   overflow-y: scroll;
+}
+@media screen and (max-width: 81.25em) {
+  .run-workout-page {
+    padding-right: 0;
+    padding: 3rem 2rem;
+  }
 }
 .run-workout-page__finish-button {
   justify-self: center;
