@@ -11,11 +11,18 @@ $bp-larger: 60.875em; //974px, 974/16 = 60.875em
 $bp-large: 45.125em; // 722px, 722/16 = 45.125em
 $bp-small: 30.9375em; // 495px, 495/16 = 30.9375em
 
+$bp-chart-labels-largest: 116.875em; // 1870px, 1870/16 = 116.875em
+$bp-chart-labels-small: 35.15em; // 562px, 562/16 = 35.15625em
+
 // breakpoints to use from JS
 :root {
   --bp-largest: 1300;
+  --bp-larger: 974;
   --bp-large: 722;
   --bp-small: 495;
+
+  --bp-chart-labels-largest: 1870;
+  --bp-chart-labels-small: 562;
 }
 
 /* Basix reset */

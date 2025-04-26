@@ -1,0 +1,36 @@
+@use "../abstracts/" as *;
+@use "../base/" as *;
+
+.chart-sets-and-weight {
+  &__bottom-label-box {
+    fill: $color-grey-dark-3;
+    font-size: inherit;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__bottom-label-day-and-hour {
+    display: inline;
+
+    @media only screen and (max-width: $bp-chart-labels-largest) {
+      display: none;
+    }
+  }
+
+  &__bottom-label-day {
+    display: none;
+
+    @media only screen and (max-width: $bp-chart-labels-largest) {
+      display: inline;
+    }
+  }
+
+  &__bottom-label-hour {
+    display: none;
+
+    @media only screen and (max-width: $bp-chart-labels-largest) {
+      display: inline;
+    }
+  }
+}

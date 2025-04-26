@@ -42,6 +42,24 @@ const ChartSetsAndWeight = ({
   const mainColor = !isLoading ? "#2FCA82" : "#a4a4a4";
 
   const [lastIndex, setLastIndex] = useState(0);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  const bpLabelsSmall =
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--bp-chart-labels-small")
+      .trim() * 1;
+
+  useEffect(() => {
+    // Check screen size for responsive design (number of labels in X axis)
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < bpLabelsSmall);
+    };
+
+    checkScreenSize(); // Check initially
+
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   const formatDate = (date) => {
     return date.toLocaleDateString("default", {
@@ -245,7 +263,7 @@ const ChartSetsAndWeight = ({
       )}
       groupMode="grouped"
       margin={chartMargin}
-      padding={0.3}
+      padding={!isSmallScreen ? 0.3 : 0.1} // Controls the space between bars. Lower value, thicker bars. Higher value, thinner bars
       innerPadding={10}
       colors={({ indexValue }) => {
         return indexValue === lastIndex ? colorCurrent : mainColor;
@@ -257,6 +275,41 @@ const ChartSetsAndWeight = ({
         legend: dayText,
         legendPosition: "middle",
         legendOffset: 50,
+        renderTick: (tick) => {
+          const verticalOffset = 20;
+          const [day, hour] = tick.value.split(", ");
+
+          // For small screens, show only 1 label every 2 ticks
+          if (isSmallScreen && tick.tickIndex % 2 !== 0) {
+            return null;
+          }
+
+          return (
+            <g transform={`translate(${tick.x},${tick.y + verticalOffset})`}>
+              <text
+                textAnchor="middle"
+                className="chart-sets-and-weight__bottom-label-box"
+              >
+                <tspan className="chart-sets-and-weight__bottom-label-day-and-hour">
+                  {day + ", " + hour}
+                </tspan>
+                <tspan
+                  x="0"
+                  className="chart-sets-and-weight__bottom-label-day"
+                >
+                  {day}
+                </tspan>
+                <tspan
+                  x="0"
+                  dy="1.2rem"
+                  className="chart-sets-and-weight__bottom-label-hour"
+                >
+                  {hour}
+                </tspan>
+              </text>
+            </g>
+          );
+        },
       }}
       axisLeft={{
         legend: repsText,

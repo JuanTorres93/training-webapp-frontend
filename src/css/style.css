@@ -1,8 +1,11 @@
 @charset "UTF-8";
 :root {
   --bp-largest: 1300;
+  --bp-larger: 974;
   --bp-large: 722;
   --bp-small: 495;
+  --bp-chart-labels-largest: 1870;
+  --bp-chart-labels-small: 562;
 }
 
 /* Basix reset */
@@ -606,8 +609,10 @@ body {
   .nav-vertical__username {
     margin: 0.1rem;
     margin-left: 0;
-    max-width: 2.5rem;
+    max-width: 3.5rem;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -2532,6 +2537,7 @@ body {
   width: 100%;
   border-radius: 1rem;
   background-color: rgba(221, 224, 222, 0.4);
+  font-size: 1.3rem;
 }
 @media only screen and (max-width: 45.125em) {
   .exercise-completer__chart-box {
@@ -3062,6 +3068,38 @@ body {
 }
 .subscription-presenter__features-box {
   font-size: 1.3rem;
+}
+
+.chart-sets-and-weight__bottom-label-box {
+  fill: #575a58;
+  font-size: inherit;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.chart-sets-and-weight__bottom-label-day-and-hour {
+  display: inline;
+}
+@media only screen and (max-width: 116.875em) {
+  .chart-sets-and-weight__bottom-label-day-and-hour {
+    display: none;
+  }
+}
+.chart-sets-and-weight__bottom-label-day {
+  display: none;
+}
+@media only screen and (max-width: 116.875em) {
+  .chart-sets-and-weight__bottom-label-day {
+    display: inline;
+  }
+}
+.chart-sets-and-weight__bottom-label-hour {
+  display: none;
+}
+@media only screen and (max-width: 116.875em) {
+  .chart-sets-and-weight__bottom-label-hour {
+    display: inline;
+  }
 }
 
 .behind-app {
