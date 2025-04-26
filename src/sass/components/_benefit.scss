@@ -1,275 +1,273 @@
 @use "../abstracts" as *;
 
 .benefit {
-    perspective: 500rem;
-    filter: drop-shadow(0 .5rem 1rem rgba($color-black, 0.15));
+  perspective: 500rem;
+  filter: drop-shadow(0 0.5rem 1rem rgba($color-black, 0.15));
 
-    // This is the extra space that the item will expand
-    // beyond its grid cell
-    $extra-grid: 15%;
+  // This is the extra space that the item will expand
+  // beyond its grid cell
+  $extra-grid: 15%;
 
-    width: calc(100% + $extra-grid);
-    height: calc(100% + $extra-grid);
+  width: calc(100% + $extra-grid);
+  height: calc(100% + $extra-grid);
 
-    position: relative;
-    z-index: 10;
-    $shared-transition: all .4s ease-in;
+  position: relative;
+  z-index: 10;
+  $shared-transition: all 0.4s ease-in;
 
+  transition: $shared-transition;
+
+  $middle-polygon: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+
+  &:hover {
+    filter: drop-shadow(0 2rem 2rem rgba($color-black, 0.8));
+
+    z-index: 20;
+  }
+
+  &:hover &__front-side {
+    transform: rotateX(180deg);
+  }
+
+  &:hover &__back-side {
+    transform: rotateX(360deg) translate($extra-grid, -$extra-grid);
+  }
+
+  &:hover &__shape {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  &__shape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 100%;
+    height: 100%;
+    // padding: 10rem 0;
     transition: $shared-transition;
 
-    $middle-polygon: polygon(75% 0%,
-            100% 50%,
-            75% 100%,
-            0% 100%,
-            25% 50%,
-            0% 0%);
+    $padding-before-and-after: 6rem;
+    $overlay: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.7),
+      rgba($color-primary-light, 0.7)
+    );
+
+    &--1 {
+      &.benefit {
+        &__front-side {
+          background-image: $overlay, url("../../public/images/CTA1.png");
+          background-size: cover;
+        }
+
+        &__back-side {
+          &::before {
+            @include image-in-backside(
+              "../../public/images/CTA1.png",
+              $overlay
+            );
+          }
+        }
+      }
+    }
+
+    &--2 {
+      &.benefit {
+        &__front-side {
+          // TODO change image
+          background-image: $overlay, url("../../public/images/CTA2.png");
+          background-size: cover;
+        }
+
+        &__back-side {
+          &::before {
+            // TODO change image
+            @include image-in-backside(
+              "../../public/images/CTA2.png",
+              $overlay
+            );
+          }
+        }
+      }
+    }
+
+    &--3 {
+      &.benefit {
+        &__front-side {
+          // TODO change image
+          background-image: $overlay, url("../../public/images/CTA3.png");
+          background-size: cover;
+        }
+
+        &__back-side {
+          // TODO change image
+          &::before {
+            @include image-in-backside(
+              "../../public/images/CTA3.png",
+              $overlay
+            );
+          }
+        }
+      }
+    }
+
+    &--4 {
+      &.benefit {
+        &__front-side {
+          background-image: $overlay, url("../../public/images/CTA4.png");
+          background-size: cover;
+        }
+
+        &__back-side {
+          &::before {
+            @include image-in-backside(
+              "../../public/images/CTA4.png",
+              $overlay
+            );
+          }
+        }
+      }
+    }
+
+    &--start {
+      clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+      padding-left: $padding-before-and-after;
+      align-items: flex-start;
+    }
+
+    &--middle {
+      clip-path: $middle-polygon;
+
+      .benefit__title {
+        margin-left: 15%;
+      }
+    }
+
+    &--end {
+      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 50%);
+      padding-right: $padding-before-and-after;
+      align-items: flex-end;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-items: center;
+
+    font-size: 1.8rem;
+    list-style: none;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__item {
+    color: $color-grey-dark-4;
+    display: block;
+    text-align: center;
+
+    &:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      width: 87%;
+      height: 1px;
+      margin: 1rem auto;
+      background-color: $color-grey-light-3;
+    }
+
+    &:first-child::before {
+      content: "";
+      display: block;
+      width: 87%;
+      height: 1px;
+      margin: 1rem auto;
+      background-color: $color-grey-light-3;
+    }
+  }
+
+  &__title {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-image: linear-gradient(
+      to right,
+      $color-secondary-light,
+      $color-secondary-dark
+    );
+    font-size: 3rem;
+    font-weight: 600;
+    color: $color-white;
+    letter-spacing: 1.1rem;
+    border-radius: 0.3rem;
+    text-align: center;
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+  }
+
+  &__front-side,
+  &__back-side {
+    backface-visibility: hidden;
+  }
+
+  &__back-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
+
+    position: absolute;
+    transform: rotateX(180deg);
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 120%;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  &__cta {
+    &,
+    &:link,
+    &:visited {
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.6rem;
+      font-weight: 400;
+      padding: 1rem 2rem;
+      border-radius: 0.3rem;
+      color: $color-white;
+      background-image: linear-gradient(
+        to right,
+        $color-secondary-dark,
+        $color-secondary-light
+      );
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    }
 
     &:hover {
-        filter: drop-shadow(0 2rem 2rem rgba($color-black, 0.8));
-
-        z-index: 20;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.3);
     }
 
-    &:hover &__front-side {
-        transform: rotateX(180deg);
+    &:active {
+      box-shadow: 0 0.75rem 1rem rgba($color-black, 0.15);
     }
+  }
 
+  &__icon-box {
+    $icon-size: 10rem;
+    width: $icon-size;
+    height: $icon-size;
+    margin-bottom: -2rem;
 
-    &:hover &__back-side {
-        transform: rotateX(360deg) translate($extra-grid, -$extra-grid);
+    & > * {
+      font-size: $icon-size;
+      color: $color-grey-light-2;
+      --ionicon-stroke-width: 16px;
     }
-
-    &:hover &__shape {
-        padding-right: 0;
-        padding-left: 0;
-    }
-
-    &__shape {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex-basis: 100%;
-        height: 100%;
-        // padding: 10rem 0;
-        transition: $shared-transition;
-
-        $padding-before-and-after: 6rem;
-        $overlay: linear-gradient(to right bottom,
-                rgba($color-primary-light, 0.7),
-                rgba($color-primary-light, 0.7));
-
-        &--1 {
-            &.benefit {
-                &__front-side {
-                    // TODO change image
-                    background-image: $overlay, url('../../public/images/CTA3.png');
-                    background-size: cover;
-                }
-
-                &__back-side {
-
-                    // TODO change image
-                    &::before {
-                        @include image-in-backside('../../public/images/CTA3.png',
-                            $overlay);
-                    }
-                }
-            }
-        }
-
-        &--2 {
-            &.benefit {
-                &__front-side {
-                    // TODO change image
-                    background-image: $overlay, url('../../public/images/CTA2.png');
-                    background-size: cover;
-                }
-
-                &__back-side {
-                    &::before {
-                        // TODO change image
-                        @include image-in-backside('../../public/images/CTA2.png',
-                            $overlay);
-                    }
-                }
-            }
-        }
-
-        &--3 {
-            &.benefit {
-                &__front-side {
-                    // TODO change image
-                    background-image: $overlay, url('../../public/images/CTA3.png');
-                    background-size: cover;
-                }
-
-                &__back-side {
-
-                    // TODO change image
-                    &::before {
-                        @include image-in-backside('../../public/images/CTA3.png',
-                            $overlay);
-                    }
-                }
-            }
-        }
-
-        &--4 {
-            &.benefit {
-                &__front-side {
-                    // TODO change image
-                    background-image: $overlay, url('../../public/images/CTA1.png');
-                    background-size: cover;
-                }
-
-                &__back-side {
-
-                    // TODO change image
-                    &::before {
-                        @include image-in-backside('../../public/images/CTA1.png',
-                            $overlay);
-                    }
-                }
-            }
-        }
-
-        &--start {
-            clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-            padding-left: $padding-before-and-after;
-            align-items: flex-start;
-        }
-
-        &--middle {
-            clip-path: $middle-polygon;
-
-            .benefit__title {
-                margin-left: 15%;
-            }
-        }
-
-        &--end {
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 50%);
-            padding-right: $padding-before-and-after;
-            align-items: flex-end;
-        }
-    }
-
-    &__list {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-items: center;
-
-        font-size: 1.8rem;
-        list-style: none;
-        position: relative;
-        z-index: 2;
-    }
-
-    &__item {
-        color: $color-grey-dark-4;
-        display: block;
-        text-align: center;
-
-        &:not(:last-child) {
-            margin-bottom: .25rem;
-        }
-
-        &::after {
-            content: "";
-            display: block;
-            width: 87%;
-            height: 1px;
-            margin: 1rem auto;
-            background-color: $color-grey-light-3;
-        }
-
-        &:first-child::before {
-            content: "";
-            display: block;
-            width: 87%;
-            height: 1px;
-            margin: 1rem auto;
-            background-color: $color-grey-light-3;
-        }
-
-    }
-
-    &__title {
-        display: inline-block;
-        padding: 1rem 2rem;
-        background-image: linear-gradient(to right,
-                $color-secondary-light,
-                $color-secondary-dark);
-        font-size: 3rem;
-        font-weight: 600;
-        color: $color-white;
-        letter-spacing: 1.10rem;
-        border-radius: .3rem;
-        text-align: center;
-        box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
-    }
-
-    &__front-side,
-    &__back-side {
-        backface-visibility: hidden;
-    }
-
-    &__back-side {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        padding: 0;
-
-        position: absolute;
-        transform: rotateX(180deg);
-        top: 0;
-        left: 0;
-        width: 75%;
-        height: 120%;
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-
-    &__cta {
-
-        &,
-        &:link,
-        &:visited {
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1.6rem;
-            font-weight: 400;
-            padding: 1rem 2rem;
-            border-radius: .3rem;
-            color: $color-white;
-            background-image: linear-gradient(to right,
-                    $color-secondary-dark,
-                    $color-secondary-light);
-            box-shadow: 0 .5rem 1rem rgba($color-black, 0.15);
-        }
-
-        &:hover {
-            box-shadow: 0 1rem 2rem rgba($color-black, 0.30);
-        }
-
-        &:active {
-            box-shadow: 0 .75rem 1rem rgba($color-black, 0.15);
-        }
-    }
-
-
-    &__icon-box {
-        $icon-size: 10rem;
-        width: $icon-size;
-        height: $icon-size;
-        margin-bottom: -2rem;
-
-        &>* {
-            font-size: $icon-size;
-            color: $color-grey-light-2;
-            --ionicon-stroke-width: 16px;
-        }
-    }
+  }
 }

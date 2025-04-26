@@ -716,7 +716,7 @@ body {
   transition: all 0.4s ease-in;
 }
 .benefit__shape--1.benefit__front-side {
-  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA3.png");
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA1.png");
   background-size: cover;
 }
 .benefit__shape--1.benefit__back-side::before {
@@ -764,7 +764,7 @@ body {
   z-index: -1;
 }
 .benefit__shape--4.benefit__front-side {
-  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA1.png");
+  background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(75, 222, 148, 0.7)), url("../../public/images/CTA4.png");
   background-size: cover;
 }
 .benefit__shape--4.benefit__back-side::before {
