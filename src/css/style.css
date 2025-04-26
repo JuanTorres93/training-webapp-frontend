@@ -1085,6 +1085,11 @@ body {
     padding: 2rem 2rem;
   }
 }
+@media only screen and (max-width: 67.5em) {
+  .niche-msg__explanation {
+    display: none;
+  }
+}
 .niche-msg__explanation--left {
   left: 0;
   right: auto;
@@ -3218,6 +3223,11 @@ body {
   justify-self: center;
   align-self: end;
 }
+@media only screen and (max-width: 81.25em) {
+  .benefits {
+    grid-auto-rows: minmax(min-content, 30vh);
+  }
+}
 @media only screen and (max-width: 56.25em) {
   .benefits {
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
@@ -3225,7 +3235,12 @@ body {
 }
 @media only screen and (max-width: 37.5em) {
   .benefits {
-    padding: 20rem 10rem 22.5rem 0rem;
+    padding: 20rem 10rem 22.5rem 3rem;
+  }
+}
+@media only screen and (max-width: 30.9375em) {
+  .benefits {
+    padding: 20rem 8rem 22.5rem 5rem;
   }
 }
 

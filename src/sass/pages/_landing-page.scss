@@ -100,12 +100,20 @@ $space-to-next-section: 30rem;
     align-self: end;
   }
 
+  @media only screen and (max-width: $bp-largest) {
+    grid-auto-rows: minmax(min-content, 30vh);
+  }
+
   @media only screen and (max-width: $bp-landing-small) {
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   }
 
   @media only screen and (max-width: $bp-landing-smallest) {
-    padding: 20rem 10rem 22.5rem 0rem;
+    padding: 20rem 10rem 22.5rem 3rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 20rem 8rem 22.5rem 5rem;
   }
 }
 
