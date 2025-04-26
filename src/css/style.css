@@ -1078,10 +1078,22 @@ body {
   text-align: center;
   padding: 3rem 10%;
 }
+@media only screen and (max-width: 106.875em) {
+  .niche-msg__explanation {
+    font-size: 1.4rem;
+    width: 70%;
+    padding: 2rem 2rem;
+  }
+}
 .niche-msg__explanation--left {
   left: 0;
   right: auto;
   transform: translate(-100%, -10%);
+}
+@media only screen and (max-width: 86.625em) {
+  .niche-msg__explanation--left {
+    left: 4rem;
+  }
 }
 .niche-msg__explanation--right {
   left: auto;

@@ -1,6 +1,8 @@
 @use "../abstracts" as *;
 
 $bp-landing-largest: 156.25em; // 2500px, 2500/16 = 156.25em
+$bp-landing-large: 106.875em; // 1710px, 1710/16 = 106.875em
+$bp-landing-medium: 86.625em; // 1386px, 1386/16 = 86.625em
 $bp-landing-small: 56.25em; // 900px, 900/16 = 56.25em
 $bp-landing-navbar: 51.5em; // 824px, 824/16 = 51.5em
 $bp-landing-smallest: 37.5em; // 600px, 600/16 = 37.5em
