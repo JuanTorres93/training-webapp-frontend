@@ -67,6 +67,17 @@ export default function RunWorkoutPageV2() {
     dispatch(setActiveTemplate(templateId));
   }, [templateId]);
 
+  useEffect(() => {
+    // check workoutId is UUID
+    const uuidRegex = new RegExp(
+      "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    );
+    if (!uuidRegex.test(workoutId)) {
+      // TODO warn user about invalid workout
+      navigate("/app/templates");
+    }
+  }, [workoutId]);
+
   const [ticksCountYAxis, setTicksCountYAxis] = useState(5); // Initial number of ticks
   const [ticksCountXAxis, setTicksCountXAxis] = useState(5); // Initial number of ticks
   const weightGraphContainerRef = useRef(null); // Reference to the container
@@ -127,6 +138,8 @@ export default function RunWorkoutPageV2() {
             return (
               <TranslatedExerciseCompleterV2
                 key={exercise.id}
+                id={exercise.id}
+                workoutId={workoutId}
                 previousData={[]}
                 workoutStartDate={startDate}
                 ticksCountYAxis={ticksCountYAxis}
@@ -210,6 +223,8 @@ export default function RunWorkoutPageV2() {
           return (
             <TranslatedExerciseCompleterV2
               key={setExerciseInfo[0].id}
+              id={setExerciseInfo[0].id}
+              workoutId={workoutId}
               previousData={previousData}
               ticksCountYAxis={ticksCountYAxis}
               workoutStartDate={startDate}

@@ -10,6 +10,8 @@ const TranslatedExerciseCompleterV2 = ({
   ticksCountYAxis,
   exerciseName,
   workoutStartDate,
+  id,
+  workoutId,
   rowsInfo = [],
   isLoading = false,
   dispatchGenerator = (setNumber, weight, reps) => {},
@@ -25,6 +27,8 @@ const TranslatedExerciseCompleterV2 = ({
 
   return (
     <ExerciseCompleterV2
+      id={id}
+      workoutId={workoutId}
       previousData={previousData}
       ticksCountYAxis={ticksCountYAxis}
       exerciseName={exerciseName}

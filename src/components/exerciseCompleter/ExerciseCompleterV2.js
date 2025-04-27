@@ -1,9 +1,14 @@
 // import react needed for testing
 import React, { useState, useEffect } from "react";
 
+import { useSelector } from "react-redux";
+
+import { selectActiveWorkout } from "../../features/workouts/workoutSlice.js";
 import TranslatedChartSetsAndWeight from "../chartSetsAndWeight/TranslatedChartSetsAndWeight.js";
 
 const ExerciseCompleterV2 = ({
+  id, // Exercise id, used for redux state
+  workoutId, // Workout id, used for redux state
   previousData,
   ticksCountYAxis,
   exerciseName,
@@ -54,27 +59,51 @@ const ExerciseCompleterV2 = ({
   //   },
   //   ...
   // }
-
+  const activeWorkout = useSelector(selectActiveWorkout);
   const [exerciseData, setExerciseData] = useState({});
+  const [weightValues, setWeightValues] = useState({});
+  const [repsValues, setRepsValues] = useState({});
   // State for updating the chart in real time. Is an array for ease of use. Since I
   // have a function that already works with arrays
   const [realTimeData, setRealTimeData] = useState([]);
 
   useEffect(() => {
     const currentDataPoint = {
-      datetime: workoutStartDate,
+      datetime: workoutStartDate.toISOString(),
     };
 
-    currentDataPoint.sets = Object.keys(exerciseData).map((setNumber) => {
-      return {
-        set: parseInt(setNumber),
-        weight: exerciseData[setNumber].weight,
-        reps: exerciseData[setNumber].reps,
-      };
-    });
+    let exerciseCurrentDataSets = [];
 
+    if (
+      Object.keys(activeWorkout).length > 0 &&
+      activeWorkout.exercises.length > 0
+    ) {
+      const exerciseCurrentData = activeWorkout.exercises.find(
+        (exercise) => exercise.id === id
+      );
+
+      if (exerciseCurrentData) {
+        exerciseCurrentDataSets = exerciseCurrentData.sets.map((set) => {
+          return {
+            set: set.setNumber,
+            weight: set.weight,
+            reps: set.reps,
+          };
+        });
+      }
+    } else {
+      exerciseCurrentDataSets = Object.keys(exerciseData).map((setNumber) => {
+        return {
+          set: parseInt(setNumber),
+          weight: exerciseData[setNumber].weight,
+          reps: exerciseData[setNumber].reps,
+        };
+      });
+    }
+
+    currentDataPoint.sets = exerciseCurrentDataSets;
     setRealTimeData([currentDataPoint]);
-  }, [exerciseData]);
+  }, [exerciseData, activeWorkout]);
 
   const handleInputChange = (type) => (setNumber) => (event) => {
     // type is either 'weight' or 'reps'
@@ -87,11 +116,30 @@ const ExerciseCompleterV2 = ({
       value = 0;
     }
 
+    let exerData = {};
+
+    if (Object.keys(exerciseData).length > 0) {
+      exerData = exerciseData;
+    } else {
+      // get exerciseData from redux state
+      const exerciseInArray = activeWorkout.exercises.find(
+        (exercise) => exercise.id === id
+      );
+      if (exerciseInArray) {
+        exerciseInArray.sets.forEach((row) => {
+          exerData[row.setNumber] = {
+            weight: row.weight,
+            reps: row.reps,
+          };
+        });
+      }
+    }
+
     // Set data in this component
     setExerciseData({
-      ...exerciseData,
+      ...exerData,
       [setNumber]: {
-        ...exerciseData[setNumber],
+        ...exerData[setNumber],
         [type]: value,
       },
     });
@@ -101,17 +149,21 @@ const ExerciseCompleterV2 = ({
     let dispatch;
 
     if (type === "weight") {
-      dispatch = dispatchGenerator(
-        setNumber,
-        value,
-        exerciseData[setNumber].reps
-      );
+      dispatch = dispatchGenerator(setNumber, value, exerData[setNumber].reps);
+      setWeightValues({
+        ...weightValues,
+        [setNumber]: value,
+      });
     } else if (type === "reps") {
       dispatch = dispatchGenerator(
         setNumber,
-        exerciseData[setNumber].weight,
+        exerData[setNumber].weight,
         value
       );
+      setRepsValues({
+        ...repsValues,
+        [setNumber]: value,
+      });
     }
 
     if (dispatch) {
@@ -120,36 +172,64 @@ const ExerciseCompleterV2 = ({
     }
   };
 
-  // Init all data with zeros to prevent "undefined" errors
   useEffect(() => {
-    // Fill exerciseData with zeros. If user does not input any data, it will be zero
-    const initializedExerciseData = rowsInfo.reduce((acc, rowInfo) => {
-      acc[rowInfo.setNumber] = {
-        weight: 0,
-        reps: 0,
-      };
+    // Init all data with zeros to prevent "undefined" errors
+    if (
+      Object.keys(activeWorkout).length > 0 &&
+      activeWorkout.exercises.length === 0
+    ) {
+      const exerciseInArray = activeWorkout.exercises.find(
+        (exercise) => exercise.id === id
+      );
 
-      return acc;
-    }, {});
+      if (!exerciseInArray) {
+        // Fill exerciseData with zeros. If user does not input any data, it will be zero
+        const initializedExerciseData = rowsInfo.reduce((acc, rowInfo) => {
+          acc[rowInfo.setNumber] = {
+            weight: 0,
+            reps: 0,
+          };
 
-    // set this component's state
-    setExerciseData(initializedExerciseData);
+          return acc;
+        }, {});
 
-    // set redux state
-    // Delete all exercises of the active workout to delete data from previous workouts
-    const clearExercisesDispatch = clearExercisesDispatchGenerator();
-    if (clearExercisesDispatch && isFirstRender) {
-      clearExercisesDispatch();
-    }
+        // set this component's state
+        setExerciseData(initializedExerciseData);
 
-    // Fill all rows with zeros to prevent "undefined" errors in redux state
-    rowsInfo.forEach((row) => {
-      const dispatch = dispatchGenerator(row.setNumber, 0, 0);
-      if (dispatch) {
-        dispatch();
+        // set redux state
+        // Delete all exercises of the active workout to delete data from previous workouts
+        const clearExercisesDispatch = clearExercisesDispatchGenerator();
+        if (clearExercisesDispatch && isFirstRender) {
+          clearExercisesDispatch();
+        }
+
+        // Fill all rows with zeros to prevent "undefined" errors in redux state
+        rowsInfo.forEach((row) => {
+          const dispatch = dispatchGenerator(row.setNumber, 0, 0);
+          if (dispatch) {
+            dispatch();
+          }
+        });
       }
-    });
-  }, [rowsInfo]);
+    } else if (Object.keys(activeWorkout).length > 0) {
+      // If there is an active workout, set the values for the inputs
+      const exerciseInArray = activeWorkout.exercises.find(
+        (exercise) => exercise.id === id
+      );
+      if (exerciseInArray) {
+        exerciseInArray.sets.forEach((row) => {
+          setWeightValues((prevState) => ({
+            ...prevState,
+            [row.setNumber]: row.weight,
+          }));
+          setRepsValues((prevState) => ({
+            ...prevState,
+            [row.setNumber]: row.reps,
+          }));
+        });
+      }
+    }
+  }, [rowsInfo, activeWorkout, id, isFirstRender]);
 
   return (
     <div className="exercise-completer">
@@ -216,6 +296,7 @@ const ExerciseCompleterV2 = ({
                                             `}
                     type="number"
                     name="weight"
+                    value={weightValues[rowInfo.setNumber] || ""}
                     disabled={isLoading}
                     onChange={handleInputChange("weight")(rowInfo.setNumber)}
                     placeholder={
@@ -238,6 +319,7 @@ const ExerciseCompleterV2 = ({
                                             `}
                     type="number"
                     name="reps"
+                    value={repsValues[rowInfo.setNumber] || ""}
                     disabled={isLoading}
                     onChange={handleInputChange("reps")(rowInfo.setNumber)}
                     placeholder={
@@ -253,13 +335,17 @@ const ExerciseCompleterV2 = ({
       </div>
 
       <div className="exercise-completer__chart-box">
-        <TranslatedChartSetsAndWeight
-          data={previousData}
-          realTimeData={realTimeData}
-          isSmall={true}
-          valuesInYAxis={ticksCountYAxis}
-          isLoading={isLoading}
-        />
+        {(() => {
+          return (
+            <TranslatedChartSetsAndWeight
+              data={previousData}
+              realTimeData={realTimeData}
+              isSmall={true}
+              valuesInYAxis={ticksCountYAxis}
+              isLoading={isLoading}
+            />
+          );
+        })()}
       </div>
     </div>
   );

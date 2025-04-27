@@ -76,7 +76,8 @@ const ChartSetsAndWeight = ({
       // At time of development, Nivo can't use time axis
       // for bar charts, so I'm doing here the processing
       // of the format
-      const formattedDate = formatDate(dataPoint.datetime);
+      let pointDate = new Date(dataPoint.datetime);
+      const formattedDate = formatDate(pointDate);
       let processedPoint = {
         datetime: formattedDate,
         dayIndex, // Para usar como posición en el eje X
