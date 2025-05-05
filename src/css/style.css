@@ -233,7 +233,7 @@ body {
   grid-row: hero-start/hero-end;
   background-image: linear-gradient(to right bottom, rgba(75, 222, 148, 0.7), rgba(3, 182, 112, 0.7)), url("../../public/images/hero-large.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: top;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #575a58;
 }

@@ -21,7 +21,7 @@
     ),
     url("../../public/images/hero-large.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: top;
 
   @include landing-page-line-between-sections;
 
