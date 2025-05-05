@@ -15,10 +15,7 @@ import { setupStore } from "../../app/store";
 
 import RunWorkoutPageV2 from "./RunWorkoutPageV2";
 import { LoginObserverProvider } from "../../LoginObserverContext";
-import {
-  logoutUser,
-  loginUser,
-} from "../../features/user/userSlice";
+import { logoutUser, loginUser } from "../../features/user/userSlice";
 import {
   createWorkout,
   setLastWorkout,
@@ -49,8 +46,7 @@ jest.mock("react-router-dom", () => ({
 // Mock functions for login
 const mockCreateNewWorkoutAction = jest.fn((arg) => arg);
 
-
-describe('05_RunWorkoutPage', () => {
+describe("05_RunWorkoutPage", () => {
   let store;
   let workoutId;
   let templateId;
@@ -70,7 +66,7 @@ describe('05_RunWorkoutPage', () => {
     await new Promise((r) => setTimeout(r, 2000));
   });
 
-  describe('Happy path', () => {
+  describe("Happy path", () => {
     // USES CONNECTION TO DB
     beforeAll(async () => {
       await act(async () => {
@@ -85,7 +81,7 @@ describe('05_RunWorkoutPage', () => {
       });
 
       // Start a new common workout
-      // Needed to call as: 
+      // Needed to call as:
       // handleStartWorkout(user)
       //                   (templateId)
       //                   (allTemplates)
@@ -97,8 +93,10 @@ describe('05_RunWorkoutPage', () => {
       //                   (null); // null is for the event
 
       const user = store.getState().user.user;
-      const userCreatedTemplates = store.getState().workoutTemplates.workoutTemplates.userCreatedTemplates;
-      const commonTemplates = store.getState().workoutTemplates.workoutTemplates.commonTemplates;
+      const userCreatedTemplates =
+        store.getState().workoutTemplates.workoutTemplates.userCreatedTemplates;
+      const commonTemplates =
+        store.getState().workoutTemplates.workoutTemplates.commonTemplates;
       const allTemplates = [...userCreatedTemplates, ...commonTemplates];
       const dispatch = store.dispatch;
       const createWorkoutAction = createWorkout;
@@ -109,15 +107,9 @@ describe('05_RunWorkoutPage', () => {
       templateId = commonTemplates[0].id;
 
       await act(async () => {
-        handleStartWorkout(user)
-          (templateId)
-          (allTemplates)
-          (dispatch)
-          (createWorkoutAction)
-          (setLastWorkoutAction)
-          (setLastNWorkoutsAction)
-          (navigate)
-          (null);
+        handleStartWorkout(user)(templateId)(allTemplates)(dispatch)(
+          createWorkoutAction
+        )(setLastWorkoutAction)(setLastNWorkoutsAction)(navigate)(null);
       });
 
       await waitFor(() => {
@@ -128,7 +120,8 @@ describe('05_RunWorkoutPage', () => {
 
       // Get the workoutId from the path
       const runWorkoutPath = mockNavigate.mock.calls[0][0];
-      workoutId = runWorkoutPath.split('/')[runWorkoutPath.split('/').length - 1];
+      workoutId =
+        runWorkoutPath.split("/")[runWorkoutPath.split("/").length - 1];
     });
 
     beforeEach(async () => {
@@ -141,28 +134,40 @@ describe('05_RunWorkoutPage', () => {
               the component to get the templateId.
           */}
           <Routes>
-            <Route path="/app/runWorkout/:templateId/:workoutId" element={<RunWorkoutPageV2 />} />
+            <Route
+              path="/app/runWorkout/:templateId/:workoutId"
+              element={<RunWorkoutPageV2 />}
+            />
           </Routes>
         </LoginObserverProvider>,
         {
           routes: [`/app/runWorkout/${templateId}/${workoutId}`],
           store,
-        });
+        }
+      );
     });
 
-    it('Shows all exercises in template', () => {
-      const exercises = store.getState().workoutTemplates.workoutTemplates.commonTemplates.find(t => t.id === templateId).exercises;
+    it("Shows all exercises in template", () => {
+      const exercises = store
+        .getState()
+        .workoutTemplates.workoutTemplates.commonTemplates.find(
+          (t) => t.id === templateId
+        ).exercises;
 
-      exercises.forEach(exercise => {
+      exercises.forEach((exercise) => {
         const englishName = processCommonStringFromDb(exercise.name);
         expect(screen.getByText(englishName)).toBeInTheDocument();
       });
-    })
+    });
 
-    it('Shows all sets for each exercise', () => {
-      const exercises = store.getState().workoutTemplates.workoutTemplates.commonTemplates.find(t => t.id === templateId).exercises;
+    it("Shows all sets for each exercise", () => {
+      const exercises = store
+        .getState()
+        .workoutTemplates.workoutTemplates.commonTemplates.find(
+          (t) => t.id === templateId
+        ).exercises;
 
-      exercises.forEach(exercise => {
+      exercises.forEach((exercise) => {
         // number of sets for the exercise
         const sets = exercise.sets;
 
@@ -184,8 +189,10 @@ describe('05_RunWorkoutPage', () => {
       });
     });
 
-    it('Finishes the workout', async () => {
-      const finishWorkoutButton = screen.getByTestId(FINISH_WORKOUT_BUTTON_TEST_ID);
+    it("Finishes the workout", async () => {
+      const finishWorkoutButton = screen.getByTestId(
+        FINISH_WORKOUT_BUTTON_TEST_ID
+      );
       const weightInputs = screen.getAllByTestId(WEIGHT_INPUT_TEST_ID);
       const repsInputs = screen.getAllByTestId(REPS_INPUT_TEST_ID);
 
@@ -203,7 +210,8 @@ describe('05_RunWorkoutPage', () => {
         fireEvent.click(finishWorkoutButton);
       });
 
-      let recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+      let recentWorkouts =
+        store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
       expect(recentWorkouts[0].length).toStrictEqual(0);
 
       // Wait for the workout to finish
@@ -214,7 +222,8 @@ describe('05_RunWorkoutPage', () => {
       });
 
       // Expect the workout to be in the recent workouts
-      recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+      recentWorkouts =
+        store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
       expect(recentWorkouts[0].length).toStrictEqual(1);
 
       // Remove workout for test repeatability
@@ -223,24 +232,23 @@ describe('05_RunWorkoutPage', () => {
       });
 
       // TODO Expect most recent workout to be the same as created in this test
-      recentWorkouts = store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
+      recentWorkouts =
+        store.getState().workoutTemplates.workoutTemplates.recentWorkouts;
 
-      // TODO DELETE THESE DEBUG LOGS
-      console.log('activeWorkout');
-      console.log(activeWorkout);
-
-      const unwindedActiveWorkoutExercises = activeWorkout.exercises.map(exercise => {
-        const unwindedExercise = exercise.sets.map(set => {
-          return {
-            id: exercise.id,
-            order: exercise.order,
-            set: set.setNumber,
-            weight: set.weight,
-            reps: set.reps,
-          }
-        });
-        return unwindedExercise;
-      })
+      const unwindedActiveWorkoutExercises = activeWorkout.exercises.map(
+        (exercise) => {
+          const unwindedExercise = exercise.sets.map((set) => {
+            return {
+              id: exercise.id,
+              order: exercise.order,
+              set: set.setNumber,
+              weight: set.weight,
+              reps: set.reps,
+            };
+          });
+          return unwindedExercise;
+        }
+      );
 
       const unwindedActiveWorkout = {
         id: activeWorkout.id,
@@ -253,8 +261,12 @@ describe('05_RunWorkoutPage', () => {
       const workoutInThisTest = recentWorkouts[0][0];
 
       expect(unwindedActiveWorkout.id).toStrictEqual(workoutInThisTest.id);
-      expect(unwindedActiveWorkout.template_id).toStrictEqual(workoutInThisTest.template_id);
-      expect(unwindedActiveWorkout.description).toStrictEqual(workoutInThisTest.description);
+      expect(unwindedActiveWorkout.template_id).toStrictEqual(
+        workoutInThisTest.template_id
+      );
+      expect(unwindedActiveWorkout.description).toStrictEqual(
+        workoutInThisTest.description
+      );
       expect(unwindedActiveWorkout.name).toStrictEqual(workoutInThisTest.name);
 
       workoutInThisTest.exercises.forEach((exercise, index) => {
@@ -262,10 +274,12 @@ describe('05_RunWorkoutPage', () => {
         delete filteredExercise.name;
         delete filteredExercise.time_in_seconds;
 
-        expect(unwindedActiveWorkout.exercises[index]).toStrictEqual(filteredExercise);
+        expect(unwindedActiveWorkout.exercises[index]).toStrictEqual(
+          filteredExercise
+        );
       });
     });
-  })
+  });
 
   //describe('Unhappy path', () => {
   //  // USES MOCK FUNCTIONS
