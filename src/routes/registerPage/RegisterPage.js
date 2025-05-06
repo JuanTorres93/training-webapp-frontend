@@ -8,56 +8,56 @@ import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-    selectUser,
-    registerUser,
-    selectUserIsLoading,
+  selectUser,
+  registerUser,
+  selectUserIsLoading,
 } from "../../features/user/userSlice";
 
 export default function RegisterPage({
-    // These props are for testing purposes
-    mockDispatchFunction = null,
-    mockRegisterAction = null,
+  // These props are for testing purposes
+  mockDispatchFunction = null,
+  mockRegisterAction = null,
 }) {
-    const user = useSelector(selectUser);
-    const userIsLoading = useSelector(selectUserIsLoading);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const userIsLoading = useSelector(selectUserIsLoading);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (user) {
+      navigate("/app/home");
+    }
+  }, [user]);
 
-    useEffect(() => {
-        if (user) {
-            navigate("/app/home");
-        }
-    }, [user]);
+  const location = useLocation();
 
-    const location = useLocation();
+  const { t } = useTranslation();
 
-    const { t } = useTranslation();
+  return (
+    <section className="register-page">
+      <TranslatedNavHorizontal
+        currentLocation={location.pathname}
+        isInLandingPage={false}
+      />
 
-    return (
-        <section className="register-page">
-            <TranslatedNavHorizontal
-                currentLocation={location.pathname}
-                isInLandingPage={false}
-            />
+      <ExpiredSessionOptionOrCancel />
 
-            <ExpiredSessionOptionOrCancel />
-
-            <RegisterFormV2
-                formTitle={t('register-form-title')}
-                formSubtitle={t('register-form-subtitle')}
-                formSubtitleLinkText={t('register-form-subtitle-link')}
-                formUsernameLabel={t('register-form-username-label')}
-                formEmailLabel={t('register-form-email-label')}
-                formPasswordLabel={t('register-form-password-label')}
-                formTermsLabel={t('register-form-terms-label')}
-                formSubmitButtonText={t('register-form-submit-button')}
-                formOrRegisterWithText={t('register-form-or-register-with-text')}
-                dispatchFunction={mockDispatchFunction || dispatch}
-                registerAction={mockRegisterAction || registerUser}
-                isLoading={userIsLoading}
-            />
-            {/* <RegisterForm /> */}
-        </section>
-    );
-};
+      <RegisterFormV2
+        formTitle={t("register-form-title")}
+        formSubtitle={t("register-form-subtitle")}
+        formSubtitleLinkText={t("register-form-subtitle-link")}
+        formUsernameLabel={t("register-form-username-label")}
+        formEmailLabel={t("register-form-email-label")}
+        formPasswordLabel={t("register-form-password-label")}
+        formTermsLabel={t("register-form-terms-label")}
+        formSubmitButtonText={t("register-form-submit-button")}
+        formOrRegisterWithText={t("register-form-or-register-with-text")}
+        weakPasswordText={t("weak-password-text")}
+        dispatchFunction={mockDispatchFunction || dispatch}
+        registerAction={mockRegisterAction || registerUser}
+        isLoading={userIsLoading}
+      />
+      {/* <RegisterForm /> */}
+    </section>
+  );
+}

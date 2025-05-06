@@ -17,31 +17,16 @@ import { SubscriptionObserverProvider } from "./SubscriptionObserverContext";
 import "./i18n";
 
 // Link css files
-// import '@atlaskit/css-reset'
 import "./variables.css";
-// import './index.css'
 import "./css/style.css";
 
-// TODO Uncomment for stripe integration
-// import { loadStripe } from "@stripe/stripe-js";
-//import {
-//  Elements,   // Wrapper component to include stripe components for processing payments
-//} from '@stripe/react-stripe-js';
-// import HomePage from './routes/homePage/HomePage';
 import HomePageV2 from "./routes/homePage/HomePageV2";
 import ExercisesPage from "./routes/exercisesPage/ExercisesPage";
 import TemplatesPage from "./routes/templatesPage/TemplatesPage";
 import LandingPage from "./routes/landingPage/LandingPage";
-// import NavBar from './components/navbar/NavBar';
 import RunWorkoutPageV2 from "./routes/runWorkoutPage/RunWorkoutPageV2";
 import GlobalUserMessagesManager from "./components/globalUserMessagesManager/globalUserMessagesManager";
 
-import CreateTemplatePage from "./routes/createTemplate/CreateTemplatePage";
-import CreateExercisePage from "./routes/createExercise/CreateExercisePage";
-// import SelectTemplatePage from './routes/selectTemplate/SelectTemplatePage';
-import StartWorkoutPage from "./routes/startWorkoutPage/StartWorkoutPage";
-import RunWorkoutPage from "./routes/runWorkoutPage/RunWorkoutPage";
-import GenericChild from "./routes/GenericChild";
 import DefaultErrorPage from "./routes/DefaultErrorPage";
 import RegisterPage from "./routes/registerPage/RegisterPage";
 import LoginPage from "./routes/loginPage/LoginPage";
@@ -158,46 +143,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/old",
-    // element: <NavBar />,
-    errorElement: <DefaultErrorPage />,
-    children: [
-      { index: true, element: <HomePageV2 /> },
-      // {
-      // path: "home",
-      // element: <HomePage />
-      // },
-      // {
-      // path: "dashboard",
-      // element: <HomePage />
-      // },
-      {
-        path: "createTemplate",
-        element: <CreateTemplatePage />,
-      },
-      // {
-      //   path: "selectTemplate",
-      //   element: <SelectTemplatePage />
-      // },
-      {
-        path: "createExercise",
-        element: <CreateExercisePage />,
-      },
-      {
-        path: "startWorkout/template/:templateId",
-        element: <StartWorkoutPage />,
-      },
-      {
-        path: "runWorkout/:workoutId",
-        element: <RunWorkoutPage />,
-      },
-      {
-        path: "generic-child",
-        element: <GenericChild />,
-      },
-    ],
-  },
 ]);
 
 root.render(
@@ -207,12 +152,7 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <LoginObserverProvider>
           <SubscriptionObserverProvider>
-            {/* Wrapper for stripe process payment configuration. It will allow to access the elements through useElements hook */}
-            {/* TODO Uncomment for stripe integration */}
-            {/* <Elements stripe={stripePromise}> */}
             <RouterProvider router={router} />
-            {/* TODO Uncomment for stripe integration */}
-            {/* </Elements> */}
           </SubscriptionObserverProvider>
         </LoginObserverProvider>
       </PersistGate>

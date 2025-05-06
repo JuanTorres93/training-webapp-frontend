@@ -127,5 +127,6 @@
   "renewal-date-text": "Renewal date",
   "month-text": "month",
   "cancelled-subscription": "Cancelled subscription",
-  "finish-text": "Finish"
+  "finish-text": "Finish",
+  "weak-password-text": "Must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
 }

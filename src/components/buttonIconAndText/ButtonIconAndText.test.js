@@ -5,45 +5,40 @@ import { render, screen } from "@testing-library/react";
 
 import ButtonIconAndText from "./ButtonIconAndText";
 
-describe('ButtonIconAndText', () => {
-    // TODO show an actual ionIcon
-    const ionIcon = "icon";
-    const text = "Click me!";
-    const onClick = jest.fn();
+describe("ButtonIconAndText", () => {
+  // TODO show an actual ionIcon
+  const ionIcon = "icon";
+  const text = "Click me!";
+  const onClick = jest.fn();
 
-    describe('Happy path', () => {
+  describe("Happy path", () => {
+    beforeEach(() => {
+      render(
+        <ButtonIconAndText ionIcon={ionIcon} text={text} onClick={onClick} />
+      );
+    });
 
-        beforeEach(() => {
-            render(
-                <ButtonIconAndText
-                    ionIcon={ionIcon}
-                    text={text}
-                    onClick={onClick}
-                />
-            )
-        });
+    it("renders button text", () => {
+      const screenText = screen.getByText(text);
 
-        it('renders button text', () => {
-            const screenText = screen.getByText(text);
+      expect(screenText).toBeInTheDocument();
 
-            expect(screenText).toBeInTheDocument();
+      expect(screenText.innerHTML).toStrictEqual(text);
+    });
 
-            expect(screenText.innerHTML).toStrictEqual(text);
-        });
+    it("renders icon", () => {
+      const description = screen.getByText(ionIcon);
 
-        it('renders icon', () => {
-            const description = screen.getByText(ionIcon);
+      expect(description).toBeInTheDocument();
+      expect(description.innerHTML).toStrictEqual(ionIcon);
+    });
 
-            expect(description).toBeInTheDocument();
-            expect(description.innerHTML).toStrictEqual(ionIcon);
-        });
+    it("calls onClick when clicked", () => {
+      const button = screen.getByText(text);
 
-        it('calls onClick when clicked', () => {
-            const button = screen.getByText(text);
+      button.click();
 
-            button.click();
-
-            expect(onClick).toHaveBeenCalled();
-        });
-    })
-})
+      expect(onClick).toHaveBeenCalled();
+    });
+  });
+});

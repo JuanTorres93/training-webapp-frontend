@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { allowOnlyIntegers, pasteOnlyIntegers } from "../../utils/inputUtils";
 
 const ExercisePresenterV2 = ({
   id,
@@ -76,19 +77,20 @@ const ExercisePresenterV2 = ({
 
       {orderInTemplate !== null && (
         <div className="exercise-presenter__sets-box">
-          {/* TODO validate only integers */}
           <span className="exercise-presenter__sets-label">
             {placeholderSets}
           </span>
           <input
             className={`
-                            base-input-text integer-input
-                            ${
-                              !actionsEnabled
-                                ? "exercise-presenter__sets-input--disabled"
-                                : ""
-                            }
-                            `}
+              base-input-text integer-input
+                ${
+                  !actionsEnabled
+                    ? "exercise-presenter__sets-input--disabled"
+                    : ""
+                }
+              `}
+            onKeyDown={allowOnlyIntegers}
+            onPaste={pasteOnlyIntegers}
             onChange={handleSetsChange}
             value={numberOfSets}
             type="number"

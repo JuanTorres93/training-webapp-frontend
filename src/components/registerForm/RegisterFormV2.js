@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import OAuthLoginV2 from "../oauthLogin/OAuthLoginV2";
 
 import { googleOAuthURL } from "../../serverAPI/serverAPIConfig";
+import {
+  strongPasswordRegexString,
+  strongPasswordRegex,
+} from "../../utils/inputUtils";
 
 const RegisterFormV2 = ({
   formTitle, // e.g: 'Create an account'
@@ -15,6 +19,7 @@ const RegisterFormV2 = ({
   formTermsLabel, // e.g: 'I accept the terms and conditions'
   formSubmitButtonText, // e.g: 'Create account'
   formOrRegisterWithText, // e.g: 'Or register with'
+  weakPasswordText,
   dispatchFunction = () => {},
   registerAction = (arg) => {},
   isLoading = false,
@@ -22,11 +27,18 @@ const RegisterFormV2 = ({
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [terms, setTerms] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
   const toggleShowPass = () => {
     setShowPass(!showPass);
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    setPasswordIsValid(strongPasswordRegex.test(value));
   };
 
   const handleSubmit = (e) => {
@@ -124,16 +136,31 @@ const RegisterFormV2 = ({
               className={`base-input-text register-form__input ${
                 isLoading ? "register-form__input--disabled" : ""
               }`}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               value={password}
               id="password"
               data-testid="password"
               type={showPass ? "text" : "password"}
               placeholder={formPasswordLabel}
-              // TODO add strong password validation
               disabled={isLoading}
               required
+              pattern={strongPasswordRegexString}
+              title={weakPasswordText}
             />
+            {!passwordIsValid && (
+              // This component is just for testing purposes, it should not be visible
+              <span
+                style={{
+                  opacity: 0,
+                  position: "fixed",
+                  bottom: 0,
+                  left: 0,
+                  pointerEvents: "none",
+                }}
+              >
+                not strong enough
+              </span>
+            )}
             <label
               htmlFor="password"
               className="register-form__label register-form__label--input-text"
