@@ -61,6 +61,7 @@
     grid-column: 1 / -4;
 
     display: flex;
+    justify-content: center;
 
     @media screen and (max-width: $bp-large) {
       grid-column: 1 / -1;
@@ -236,5 +237,43 @@
         color: $color-grey-dark-5 !important;
       }
     }
+  }
+
+  &__no-info-box {
+    grid-column: 1 / -1;
+    align-self: center;
+    justify-self: center;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    color: $color-grey-dark-4;
+
+    text-align: center;
+  }
+
+  &__icon-no-info-box {
+    & > * {
+      font-size: 15rem;
+      --ionicon-stroke-width: 1rem;
+      color: $color-grey-light-1;
+    }
+
+    &--workouts {
+      margin-bottom: 3.5rem;
+    }
+  }
+
+  &__no-info-text {
+    font-weight: 500;
+    font-size: 1.75rem;
+    margin-bottom: 0.8rem;
+  }
+
+  &__no-info-subtext {
+    color: $color-grey-dark-2;
   }
 }

@@ -3490,6 +3490,7 @@ body {
   grid-row: weight-progress-start/weight-progress-end;
   grid-column: 1/-4;
   display: flex;
+  justify-content: center;
 }
 @media screen and (max-width: 45.125em) {
   .home-page__weight-progress-box {
@@ -3642,6 +3643,33 @@ body {
 .home-page__workout-name--disabled:hover, .home-page__workout-name--disabled:active {
   background-color: #dde0de !important;
   color: #2d302e !important;
+}
+.home-page__no-info-box {
+  grid-column: 1/-1;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #3c3f3d;
+  text-align: center;
+}
+.home-page__icon-no-info-box > * {
+  font-size: 15rem;
+  --ionicon-stroke-width: 1rem;
+  color: #c3c6c4;
+}
+.home-page__icon-no-info-box--workouts {
+  margin-bottom: 3.5rem;
+}
+.home-page__no-info-text {
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-bottom: 0.8rem;
+}
+.home-page__no-info-subtext {
+  color: #858886;
 }
 
 .run-workout-page {

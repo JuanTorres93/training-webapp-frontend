@@ -27,7 +27,7 @@ export default function SubscriptionPresenter({
 
       window.location = await response.session.url;
     } catch (error) {
-      // TODO handle error
+      // TODO later? handle error
       console.log(error);
     } finally {
       setLoading(false);

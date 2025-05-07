@@ -148,7 +148,6 @@ export default function HomePageV2() {
       });
 
       const weightLine = {
-        // TODO: Add translation. Use: tooltip-weight
         id: "Weight",
         data,
       };
@@ -292,10 +291,22 @@ export default function HomePageV2() {
             {
               // If there are no recent workouts and they are not loading, show a message
               !templatesAndWorkoutsLoading && recentWorkouts.length === 0 && (
-                // TODO style this p tag
-                <p data-testid="no-recent-workouts">
-                  {t("home-page-no-recent-workouts")}
-                </p>
+                <div className="home-page__no-info-box">
+                  <figure className="home-page__icon-no-info-box home-page__icon-no-info-box--workouts">
+                    <ion-icon name="bar-chart-outline"></ion-icon>
+                  </figure>
+
+                  <span
+                    data-testid="no-recent-workouts"
+                    className="home-page__no-info-text"
+                  >
+                    {t("home-page-no-recent-workouts")}
+                  </span>
+
+                  <span className="home-page__no-info-subtext">
+                    {t("home-page-no-recent-workouts-subtext")}
+                  </span>
+                </div>
               )
             }
             {
@@ -338,8 +349,22 @@ export default function HomePageV2() {
               />
             )}
             {!weightIsLoading && weightDataChart.length === 0 && (
-              // TODO style this p tag
-              <p>{t("home-page-no-weight-history")}</p>
+              <div className="home-page__no-info-box">
+                <figure className="home-page__icon-no-info-box">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                </figure>
+
+                <span
+                  data-testid="no-recent-workouts"
+                  className="home-page__no-info-text"
+                >
+                  {t("home-page-no-weight-history")}
+                </span>
+
+                <span className="home-page__no-info-subtext">
+                  {t("home-page-no-weight-history-subtext")}
+                </span>
+              </div>
             )}
           </div>
           <div className="home-page__weight-input-box home-page__dashboard-box">
