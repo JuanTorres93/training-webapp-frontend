@@ -2859,9 +2859,11 @@ body {
   width: 100%;
   color: #858886;
   cursor: pointer;
-  font-size: 1.3rem;
   text-transform: uppercase;
   transition: all 0.3s;
+}
+.flash-message__close-box, .flash-message__close-box > * {
+  font-size: 2.3rem;
 }
 .flash-message__close-box:hover {
   background-color: #dde0de;

@@ -283,8 +283,6 @@ export const selectUserIsLogingOut = (state) => state[sliceName].isLogingOut;
 
 // Export actions
 export const { resetError } = userSlice.actions;
-// TODO BORRAR. ESTO ES DE HACE MUCHO TIEMPO. CUANDO USABA EL ROOT COMPONENT
-export const { setUser } = userSlice.actions;
 
 // Export reducer
 export default userSlice.reducer;

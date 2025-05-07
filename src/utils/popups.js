@@ -99,10 +99,9 @@ export const positionPopup = (
 
 export const closePopupOnClickOutside = (
   event,
-  setShowPopup,
+  setShowPopup, // Can be an array
   ignoredClasses = null
 ) => {
-  // TODO update for accepting an array of setShowPopups
   // ignoredClasses is an array of strings that are class names that should not trigger the closing of the popup
   // This allows for the popup to be able to show up in the first place
 
@@ -120,5 +119,14 @@ export const closePopupOnClickOutside = (
     return className.startsWith("popup-name-desc");
   });
 
-  if (!isInsidePopup) setShowPopup(false);
+  // turn setShowPopup to array if it is not
+  if (!Array.isArray(setShowPopup)) {
+    setShowPopup = [setShowPopup];
+  }
+
+  if (!isInsidePopup) {
+    setShowPopup.forEach((setPopup) => {
+      setPopup(false);
+    });
+  }
 };

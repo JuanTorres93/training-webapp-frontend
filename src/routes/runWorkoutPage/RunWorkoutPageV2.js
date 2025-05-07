@@ -274,7 +274,7 @@ export default function RunWorkoutPageV2() {
       <main className="app-layout">
         <TranslatedNavVertical />
 
-        {/* TODO IMPORTANT QUITAR EL REF de aquí??? No tiene pinta de que haga falta a priori */}
+        {/* TODO not sure IMPORTANT QUITAR EL REF de aquí??? No tiene pinta de que haga falta a priori */}
         <section className="run-workout-page" ref={weightGraphContainerRef}>
           {exerciseCompleters}
 
