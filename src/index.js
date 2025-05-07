@@ -17,7 +17,6 @@ import { SubscriptionObserverProvider } from "./SubscriptionObserverContext";
 import "./i18n";
 
 // Link css files
-import "./variables.css";
 import "./css/style.css";
 
 import HomePageV2 from "./routes/homePage/HomePageV2";
