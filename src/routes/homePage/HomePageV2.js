@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectUser, loginUser } from "../../features/user/userSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { pasteOnlyFloats, allowOnlyFloats } from "../../utils/inputUtils";
+
 import {
   selectWorkoutsLoading,
   createWorkout,
@@ -177,11 +179,13 @@ export default function HomePageV2() {
 
     const today = new Date().toISOString().split("T")[0];
 
+    const weightTwoDecimalPlaces = parseFloat(todaysWeight).toFixed(2);
+
     if (!currentWeight || currentWeight.date !== today) {
       return dispatch(
         addCurrentDayWeight({
           userId: user.id,
-          weight: todaysWeight,
+          weight: weightTwoDecimalPlaces,
         })
       ).then(() => {
         setTodaysWeight("");
@@ -190,7 +194,7 @@ export default function HomePageV2() {
       return dispatch(
         updateCurrentDayWeight({
           userId: user.id,
-          weight: todaysWeight,
+          weight: weightTwoDecimalPlaces,
         })
       ).then(() => {
         setTodaysWeight("");
@@ -273,6 +277,16 @@ export default function HomePageV2() {
         </React.Fragment>
       );
     });
+  };
+
+  const handleWeightChange = (e) => {
+    const isFloat = /^\d*\.?\d*$/.test(e.target.value);
+    if (!isFloat) {
+      e.preventDefault();
+      setTodaysWeight(null);
+    } else {
+      setTodaysWeight(e.target.value);
+    }
   };
 
   return (
@@ -375,13 +389,13 @@ export default function HomePageV2() {
             <form className="home-page__weight-input-form">
               <input
                 className="base-input-text integer-input home-page__weight-input"
-                // TODO add validation?
-                onChange={(e) => setTodaysWeight(e.target.value)}
+                onKeyDown={allowOnlyFloats}
+                onPaste={pasteOnlyFloats}
+                onChange={handleWeightChange}
                 value={todaysWeight}
                 type="number"
                 id="weight"
                 name="weight"
-                // TODO substitute with real last value
                 placeholder={
                   t("home-page-last-weight-placeholder") +
                   ` ${

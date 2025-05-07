@@ -26,3 +26,29 @@ export const pasteOnlyIntegers = (e) => {
     e.preventDefault();
   }
 };
+
+export const allowOnlyFloats = (e) => {
+  const isAllowed =
+    /^[0-9]$/.test(e.key) ||
+    e.key === "." ||
+    e.key === "Backspace" ||
+    e.key === "Tab" ||
+    e.key === "ArrowLeft" ||
+    e.key === "ArrowRight" ||
+    e.key === "Delete";
+
+  if (!isAllowed) {
+    e.preventDefault();
+  }
+  // Allow only one decimal point
+  if (e.key === "." && e.target.value.includes(".")) {
+    e.preventDefault();
+  }
+};
+
+export const pasteOnlyFloats = (e) => {
+  const pasted = e.clipboardData.getData("text");
+  if (!/^\d*\.?\d*$/.test(pasted)) {
+    e.preventDefault();
+  }
+};
