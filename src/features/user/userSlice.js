@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { initialErrorState, createNewError } from "../slicesUtils";
 
 import { register, selectUserById } from "../../serverAPI/users";
-import { login, extendSession } from "../../serverAPI/login";
+import { login, extendSession, authMe } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import {
   getExercisesFromUser,
@@ -42,9 +42,12 @@ export const loginUser = createAsyncThunk(
         userId = response.user.id;
       }
       // OAuth login
-      else if (arg.userIdOAuth) {
-        userId = arg.userIdOAuth;
+      else if (arg.isOAuthLogin) {
+        const authData = await authMe();
+
+        userId = authData.id;
         user = await selectUserById(userId);
+        user.expirationDate = authData.expirationDate;
       }
     } catch (error) {
       const statusCode = error.response.status;

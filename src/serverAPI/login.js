@@ -42,3 +42,15 @@ export async function loginGoogle() {
 
   return response.data;
 }
+
+export async function authMe() {
+  const response = await apiClient.get(loginEndPoint + "/auth/me", {
+    withCredentials: true,
+  });
+
+  try {
+    return response.data;
+  } catch (error) {
+    return response;
+  }
+}

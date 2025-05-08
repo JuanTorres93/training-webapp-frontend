@@ -76,38 +76,18 @@ export default function HomePageV2() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
 
-    const token = searchParams.get("token");
+    const loginType = searchParams.get("login");
 
-    let userId = null;
-    if (token) {
-      try {
-        const data = jwtDecode(token);
-        const encryptedUserId = data.userId;
-        // Decrypt userId
-        var bytes = CryptoJS.AES.decrypt(
-          encryptedUserId,
-          process.env.REACT_APP_JWT_SECRET
-        );
-        userId = bytes.toString(CryptoJS.enc.Utf8);
-      } catch (error) {
-        console.log("Error decoding token");
-      }
-    }
-
-    if (!user && !userId) {
-      navigate("/login");
-    }
-
-    if (userId) {
+    if (loginType && loginType === "oauth" && !user) {
       dispatch(
         loginUser({
-          userIdOAuth: userId,
+          isOAuthLogin: true,
         })
       ).then(() => {
         navigate("/app/home");
       });
     }
-  }, [user]);
+  }, [user, location]);
 
   useEffect(() => {
     // Let some time to process that subscription has been created
