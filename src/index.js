@@ -44,13 +44,6 @@ const root = createRoot(container);
 // Redux store configuration
 // export const { store, persistor, resetApp } = setupStore({});
 
-// Stripe config
-// TODO use an environment variable in real projects
-// DOCS Stripe tutorial: https://www.youtube.com/watch?v=0Kd0LeAMGf4&ab_channel=FaztCode
-
-// TODO Uncomment for stripe integration
-// const stripePromise = loadStripe("pk_test_51Ogm7BK8WU6l6aWStayNzNOetoI6qIZOp2YpjjwSBbwejqTwHMQ6wuVoldlnhEpeoj2McQvrEpU1yCi0G3HfHduf007gdbuqWa");
-
 // Router config
 const router = createBrowserRouter([
   {

@@ -183,7 +183,7 @@ const userSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action) => {
       const { statusCode } = action.payload;
 
-      // TODO TRANSLATE
+      // TODO TRANSLATE. GESTIONAR DESDE BACK
       const errorMsg =
         statusCode === 401 ? "Invalid credentials" : "Login failed";
 
@@ -207,7 +207,7 @@ const userSlice = createSlice({
     });
     builder.addCase(extendUserSession.rejected, (state, action) => {
       const { statusCode } = action.payload;
-      // TODO TRANSLATE
+      // TODO TRANSLATE. GESTIONAR DESDE BACK
       const errorMsg =
         statusCode === 400
           ? "Session could not be extended"
@@ -230,7 +230,7 @@ const userSlice = createSlice({
     builder.addCase(registerUser.rejected, (state, action) => {
       const { statusCode, response } = action.payload;
 
-      // TODO TRANSLATE
+      // TODO TRANSLATE. GESTIONAR DESDE BACK
       let errorMsg = "Registration failed";
 
       if (statusCode === 409) {
@@ -238,15 +238,15 @@ const userSlice = createSlice({
 
         // Check if email is contained in lowercase resMsg
         if (resMsg.toLowerCase().includes("email")) {
-          // TODO TRANSLATE
+          // TODO TRANSLATE. GESTIONAR DESDE BACK
           errorMsg = "Email already in use";
         } else {
-          // TODO TRANSLATE
+          // TODO TRANSLATE. GESTIONAR DESDE BACK
           errorMsg = "Username already in use";
         }
       } else if (statusCode === 400) {
         const errorMsgs = response.errors.map((err) => err.msg);
-        // TODO TRANSLATE
+        // TODO TRANSLATE. GESTIONAR DESDE BACK
         errorMsg = errorMsgs[0];
       }
 
