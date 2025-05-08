@@ -130,5 +130,12 @@
   "month-text": "month",
   "cancelled-subscription": "Cancelled subscription",
   "finish-text": "Finish",
-  "weak-password-text": "Must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
+  "weak-password-text": "Must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol",
+  "error-invalid-credentials": "Invalid credentials",
+  "error-login-failed": "Login failed",
+  "error-register-failed": "Registration failed",
+  "error-email-taken": "Email already in use",
+  "error-username-taken": "Username already in use",
+  "error-session-not-extended": "Session could not be extended",
+  "error-extension-failed": "Session extension failed"
 }

@@ -130,5 +130,12 @@
   "month-text": "mes",
   "cancelled-subscription": "Suscripción cancelada",
   "finish-text": "Finalizar",
-  "weak-password-text": "Debe tener al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo"
+  "weak-password-text": "Debe tener al menos 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo",
+  "error-invalid-credentials": "Credenciales inválidas",
+  "error-login-failed": "Error al iniciar sesión",
+  "error-register-failed": "Error al crear cuenta",
+  "error-email-taken": "Email ya en uso",
+  "error-username-taken": "Nombre de usuario ya en uso",
+  "error-session-not-extended": "No se pudo extender la sesión",
+  "error-extension-failed": "Error al extender la sesión"
 }

@@ -21,6 +21,7 @@ import {
 import { getLastPayment } from "../payments/paymentsSlice";
 
 import { resetApp } from "../../app/store";
+import i18n from "../../i18n";
 
 export const sliceName = "user";
 const LOADING_FLAG = true;
@@ -46,10 +47,6 @@ export const loginUser = createAsyncThunk(
         user = await selectUserById(userId);
       }
     } catch (error) {
-      // TODO DELETE THESE DEBUG LOGS
-      console.log("login error.response");
-      console.log(error.response);
-
       const statusCode = error.response.status;
       return thunkAPI.rejectWithValue({ statusCode });
     }
@@ -102,10 +99,6 @@ export const extendUserSession = createAsyncThunk(
     try {
       response = await extendSession();
     } catch (error) {
-      // TODO DELETE THESE DEBUG LOGS
-      console.log("extend session error.response");
-      console.log(error.response);
-
       return thunkAPI.rejectWithValue({ statusCode: error.response.status });
     }
 
@@ -142,10 +135,6 @@ export const registerUser = createAsyncThunk(
       );
     } catch (error) {
       const response = error.response;
-
-      // TODO DELETE THESE DEBUG LOGS
-      console.log("register session error.response");
-      console.log(error.response);
 
       return thunkAPI.rejectWithValue({
         statusCode: response.status,
@@ -195,9 +184,10 @@ const userSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action) => {
       const { statusCode } = action.payload;
 
-      // TODO TRANSLATE. GESTIONAR DESDE BACK
       const errorMsg =
-        statusCode === 401 ? "Invalid credentials" : "Login failed";
+        statusCode === 401
+          ? i18n.t("error-invalid-credentials")
+          : i18n.t("error-login-failed");
 
       state.isLoading.pop();
       state.error = createNewError(errorMsg);
@@ -219,11 +209,11 @@ const userSlice = createSlice({
     });
     builder.addCase(extendUserSession.rejected, (state, action) => {
       const { statusCode } = action.payload;
-      // TODO TRANSLATE. GESTIONAR DESDE BACK
+
       const errorMsg =
         statusCode === 400
-          ? "Session could not be extended"
-          : "Session extension failed";
+          ? i18n.t("error-session-not-extended")
+          : i18n.t("error-extension-failed");
       state.isLoading.pop();
       state.error = createNewError(errorMsg);
     });
@@ -242,19 +232,16 @@ const userSlice = createSlice({
     builder.addCase(registerUser.rejected, (state, action) => {
       const { statusCode, response } = action.payload;
 
-      // TODO TRANSLATE. GESTIONAR DESDE BACK
-      let errorMsg = "Registration failed";
+      let errorMsg = i18n.t("error-register-failed");
 
       if (statusCode === 409) {
         const resMsg = response.msg;
 
         // Check if email is contained in lowercase resMsg
         if (resMsg.toLowerCase().includes("email")) {
-          // TODO TRANSLATE. GESTIONAR DESDE BACK
-          errorMsg = "Email already in use";
+          errorMsg = i18n.t("error-email-taken");
         } else {
-          // TODO TRANSLATE. GESTIONAR DESDE BACK
-          errorMsg = "Username already in use";
+          errorMsg = i18n.t("error-username-taken");
         }
       } else if (statusCode === 400) {
         const errorMsgs = response.errors.map((err) => err.msg);

@@ -217,7 +217,8 @@ const RegisterFormV2 = ({
             }`}
             disabled={isLoading}
           >
-            {formSubmitButtonText}
+            {!isLoading && formSubmitButtonText}
+            {isLoading && <div className="spinner-2p2-rem"></div>}
           </button>
         </form>
 
