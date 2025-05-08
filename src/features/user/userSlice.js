@@ -46,6 +46,10 @@ export const loginUser = createAsyncThunk(
         user = await selectUserById(userId);
       }
     } catch (error) {
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("login error.response");
+      console.log(error.response);
+
       const statusCode = error.response.status;
       return thunkAPI.rejectWithValue({ statusCode });
     }
@@ -98,6 +102,10 @@ export const extendUserSession = createAsyncThunk(
     try {
       response = await extendSession();
     } catch (error) {
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("extend session error.response");
+      console.log(error.response);
+
       return thunkAPI.rejectWithValue({ statusCode: error.response.status });
     }
 
@@ -134,6 +142,10 @@ export const registerUser = createAsyncThunk(
       );
     } catch (error) {
       const response = error.response;
+
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("register session error.response");
+      console.log(error.response);
 
       return thunkAPI.rejectWithValue({
         statusCode: response.status,
