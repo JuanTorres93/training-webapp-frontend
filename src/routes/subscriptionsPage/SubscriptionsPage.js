@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, use } from "react";
 import TranslatedNavVertical from "../../components/navVertical/TranslatedNavVertical";
 
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 
@@ -23,6 +24,8 @@ import lastPaymentExpired from "../../utils/checkLastPayment";
 
 export default function SubscriptionsPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector(selectUser);
   const subscriptions = useSelector(selectSubscriptions);
   const currentLanguage = useSelector(selectCurrentLanguage);
@@ -33,9 +36,15 @@ export default function SubscriptionsPage() {
   const [currentSubscriptionPresenter, setCurrentSubscriptionPresenter] =
     useState(null);
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
+
   // timeout to check if the last payment is expired
   setTimeout(() => {
-    if (lastPayment && lastPayment.next_payment_date) {
+    if (lastPayment && lastPayment.next_payment_date && user) {
       const isExpired = lastPaymentExpired(lastPayment.next_payment_date);
       if (isExpired) {
         dispatch(getCurrentSubscription({ userId: user.id }));
@@ -45,6 +54,7 @@ export default function SubscriptionsPage() {
   }, 10000);
 
   useEffect(() => {
+    if (!user) return;
     dispatch(getCurrentSubscription({ userId: user.id }));
     dispatch(getLastPayment());
   }, []);

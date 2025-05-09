@@ -70,6 +70,12 @@ export default function HomePageV2() {
     useState(true);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
+
+  useEffect(() => {
     setTemplatesAndWorkoutsLoading(templatesLoading || workoutsLoading);
   }, [templatesLoading, workoutsLoading]);
 
