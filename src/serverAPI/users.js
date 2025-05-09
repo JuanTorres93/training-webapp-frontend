@@ -10,7 +10,8 @@ export async function register(
   password,
   oauth_registration,
   is_premium,
-  is_early_adopter
+  is_early_adopter,
+  language = "en"
 ) {
   const created_at = new Date().toISOString();
   const body = {
@@ -19,6 +20,7 @@ export async function register(
     password,
     is_premium,
     is_early_adopter,
+    language,
     created_at,
   };
 

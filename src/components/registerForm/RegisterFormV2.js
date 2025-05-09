@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentLanguage } from "../../features/language/languageSlice";
 
 import OAuthLoginV2 from "../oauthLogin/OAuthLoginV2";
 
@@ -31,6 +33,8 @@ const RegisterFormV2 = ({
   const [terms, setTerms] = useState(false);
   const [showPass, setShowPass] = useState(false);
 
+  const currentLanguage = useSelector(selectCurrentLanguage);
+
   const toggleShowPass = () => {
     setShowPass(!showPass);
   };
@@ -51,6 +55,7 @@ const RegisterFormV2 = ({
         oauth_registration: null,
         is_premium: false,
         is_early_adopter: false,
+        language: currentLanguage,
       })
     );
   };

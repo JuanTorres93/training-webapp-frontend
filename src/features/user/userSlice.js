@@ -125,7 +125,7 @@ export const logoutUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   `${sliceName}/registerUser`,
   async (arg, thunkAPI) => {
-    // arg = { username, email, password, oauth_registration, is_premium, is_early_adopter }
+    // arg = { username, email, password, oauth_registration, is_premium, is_early_adopter, language }
     let response;
     try {
       response = await register(
@@ -134,7 +134,8 @@ export const registerUser = createAsyncThunk(
         arg.password,
         arg.oauth_registration,
         arg.is_premium,
-        arg.is_early_adopter
+        arg.is_early_adopter,
+        arg.language
       );
     } catch (error) {
       const response = error.response;
