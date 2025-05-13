@@ -24,6 +24,8 @@ import ExercisesPage from "./routes/exercisesPage/ExercisesPage";
 import TemplatesPage from "./routes/templatesPage/TemplatesPage";
 import LandingPage from "./routes/landingPage/LandingPage";
 import RunWorkoutPageV2 from "./routes/runWorkoutPage/RunWorkoutPageV2";
+import ForgotPasswordPage from "./routes/forgotPasswordPage/ForgotPasswordPage";
+import ResetPasswordPage from "./routes/resetPasswordPage/ResetPasswordPage";
 import GlobalUserMessagesManager from "./components/globalUserMessagesManager/globalUserMessagesManager";
 
 import DefaultErrorPage from "./routes/DefaultErrorPage";
@@ -69,6 +71,24 @@ const router = createBrowserRouter([
     element: (
       <GlobalUserMessagesManager>
         <LoginPage />
+      </GlobalUserMessagesManager>
+    ),
+    errorElement: <DefaultErrorPage />,
+  },
+  {
+    path: "/forgotPassword",
+    element: (
+      <GlobalUserMessagesManager>
+        <ForgotPasswordPage />
+      </GlobalUserMessagesManager>
+    ),
+    errorElement: <DefaultErrorPage />,
+  },
+  {
+    path: "/resetPassword", // TODO add token to the URL
+    element: (
+      <GlobalUserMessagesManager>
+        <ResetPasswordPage />
       </GlobalUserMessagesManager>
     ),
     errorElement: <DefaultErrorPage />,

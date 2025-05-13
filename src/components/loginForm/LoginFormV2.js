@@ -164,13 +164,14 @@ const LoginFormV2 = ({
               {formRememberMeText}
             </label>
 
-            <span
+            <Link
+              to={`${isLoading ? "" : "/forgotPassword"}`}
               className={`login-form__forgot ${
                 isLoading ? "login-form__forgot--disabled" : ""
               }`}
             >
               {formForgotPasswordText}
-            </span>
+            </Link>
           </div>
 
           {/* Login button */}

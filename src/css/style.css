@@ -1662,7 +1662,8 @@ body {
   background-color: #dde0de !important;
   border-color: #575a58 !important;
 }
-.login-form__forgot {
+.login-form__forgot, .login-form__forgot:link, .login-form__forgot:visited {
+  text-decoration: none;
   font-size: 1.4rem;
   color: #03B670;
   font-weight: 600;
@@ -1693,6 +1694,147 @@ body {
 .login-form__create-account-link--disabled {
   color: #858886 !important;
   cursor: not-allowed;
+}
+
+.forgot-reset-pass-form {
+  grid-column: center-start/center-end;
+  max-width: 136.5rem;
+  max-height: 88rem;
+  justify-self: center;
+  display: flex;
+  padding: 4rem;
+  background-color: #dde0de;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  backface-visibility: hidden;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+}
+.forgot-reset-pass-form__form-box {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+@media only screen and (max-width: 37.5em) {
+  .forgot-reset-pass-form__form-box {
+    padding-right: 0rem;
+    padding: 6rem 2rem;
+  }
+}
+.forgot-reset-pass-form__title-box {
+  margin-bottom: 4rem;
+}
+.forgot-reset-pass-form__title {
+  font-size: 4rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.forgot-reset-pass-form__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.forgot-reset-pass-form__input-box {
+  position: relative;
+}
+.forgot-reset-pass-form__input-box:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.forgot-reset-pass-form__input-icon-box {
+  position: relative;
+  left: 1.5rem;
+}
+.forgot-reset-pass-form__input-icon-box > * {
+  font-size: 2rem;
+}
+.forgot-reset-pass-form .show-pass-box, .forgot-reset-pass-form__input-icon-box {
+  position: absolute;
+  right: 1.5rem;
+  top: 0.1rem;
+  transform: translateY(60%);
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+.forgot-reset-pass-form .show-pass-box > *, .forgot-reset-pass-form__input-icon-box > * {
+  width: 100%;
+  height: 100%;
+  color: #2d302e;
+  transition: all 0.2s;
+}
+.forgot-reset-pass-form .show-pass-box > *:hover, .forgot-reset-pass-form__input-icon-box > *:hover {
+  color: #575a58;
+}
+.forgot-reset-pass-form__input {
+  border: 1px solid transparent;
+  width: 100%;
+  padding-left: 4.5rem;
+}
+.forgot-reset-pass-form__input::placeholder {
+  transition: opacity 0.1s ease-out;
+  color: currentColor;
+}
+.forgot-reset-pass-form__input:hover {
+  border-color: #4BDE94;
+}
+.forgot-reset-pass-form__input:focus {
+  border-color: #03B670;
+}
+.forgot-reset-pass-form__input:focus:invalid {
+  border-color: #ea704e;
+}
+.forgot-reset-pass-form__input:focus::placeholder {
+  color: transparent;
+}
+.forgot-reset-pass-form__input--disabled {
+  cursor: not-allowed;
+  background-color: #dde0de;
+  border-color: #575a58;
+  color: #575a58;
+}
+.forgot-reset-pass-form__input--disabled:-webkit-autofill, .forgot-reset-pass-form__input--disabled:-webkit-autofill:hover, .forgot-reset-pass-form__input--disabled:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #dde0de inset;
+}
+.forgot-reset-pass-form__input--disabled:hover {
+  border-color: #575a58;
+}
+.forgot-reset-pass-form__submit-button {
+  font-size: inherit;
+  background-image: linear-gradient(to right, #2FCA82, #2FCA82);
+  text-align: center;
+  padding: 2rem 0;
+  border-radius: 1rem;
+  font-weight: 500;
+  color: #2d302e;
+  transition: all 0.2s ease-out;
+}
+.forgot-reset-pass-form__submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right, #2FCA82 0%, #4BDE94 100%);
+}
+.forgot-reset-pass-form__submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+}
+.forgot-reset-pass-form__submit-button--disabled {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.forgot-reset-pass-form__submit-button--disabled:hover {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+  box-shadow: none;
+}
+.forgot-reset-pass-form__submit-button--disabled:active {
+  background-image: linear-gradient(to right, #858886, #c3c6c4);
+  transform: none;
+  box-shadow: none;
 }
 
 .oauth-login, .oauth-login:link, .oauth-login:visited {

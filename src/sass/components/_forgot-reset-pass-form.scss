@@ -1,0 +1,188 @@
+@use "../abstracts/" as *;
+@use "../base/" as *;
+
+.forgot-reset-pass-form {
+  grid-column: center-start / center-end;
+  max-width: 136.5rem;
+  max-height: 88rem;
+  justify-self: center;
+
+  display: flex;
+  padding: 4rem;
+  background-color: $color-grey-light-2;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  backface-visibility: hidden;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+  &__form-box {
+    flex: 1;
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+
+    @media only screen and (max-width: $bp-landing-smallest) {
+      padding-right: 0rem;
+      padding: 6rem 2rem;
+    }
+  }
+
+  &__title-box {
+    margin-bottom: 4rem;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__input-box {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__input-icon-box {
+    position: relative;
+    left: 1.5rem;
+    & > * {
+      font-size: 2rem;
+    }
+  }
+
+  .show-pass-box,
+  &__input-icon-box {
+    position: absolute;
+    right: 1.5rem;
+    top: 0.1rem;
+    transform: translateY(60%);
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+
+    // .show-pass-icon--opened and --closed
+    // it seems that ion-icon component does not allow to use
+    // more than one class in the same element, so to DRY the code
+    // I'm using the all children selector
+    & > * {
+      width: 100%;
+      height: 100%;
+      color: $color-grey-dark-5;
+      transition: all 0.2s;
+
+      &:hover {
+        color: $color-grey-dark-3;
+      }
+    }
+  }
+
+  &__input {
+    border: 1px solid transparent;
+    width: 100%;
+    padding-left: 4.5rem;
+
+    &::placeholder {
+      transition: opacity 0.1s ease-out;
+      color: currentColor;
+    }
+
+    &:hover {
+      border-color: $color-primary-light;
+    }
+
+    &:focus {
+      border-color: $color-primary-dark;
+
+      &:invalid {
+        border-color: $color-red;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      background-color: $color-grey-light-2;
+      border-color: $color-grey-dark-3;
+      color: $color-grey-dark-3;
+
+      // Overwrite background color on autofill
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px $color-grey-light-2 inset;
+      }
+
+      &:hover {
+        border-color: $color-grey-dark-3;
+      }
+    }
+  }
+
+  &__submit-button {
+    font-size: inherit;
+    background-image: linear-gradient(to right, $color-primary, $color-primary);
+    text-align: center;
+    padding: 2rem 0;
+    border-radius: 1rem;
+    font-weight: 500;
+    color: $color-grey-dark-5;
+
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0.5rem 1rem rgba($color-black, 0.1);
+      background-image: linear-gradient(
+        to right,
+        $color-primary 0%,
+        $color-primary-light 100%
+      );
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 0.25rem 0.5rem rgba($color-black, 0.05);
+    }
+
+    &--disabled {
+      $backgroundImage: linear-gradient(
+        to right,
+        $color-grey-dark-2,
+        $color-grey-light-1
+      );
+      background-image: $backgroundImage;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+
+      &:hover {
+        background-image: $backgroundImage;
+        transform: none;
+        box-shadow: none;
+      }
+
+      &:active {
+        background-image: $backgroundImage;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -289,11 +289,16 @@
   }
 
   &__forgot {
-    font-size: 1.4rem;
-    color: $color-primary-dark;
-    font-weight: 600;
-    text-align: right;
-    cursor: pointer;
+    &,
+    &:link,
+    &:visited {
+      text-decoration: none;
+      font-size: 1.4rem;
+      color: $color-primary-dark;
+      font-weight: 600;
+      text-align: right;
+      cursor: pointer;
+    }
 
     &:hover {
       color: $color-primary-light;
