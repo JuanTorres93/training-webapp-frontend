@@ -72,3 +72,22 @@ export async function forgotPassword(email) {
     return response;
   }
 }
+
+export async function resetPassword(token, password, passwordConfirm) {
+  const response = await apiClient.patch(
+    usersEndPoint + "/resetPassword/" + token,
+    { password, passwordConfirm },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
+
+  try {
+    return response.data;
+  } catch (error) {
+    return response;
+  }
+}

@@ -5,6 +5,7 @@ import {
   register,
   selectUserById,
   forgotPassword,
+  resetPassword,
 } from "../../serverAPI/users";
 import { login, extendSession, authMe } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
@@ -173,8 +174,26 @@ export const forgotPasswordUser = createAsyncThunk(
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue({
-        statusCode: error.response.status,
-        response: error.response.data,
+        // DOC: using error from back
+        msg: error.response.data.message,
+      });
+    }
+  }
+);
+
+export const resetPasswordUser = createAsyncThunk(
+  `${sliceName}/resetPasswordUser`,
+  async (arg, thunkAPI) => {
+    // arg = { password, token, passwordConfirm }
+    try {
+      const response = await resetPassword(
+        arg.token,
+        arg.password,
+        arg.passwordConfirm
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
         // DOC: using error from back
         msg: error.response.data.message,
       });
@@ -307,6 +326,23 @@ const userSlice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(forgotPasswordUser.rejected, (state, action) => {
+      // DOC: using error from back
+      const { msg } = action.payload;
+
+      state.isLoading.pop();
+      state.error = createNewError(msg);
+    });
+
+    // reset password
+    builder.addCase(resetPasswordUser.pending, (state, action) => {
+      state.isLoading.push(LOADING_FLAG);
+      state.error = initialErrorState;
+    });
+    builder.addCase(resetPasswordUser.fulfilled, (state, action) => {
+      state.isLoading.pop();
+      state.error = initialErrorState;
+    });
+    builder.addCase(resetPasswordUser.rejected, (state, action) => {
       // DOC: using error from back
       const { msg } = action.payload;
 

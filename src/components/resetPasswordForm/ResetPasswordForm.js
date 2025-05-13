@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { handlePasswordChangeFactory } from "../../utils/eventFactory";
+import { strongPasswordRegexString } from "../../utils/inputUtils";
 
 const ResetPasswordForm = ({
   formTitle,
@@ -7,18 +8,34 @@ const ResetPasswordForm = ({
   formPasswordLabel,
   formPasswordConfirmLabel,
   formSubmitButtonText,
+  weakPasswordText,
   handleSubmit = () => {}, // Expect to return a function when executed with email and password as arguments
   isLoading = false,
 }) => {
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(false);
 
   const toggleShowPass = () => {
     setShowPass(!showPass);
   };
 
-  const handleLogin = (e) => {};
+  const handleSubmitChangePassword = (e) => {
+    e.preventDefault();
+    const dispatchResetPassword = handleSubmit();
+    dispatchResetPassword(password, passwordConfirm);
+  };
+
+  const handlePasswordChange = handlePasswordChangeFactory(
+    setPassword,
+    setPasswordIsValid
+  );
+  const handlePasswordConfirmChange = handlePasswordChangeFactory(
+    setPasswordConfirm,
+    setPasswordConfirmIsValid
+  );
 
   return (
     <div className="forgot-reset-pass-form">
@@ -30,7 +47,10 @@ const ResetPasswordForm = ({
           </p>
         </div>
 
-        <form className="forgot-reset-pass-form__form" onSubmit={handleLogin}>
+        <form
+          className="forgot-reset-pass-form__form"
+          onSubmit={handleSubmitChangePassword}
+        >
           <div className="forgot-reset-pass-form__input-box">
             <figure className="forgot-reset-pass-form__input-icon-box">
               <ion-icon
@@ -47,7 +67,9 @@ const ResetPasswordForm = ({
               type={showPass ? "text" : "password"}
               placeholder={formPasswordLabel}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
+              pattern={strongPasswordRegexString}
+              title={weakPasswordText}
               required
             />
 
@@ -86,7 +108,9 @@ const ResetPasswordForm = ({
               type={showPass ? "text" : "password"}
               placeholder={formPasswordConfirmLabel}
               value={passwordConfirm}
-              onChange={(e) => setPasswordConfirm(e.target.value)}
+              onChange={handlePasswordConfirmChange}
+              pattern={strongPasswordRegexString}
+              title={weakPasswordText}
               required
             />
 

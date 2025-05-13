@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { useTranslation } from "react-i18next";
 
 import TranslatedNavHorizontal from "../../components/nav/TranslatedNav";
 import TranslatedResetPasswordForm from "../../components/resetPasswordForm/TranslatedResetPasswordForm";
 import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import { selectUser, selectUserIsLoading } from "../../features/user/userSlice";
+import { resetPasswordUser } from "../../features/user/userSlice";
 
 const ResetPasswordPage = () => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const { token } = useParams(); // Extract token from the URL
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const userIsLoading = useSelector(selectUserIsLoading);
 
-  const { t } = useTranslation();
   useEffect(() => {
     // If user exists, then redirect to the app
     if (user) {
       navigate("/app/home");
     }
-  }, [user, navigate]);
+  }, [user, navigate, token]);
+
+  const handleSubmit = () => {
+    return (password, passwordConfirm) => {
+      dispatch(resetPasswordUser({ token, password, passwordConfirm }));
+    };
+  };
 
   return (
     <>
@@ -35,7 +40,10 @@ const ResetPasswordPage = () => {
         />
         <ExpiredSessionOptionOrCancel />
 
-        <TranslatedResetPasswordForm isLoading={userIsLoading} />
+        <TranslatedResetPasswordForm
+          handleSubmit={handleSubmit}
+          isLoading={userIsLoading}
+        />
       </section>
     </>
   );

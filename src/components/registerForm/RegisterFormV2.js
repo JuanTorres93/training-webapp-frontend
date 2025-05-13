@@ -6,10 +6,9 @@ import { selectCurrentLanguage } from "../../features/language/languageSlice";
 import OAuthLoginV2 from "../oauthLogin/OAuthLoginV2";
 
 import { googleOAuthURL } from "../../serverAPI/serverAPIConfig";
-import {
-  strongPasswordRegexString,
-  strongPasswordRegex,
-} from "../../utils/inputUtils";
+import { strongPasswordRegexString } from "../../utils/inputUtils";
+
+import { handlePasswordChangeFactory } from "../../utils/eventFactory";
 
 const RegisterFormV2 = ({
   formTitle, // e.g: 'Create an account'
@@ -39,11 +38,10 @@ const RegisterFormV2 = ({
     setShowPass(!showPass);
   };
 
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-    setPasswordIsValid(strongPasswordRegex.test(value));
-  };
+  const handlePasswordChange = handlePasswordChangeFactory(
+    setPassword,
+    setPasswordIsValid
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
