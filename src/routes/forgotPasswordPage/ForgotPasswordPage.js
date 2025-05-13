@@ -9,7 +9,7 @@ import TranslatedForgotPasswordForm from "../../components/forgotPasswordForm/Tr
 import ExpiredSessionOptionOrCancel from "../../components/popupOptionOrCancel/ExpiredSessionPopupOptionOrCancel";
 
 import {
-  loginUser,
+  forgotPasswordUser,
   selectUser,
   selectUserIsLoading,
 } from "../../features/user/userSlice";
@@ -21,13 +21,18 @@ const ForgotPasswordPage = () => {
   const user = useSelector(selectUser);
   const userIsLoading = useSelector(selectUserIsLoading);
 
-  const { t } = useTranslation();
   useEffect(() => {
     // If user exists, then redirect to the app
     if (user) {
       navigate("/app/home");
     }
   }, [user, navigate]);
+
+  const handleSubmit = () => {
+    return (email) => {
+      dispatch(forgotPasswordUser({ email }));
+    };
+  };
 
   return (
     <>
@@ -38,7 +43,10 @@ const ForgotPasswordPage = () => {
         />
         <ExpiredSessionOptionOrCancel />
 
-        <TranslatedForgotPasswordForm isLoading={userIsLoading} />
+        <TranslatedForgotPasswordForm
+          handleSubmit={handleSubmit}
+          isLoading={userIsLoading}
+        />
       </section>
     </>
   );

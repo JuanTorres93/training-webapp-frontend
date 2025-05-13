@@ -53,3 +53,22 @@ export async function selectUserById(userId) {
     return response;
   }
 }
+
+export async function forgotPassword(email) {
+  const response = await apiClient.post(
+    usersEndPoint + "/forgotPassword",
+    { email },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
+
+  try {
+    return response.data;
+  } catch (error) {
+    return response;
+  }
+}

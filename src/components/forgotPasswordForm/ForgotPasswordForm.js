@@ -10,7 +10,11 @@ const ForgotPasswordForm = ({
 }) => {
   const [email, setEmail] = useState("");
 
-  const handleLogin = (e) => {};
+  const handleSendResetEmail = (e) => {
+    e.preventDefault();
+    const dispatchForgotPassword = handleSubmit();
+    dispatchForgotPassword(email);
+  };
 
   return (
     <div className="forgot-reset-pass-form">
@@ -22,7 +26,10 @@ const ForgotPasswordForm = ({
           </p>
         </div>
 
-        <form className="forgot-reset-pass-form__form" onSubmit={handleLogin}>
+        <form
+          className="forgot-reset-pass-form__form"
+          onSubmit={handleSendResetEmail}
+        >
           <div className="forgot-reset-pass-form__input-box">
             {/* IMPORTANT: This is actually the USERNAME, not the email */}
             <figure className="forgot-reset-pass-form__input-icon-box">

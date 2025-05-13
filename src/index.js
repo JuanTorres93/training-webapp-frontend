@@ -85,7 +85,7 @@ const router = createBrowserRouter([
     errorElement: <DefaultErrorPage />,
   },
   {
-    path: "/resetPassword", // TODO add token to the URL
+    path: "/resetPassword/:token",
     element: (
       <GlobalUserMessagesManager>
         <ResetPasswordPage />

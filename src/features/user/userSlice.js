@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { initialErrorState, createNewError } from "../slicesUtils";
 
-import { register, selectUserById } from "../../serverAPI/users";
+import {
+  register,
+  selectUserById,
+  forgotPassword,
+} from "../../serverAPI/users";
 import { login, extendSession, authMe } from "../../serverAPI/login";
 import { logout } from "../../serverAPI/logout";
 import {
@@ -160,6 +164,24 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const forgotPasswordUser = createAsyncThunk(
+  `${sliceName}/forgotPasswordUser`,
+  async (arg, thunkAPI) => {
+    // arg = { email }
+    try {
+      const response = await forgotPassword(arg.email);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({
+        statusCode: error.response.status,
+        response: error.response.data,
+        // DOC: using error from back
+        msg: error.response.data.message,
+      });
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: sliceName,
   initialState: {
@@ -273,6 +295,23 @@ const userSlice = createSlice({
       state.isLoading.pop();
       state.isLogingOut = false;
       state.error = createNewError(action.error?.message || "Logout failed");
+    });
+
+    // forgot password
+    builder.addCase(forgotPasswordUser.pending, (state, action) => {
+      state.isLoading.push(LOADING_FLAG);
+      state.error = initialErrorState;
+    });
+    builder.addCase(forgotPasswordUser.fulfilled, (state, action) => {
+      state.isLoading.pop();
+      state.error = initialErrorState;
+    });
+    builder.addCase(forgotPasswordUser.rejected, (state, action) => {
+      // DOC: using error from back
+      const { msg } = action.payload;
+
+      state.isLoading.pop();
+      state.error = createNewError(msg);
     });
   },
 });
