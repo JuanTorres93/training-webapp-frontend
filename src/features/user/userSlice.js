@@ -210,6 +210,7 @@ const userSlice = createSlice({
     isLogingOut: false,
     passwordResetFlow: {
       emailSent: false,
+      passwordReset: false,
     },
   },
   reducers: {
@@ -219,6 +220,10 @@ const userSlice = createSlice({
 
     resetEmailSent: (state) => {
       state.passwordResetFlow.emailSent = false;
+    },
+
+    resetPasswordReset: (state) => {
+      state.passwordResetFlow.passwordReset = false;
     },
   },
   extraReducers: (builder) => {
@@ -348,6 +353,7 @@ const userSlice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(resetPasswordUser.fulfilled, (state, action) => {
+      state.passwordResetFlow.passwordReset = true;
       state.isLoading.pop();
       state.error = initialErrorState;
     });
@@ -355,6 +361,7 @@ const userSlice = createSlice({
       // DOC: using error from back
       const { msg } = action.payload;
 
+      state.passwordResetFlow.passwordReset = false;
       state.isLoading.pop();
       state.error = createNewError(msg);
     });
@@ -369,9 +376,12 @@ export const selectUserError = (state) => state[sliceName].error;
 export const selectUserIsLogingOut = (state) => state[sliceName].isLogingOut;
 export const selectEmailSent = (state) =>
   state[sliceName].passwordResetFlow.emailSent;
+export const selectPasswordReset = (state) =>
+  state[sliceName].passwordResetFlow.passwordReset;
 
 // Export actions
-export const { resetError, resetEmailSent } = userSlice.actions;
+export const { resetError, resetEmailSent, resetPasswordReset } =
+  userSlice.actions;
 
 // Export reducer
 export default userSlice.reducer;

@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import { handlePasswordChangeFactory } from "../../utils/eventFactory";
 import { strongPasswordRegexString } from "../../utils/inputUtils";
+import {
+  selectPasswordReset,
+  resetPasswordReset,
+} from "../../features/user/userSlice";
 
 const ResetPasswordForm = ({
   formTitle,
@@ -9,14 +15,30 @@ const ResetPasswordForm = ({
   formPasswordConfirmLabel,
   formSubmitButtonText,
   weakPasswordText,
+  passwordResetText,
   handleSubmit = () => {}, // Expect to return a function when executed with email and password as arguments
   isLoading = false,
 }) => {
+  const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
   const [password, setPassword] = useState("");
+  const [buttonText, setButtonText] = useState(formSubmitButtonText);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(false);
+  const isPasswordReset = useSelector(selectPasswordReset);
+
+  useEffect(() => {
+    dispatch(resetPasswordReset());
+  }, []);
+
+  useEffect(() => {
+    if (isPasswordReset) {
+      setButtonText(passwordResetText);
+    } else {
+      setButtonText(formSubmitButtonText);
+    }
+  }, [isPasswordReset]);
 
   const toggleShowPass = () => {
     setShowPass(!showPass);
@@ -26,6 +48,8 @@ const ResetPasswordForm = ({
     e.preventDefault();
     const dispatchResetPassword = handleSubmit();
     dispatchResetPassword(password, passwordConfirm);
+    setPassword("");
+    setPasswordConfirm("");
   };
 
   const handlePasswordChange = handlePasswordChangeFactory(
@@ -138,11 +162,14 @@ const ResetPasswordForm = ({
             data-testid="forgot-reset-pass-button"
             type="submit"
             className={`plain-btn forgot-reset-pass-form__submit-button ${
-              isLoading ? "forgot-reset-pass-form__submit-button--disabled" : ""
-            }`}
+              isLoading || isPasswordReset
+                ? "forgot-reset-pass-form__submit-button--disabled"
+                : ""
+            } 
+            `}
             disabled={isLoading}
           >
-            {!isLoading && formSubmitButtonText}
+            {!isLoading && buttonText}
             {isLoading && <div className="spinner-2p2-rem"></div>}
           </button>
         </form>

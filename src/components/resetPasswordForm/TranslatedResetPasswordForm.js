@@ -17,6 +17,7 @@ const TranslatedResetPasswordForm = ({
   );
   const formSubmitButtonText = t("reset-password-form-submit-button");
   const weakPasswordText = t("weak-password-text");
+  const passwordResetText = t("reset-password-form-success-text");
 
   return (
     <ResetPasswordForm
@@ -26,6 +27,7 @@ const TranslatedResetPasswordForm = ({
       formPasswordConfirmLabel={formPasswordConfirmLabel}
       formSubmitButtonText={formSubmitButtonText}
       weakPasswordText={weakPasswordText}
+      passwordResetText={passwordResetText}
       handleSubmit={handleSubmit}
       isLoading={isLoading}
     />

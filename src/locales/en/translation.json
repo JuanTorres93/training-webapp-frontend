@@ -89,6 +89,7 @@
   "reset-password-form-password-label": "New password",
   "reset-password-form-password-confirm-label": "Confirm new password",
   "reset-password-form-submit-button": "Reset password",
+  "reset-password-form-success-text": "Password reset successfully",
   "nav-app-dashboard": "Dashboard",
   "nav-app-templates": "Templates",
   "nav-app-exercises": "Exercises",
