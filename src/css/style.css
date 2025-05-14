@@ -1836,6 +1836,12 @@ body {
   transform: none;
   box-shadow: none;
 }
+.forgot-reset-pass-form__submit-button--sent {
+  background-image: linear-gradient(to right, #F78E2C, #F78E2C);
+}
+.forgot-reset-pass-form__submit-button--sent:hover {
+  background-image: linear-gradient(to right, #F78E2C 0%, #ffa45b 100%);
+}
 
 .oauth-login, .oauth-login:link, .oauth-login:visited {
   text-decoration: none;

@@ -10,7 +10,6 @@ import { selectUser, selectUserIsLoading } from "../../features/user/userSlice";
 import { resetPasswordUser } from "../../features/user/userSlice";
 
 const ResetPasswordPage = () => {
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { token } = useParams(); // Extract token from the URL
   const location = useLocation();
   const navigate = useNavigate();

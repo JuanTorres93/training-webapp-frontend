@@ -184,5 +184,21 @@
         box-shadow: none;
       }
     }
+
+    &--sent {
+      background-image: linear-gradient(
+        to right,
+        $color-secondary,
+        $color-secondary
+      );
+
+      &:hover {
+        background-image: linear-gradient(
+          to right,
+          $color-secondary 0%,
+          $color-secondary-light 100%
+        );
+      }
+    }
   }
 }

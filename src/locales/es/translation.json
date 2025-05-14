@@ -83,6 +83,7 @@
   "forgot-password-form-title": "Recupera tu contraseña",
   "forgot-password-form-subtitle": "Ingresa tu email para recibir un enlace de recuperación",
   "forgot-password-form-submit-button": "Enviar enlace de recuperación",
+  "forgot-password-form-sent-email": "Correo enviado para restablecer tu contraseña",
   "reset-password-form-title": "Recupera tu contraseña",
   "reset-password-form-subtitle": "Todo listo — solo te falta escoger una nueva contraseña y estarás dentro",
   "reset-password-form-password-label": "Nueva contraseña",

@@ -13,12 +13,14 @@ const TranslatedForgotPasswordForm = ({
   const formSubtitle = t("forgot-password-form-subtitle");
   const formEmailLabel = t("register-form-email-label");
   const formSubmitButtonText = t("forgot-password-form-submit-button");
+  const formSentEmailText = t("forgot-password-form-sent-email");
 
   return (
     <ForgotPasswordForm
       formTitle={formTitle}
       formSubtitle={formSubtitle}
       formEmailLabel={formEmailLabel}
+      formSentEmailText={formSentEmailText}
       formSubmitButtonText={formSubmitButtonText}
       handleSubmit={handleSubmit}
       isLoading={isLoading}

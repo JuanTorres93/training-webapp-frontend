@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { selectEmailSent, resetEmailSent } from "../../features/user/userSlice";
 
 const ForgotPasswordForm = ({
   formTitle,
   formSubtitle,
   formEmailLabel,
   formSubmitButtonText,
+  formSentEmailText,
   handleSubmit = () => {}, // Expect to return a function when executed with email and password as arguments
   isLoading = false,
 }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [buttonText, setButtonText] = useState(formSubmitButtonText);
+  const emailSent = useSelector(selectEmailSent);
+
+  useEffect(() => {
+    dispatch(resetEmailSent());
+  }, []);
+
+  useEffect(() => {
+    if (emailSent) {
+      setButtonText(formSentEmailText);
+    } else {
+      setButtonText(formSubmitButtonText);
+    }
+  }, [emailSent, formSubmitButtonText, formSentEmailText]);
 
   const handleSendResetEmail = (e) => {
     e.preventDefault();
     const dispatchForgotPassword = handleSubmit();
     dispatchForgotPassword(email);
+    setEmail("");
   };
 
   return (
@@ -64,10 +84,13 @@ const ForgotPasswordForm = ({
             type="submit"
             className={`plain-btn forgot-reset-pass-form__submit-button ${
               isLoading ? "forgot-reset-pass-form__submit-button--disabled" : ""
-            }`}
+            } 
+            ${emailSent ? "forgot-reset-pass-form__submit-button--sent" : ""}
+            `}
             disabled={isLoading}
           >
-            {!isLoading && formSubmitButtonText}
+            {!isLoading && <span>{buttonText}</span>}
+            {/* Spinner */}
             {isLoading && <div className="spinner-2p2-rem"></div>}
           </button>
         </form>
