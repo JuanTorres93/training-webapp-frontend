@@ -2,6 +2,8 @@ import apiClient from "./serverAPIConfig";
 
 import { serverBaseURL } from "./serverAPIConfig";
 
+import i18n from "../i18n";
+
 const usersEndPoint = serverBaseURL + "/users";
 
 export async function register(
@@ -56,7 +58,7 @@ export async function selectUserById(userId) {
 
 export async function forgotPassword(email) {
   const response = await apiClient.post(
-    usersEndPoint + "/forgotPassword",
+    usersEndPoint + "/forgotPassword" + `/${i18n.language}`,
     { email },
     {
       headers: {
