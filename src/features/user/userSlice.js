@@ -339,6 +339,9 @@ const userSlice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(forgotPasswordUser.rejected, (state, action) => {
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("action");
+      console.log(action);
       // DOC: using error from back
       const { msg } = action.payload;
 
