@@ -173,6 +173,9 @@ export const forgotPasswordUser = createAsyncThunk(
       const response = await forgotPassword(arg.email);
       return response;
     } catch (error) {
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("error");
+      console.log(error);
       return thunkAPI.rejectWithValue({
         // DOC: using error from back
         msg: error.response.data.message,
