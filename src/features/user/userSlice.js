@@ -143,14 +143,14 @@ export const registerUser = createAsyncThunk(
         arg.language
       );
     } catch (error) {
-      // TODO DELETE THESE DEBUG LOGS
-      console.log("error");
-      console.log(error);
-      const response = error.response;
+      const response = error?.response || {
+        status: 500,
+        data: { msg: "Unexpected error" },
+      };
 
       return thunkAPI.rejectWithValue({
         statusCode: response.status,
-        response: response?.data || { msg: "Unexpected error" },
+        response: response?.data,
       });
     }
 
@@ -293,7 +293,6 @@ const userSlice = createSlice({
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       const { statusCode, response } = action.payload;
-
       let errorMsg = i18n.t("error-register-failed");
 
       if (statusCode === 409) {
@@ -302,6 +301,8 @@ const userSlice = createSlice({
         // Check if email is contained in lowercase resMsg
         if (resMsg.toLowerCase().includes("email")) {
           errorMsg = i18n.t("error-email-taken");
+        } else if (resMsg.toLowerCase().includes("unexpected")) {
+          errorMsg = "Error inesperado.";
         } else {
           errorMsg = i18n.t("error-username-taken");
         }
