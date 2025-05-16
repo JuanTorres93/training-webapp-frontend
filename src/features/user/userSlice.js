@@ -143,11 +143,14 @@ export const registerUser = createAsyncThunk(
         arg.language
       );
     } catch (error) {
+      // TODO DELETE THESE DEBUG LOGS
+      console.log("error");
+      console.log(error);
       const response = error.response;
 
       return thunkAPI.rejectWithValue({
         statusCode: response.status,
-        response: response.data,
+        response: response?.data || { msg: "Unexpected error" },
       });
     }
 
@@ -175,7 +178,9 @@ export const forgotPasswordUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue({
         // DOC: using error from back
-        msg: error?.response?.data?.message || "Error desconocido", // TODO gestionar desde el back
+        msg:
+          error?.response?.data?.message ||
+          "Error enviando el mail de verificación", // TODO gestionar desde el back
       });
     }
   }
