@@ -175,7 +175,7 @@ export const forgotPasswordUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue({
         // DOC: using error from back
-        msg: error.response.data.message || "Error", // TODO Gestionar bien desde el back
+        msg: error?.response?.data?.message || "Error desconocido", // TODO gestionar desde el back
       });
     }
   }
@@ -339,7 +339,7 @@ const userSlice = createSlice({
       state.error = initialErrorState;
     });
     builder.addCase(forgotPasswordUser.rejected, (state, action) => {
-      const msg = action.payload.msg || "Error";
+      const { msg } = action.payload;
 
       state.passwordResetFlow.emailSent = false;
       state.isLoading.pop();
