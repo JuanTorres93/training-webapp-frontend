@@ -1,28 +1,39 @@
 @use "../abstracts" as *;
+@use "../base" as *;
 
 .base-input-text {
-    font-family: inherit;
-    font-size: 1.6rem;
-    outline: none;
-    padding: 1.2rem 1.7rem;
-    border-radius: 1rem;
-    border: none;
-    color: $color-grey-dark-5;
+  font-family: inherit;
+  font-size: 1.6rem;
+  outline: none;
+  padding: 1.2rem 1.7rem;
+  border-radius: 1rem;
+  border: none;
+  color: $color-grey-dark-5;
 
-    &::placeholder {
-        color: $color-grey-dark-3;
-    }
+  &::placeholder {
+    color: $color-grey-dark-3;
+  }
+
+  @media only screen and (max-width: $bp-largest) {
+    // 1rem = 8px
+    font-size: 2rem; // 16px para evitar zoom
+    line-height: 1;
+    // padding: 0.4rem 0.6rem;
+    // letter-spacing: -0.02em;
+    font-weight: 300;
+    font-family: "Inter", sans-serif; // o una fuente más fina
+  }
 }
 
 .integer-input {
-    width: 9rem;
-    border: 1px solid $color-grey-dark-2;
-    text-align: center;
+  width: 9rem;
+  border: 1px solid $color-grey-dark-2;
+  text-align: center;
 
-    // Remove arrows from number input
-    appearance: textfield;
+  // Remove arrows from number input
+  appearance: textfield;
 
-    &:invalid {
-        border-color: $color-red;
-    }
+  &:invalid {
+    border-color: $color-red;
+  }
 }

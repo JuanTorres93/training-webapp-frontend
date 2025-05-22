@@ -954,6 +954,14 @@ body {
 .base-input-text::placeholder {
   color: #575a58;
 }
+@media only screen and (max-width: 81.25em) {
+  .base-input-text {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 300;
+    font-family: "Inter", sans-serif;
+  }
+}
 
 .integer-input {
   width: 9rem;
@@ -1314,6 +1322,11 @@ body {
   height: 2rem;
   cursor: pointer;
 }
+@media only screen and (max-width: 81.25em) {
+  .register-form__input-box .show-pass-box {
+    top: 0.4rem !important;
+  }
+}
 .register-form__input-box .show-pass-box > * {
   width: 100%;
   height: 100%;
@@ -1523,6 +1536,12 @@ body {
   height: 2rem;
   cursor: pointer;
 }
+@media only screen and (max-width: 81.25em) {
+  .login-form__input-box .show-pass-box,
+  .login-form__input-box .login-form__input-icon-box {
+    top: 0.4rem !important;
+  }
+}
 .login-form__input-box .show-pass-box > *,
 .login-form__input-box .login-form__input-icon-box > * {
   width: 100%;
@@ -1536,6 +1555,11 @@ body {
 }
 .login-form__input-icon-box {
   left: 1.5rem;
+}
+@media only screen and (max-width: 81.25em) {
+  .login-form__input-icon-box {
+    top: 0.4rem !important;
+  }
 }
 .login-form__input {
   border: 1px solid transparent;
@@ -1758,6 +1782,11 @@ body {
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+}
+@media only screen and (max-width: 81.25em) {
+  .forgot-reset-pass-form .show-pass-box, .forgot-reset-pass-form__input-icon-box {
+    top: 0.4rem !important;
+  }
 }
 .forgot-reset-pass-form .show-pass-box > *, .forgot-reset-pass-form__input-icon-box > * {
   width: 100%;
