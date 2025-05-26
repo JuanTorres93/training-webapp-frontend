@@ -6,7 +6,7 @@ export const strongPasswordRegexString =
 export const strongPasswordRegex = new RegExp(strongPasswordRegexString);
 
 export const allowOnlyIntegers = (e) => {
-  // Use in onKeyDown event AND include also pasteOnlyIntegers in onPaste event
+  // IMPORTANT Use in onKeyDown event AND include also pasteOnlyIntegers in onPaste event
   const isAllowed =
     /^[0-9]$/.test(e.key) ||
     e.key === "Backspace" ||
@@ -20,7 +20,7 @@ export const allowOnlyIntegers = (e) => {
 };
 
 export const pasteOnlyIntegers = (e) => {
-  // Use in onPaste event AND include also allowOnlyIntegers in onKeyDown event
+  // IMPORTANT Use in onPaste event AND include also allowOnlyIntegers in onKeyDown event
   const pasted = e.clipboardData.getData("text");
   if (!/^\d+$/.test(pasted)) {
     e.preventDefault();
@@ -28,6 +28,7 @@ export const pasteOnlyIntegers = (e) => {
 };
 
 export const allowOnlyFloats = (e) => {
+  // IMPORTANT Use in onKeyDown event AND include also pasteOnlyFloats in onPaste event
   const isAllowed =
     /^[0-9]$/.test(e.key) ||
     e.key === "." ||
@@ -47,6 +48,7 @@ export const allowOnlyFloats = (e) => {
 };
 
 export const pasteOnlyFloats = (e) => {
+  // IMPORTANT Use in onPaste event AND include also allowOnlyFloats in onKeyDown event
   const pasted = e.clipboardData.getData("text");
   if (!/^\d*\.?\d*$/.test(pasted)) {
     e.preventDefault();

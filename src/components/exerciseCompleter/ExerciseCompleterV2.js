@@ -6,6 +6,13 @@ import { useSelector } from "react-redux";
 import { selectActiveWorkout } from "../../features/workouts/workoutSlice.js";
 import TranslatedChartSetsAndWeight from "../chartSetsAndWeight/TranslatedChartSetsAndWeight.js";
 
+import {
+  allowOnlyFloats,
+  pasteOnlyFloats,
+  allowOnlyIntegers,
+  pasteOnlyIntegers,
+} from "../../utils/inputUtils.js";
+
 const ExerciseCompleterV2 = ({
   id, // Exercise id, used for redux state
   workoutId, // Workout id, used for redux state
@@ -67,6 +74,16 @@ const ExerciseCompleterV2 = ({
   // have a function that already works with arrays
   const [realTimeData, setRealTimeData] = useState([]);
 
+  const getDispatchAndSetWeight = (setNumber, value, exerDataReps) => {
+    const dispatch = dispatchGenerator(setNumber, value, exerDataReps);
+    setWeightValues({
+      ...weightValues,
+      [setNumber]: value,
+    });
+
+    return dispatch;
+  };
+
   useEffect(() => {
     const currentDataPoint = {
       datetime: workoutStartDate.toISOString(),
@@ -109,9 +126,10 @@ const ExerciseCompleterV2 = ({
     // type is either 'weight' or 'reps'
     const targetValue = event.target.value;
 
+    // Parse value to valid number
     let value;
     try {
-      value = parseInt(targetValue) ? parseInt(targetValue) : 0;
+      value = parseFloat(targetValue) ? parseFloat(targetValue) : 0;
     } catch (error) {
       value = 0;
     }
@@ -149,21 +167,42 @@ const ExerciseCompleterV2 = ({
     let dispatch;
 
     if (type === "weight") {
-      dispatch = dispatchGenerator(setNumber, value, exerData[setNumber].reps);
-      setWeightValues({
-        ...weightValues,
-        [setNumber]: value,
-      });
+      dispatch = getDispatchAndSetWeight(
+        setNumber,
+        value, // Weight
+        exerData[setNumber].reps // Reps
+      );
     } else if (type === "reps") {
       dispatch = dispatchGenerator(
         setNumber,
-        exerData[setNumber].weight,
-        value
+        exerData[setNumber].weight, // Weight
+        value // Reps
       );
       setRepsValues({
         ...repsValues,
         [setNumber]: value,
       });
+
+      // If no weight is set, set it to previous weight
+      if (
+        exerData[setNumber] &&
+        exerData[setNumber].weight === 0 &&
+        value > 0
+      ) {
+        // Get previous weight from previousData
+        const previousWeight =
+          previousData[previousData.length - 1].sets[setNumber - 1].weight || 0;
+
+        // Dispatch the action to set the weight
+        const dispatchWeight = getDispatchAndSetWeight(
+          setNumber,
+          previousWeight, // Weight
+          value // Reps
+        );
+        if (dispatchWeight) {
+          dispatchWeight();
+        }
+      }
     }
 
     if (dispatch) {
@@ -287,41 +326,38 @@ const ExerciseCompleterV2 = ({
                   <input
                     data-testid={`weight-input`}
                     className={`
-                                            base-input-text integer-input exercise-completer__input
-                                            ${
-                                              isLoading
-                                                ? "exercise-completer__input--disabled"
-                                                : ""
-                                            }
-                                            `}
+                      base-input-text integer-input exercise-completer__input
+                      ${isLoading ? "exercise-completer__input--disabled" : ""}
+                    `}
                     type="number"
                     name="weight"
                     value={weightValues[rowInfo.setNumber] || ""}
                     disabled={isLoading}
                     onChange={handleInputChange("weight")(rowInfo.setNumber)}
+                    onKeyDown={allowOnlyFloats}
+                    onPaste={pasteOnlyFloats}
                     placeholder={
                       rowInfo.previousWeight
                         ? new String(rowInfo.previousWeight)
                         : weightText
                     }
+                    step="any"
                   />
                 </div>
                 <div className="exercise-completer__reps">
                   <input
                     data-testid={`reps-input`}
                     className={`
-                                            base-input-text integer-input exercise-completer__input
-                                            ${
-                                              isLoading
-                                                ? "exercise-completer__input--disabled"
-                                                : ""
-                                            }
-                                            `}
+                      base-input-text integer-input exercise-completer__input
+                      ${isLoading ? "exercise-completer__input--disabled" : ""}
+                    `}
                     type="number"
                     name="reps"
                     value={repsValues[rowInfo.setNumber] || ""}
                     disabled={isLoading}
                     onChange={handleInputChange("reps")(rowInfo.setNumber)}
+                    onKeyDown={allowOnlyIntegers}
+                    onPaste={pasteOnlyIntegers}
                     placeholder={
                       rowInfo.previousReps
                         ? new String(rowInfo.previousReps)
