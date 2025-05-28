@@ -191,7 +191,8 @@ const ExerciseCompleterV2 = ({
       ) {
         // Get previous weight from previousData
         const previousWeight =
-          previousData[previousData.length - 1].sets[setNumber - 1].weight || 0;
+          previousData[previousData.length - 1]?.sets[setNumber - 1].weight ||
+          0;
 
         // Dispatch the action to set the weight
         const dispatchWeight = getDispatchAndSetWeight(

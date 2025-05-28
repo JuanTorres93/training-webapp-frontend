@@ -1,8 +1,12 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext, use } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { logoutUser, selectUser } from "./features/user/userSlice";
+import {
+  logoutUser,
+  selectUser,
+  updateInfoFromServer,
+} from "./features/user/userSlice";
 
 // Create the context
 export const LoginObserverContext = createContext();
@@ -19,11 +23,12 @@ export const LoginObserverProvider = ({ children }) => {
   useEffect(() => {
     const expirationDate = user ? user.expirationDate : null;
 
-    const expirationAt = expirationDate ? new Date(expirationDate).toISOString() : null;
+    const expirationAt = expirationDate
+      ? new Date(expirationDate).toISOString()
+      : null;
 
     setSessionExpiresAt(expirationAt);
   }, [user]);
-
 
   const logOutOnExpiredSession = (event) => {
     if (!sessionExpiresAt || !user) return;
@@ -35,8 +40,19 @@ export const LoginObserverProvider = ({ children }) => {
     }
   };
 
+  // Effect to retrieve user info on page load (Probably would be better in its own context)
+  useEffect(() => {
+    // Check page has been reloaded and not just navigated to
+    const navigationType = performance.getEntriesByType("navigation")[0]?.type;
+    if (navigationType === "reload") {
+      if (user && user.id) {
+        updateInfoFromServer(dispatch, user.id);
+      }
+    }
+  }, []);
+
   // Effect for auto logout if session is expired
-  // Used mainly for when user is already logged in and the session expires while the 
+  // Used mainly for when user is already logged in and the session expires while the
   // user is NOT on the page
   // It mainly adds the functionallity of logging out when user reloads or reaches
   // again the page after it was closed.
@@ -58,7 +74,9 @@ export const LoginObserverProvider = ({ children }) => {
       const marginToWarnUserinMs = 30 * 60 * 1000;
 
       // Expiry date minus margin
-      const expiryDateMinusMargin = new Date(new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs).toISOString();
+      const expiryDateMinusMargin = new Date(
+        new Date(sessionExpiresAt).getTime() - marginToWarnUserinMs
+      ).toISOString();
 
       if (expiryDateMinusMargin <= currentTime) {
         setShowPopupExtendSession(true);
@@ -79,8 +97,8 @@ export const LoginObserverProvider = ({ children }) => {
     }, frequencyInMs);
 
     return () => {
-      clearInterval(sessionAboutToExpireInterval)
-      clearInterval(sessionExpiredInterval)
+      clearInterval(sessionAboutToExpireInterval);
+      clearInterval(sessionExpiredInterval);
     }; // Clean intervals when component unmounts
   }, [sessionExpiresAt, dispatch]);
 

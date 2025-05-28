@@ -31,6 +31,44 @@ import i18n from "../../i18n";
 export const sliceName = "user";
 const LOADING_FLAG = true;
 
+export const updateInfoFromServer = async (dispatchFn, userId) => {
+  // Get subscriptions
+  dispatchFn(getAllSubscriptions());
+  dispatchFn(getCurrentSubscription({ userId }));
+
+  // Get last payment
+  dispatchFn(getLastPayment());
+
+  // Get user's templates
+  await dispatchFn(
+    getAllUserCreatedTemplates({
+      userId,
+    })
+  );
+  // Get common templates
+  await dispatchFn(getCommonTemplatesForUser());
+  // Get common exercises
+  dispatchFn(getCommonExercises());
+  // Get exercises from user
+  dispatchFn(
+    getExercisesFromUser({
+      userId,
+    })
+  );
+  // Get user's recent workouts
+  dispatchFn(
+    getUserRecentWorkouts({
+      userId,
+    })
+  );
+  // Get user's weight history
+  dispatchFn(
+    fetchWeightHistory({
+      userId,
+    })
+  );
+};
+
 export const loginUser = createAsyncThunk(
   `${sliceName}/loginUser`,
   async (arg, thunkAPI) => {
@@ -59,41 +97,7 @@ export const loginUser = createAsyncThunk(
       return thunkAPI.rejectWithValue({ statusCode });
     }
 
-    // Get subscriptions
-    thunkAPI.dispatch(getAllSubscriptions());
-    thunkAPI.dispatch(getCurrentSubscription({ userId }));
-
-    // Get last payment
-    thunkAPI.dispatch(getLastPayment());
-
-    // Get user's templates
-    await thunkAPI.dispatch(
-      getAllUserCreatedTemplates({
-        userId,
-      })
-    );
-    // Get common templates
-    await thunkAPI.dispatch(getCommonTemplatesForUser());
-    // Get common exercises
-    thunkAPI.dispatch(getCommonExercises());
-    // Get exercises from user
-    thunkAPI.dispatch(
-      getExercisesFromUser({
-        userId,
-      })
-    );
-    // Get user's recent workouts
-    thunkAPI.dispatch(
-      getUserRecentWorkouts({
-        userId,
-      })
-    );
-    // Get user's weight history
-    thunkAPI.dispatch(
-      fetchWeightHistory({
-        userId,
-      })
-    );
+    await updateInfoFromServer(thunkAPI.dispatch, userId);
 
     return user;
   }
