@@ -43,6 +43,7 @@ export const LoginObserverProvider = ({ children }) => {
   // Effect to retrieve user info on page load (Probably would be better in its own context)
   useEffect(() => {
     // Check page has been reloaded and not just navigated to
+    if (process.env.REACT_APP_NODE_ENV === "test") return;
     const navigationType = performance.getEntriesByType("navigation")[0]?.type;
     if (navigationType === "reload") {
       if (user && user.id) {
